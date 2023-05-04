@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const MainWrap = styled.div`
+  padding: 0px;
   height: 100%;
   width: 100%;
   display: flex;
@@ -10,10 +11,11 @@ export const MainWrap = styled.div`
 `;
 
 export const HeaderBackWrap = styled.div`
+  padding: 0px;
   display: flex;
   height: 30%;
   width: 100%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-bottom-left-radius: 15%;
   border-bottom-right-radius: 15%;
   position: absolute;
@@ -21,6 +23,7 @@ export const HeaderBackWrap = styled.div`
 `;
 
 export const HeaderWrap = styled.header`
+  padding: 0px;
   height: 30%;
   width: 100%;
   display: flex;
@@ -35,6 +38,7 @@ export const LogoWrap = styled.img`
 // export const
 
 export const SearchWrap = styled.div`
+  padding: 0px;
   margin-right: 10px;
   margin-top: 20px;
   height: 30%;
@@ -49,7 +53,7 @@ export const DayWrap = styled.div`
   margin-top: 70px;
   height: 7%;
   width: 100%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   z-index: 1;
   background-color: pink;
 `;
@@ -67,6 +71,6 @@ export const FooterWrap = styled.footer`
   width: 100%;
   z-index: 2;
   position: relative;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   background-color: grey;
 `;

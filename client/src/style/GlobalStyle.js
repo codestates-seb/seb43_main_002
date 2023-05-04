@@ -3,13 +3,16 @@ import styled, { createGlobalStyle } from 'styled-components';
 export const GlobalStyle = createGlobalStyle`
    * {
     margin: 0;
-    padding: 0;
     box-sizing: border-box;
+    font-size: 12pt;
+    padding: 20px;
   }
+
 `;
 
 export const GlobalWrap = styled.form`
-  width: 393px;
+  width: 400px;
+  padding: 0px;
   height: 852px;
   border: 1px solid black;
   position: absolute;

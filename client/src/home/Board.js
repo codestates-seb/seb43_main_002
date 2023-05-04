@@ -4,7 +4,7 @@ const BoardWrap = styled.article`
   margin-top: 30px;
   width: 100%;
   height: 30%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-radius: 10px;
   background-color: white;
   z-index: 0;

@@ -11,22 +11,18 @@ export const MainWrap = styled.div`
 
 export const HeaderBackWrap = styled.div`
   display: flex;
-  flex-direction: column;
   height: 30%;
   width: 100%;
   border: 1px solid black;
   border-bottom-left-radius: 15%;
   border-bottom-right-radius: 15%;
-  z-index: -1;
   position: absolute;
-  top: 0;
   background-image: radial-gradient(#ffd571, #ffac36);
 `;
 
 export const HeaderWrap = styled.header`
   height: 30%;
   width: 100%;
-  border: 1px solid black;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,17 +35,23 @@ export const LogoWrap = styled.img`
 // export const
 
 export const SearchWrap = styled.div`
+  margin-right: 10px;
+  margin-top: 20px;
   height: 30%;
   width: 10%;
-  border: 1px solid black;
   display: flex;
   justify-content: flex-end;
+  position: relative;
+  cursor: pointer;
 `;
 
 export const DayWrap = styled.div`
-  height: 30%;
+  margin-top: 70px;
+  height: 7%;
   width: 100%;
   border: 1px solid black;
+  z-index: 1;
+  background-color: pink;
 `;
 
 export const BoardsWrap = styled.div`
@@ -57,8 +59,8 @@ export const BoardsWrap = styled.div`
   width: 85%;
   position: relative;
   border: 1px solid black;
-  z-index: 0;
-  margin-top: 39%;
+  background-color: white;
+  z-index: 1;
 `;
 
 export const FooterWrap = styled.footer`

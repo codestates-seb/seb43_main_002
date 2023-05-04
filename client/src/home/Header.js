@@ -1,11 +1,17 @@
-import { HeaderBackWrap, HeaderWrap, SearchWrap, DayWrap } from './HomeStyle';
+import {
+  HeaderBackWrap,
+  HeaderWrap,
+  LogoWrap,
+  SearchWrap,
+  DayWrap,
+} from './HomeStyle';
 
 const Header = () => {
   return (
     <>
       <HeaderBackWrap>
         <HeaderWrap>
-          Sik:Gu
+          <LogoWrap src="/Logo/Logo4.png" />
           <SearchWrap></SearchWrap>
         </HeaderWrap>
         <DayWrap></DayWrap>

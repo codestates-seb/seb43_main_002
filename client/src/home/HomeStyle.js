@@ -29,12 +29,21 @@ export const HeaderWrap = styled.header`
   border: 1px solid black;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
+
+export const LogoWrap = styled.img`
+  padding-left: 30px;
+`;
+
+// export const
 
 export const SearchWrap = styled.div`
   height: 30%;
   width: 10%;
   border: 1px solid black;
+  display: flex;
+  justify-content: flex-end;
 `;
 
 export const DayWrap = styled.div`
@@ -45,7 +54,7 @@ export const DayWrap = styled.div`
 
 export const BoardsWrap = styled.div`
   height: 80%;
-  width: 80%;
+  width: 85%;
   position: relative;
   border: 1px solid black;
   z-index: 0;

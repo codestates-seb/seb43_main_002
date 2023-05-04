@@ -58,15 +58,15 @@ export const BoardsWrap = styled.div`
   height: 80%;
   width: 85%;
   position: relative;
-  border: 1px solid black;
-  background-color: white;
+  background-color: transparent;
   z-index: 1;
 `;
 
 export const FooterWrap = styled.footer`
   height: 10%;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
   position: relative;
   border: 1px solid black;
+  background-color: grey;
 `;

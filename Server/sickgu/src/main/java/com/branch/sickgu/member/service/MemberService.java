@@ -1,39 +1,24 @@
 package com.branch.sickgu.member.service;
 
-import com.branch.sickgu.member.dto.MemberPostDto;
+import com.branch.sickgu.member.dto.MemberSignUpRequestDto;
+import com.branch.sickgu.member.dto.MemberSignUpResponseDto;
 import com.branch.sickgu.member.entity.Member;
+import com.branch.sickgu.member.mapper.MemberMapper;
 import com.branch.sickgu.member.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-
+import org.springframework.transaction.annotation.Transactional;
 @Service
+@Transactional
+@AllArgsConstructor
 public class MemberService {
+    private final MemberRepository memberRepository;
+    private final MemberMapper memberMapper;
 
-    @Autowired
-    private MemberRepository memberRepository;
-
-    public Member signUp(MemberPostDto memberPostDto) {
-        // 이메일 중복 체크
-        if (memberRepository.existsByEmail(memberPostDto.getEmail())) {
-            throw new DuplicateEmailException("중복된 이메일입니다.");
-        }
-
-        // 비밀번호 암호화
-        String encryptedPassword = PasswordEncoder.encode(memberDto.getPassword());
-
-        // Member 엔티티 생성
-        Member member = new Member();
-        member.setName(memberPostDto.getName());
-        member.setEmail(memberPostDto.getEmail());
-        member.setPassword(encryptedPassword);
-        member.setStatus("ACTIVE");
-        member.setCreatedAt(LocalDateTime.now());
-        member.setGender(memberPostDto.isGender());
-        member.setAgeRange(memberPostDto.getAgeRange());
-
-        // Member 저장
-        return memberRepository.save(member);
+    // 회원가입 (매퍼를 어느 계층에서 호출하는 게 좋을까요...?)
+    public MemberSignUpResponseDto signUp(MemberSignUpRequestDto memberSignUpRequestDto) {
+        Member member = memberMapper.memberSignUpRequestDtoToMember(memberSignUpRequestDto);
+        memberRepository.save(member);
+        return memberMapper.memberToMemberSignUpResponseDto(member);
     }
 }

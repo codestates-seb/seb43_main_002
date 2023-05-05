@@ -3,11 +3,7 @@ package com.branch.sickgu.member.dto;
 import lombok.*;
 
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class MemberPostDto {
+public class MemberSignUpRequestDto {
     private String name;
     private String email;
     private String password;

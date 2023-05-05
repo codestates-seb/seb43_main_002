@@ -1,20 +1,15 @@
 package com.branch.sickgu.member.mapper;
 
-import com.branch.sickgu.member.dto.MemberPostDto;
+
+import com.branch.sickgu.member.dto.MemberSignUpRequestDto;
+import com.branch.sickgu.member.dto.MemberSignUpResponseDto;
 import com.branch.sickgu.member.entity.Member;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.ReportingPolicy;
 
-@Mapper
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface MemberMapper {
+    Member memberSignUpRequestDtoToMember(MemberSignUpRequestDto memberSignUpRequestDto);
 
-    MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
-
-    @Mapping(source = "password", target = "password", qualifiedByName = "encodePassword")
-    Member toMember(MemberPostDto dto);
-
-    default String encodePassword(String password) {
-        return PasswordEncoder.encode(password);
-    }
+    MemberSignUpResponseDto memberToMemberSignUpResponseDto(Member member);
 }

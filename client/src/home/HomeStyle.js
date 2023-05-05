@@ -54,12 +54,43 @@ export const SearchWrap = styled.div`
 `;
 
 export const DayWrap = styled.div`
+  padding: 0px;
   margin-top: 70px;
   height: 7%;
-  width: 100%;
+  width: 80%;
   /* border: 1px solid black; */
   z-index: 1;
   background-color: pink;
+`;
+
+export const SelectedDay = styled.div`
+  padding: 0px;
+  width: 50px;
+  height: 100%;
+  /* border: 1px solid black; */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: white;
+`;
+
+export const WeekWrap = styled.div`
+  padding: 0px;
+  width: 100%;
+  height: 17px;
+  /* border: 1px solid black; */
+  position: relative;
+`;
+
+export const DayNumberWrap = styled.div`
+  margin-top: 10px;
+  width: 60%;
+  height: 100%;
+  padding: 0px;
+  border-bottom: 1px solid white;
+  position: relative;
 `;
 
 export const BoardsWrap = styled.div`
@@ -122,6 +153,7 @@ export const FooterCicleWrap = styled.div`
   height: 50px;
   /* border: 1px solid black; */
   border-radius: 50%;
+  background-color: white;
   position: absolute;
   top: 50%;
   left: 50%;

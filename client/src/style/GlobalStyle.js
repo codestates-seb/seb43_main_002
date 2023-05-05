@@ -7,14 +7,14 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 12pt;
     padding: 20px;
   }
-
+  
 `;
 
 export const GlobalWrap = styled.form`
   width: 400px;
   padding: 0px;
   height: 852px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   position: absolute;
   top: 50%;
   left: 50%;

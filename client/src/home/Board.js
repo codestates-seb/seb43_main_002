@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const BoardWrap = styled.article`
-  margin-top: 30px;
+  margin-top: 10px;
   width: 100%;
   height: 30%;
   /* border: 1px solid black; */

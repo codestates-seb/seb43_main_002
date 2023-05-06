@@ -1,4 +1,4 @@
-package com.branch.sickgu;
+package com.branch.sikgu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -4,10 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SickguApplication {
-
+public class SikguApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(SickguApplication.class, args);
+		SpringApplication.run(SikguApplication.class, args);
 	}
-
 }

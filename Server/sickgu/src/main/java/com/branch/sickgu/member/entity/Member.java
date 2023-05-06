@@ -18,22 +18,22 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
     @Enumerated(EnumType.STRING)
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private MemberStatus status = MemberStatus.MEMBER_ACTIVE;
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    @Column(name = "gender", columnDefinition = "tinyint(1)")
+    @Column(name = "gender", nullable = false, columnDefinition = "tinyint(1)")
     private boolean gender;
-    @Column(name = "age_range")
+    @Column(name = "age_range", nullable = false)
     private String ageRange;
 
     public enum MemberStatus {

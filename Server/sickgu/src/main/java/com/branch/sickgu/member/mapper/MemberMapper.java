@@ -1,6 +1,7 @@
 package com.branch.sickgu.member.mapper;
 
 
+import com.branch.sickgu.member.dto.MemberResponseDto;
 import com.branch.sickgu.member.dto.MemberSignUpRequestDto;
 import com.branch.sickgu.member.dto.MemberSignUpResponseDto;
 import com.branch.sickgu.member.entity.Member;
@@ -12,4 +13,6 @@ public interface MemberMapper {
     Member memberSignUpRequestDtoToMember(MemberSignUpRequestDto memberSignUpRequestDto);
 
     MemberSignUpResponseDto memberToMemberSignUpResponseDto(Member member);
+
+    MemberResponseDto memberToMemberResponseDto(Member member);
 }

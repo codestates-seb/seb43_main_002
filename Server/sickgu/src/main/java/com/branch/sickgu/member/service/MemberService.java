@@ -1,5 +1,9 @@
 package com.branch.sickgu.member.service;
 
+import com.branch.sickgu.exception.BusinessLogicException;
+import com.branch.sickgu.exception.ExceptionCode;
+import com.branch.sickgu.exception.HttpStatus;
+import com.branch.sickgu.member.dto.MemberResponseDto;
 import com.branch.sickgu.member.dto.MemberSignUpRequestDto;
 import com.branch.sickgu.member.dto.MemberSignUpResponseDto;
 import com.branch.sickgu.member.entity.Member;
@@ -20,5 +24,12 @@ public class MemberService {
         Member member = memberMapper.memberSignUpRequestDtoToMember(memberSignUpRequestDto);
         memberRepository.save(member);
         return memberMapper.memberToMemberSignUpResponseDto(member);
+    }
+
+    // 회원정보조회
+    public MemberResponseDto getMemberById(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND, HttpStatus.NOT_FOUND));
+        return memberMapper.memberToMemberResponseDto(member);
     }
 }

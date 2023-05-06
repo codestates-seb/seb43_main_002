@@ -1,5 +1,6 @@
 package com.branch.sickgu.member.controller;
 
+import com.branch.sickgu.member.dto.MemberResponseDto;
 import com.branch.sickgu.member.dto.MemberSignUpRequestDto;
 import com.branch.sickgu.member.dto.MemberSignUpResponseDto;
 
@@ -9,10 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/members")
@@ -27,5 +25,11 @@ public class MemberController {
             @RequestBody MemberSignUpRequestDto memberSignUpRequestDto) {
         MemberSignUpResponseDto memberSignUpResponseDto = memberService.signUp(memberSignUpRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(memberSignUpResponseDto);
+    }
+
+    @GetMapping("/{memberId}")
+    public ResponseEntity<MemberResponseDto> getMember(@PathVariable Long memberId) {
+        MemberResponseDto member = memberService.getMemberById(memberId);
+        return ResponseEntity.ok(member);
     }
 }

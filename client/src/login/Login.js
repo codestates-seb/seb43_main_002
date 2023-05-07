@@ -1,35 +1,50 @@
-/*eslint-disable */
-
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { LoginForm, Input, LoginButton } from '../style/LoginStyle';
 import axios from 'axios';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { login } from '../store/userSlice';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleLogin = async () => {
-    try {
-      const response = await axios.get('http://localhost:8080/users', {
+  const handleLogin = () => {
+    axios
+      .get('/users', {
         params: {
           email,
           password,
         },
+      })
+      .then((response) => {
+        const user = response.data.find(
+          (user) => user.email === email && user.password === password
+        );
+        if (user) {
+          dispatch(login(user));
+          alert('로그인 성공!');
+          navigate('/boards');
+        } else {
+          setError('이메일 또는 비밀번호가 잘못되었습니다.');
+        }
+      })
+      .catch((error) => {
+        setError('연결이 잘못되었습니다.');
+        console.error('로그인 에러:', error);
       });
+  };
 
-      if (response.data.length > 0) {
-        alert('로그인 성공!');
-      } else {
-        alert('이메일 또는 비밀번호가 잘못되었습니다.');
-      }
-    } catch (error) {
-      console.error('로그인 에러:', error);
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin();
   };
 
   return (
-    <LoginForm>
+    <LoginForm onSubmit={handleSubmit}>
       <h1>Login</h1>
       <Input
         type="email"
@@ -43,7 +58,8 @@ const Login = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <LoginButton onClick={handleLogin}>Login</LoginButton>
+      <p>{error}</p>
+      <LoginButton type="submit">Login</LoginButton>
     </LoginForm>
   );
 };

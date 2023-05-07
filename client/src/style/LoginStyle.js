@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const LoginForm = styled.div`
+const LoginForm = styled.form`
 justify-content: center;
 align- items: center;
 `;
@@ -38,4 +38,4 @@ const LoginButton = styled(Button)`
     text-decoration: #ffc250;
   }
 `;
-export { LoginForm, Input, Button, LoginButton };
+export { LoginForm, Input, LoginButton };

@@ -1,5 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import { LoginForm, Input, LoginButton } from '../style/LoginStyle';
+import {
+  LoginForm,
+  Input,
+  LoginButton,
+  GoogleLogo,
+  GoogleLoginButton,
+} from '../style/LoginStyle';
 import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -60,6 +66,10 @@ const Login = () => {
       />
       <p>{error}</p>
       <LoginButton type="submit">Login</LoginButton>
+      <GoogleLoginButton>
+        <GoogleLogo />
+        구글로 로그인
+      </GoogleLoginButton>
     </LoginForm>
   );
 };

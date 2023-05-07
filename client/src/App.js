@@ -17,13 +17,9 @@ function App() {
       <GlobalWrap>
         <Routes>
           <Route path="/" element={<Login />} />
-<<<<<<< HEAD
-          <Route path="/boards" element={<Main />} />
-=======
           <Route path="/boards" element={<PrivateRoute />}>
             <Route index element={<Main />} />
           </Route>
->>>>>>> dab45af8c88710136c17d9e6e2e3309a84b9d53c
         </Routes>
       </GlobalWrap>
     </>

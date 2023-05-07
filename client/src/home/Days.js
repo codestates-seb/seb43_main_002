@@ -1,18 +1,39 @@
+import { useState } from 'react';
 import { DayWrap, SelectedDay, WeekWrap, DayNumberWrap } from './HomeStyle';
-// import { useState, useEffect, useRef } from 'react';
-
-const now = new Date();
-const todayWeak = now.getDay();
-const today = now.getDate();
-// const lastday = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
 
 const Days = () => {
+  const now = new Date();
+  const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  const today = now.getDate();
+
+  const [selectedDateIndex, setSelectedDateIndex] = useState(now.getDay());
+
+  // 범위 내 시작 인덱스와 끝 인덱스 계산
+  const startIdx = selectedDateIndex - 7 < 0 ? 0 : selectedDateIndex - 7;
+  const endIdx =
+    selectedDateIndex + 7 >= daysOfWeek.length
+      ? daysOfWeek.length
+      : selectedDateIndex + 7;
+
+  // 범위 내 날짜들을 필터링
+  const displayedDates = daysOfWeek.slice(startIdx, endIdx);
+
   return (
     <DayWrap>
-      <SelectedDay>
-        <WeekWrap>{todayWeak}</WeekWrap>
-        <DayNumberWrap>{today}</DayNumberWrap>
-      </SelectedDay>
+      {displayedDates.map((el, idx) => (
+        <SelectedDay
+          key={idx}
+          id={startIdx + idx}
+          el={el}
+          selected={selectedDateIndex === startIdx + idx}
+          onClick={() => setSelectedDateIndex(startIdx + idx)}
+        >
+          <WeekWrap>{el}</WeekWrap>
+          <DayNumberWrap selected={selectedDateIndex === startIdx + idx}>
+            {today + startIdx + idx}
+          </DayNumberWrap>
+        </SelectedDay>
+      ))}
     </DayWrap>
   );
 };

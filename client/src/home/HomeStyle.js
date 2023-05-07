@@ -61,6 +61,9 @@ export const DayWrap = styled.div`
   /* border: 1px solid black; */
   z-index: 1;
   background-color: pink;
+  display: flex;
+  /* flex-direction: column; */
+  /* overflow-x: scroll; */
 `;
 
 export const SelectedDay = styled.div`
@@ -74,6 +77,16 @@ export const SelectedDay = styled.div`
   align-items: center;
   text-align: center;
   color: white;
+  cursor: pointer;
+`;
+export const SlideContainer = styled.div`
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+`;
+
+export const SlideItem = styled.div`
+  flex: 0 0 345px; /* 슬라이드 아이템의 너비는 100px로 가정 */
 `;
 
 export const WeekWrap = styled.div`
@@ -89,8 +102,23 @@ export const DayNumberWrap = styled.div`
   width: 60%;
   height: 100%;
   padding: 0px;
-  border-bottom: 1px solid white;
+  /* border-bottom: 1px solid white; */
   position: relative;
+  border-bottom: ${({ selected }) => (selected ? '2px solid white' : 'none')};
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  width: 220px;
+`;
+
+export const Button = styled.button`
+  padding: 5px 10px;
+  border: none;
+  background-color: #eaeaea;
+  cursor: pointer;
 `;
 
 export const BoardsWrap = styled.div`

@@ -9,6 +9,10 @@ group = 'com.branch'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+repositories {
+	mavenCentral()
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
@@ -30,8 +34,18 @@ dependencies {
 	// JPA를 사용하기위한 라이브러리
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	// 매우빠른매핑
-	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
-	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+	implementation 'org.mapstruct:mapstruct:1.5.1.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.1.Final'
+	// 로그인 기능 구현을 위한 스프링시큐리티 라이브러리
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	// jwt 구현을 위한 라이브러리
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	// JSON 직렬화/역직렬화 라이브러리
+	implementation 'com.google.code.gson:gson'
+	// 유효성 검증 라이브러리
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 tasks.named('test') {

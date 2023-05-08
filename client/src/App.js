@@ -6,6 +6,7 @@ import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import Main from './home/Main';
 import { useEffect, useState } from 'react';
 import { login } from './store/userSlice';
+import Signup from './Signup/Signup';
 
 function App() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -32,6 +33,7 @@ function App() {
       <GlobalStyle />
       <GlobalWrap>
         <Routes>
+          <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Login />} />
           <Route path="/boards" element={<PrivateRoute />}>
             <Route index element={<Main />} />

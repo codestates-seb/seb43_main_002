@@ -41,11 +41,25 @@ const LoginButton = styled(Button)`
     text-decoration: #ffc250;
   }
 `;
+
+const ForgotPasswordButton = styled(Button)`
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    color: white;
+    text-decoration: #ffc250;
+  }
+`;
+
 const Error = styled.p`
   color: red;
   font-size: 12px;
   margin-top: 3px;
 `;
+
 const GoogleLoginButton = styled(Button)`
   background-color: #4285f4;
   display: flex;
@@ -61,4 +75,12 @@ const GoogleLogo = styled(FaGoogle)`
   color: white;
 `;
 
-export { LoginForm, Input, LoginButton, Error, GoogleLoginButton, GoogleLogo };
+export {
+  LoginForm,
+  Input,
+  LoginButton,
+  ForgotPasswordButton,
+  Error,
+  GoogleLoginButton,
+  GoogleLogo,
+};

@@ -3,6 +3,7 @@ import {
   LoginForm,
   Input,
   LoginButton,
+  ForgotPasswordButton,
   GoogleLoginButton,
   Error,
   GoogleLogo,
@@ -19,6 +20,8 @@ const Login = () => {
   const [error, setError] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
 
   const handleLogin = () => {
     axios
@@ -69,6 +72,14 @@ const Login = () => {
       />
       <Error>{error}</Error>
       <LoginButton type="submit">Login</LoginButton>
+      <ForgotPasswordButton
+        type="button"
+        onClick={() => {
+          navigate('/signup');
+        }}
+      >
+        대충 만든 회원가입 버튼
+      </ForgotPasswordButton>
       <GoogleLoginButton type="button">
         <GoogleLogo />
         구글로 로그인

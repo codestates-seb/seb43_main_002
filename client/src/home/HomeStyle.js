@@ -56,14 +56,10 @@ export const SearchWrap = styled.div`
 export const DayWrap = styled.div`
   padding: 0px;
   margin-top: 70px;
-  height: 7%;
-  width: 80%;
-  /* border: 1px solid black; */
-  z-index: 1;
+  z-index: 2;
+  border: 1px solid black;
   background-color: transparent;
   display: flex;
-  /* flex-direction: column; */
-  /* overflow-x: scroll; */
 `;
 
 export const SelectedDay = styled.div`
@@ -79,14 +75,17 @@ export const SelectedDay = styled.div`
   color: white;
   cursor: pointer;
 `;
+
 export const SlideContainer = styled.div`
   display: flex;
   overflow: hidden;
-  width: 100%;
+  flex-wrap: nowrap;
+  width: max-content;
+  overflow-x: scroll;
 `;
 
 export const SlideItem = styled.div`
-  flex: 0 0 360px; /* 슬라이드 아이템의 너비는 100px로 가정 */
+  flex: 0 0 360px;
 `;
 
 export const WeekWrap = styled.div`
@@ -122,6 +121,7 @@ export const Button = styled.button`
 `;
 
 export const BoardsWrap = styled.div`
+  padding: 0px;
   height: 80%;
   width: 360px;
   position: relative;
@@ -131,6 +131,7 @@ export const BoardsWrap = styled.div`
 
 export const BoardWrap = styled.article`
   margin-top: 10px;
+  padding: 20px;
   width: 100%;
   /* border: 1px solid black; */
   border-radius: 10px;

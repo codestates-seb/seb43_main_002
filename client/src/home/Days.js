@@ -8,15 +8,15 @@ const Days = () => {
 
   const [selectedDateIndex, setSelectedDateIndex] = useState(now.getDay());
 
-  // 범위 내 시작 인덱스와 끝 인덱스 계산
   const startIdx = selectedDateIndex - 7 < 0 ? 0 : selectedDateIndex - 7;
   const endIdx =
     selectedDateIndex + 7 >= daysOfWeek.length
       ? daysOfWeek.length
       : selectedDateIndex + 7;
 
-  // 범위 내 날짜들을 필터링
   const displayedDates = daysOfWeek.slice(startIdx, endIdx);
+
+  console.log(endIdx);
 
   return (
     <DayWrap>

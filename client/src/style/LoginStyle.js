@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FcGoogle } from 'react-icons/fc';
+import { FaGoogle } from 'react-icons/fa';
 
 const LoginForm = styled.form`
 justify-content: center;
@@ -55,8 +55,9 @@ const GoogleLoginButton = styled(Button)`
     background-color: #357ae8;
   }
 `;
-const GoogleLogo = styled(FcGoogle)`
+const GoogleLogo = styled(FaGoogle)`
   margin-right: 8px;
+  color: white;
 `;
 
 export { LoginForm, Input, LoginButton, Error, GoogleLoginButton, GoogleLogo };

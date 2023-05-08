@@ -4,7 +4,7 @@ import {
   Input,
   LoginButton,
   GoogleLoginButton,
-  GoogleLogo,
+  // GoogleLogo,
 } from '../style/LoginStyle';
 
 import axios from 'axios';
@@ -32,10 +32,12 @@ const Login = () => {
           (user) => user.email === email && user.password === password
         );
         if (user) {
+          console.log('잘 들어오니?');
           dispatch(login(user));
           alert('로그인 성공!');
           navigate('/boards');
         } else {
+          console.log('잘 안 들어오니?');
           setError('이메일 또는 비밀번호가 잘못되었습니다.');
         }
       })
@@ -48,6 +50,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleLogin();
+    console.log('왜 이거 안들어오니?');
   };
 
   return (
@@ -67,8 +70,8 @@ const Login = () => {
       />
       <p>{error}</p>
       <LoginButton type="submit">Login</LoginButton>
-      <GoogleLoginButton>
-        <GoogleLogo />
+      <GoogleLoginButton type="button">
+        {/* <GoogleLogo /> */}
         구글로 로그인
       </GoogleLoginButton>
     </LoginForm>

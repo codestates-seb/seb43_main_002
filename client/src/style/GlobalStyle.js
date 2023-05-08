@@ -10,7 +10,7 @@ export const GlobalStyle = createGlobalStyle`
 
 `;
 
-export const GlobalWrap = styled.form`
+export const GlobalWrap = styled.div`
   width: 400px;
   padding: 0px;
   height: 852px;

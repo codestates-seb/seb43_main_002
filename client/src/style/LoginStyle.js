@@ -4,6 +4,7 @@ import { FaGoogle } from 'react-icons/fa';
 const LoginForm = styled.form`
 justify-content: center;
 align- items: center;
+padding: 20px;
 `;
 
 const Input = styled.input`

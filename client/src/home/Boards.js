@@ -7,8 +7,6 @@ const Boards = () => {
       <Board></Board>
       <Board></Board>
       <Board></Board>
-      <Board></Board>
-      <Board></Board>
     </BoardsWrap>
   );
 };

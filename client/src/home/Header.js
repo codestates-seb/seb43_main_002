@@ -1,10 +1,24 @@
-import { HeaderBackWrap, HeaderWrap, LogoWrap, SearchWrap } from './HomeStyle';
+import {
+  HeaderBackWrap,
+  HeaderWrap,
+  LogoWrap,
+  SearchWrap,
+  LogoutButton,
+} from './HomeStyle';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { logout } from '../store/userSlice';
 
 const Header = () => {
   const [onSearch, setOnSerach] = useState(false);
+
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    sessionStorage.removeItem('user');
+    dispatch(logout());
+  };
 
   const SearchHandler = () => {
     setOnSerach(!onSearch);
@@ -30,6 +44,7 @@ const Header = () => {
   return (
     <>
       <HeaderBackWrap>
+        <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
         {onSearch ? (
           <>
             <SearchSpan

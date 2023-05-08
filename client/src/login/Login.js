@@ -33,6 +33,7 @@ const Login = () => {
           (user) => user.email === email && user.password === password
         );
         if (user) {
+          sessionStorage.setItem('user', JSON.stringify(user)); // 세션스토리지에 저장
           dispatch(login(user));
           alert('로그인 성공!');
           navigate('/boards');

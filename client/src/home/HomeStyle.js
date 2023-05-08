@@ -60,7 +60,7 @@ export const DayWrap = styled.div`
   width: 80%;
   /* border: 1px solid black; */
   z-index: 1;
-  background-color: pink;
+  background-color: transparent;
   display: flex;
   /* flex-direction: column; */
   /* overflow-x: scroll; */
@@ -86,7 +86,7 @@ export const SlideContainer = styled.div`
 `;
 
 export const SlideItem = styled.div`
-  flex: 0 0 345px; /* 슬라이드 아이템의 너비는 100px로 가정 */
+  flex: 0 0 360px; /* 슬라이드 아이템의 너비는 100px로 가정 */
 `;
 
 export const WeekWrap = styled.div`
@@ -127,6 +127,19 @@ export const BoardsWrap = styled.div`
   position: relative;
   background-color: transparent;
   z-index: 1;
+`;
+
+export const BoardWrap = styled.article`
+  margin-top: 10px;
+  width: 100%;
+  /* border: 1px solid black; */
+  border-radius: 10px;
+  background-color: white;
+  z-index: 0;
+  position: relative;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
 `;
 
 export const FooterWrap = styled.footer`

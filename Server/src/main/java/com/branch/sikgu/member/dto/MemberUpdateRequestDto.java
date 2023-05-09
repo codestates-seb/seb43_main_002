@@ -11,5 +11,5 @@ public class MemberUpdateRequestDto {
     private String password;
     private String nickname;
     private String age;
-    private boolean gender;
+    private Boolean gender;
 }

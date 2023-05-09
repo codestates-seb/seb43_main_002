@@ -15,6 +15,6 @@ public class MemberSignUpResponseDto {
     private String email;
     private String nickname;
     private String age;
-    private boolean gender;
+    private Boolean gender;
     private LocalDateTime createdAt;
 }

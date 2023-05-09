@@ -6,7 +6,7 @@ import {
   Error,
 } from '../style/SignupStyle';
 import { useState } from 'react';
-import { login } from '../store/userSlice';
+// import { login } from '../store/userSlice';
 import axios from 'axios';
 
 const Signup = () => {

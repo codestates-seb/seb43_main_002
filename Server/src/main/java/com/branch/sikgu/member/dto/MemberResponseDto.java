@@ -12,9 +12,10 @@ public class MemberResponseDto {
     private Long memberId;
     private String name;
     private String email;
+    private String nickname;
+    private String age;
+    private boolean gender;
     private Member.MemberStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private boolean gender;
-    private String ageRange;
 }

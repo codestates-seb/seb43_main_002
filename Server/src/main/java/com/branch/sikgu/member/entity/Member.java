@@ -26,6 +26,12 @@ public class Member {
     private String email;
     @Column(name = "password", nullable = false)
     private String password;
+    @Column(name = "nickname", nullable = false)
+    private String nickname;
+    @Column(name = "age", nullable = false)
+    private String age;
+    @Column(name = "gender", nullable = false, columnDefinition = "tinyint(1)")
+    private boolean gender;
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private MemberStatus status = MemberStatus.MEMBER_ACTIVE;
@@ -33,10 +39,7 @@ public class Member {
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    @Column(name = "gender", nullable = false, columnDefinition = "tinyint(1)")
-    private boolean gender;
-    @Column(name = "age_range", nullable = false)
-    private String ageRange;
+
 
     public enum MemberStatus {
         MEMBER_ACTIVE("활동 중"),

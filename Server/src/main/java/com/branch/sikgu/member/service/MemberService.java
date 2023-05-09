@@ -6,6 +6,7 @@ import com.branch.sikgu.exception.HttpStatus;
 import com.branch.sikgu.member.dto.MemberResponseDto;
 import com.branch.sikgu.member.dto.MemberSignUpRequestDto;
 import com.branch.sikgu.member.dto.MemberSignUpResponseDto;
+import com.branch.sikgu.member.dto.MemberUpdateRequestDto;
 import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.member.mapper.MemberMapper;
 import com.branch.sikgu.member.repository.MemberRepository;
@@ -44,6 +45,38 @@ public class MemberService {
     // 회원정보조회
     public MemberResponseDto findMember(Authentication authentication) {
         return memberMapper.memberToMemberResponseDto(findVerifiedMember(getCurrentMemberId(authentication)));
+    }
+
+    // 회원정보수정
+    public MemberResponseDto updateMember(Authentication authentication, MemberUpdateRequestDto memberUpdateRequestDto) {
+        Long memberId = getCurrentMemberId(authentication);
+        Member member = findVerifiedMember(memberId);
+
+        Optional.ofNullable(memberUpdateRequestDto.getName())
+                .ifPresent(name -> member.setName(name));
+
+        Optional.ofNullable(memberUpdateRequestDto.getEmail())
+                .ifPresent(email -> {
+                    if (memberRepository.existsByEmail(email)) {
+                        throw new BusinessLogicException(ExceptionCode.DUPLICATE_EMAIL, HttpStatus.CONFLICT);
+                    }
+                    member.setEmail(email);
+                });
+
+        Optional.ofNullable(memberUpdateRequestDto.getPassword())
+                .ifPresent(password -> member.setPassword(passwordEncoder.encode(password)));
+
+        Optional.ofNullable(memberUpdateRequestDto.getNickname())
+                .ifPresent(nickname -> member.setNickname(nickname));
+
+        Optional.ofNullable(memberUpdateRequestDto.getAge())
+                .ifPresent(age -> member.setAge(age));
+
+        Optional.ofNullable(memberUpdateRequestDto.getGender())
+                .ifPresent(gender -> member.setGender(gender));
+
+        memberRepository.save(member);
+        return memberMapper.memberToMemberResponseDto(member);
     }
 
     // 회원탈퇴

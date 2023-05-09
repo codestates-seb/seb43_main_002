@@ -11,6 +11,7 @@ import {
   ModalWhen,
   ModalWhenInput,
   ModalWho,
+  ModalWhobutton,
   ModalWhat,
   ModalText,
   ModalTag,
@@ -24,7 +25,7 @@ const PostModal = ({ isOpen, onClose }) => {
     food: '',
     people: 0,
     when: '',
-    who: '',
+    who: '아무나',
     content: '',
     tag: '',
   });
@@ -52,6 +53,31 @@ const PostModal = ({ isOpen, onClose }) => {
     });
   };
 
+  const handleWhoChange = () => {
+    switch (postBoard.who) {
+      case '아무나':
+        setPostBoard((prevBoard) => ({
+          ...prevBoard,
+          who: '여자만',
+        }));
+        break;
+      case '여자만':
+        setPostBoard((prevBoard) => ({
+          ...prevBoard,
+          who: '남자만',
+        }));
+        break;
+      case '남자만':
+        setPostBoard((prevBoard) => ({
+          ...prevBoard,
+          who: '아무나',
+        }));
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -59,7 +85,7 @@ const PostModal = ({ isOpen, onClose }) => {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
   };
-  console.log(postBoard);
+  console.log(postBoard.who);
   return (
     <ModalWrap isOpen={isOpen}>
       <ModalContent onSubmit={handleSubmit}>
@@ -74,6 +100,9 @@ const PostModal = ({ isOpen, onClose }) => {
         <ModalWhen>언제 먹을까?</ModalWhen>
         <ModalWhenInput name="when" onChange={handleChange}></ModalWhenInput>
         <ModalWho>누구랑 먹을까?</ModalWho>
+        <ModalWhobutton onChange={handleWhoChange}>이</ModalWhobutton>
+        <span>{postBoard.who}</span>
+        <ModalWhobutton onChange={handleWhoChange}>저</ModalWhobutton>
         <ModalWhenInput name="who" onChange={handleChange}></ModalWhenInput>
         <ModalWhat>추가로 입력할 정보는?</ModalWhat>
         <ModalText name="content" onChange={handleChange}></ModalText>

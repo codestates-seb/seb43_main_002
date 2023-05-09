@@ -95,6 +95,14 @@ export const ModalWhenInput = styled.input`
 export const ModalWho = styled.div`
   padding: 10px;
   font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const ModalWhobutton = styled.button`
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
 `;
 
 export const ModalWhat = styled.div`

@@ -27,7 +27,7 @@ const Header = () => {
   const SearchSpan = styled.input`
     display: ${() => (onSearch ? 'block' : 'none')};
     margin: 20px;
-    padding: 10px;
+    padding: 0px;
     height: 10%;
     width: 85%;
     border: 1px solid black;
@@ -53,8 +53,8 @@ const Header = () => {
             ></SearchSpan>
             <SearchWrap>
               <AiOutlineSearch
+                className="icon"
                 onClick={SearchHandler}
-                size={30}
                 color="white"
               ></AiOutlineSearch>
             </SearchWrap>
@@ -66,8 +66,8 @@ const Header = () => {
             </HeaderWrap>
             <SearchWrap>
               <AiOutlineSearch
+                className="icon"
                 onClick={SearchHandler}
-                size={30}
                 color="white"
               ></AiOutlineSearch>
             </SearchWrap>

@@ -4,9 +4,13 @@ import { GlobalStyle, GlobalWrap } from './style/GlobalStyle';
 import Login from './login/Login';
 import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import Main from './home/Main';
+<<<<<<< HEAD
 import { useEffect, useState } from 'react';
 import { login } from './store/userSlice';
 import Signup from './Signup/Signup';
+=======
+import Map from './map/Map';
+>>>>>>> dev
 
 function App() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -32,6 +36,7 @@ function App() {
     <>
       <GlobalStyle />
       <GlobalWrap>
+<<<<<<< HEAD
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Login />} />
@@ -39,6 +44,15 @@ function App() {
             <Route index element={<Main />} />
           </Route>
         </Routes>
+=======
+        <Router>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/boards" element={<Main />} />
+            <Route path="/map" element={<Map />} />
+          </Routes>
+        </Router>
+>>>>>>> dev
       </GlobalWrap>
     </>
   );

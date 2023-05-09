@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -53,4 +55,8 @@ public class Member {
             this.createdAt = LocalDateTime.now();
         }
     }
+    // 시큐리티 역할 관리를 위해 추가...
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
 }

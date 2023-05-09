@@ -1,11 +1,12 @@
 package com.branch.sikgu.member.dto;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@NoArgsConstructor
-public class MemberLoginRequestDto {
+@Setter
+public class MemberUpdateRequestDto {
+    private String name;
     private String email;
     private String password;
 }

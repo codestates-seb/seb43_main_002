@@ -35,5 +35,4 @@ public class MemberController {
         Long memberId = memberService.getCurrentMemberId();
         return memberService.getMemberById(memberId);
     }
-
 }

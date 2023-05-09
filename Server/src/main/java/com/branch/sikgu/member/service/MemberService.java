@@ -65,4 +65,17 @@ public class MemberService {
             throw new IllegalStateException("Unknown principal type: " + principal.getClass());
         }
     }
+
+    // 나중에 이 메서드를 사용하고 싶어서 추가해놨어요
+    @Transactional(readOnly = true)
+    public Member findVerifiedMember(long memberId) {
+        Optional<Member> optionalMember =
+                memberRepository.findById(memberId);
+        Member findMember =
+                optionalMember.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND, HttpStatus.NOT_FOUND));
+        return findMember;
+    }
+
+
 }

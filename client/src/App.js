@@ -1,8 +1,8 @@
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { GlobalStyle, GlobalWrap } from './style/GlobalStyle';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './login/Login';
+import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import Main from './home/Main';
 import { useEffect, useState } from 'react';
 import { login } from './store/userSlice';

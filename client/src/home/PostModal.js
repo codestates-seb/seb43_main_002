@@ -6,19 +6,19 @@ import {
   ModalInput,
   ModalPeople,
   ModalCount,
-  ModalCountMbutton,
-  ModalCountPbutton,
+  ModalCountbutton,
   ModalWhen,
   ModalWhenInput,
   ModalWho,
+  ModalWhoButtonWrap,
   ModalWhobutton,
   ModalWhat,
   ModalText,
-  ModalTag,
   ModalButtonWrap,
   ModalButton,
 } from './ModalStyles';
 import PropTypes from 'prop-types';
+import Tag from './Tag';
 
 const PostModal = ({ isOpen, onClose }) => {
   const [postBoard, setPostBoard] = useState({
@@ -47,9 +47,10 @@ const PostModal = ({ isOpen, onClose }) => {
   };
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setPostBoard({
       ...postBoard,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
@@ -85,7 +86,7 @@ const PostModal = ({ isOpen, onClose }) => {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
   };
-  console.log(postBoard.who);
+  console.log(postBoard);
   return (
     <ModalWrap isOpen={isOpen}>
       <ModalContent onSubmit={handleSubmit}>
@@ -93,20 +94,21 @@ const PostModal = ({ isOpen, onClose }) => {
         <ModalInput name="food" onChange={handleChange}></ModalInput>
         <ModalPeople>같이 먹을 인원은?</ModalPeople>
         <ModalCount name="people" onChange={handleChange}>
-          <ModalCountMbutton onClick={handleDecrement}>-</ModalCountMbutton>
+          <ModalCountbutton onClick={handleDecrement}>-</ModalCountbutton>
           <span>{postBoard.people}</span>
-          <ModalCountPbutton onClick={handleIncrement}>+</ModalCountPbutton>
+          <ModalCountbutton onClick={handleIncrement}>+</ModalCountbutton>
         </ModalCount>
         <ModalWhen>언제 먹을까?</ModalWhen>
         <ModalWhenInput name="when" onChange={handleChange}></ModalWhenInput>
         <ModalWho>누구랑 먹을까?</ModalWho>
-        <ModalWhobutton onChange={handleWhoChange}>이</ModalWhobutton>
-        <span>{postBoard.who}</span>
-        <ModalWhobutton onChange={handleWhoChange}>저</ModalWhobutton>
-        <ModalWhenInput name="who" onChange={handleChange}></ModalWhenInput>
+        <ModalWhoButtonWrap>
+          <ModalWhobutton onClick={handleWhoChange}></ModalWhobutton>
+          <span>{postBoard.who}</span>
+          <ModalWhobutton onClick={handleWhoChange}></ModalWhobutton>
+        </ModalWhoButtonWrap>
         <ModalWhat>추가로 입력할 정보는?</ModalWhat>
         <ModalText name="content" onChange={handleChange}></ModalText>
-        <ModalTag name="tag" onChange={handleChange}></ModalTag>
+        <Tag name="tag" onChange={handleChange}></Tag>
         <ModalButtonWrap>
           <ModalButton type="submit">작성하기</ModalButton>
           <ModalButton onClick={onClose}>취소하기</ModalButton>

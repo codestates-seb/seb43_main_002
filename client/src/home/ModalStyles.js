@@ -68,13 +68,7 @@ export const ModalCount = styled.div`
   justify-content: space-between;
 `;
 
-export const ModalCountMbutton = styled.button`
-  border-radius: 50%;
-  width: 18px;
-  height: 18px;
-`;
-
-export const ModalCountPbutton = styled.button`
+export const ModalCountbutton = styled.button`
   border-radius: 50%;
   width: 18px;
   height: 18px;
@@ -95,6 +89,12 @@ export const ModalWhenInput = styled.input`
 export const ModalWho = styled.div`
   padding: 10px;
   font-size: 18px;
+`;
+
+export const ModalWhoButtonWrap = styled.div`
+  padding: 10px;
+  width: 325px;
+  background-color: white;
   display: flex;
   justify-content: space-between;
 `;

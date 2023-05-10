@@ -35,6 +35,24 @@ export const LogoWrap = styled.img`
   padding-left: 30px;
 `;
 
+export const LogoutButton = styled.button`
+  width: 30%;
+  height: 20%;
+  background-color: #f44336;
+  color: white;
+  font-size: 10px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 10px;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: #da190b;
+  }
+`;
+
 // export const
 
 export const SearchWrap = styled.div`
@@ -56,11 +74,10 @@ export const SearchWrap = styled.div`
 export const DayWrap = styled.div`
   padding: 0px;
   margin-top: 70px;
-  height: 7%;
-  width: 80%;
-  /* border: 1px solid black; */
-  z-index: 1;
-  background-color: pink;
+  z-index: 2;
+  border: 1px solid black;
+  background-color: transparent;
+  display: flex;
 `;
 
 export const SelectedDay = styled.div`
@@ -74,6 +91,19 @@ export const SelectedDay = styled.div`
   align-items: center;
   text-align: center;
   color: white;
+  cursor: pointer;
+`;
+
+export const SlideContainer = styled.div`
+  display: flex;
+  overflow: hidden;
+  flex-wrap: nowrap;
+  width: max-content;
+  overflow-x: scroll;
+`;
+
+export const SlideItem = styled.div`
+  flex: 0 0 360px;
 `;
 
 export const WeekWrap = styled.div`
@@ -89,16 +119,46 @@ export const DayNumberWrap = styled.div`
   width: 60%;
   height: 100%;
   padding: 0px;
-  border-bottom: 1px solid white;
+  /* border-bottom: 1px solid white; */
   position: relative;
+  border-bottom: ${({ selected }) => (selected ? '2px solid white' : 'none')};
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  width: 220px;
+`;
+
+export const Button = styled.button`
+  padding: 5px 10px;
+  border: none;
+  background-color: #eaeaea;
+  cursor: pointer;
 `;
 
 export const BoardsWrap = styled.div`
+  padding: 0px;
   height: 80%;
   width: 360px;
   position: relative;
   background-color: transparent;
   z-index: 1;
+`;
+
+export const BoardWrap = styled.article`
+  margin-top: 10px;
+  padding: 20px;
+  width: 100%;
+  /* border: 1px solid black; */
+  border-radius: 10px;
+  background-color: white;
+  z-index: 0;
+  position: relative;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
 `;
 
 export const FooterWrap = styled.footer`

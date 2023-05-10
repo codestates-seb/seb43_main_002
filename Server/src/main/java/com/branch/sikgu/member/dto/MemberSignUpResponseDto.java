@@ -13,7 +13,8 @@ public class MemberSignUpResponseDto {
     private Long memberId;
     private String name;
     private String email;
+    private String nickname;
+    private String age;
     private boolean gender;
-    private String ageRange;
     private LocalDateTime createdAt;
 }

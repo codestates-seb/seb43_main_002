@@ -35,6 +35,24 @@ export const LogoWrap = styled.img`
   padding-left: 30px;
 `;
 
+export const LogoutButton = styled.button`
+  width: 30%;
+  height: 20%;
+  background-color: #f44336;
+  color: white;
+  font-size: 10px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 10px;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: #da190b;
+  }
+`;
+
 // export const
 
 export const SearchWrap = styled.div`

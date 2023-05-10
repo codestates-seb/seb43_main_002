@@ -5,12 +5,12 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     box-sizing: border-box;
     font-size: 12pt;
-    padding: 20px;
+    padding: 0px;
   }
   
 `;
 
-export const GlobalWrap = styled.form`
+export const GlobalWrap = styled.div`
   width: 400px;
   padding: 0px;
   height: 852px;

@@ -16,8 +16,9 @@ function App() {
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem('user');
-    if (storedUser) {
-      dispatch(login(JSON.parse(storedUser)));
+    const storedToken = sessionStorage.getItem('authToken');
+    if (storedUser && storedToken) {
+      dispatch(login({ user: JSON.parse(storedUser), token: storedToken }));
     }
     setLoading(false);
   }, [dispatch]);

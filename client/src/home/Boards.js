@@ -5,8 +5,6 @@ const Boards = () => {
   return (
     <BoardsWrap>
       <Board></Board>
-      <Board></Board>
-      <Board></Board>
     </BoardsWrap>
   );
 };

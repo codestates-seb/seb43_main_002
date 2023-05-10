@@ -16,7 +16,8 @@ function App() {
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem('user');
-    if (storedUser) {
+    const storedToken = sessionStorage.getItem('jwt');
+    if (storedUser && storedToken) {
       dispatch(login(JSON.parse(storedUser)));
     }
     setLoading(false);

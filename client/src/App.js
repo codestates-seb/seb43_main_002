@@ -36,7 +36,6 @@ function App() {
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Login />} />
-
           <Route path="/boards" element={<PrivateRoute />}>
             <Route index element={<Main />} />
           </Route>

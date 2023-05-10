@@ -105,7 +105,12 @@ const Login = () => {
       >
         대충 만든 회원가입 버튼
       </ForgotPasswordButton>
-      <GoogleLoginButton type="button">
+      <GoogleLoginButton
+        type="button"
+        onClick={() => {
+          console.log('이자리가 맞니?');
+        }}
+      >
         <GoogleLogo />
         구글로 로그인
       </GoogleLoginButton>

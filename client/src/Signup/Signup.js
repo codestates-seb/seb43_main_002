@@ -29,7 +29,7 @@ const Signup = () => {
   };
 
   const handleCheckDuplicate = (e) => {
-    // 중복 확인 로직 작성_되는지 아직 점검 안해봄
+    // 중복 확인 로직 작성_되는지 아직 점검 안해봄 =>됨^^
     axios
       .get('/users', {
         params: { email },

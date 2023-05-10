@@ -15,9 +15,9 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedUSer = sessionStorage.getItem('user');
-    if (storedUSer) {
-      dispatch(login(JSON.parse(storedUSer)));
+    const storedUser = sessionStorage.getItem('user');
+    if (storedUser) {
+      dispatch(login(JSON.parse(storedUser)));
     }
     setLoading(false);
   }, [dispatch]);

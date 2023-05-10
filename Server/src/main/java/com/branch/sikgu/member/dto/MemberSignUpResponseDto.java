@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class MemberSignUpResponseDto {
     private Long memberId;
     private String name;

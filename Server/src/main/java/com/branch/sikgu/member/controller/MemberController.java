@@ -5,7 +5,6 @@ import com.branch.sikgu.member.dto.MemberSignUpRequestDto;
 import com.branch.sikgu.member.dto.MemberSignUpResponseDto;
 
 import com.branch.sikgu.member.dto.MemberUpdateRequestDto;
-import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.member.mapper.MemberMapper;
 import com.branch.sikgu.member.service.MemberService;
 import lombok.AllArgsConstructor;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class MemberController {
     private MemberService memberService;
-    private MemberMapper memberMapper;
 
     // 회원가입
     @PostMapping("/signup")
@@ -41,7 +39,7 @@ public class MemberController {
     // 회원정보수정
     @PatchMapping("/editprofile")
     public ResponseEntity<MemberResponseDto> patchMember(Authentication authentication,
-                                                         @RequestBody MemberUpdateRequestDto memberUpdateRequestDto) {
+                                                         @Validated @RequestBody MemberUpdateRequestDto memberUpdateRequestDto) {
         MemberResponseDto memberResponseDto = memberService.updateMember(authentication, memberUpdateRequestDto);
         return ResponseEntity.status(HttpStatus.OK).body(memberResponseDto);
     }

@@ -9,10 +9,10 @@ import {
   GoogleLogo,
 } from '../style/LoginStyle';
 
-import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../store/userSlice';
+import axiosInstance from '../../axiosConfig';
 
 const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -28,19 +28,21 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    axios
-      .get('/users', {
+    axiosInstance
+      .post('/url', {
         params: {
           email,
           password,
         },
       })
       .then((response) => {
-        const user = response.data.find(
-          (user) => user.email === email && user.password === password
-        );
-        if (user) {
-          sessionStorage.setItem('user', JSON.stringify(user)); // 세션스토리지에 저장
+        // const user = response.data.user;
+        // const token = response.data.token;
+        const { user, token } = response.data;
+        if (user && token) {
+          sessionStorage.setItem('user', JSON.stringify(user)); // 세션스토리지에 user정보 저장
+          sessionStorage.setItem('authToken', token); // sessionStorage에 토큰 저장
+          // 저장을 두 개를 해야하는 게 맞는거지?
           dispatch(login(user));
           alert('로그인 되었습니다!');
           navigate('/boards');

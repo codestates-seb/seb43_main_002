@@ -9,10 +9,12 @@ import {
   GoogleLogo,
 } from '../style/LoginStyle';
 
-import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../store/userSlice';
+// import axios from 'axios';
+import jwt_decode from 'jwt-decode';
+import axiosInstance from '../axiosConfig';
 
 const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -28,23 +30,27 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    axios
-      .get('/users', {
-        params: {
-          email,
-          password,
-        },
+    axiosInstance
+      .post('/members/login', {
+        email,
+        password,
       })
       .then((response) => {
-        const user = response.data.find(
-          (user) => user.email === email && user.password === password
-        );
-        if (user) {
-          sessionStorage.setItem('user', JSON.stringify(user)); // 세션스토리지에 저장
+        const token = response.headers.authorization;
+        if (token) {
+          const decoded = jwt_decode(token);
+          const user = {
+            username: decoded.username,
+          };
+
+          sessionStorage.setItem('user', JSON.stringify(user)); // 세션스토리지에 user정보 저장
+          sessionStorage.setItem('jwt', token); // sessionStorage에 토큰 저장
+
           dispatch(login(user));
           alert('로그인 되었습니다!');
           navigate('/boards');
         } else {
+          console.log(response.data);
           setAccessError('이메일 또는 비밀번호가 잘못되었습니다.');
         }
       })

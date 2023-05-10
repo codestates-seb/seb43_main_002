@@ -15,9 +15,10 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedUSer = sessionStorage.getItem('user');
-    if (storedUSer) {
-      dispatch(login(JSON.parse(storedUSer)));
+    const storedUser = sessionStorage.getItem('user');
+    const storedToken = sessionStorage.getItem('jwt');
+    if (storedUser && storedToken) {
+      dispatch(login(storedUser));
     }
     setLoading(false);
   }, [dispatch]);

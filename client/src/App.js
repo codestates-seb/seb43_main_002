@@ -18,7 +18,7 @@ function App() {
     const storedUser = sessionStorage.getItem('user');
     const storedToken = sessionStorage.getItem('jwt');
     if (storedUser && storedToken) {
-      dispatch(login(JSON.parse(storedUser)));
+      dispatch(login(storedUser));
     }
     setLoading(false);
   }, [dispatch]);

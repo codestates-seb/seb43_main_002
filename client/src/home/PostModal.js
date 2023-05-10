@@ -2,23 +2,20 @@ import { useState } from 'react';
 import {
   ModalWrap,
   ModalContent,
-  ModalHeadr,
+  ModalQurry,
   ModalInput,
-  ModalPeople,
   ModalCount,
   ModalCountbutton,
-  ModalWhen,
   ModalWhenInput,
-  ModalWho,
   ModalWhoButtonWrap,
   ModalWhobutton,
-  ModalWhat,
   ModalText,
   ModalButtonWrap,
   ModalButton,
 } from './ModalStyles';
 import PropTypes from 'prop-types';
 import Tag from './Tag';
+import axios from 'axios';
 
 const PostModal = ({ isOpen, onClose }) => {
   const [postBoard, setPostBoard] = useState({
@@ -79,8 +76,15 @@ const PostModal = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      await axios.post('http://localhost:8080/boards', postBoard);
+      console.log('게시물이 성공적으로 작성되었습니다.');
+      onClose();
+    } catch (error) {
+      console.error('게시물 작성 중 오류가 발생했습니다.', error);
+    }
   };
   PostModal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
@@ -90,23 +94,23 @@ const PostModal = ({ isOpen, onClose }) => {
   return (
     <ModalWrap isOpen={isOpen}>
       <ModalContent onSubmit={handleSubmit}>
-        <ModalHeadr>같이 먹을 음식은?</ModalHeadr>
+        <ModalQurry>같이 먹을 음식은?</ModalQurry>
         <ModalInput name="food" onChange={handleChange}></ModalInput>
-        <ModalPeople>같이 먹을 인원은?</ModalPeople>
+        <ModalQurry>같이 먹을 인원은?</ModalQurry>
         <ModalCount name="people" onChange={handleChange}>
           <ModalCountbutton onClick={handleDecrement}>-</ModalCountbutton>
           <span>{postBoard.people}</span>
           <ModalCountbutton onClick={handleIncrement}>+</ModalCountbutton>
         </ModalCount>
-        <ModalWhen>언제 먹을까?</ModalWhen>
+        <ModalQurry>언제 먹을까?</ModalQurry>
         <ModalWhenInput name="when" onChange={handleChange}></ModalWhenInput>
-        <ModalWho>누구랑 먹을까?</ModalWho>
+        <ModalQurry>누구랑 먹을까?</ModalQurry>
         <ModalWhoButtonWrap>
           <ModalWhobutton onClick={handleWhoChange}></ModalWhobutton>
           <span>{postBoard.who}</span>
           <ModalWhobutton onClick={handleWhoChange}></ModalWhobutton>
         </ModalWhoButtonWrap>
-        <ModalWhat>추가로 입력할 정보는?</ModalWhat>
+        <ModalQurry>추가로 입력할 정보는?</ModalQurry>
         <ModalText name="content" onChange={handleChange}></ModalText>
         <Tag name="tag" onChange={handleChange}></Tag>
         <ModalButtonWrap>

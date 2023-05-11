@@ -5,7 +5,6 @@ import com.branch.sikgu.member.dto.MemberSignUpRequestDto;
 import com.branch.sikgu.member.dto.MemberSignUpResponseDto;
 
 import com.branch.sikgu.member.dto.MemberUpdateRequestDto;
-import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.member.mapper.MemberMapper;
 import com.branch.sikgu.member.service.MemberService;
 import lombok.AllArgsConstructor;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class MemberController {
     private MemberService memberService;
-    private MemberMapper memberMapper;
 
     // 회원가입
     @PostMapping("/signup")
@@ -33,16 +31,17 @@ public class MemberController {
 
     // 회원정보조회 (로그인된 사용자 본인의 정보만 조회할 수 있게 수정)
     @GetMapping("/me")
-    public ResponseEntity<MemberResponseDto> getMember(Authentication authentication,
-                                                       @RequestBody MemberUpdateRequestDto memberUpdateRequestDto) {
-        MemberResponseDto memberResponseDto = memberService.updateMember(authentication, memberUpdateRequestDto);
+    public ResponseEntity<MemberResponseDto> getMember(Authentication authentication) {
+        MemberResponseDto memberResponseDto = memberService.findMember(authentication);
         return ResponseEntity.status(HttpStatus.OK).body(memberResponseDto);
     }
 
     // 회원정보수정
     @PatchMapping("/editprofile")
-    public ResponseEntity<MemberResponseDto> patchMember(Authentication authentication) {
-
+    public ResponseEntity<MemberResponseDto> patchMember(Authentication authentication,
+                                                         @Validated @RequestBody MemberUpdateRequestDto memberUpdateRequestDto) {
+        MemberResponseDto memberResponseDto = memberService.updateMember(authentication, memberUpdateRequestDto);
+        return ResponseEntity.status(HttpStatus.OK).body(memberResponseDto);
     }
 
     // 회원 탈퇴 -> DB에서 삭제는 하지 않고 status만 변경

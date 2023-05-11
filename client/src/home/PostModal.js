@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   ModalWrap,
   ModalContent,
@@ -116,11 +117,14 @@ const PostModal = ({ isOpen, onClose }) => {
       .then(() => {
         console.log('게시물이 성공적으로 작성되었습니다.');
         onClose();
+        navigate(0);
       })
       .catch((error) => {
         console.error('게시물 작성 중 오류가 발생했습니다.', error);
       });
   };
+
+  const navigate = useNavigate();
   const handleCancel = (e) => {
     e.preventDefault();
     onClose();

@@ -1,5 +1,11 @@
 import { useState, useEffect } from 'react';
-import { DayWrap, SelectedDay, WeekWrap, DayNumberWrap } from './HomeStyle';
+import {
+  DayWrap,
+  SelectedDay,
+  WeekWrap,
+  DayNumberWrap,
+  BoardsWrap,
+} from './HomeStyle';
 import axios from 'axios';
 import Board from './Board';
 
@@ -60,9 +66,11 @@ const Days = () => {
           );
         })}
       </DayWrap>
-      {filteredBoards.map((board, idx) => (
-        <Board key={idx} board={board} />
-      ))}
+      <BoardsWrap>
+        {filteredBoards.map((board, idx) => (
+          <Board key={idx} board={board} />
+        ))}
+      </BoardsWrap>
     </>
   );
 };

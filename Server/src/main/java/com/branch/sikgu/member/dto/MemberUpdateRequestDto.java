@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -18,6 +19,6 @@ public class MemberUpdateRequestDto {
     @NotBlank(message = "별명을 입력해주세요.")
     private String nickname;
     @NotBlank(message = "생년월일을 입력해주세요.")
-    private String age;
+    private LocalDate birthDay;
     private Boolean gender;
 }

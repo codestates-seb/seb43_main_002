@@ -4,6 +4,7 @@ import com.branch.sikgu.member.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -13,7 +14,7 @@ public class MemberResponseDto {
     private String name;
     private String email;
     private String nickname;
-    private String age;
+    private LocalDate birthDay;
     private Boolean gender;
     private Member.MemberStatus status;
     private LocalDateTime createdAt;

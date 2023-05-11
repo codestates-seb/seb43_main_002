@@ -66,8 +66,8 @@ public class MemberService {
                 .ifPresent(password -> member.setPassword(passwordEncoder.encode(password)));
         Optional.ofNullable(memberUpdateRequestDto.getNickname())
                 .ifPresent(member::setNickname);
-        Optional.ofNullable(memberUpdateRequestDto.getAge())
-                .ifPresent(member::setAge);
+        Optional.ofNullable(memberUpdateRequestDto.getBirthDay())
+                .ifPresent(member::setBirthDay);
         Optional.ofNullable(memberUpdateRequestDto.getGender())
                 .ifPresent(member::setGender);
         memberRepository.save(member);

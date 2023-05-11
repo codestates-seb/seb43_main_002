@@ -67,6 +67,14 @@ const PostModal = ({ isOpen, onClose }) => {
     });
   };
 
+  const handleDateChange = (date) => {
+    setStartDate(date);
+    setPostBoard((prevBoard) => ({
+      ...prevBoard,
+      when: date,
+    }));
+  };
+
   const handleWhoChange = (e) => {
     e.preventDefault();
     switch (postBoard.who) {
@@ -95,6 +103,14 @@ const PostModal = ({ isOpen, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (
+      postBoard.food === '' ||
+      postBoard.people === 0 ||
+      postBoard.content === ''
+    ) {
+      alert('모든 곳을 입력해주세요.');
+      return;
+    }
     axios
       .post('http://localhost:8080/boards', postBoard)
       .then(() => {
@@ -105,12 +121,16 @@ const PostModal = ({ isOpen, onClose }) => {
         console.error('게시물 작성 중 오류가 발생했습니다.', error);
       });
   };
+  const handleCancel = (e) => {
+    e.preventDefault();
+    onClose();
+  };
 
   PostModal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
   };
-  console.log(startDate);
+  // console.log(startDate);
 
   return (
     <ModalWrap isOpen={isOpen}>
@@ -126,10 +146,14 @@ const PostModal = ({ isOpen, onClose }) => {
         <ModalQurry>언제 먹을까?</ModalQurry>
         <ModalDay
           name="when"
-          dateFormat="yyyy/MM/dd"
+          dateFormat="yyyy/MM/dd aa h시"
           selected={startDate}
           locale={ko}
-          onChange={(date) => setStartDate(date)}
+          onChange={handleDateChange}
+          showTimeSelect
+          timeFormat="HH"
+          timeIntervals={60}
+          timeCaption="시간"
         />
         <ModalQurry>누구랑 먹을까?</ModalQurry>
         <ModalWhoButtonWrap>
@@ -142,7 +166,7 @@ const PostModal = ({ isOpen, onClose }) => {
         <Tag name="tag" onChange={handleChange}></Tag>
         <ModalButtonWrap>
           <ModalButton type="submit">작성하기</ModalButton>
-          <ModalButton onClick={onClose}>취소하기</ModalButton>
+          <ModalButton onClick={handleCancel}>취소하기</ModalButton>
         </ModalButtonWrap>
       </ModalContent>
     </ModalWrap>

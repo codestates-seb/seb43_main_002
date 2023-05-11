@@ -74,8 +74,9 @@ const PeopleWrap = styled.div`
   }
 `;
 
-const UserWrap = styled.span`
+const UserWrap = styled.div`
   padding: 0px;
+  width: 40px;
   margin-left: auto;
   border: 1px solid black;
   border-radius: 50%;
@@ -86,7 +87,14 @@ const Board = ({ board }) => {
     board: PropTypes.object.isRequired,
   };
   const tags = board.tag.split(',');
-  console.log(board);
+
+  const now = new Date(board.when);
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  const hour = now.getHours();
+  const amPm = hour >= 12 ? '오후' : '오전';
+  const formattedDate = `${month}/${day}일 ${amPm} ${hour % 12}시`;
+  // console.log(board);
 
   return (
     <BoardWrap>
@@ -103,11 +111,11 @@ const Board = ({ board }) => {
       <SubmitWrap>
         <TimeWrap>
           <BiTimeFive />
-          {board.when}
+          {formattedDate}
         </TimeWrap>
         <PeopleWrap>
           <FiUsers />
-          3/6명
+          {board.people}
         </PeopleWrap>
         <UserWrap>{board.member}</UserWrap>
       </SubmitWrap>

@@ -18,151 +18,49 @@
   ],
   "boards": [
     {
-      "id": "1",
-      "member": "zeereo",
-      "food": "햄버거",
-      "people": 3,
-      "when": "내일",
-      "who": "여자만",
-      "content": "맛있는 햄버거 드실분",
-      "tag": "햄버거,햄버거2",
-      "comment": [
-        {
-          "id": "1",
-          "content": "저요",
-          "member": "zeereo"
-        }
-      ]
-    },
-    {
-      "id": "2",
-      "member": "zeereo",
-      "food": "햄버거",
-      "people": 3,
-      "when": "내일",
-      "who": "여자만",
-      "content": "맛있는 햄버거 드실분",
-      "tag": "햄버거,햄버거2",
-      "comment": [
-        {
-          "id": "2",
-          "content": "저요",
-          "member": "zeereo"
-        }
-      ]
-    },
-    {
-      "id": "3",
-      "member": "zeereo",
-      "food": "햄버거",
-      "people": 3,
-      "when": "내일",
-      "who": "여자만",
-      "content": "맛있는 햄버거 드실분",
-      "tag": "햄버거,햄버거2",
-      "comment": [
-        {
-          "id": "3",
-          "content": "저요",
-          "member": "zeereo"
-        }
-      ]
-    },
-    {
-      "id": "4",
-      "member": "zeereo",
-      "food": "햄버거",
-      "people": 3,
-      "when": "내일",
-      "who": "여자만",
-      "content": "맛있는 햄버거 드실분",
-      "tag": "햄버거,햄버거2",
-      "comment": [
-        {
-          "id": "4",
-          "content": "저요",
-          "member": "zeereo"
-        }
-      ]
-    },
-    {
-      "id": "5",
-      "member": "zeereo",
-      "food": "햄버거",
-      "people": 3,
-      "when": "내일",
-      "who": "여자만",
-      "content": "맛있는 햄버거 드실분",
-      "tag": "햄버거,햄버거2",
-      "comment": [
-        {
-          "id": "5",
-          "content": "저요",
-          "member": "zeereo"
-        }
-      ]
-    },
-    {
-      "id": "6",
-      "member": "zeereo",
-      "food": "햄버거",
-      "people": 3,
-      "when": "내일",
-      "who": "여자만",
-      "content": "맛있는 햄버거 드실분",
-      "tag": "햄버거,햄버거2",
-      "comment": [
-        {
-          "id": "6",
-          "content": "저요",
-          "member": "zeereo"
-        }
-      ]
-    },
-    {
-      "food": "",
-      "people": 0,
-      "when": "",
-      "who": "아무나",
-      "content": "",
-      "tag": "",
-      "id": "i6WZ-85"
-    },
-    {
-      "food": "",
-      "people": 0,
-      "when": "",
-      "who": "아무나",
-      "content": "",
-      "tag": "",
-      "id": "orwr8Wg"
-    },
-    {
       "food": "피자",
-      "people": 1,
-      "when": "",
-      "who": "아무나",
-      "content": "",
-      "tag": "",
-      "id": "3VX_PuO"
-    },
-    {
-      "food": "피자",
-      "people": 0,
-      "when": "내일",
-      "who": "남자만",
-      "content": "맛있는피자",
-      "tag": "피자1,피자2,피자3",
-      "id": "n5Z53ox"
-    },
-    {
-      "food": "피자",
-      "people": 0,
-      "when": "2023-05-11T05:59:04.545Z",
-      "who": "아무나",
+      "people": 2,
+      "when": "2023-05-11T06:07:50.265Z",
+      "who": "여자만",
       "content": "피자먹을사람",
-      "tag": "피자1,피자2,피자3,피자4,피자5",
-      "id": "kCsmujP"
+      "tag": "피자1,피자2,피자3",
+      "id": "_KNYGjY"
+    },
+    {
+      "food": "햄버거",
+      "people": 4,
+      "when": "2023-05-12T07:03:51.128Z",
+      "who": "여자만",
+      "content": "맛집 찾음",
+      "tag": "햄버거1,햄버거2",
+      "id": "xsNPBWB"
+    },
+    {
+      "food": "쌀국수",
+      "people": 4,
+      "when": "2023-05-13T07:04:38.876Z",
+      "who": "남자만",
+      "content": "맛집",
+      "tag": "쌀국수1,쌀국수2,쌀국수3,11시",
+      "id": "cN3DCdz"
+    },
+    {
+      "food": "쌀국수",
+      "people": 4,
+      "when": "2023-05-20T09:00:00.000Z",
+      "who": "아무나",
+      "content": "맛집찾음",
+      "tag": "쌀국수1,쌀국수2",
+      "id": "N8mPu2n"
+    },
+    {
+      "food": "햄버거",
+      "people": 2,
+      "when": "2023-05-11T11:00:00.947Z",
+      "who": "아무나",
+      "content": "됐다 햄버거",
+      "tag": "햄버거1,햄버거2",
+      "id": "gasuFee"
     }
   ]
 }

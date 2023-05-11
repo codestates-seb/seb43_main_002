@@ -12,7 +12,7 @@ const Boards = () => {
     dispatch(fetchBoards());
   }, [dispatch]);
 
-  console.log(boards);
+  // console.log(boards);
 
   return (
     <BoardsWrap>

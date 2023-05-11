@@ -1,6 +1,10 @@
 package com.branch.sikgu.auth.jwt;
 
+import com.branch.sikgu.exception.BusinessLogicException;
+import com.branch.sikgu.exception.ExceptionCode;
+import com.branch.sikgu.exception.HttpStatus;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -17,6 +21,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.springframework.security.config.Elements.JWT;
 
 @Component
 public class JwtTokenizer {
@@ -117,5 +123,27 @@ public class JwtTokenizer {
         String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
 
         return generateRefreshToken(userDetails.getUsername(), expiration, base64EncodedSecretKey);
+    }
+
+    public Long getMemberId(String token) {
+        long memberId = parseToken1(token).get("memberId", Long.class);
+        return memberId;
+    }
+
+    private Claims parseToken1(String token) {
+        Key key = getKeyFromBase64EncodedKey(encodeBase64SecretKey(secretKey));
+        String jws = token.replace("Bearer ", "");
+        Claims claims;
+
+        try {
+            claims = Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(jws)
+                    .getBody();
+        }   catch (ExpiredJwtException e) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND, HttpStatus.UNAUTHORIZED);
+        }
+        return claims;
     }
 }

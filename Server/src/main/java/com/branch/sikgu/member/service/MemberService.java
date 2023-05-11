@@ -1,5 +1,6 @@
 package com.branch.sikgu.member.service;
 
+import com.branch.sikgu.auth.jwt.JwtTokenizer;
 import com.branch.sikgu.exception.BusinessLogicException;
 import com.branch.sikgu.exception.ExceptionCode;
 import com.branch.sikgu.exception.HttpStatus;
@@ -27,6 +28,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenizer jwtTokenizer;
 
 
     // 회원가입 (매퍼를 어느 계층에서 호출하는 게 좋을까요...?)
@@ -111,6 +113,20 @@ public class MemberService {
     // email을 수정하고 나면 무조건 재 로그인을 해야합니다. - 수정 완료 - updateMember에 로직과 설명 추가했습니다.
 
     // 나중에 이 메서드를 사용하고 싶어서 추가해놨어요 - 수정 완료 - 사용할 수 있게 수정했습니다.
+    public Member findMember(String token) {
+
+        long memberId = jwtTokenizer.getMemberId(token);
+
+        Member findMember = findVerifiedMember(memberId);
+
+        if(findMember.getStatus().equals(Member.MemberStatus.MEMBER_QUIT)) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND, HttpStatus.NOT_FOUND);
+        }
+
+        return findMember;
+    }
+
+    // 나중에 이 메서드를 사용하고 싶어서 추가해놨어요
     private Member findVerifiedMember(Long memberId) {
         Optional<Member> optionalMember =
                 memberRepository.findById(memberId)

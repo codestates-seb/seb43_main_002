@@ -16,7 +16,7 @@ const Days = () => {
 
   const displayedDates = daysOfWeek.slice(startIdx, endIdx);
 
-  console.log(endIdx);
+  console.log(new Date());
 
   return (
     <DayWrap>

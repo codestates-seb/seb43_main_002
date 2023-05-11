@@ -1,30 +1,24 @@
 import { BoardsWrap } from './HomeStyle';
 import Board from './Board';
-import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBoards } from '../store/boardSlice';
 
 const Boards = () => {
-  const [boards, setBoards] = useState([]);
+  const dispatch = useDispatch();
+  const boards = useSelector((state) => state.board);
 
   useEffect(() => {
-    const fetchBoards = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/boards');
-        setBoards(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchBoards();
-  }, []);
+    dispatch(fetchBoards());
+  }, [dispatch]);
 
   console.log(boards);
 
   return (
     <BoardsWrap>
-      <Board />
+      {boards.map((board, idx) => (
+        <Board key={idx} board={board}></Board>
+      ))}
     </BoardsWrap>
   );
 };

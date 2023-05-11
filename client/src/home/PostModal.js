@@ -6,7 +6,6 @@ import {
   ModalInput,
   ModalCount,
   ModalCountbutton,
-  ModalWhenInput,
   ModalWhoButtonWrap,
   ModalWhobutton,
   ModalText,
@@ -16,25 +15,42 @@ import {
 import PropTypes from 'prop-types';
 import Tag from './Tag';
 import axios from 'axios';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { ko } from 'date-fns/esm/locale';
+import styled from 'styled-components';
+
+const ModalDay = styled(DatePicker)`
+  padding: 10px;
+  margin-left: 20px;
+  width: 325px;
+  font-size: 14px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: center;
+`;
 
 const PostModal = ({ isOpen, onClose }) => {
+  const [startDate, setStartDate] = useState(new Date());
   const [postBoard, setPostBoard] = useState({
     food: '',
     people: 0,
-    when: '',
+    when: startDate,
     who: '아무나',
     content: '',
     tag: '',
   });
 
-  const handleIncrement = () => {
+  const handleIncrement = (e) => {
+    e.preventDefault();
     setPostBoard((prevBoard) => ({
       ...prevBoard,
       people: prevBoard.people + 1,
     }));
   };
 
-  const handleDecrement = () => {
+  const handleDecrement = (e) => {
+    e.preventDefault();
     if (postBoard.people > 0) {
       setPostBoard((prevBoard) => ({
         ...prevBoard,
@@ -51,7 +67,8 @@ const PostModal = ({ isOpen, onClose }) => {
     });
   };
 
-  const handleWhoChange = () => {
+  const handleWhoChange = (e) => {
+    e.preventDefault();
     switch (postBoard.who) {
       case '아무나':
         setPostBoard((prevBoard) => ({
@@ -78,19 +95,23 @@ const PostModal = ({ isOpen, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post('http://localhost:8080/boards', postBoard);
-      console.log('게시물이 성공적으로 작성되었습니다.');
-      onClose();
-    } catch (error) {
-      console.error('게시물 작성 중 오류가 발생했습니다.', error);
-    }
+    axios
+      .post('http://localhost:8080/boards', postBoard)
+      .then(() => {
+        console.log('게시물이 성공적으로 작성되었습니다.');
+        onClose();
+      })
+      .catch((error) => {
+        console.error('게시물 작성 중 오류가 발생했습니다.', error);
+      });
   };
+
   PostModal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
   };
-  console.log(postBoard);
+  console.log(startDate);
+
   return (
     <ModalWrap isOpen={isOpen}>
       <ModalContent onSubmit={handleSubmit}>
@@ -103,7 +124,13 @@ const PostModal = ({ isOpen, onClose }) => {
           <ModalCountbutton onClick={handleIncrement}>+</ModalCountbutton>
         </ModalCount>
         <ModalQurry>언제 먹을까?</ModalQurry>
-        <ModalWhenInput name="when" onChange={handleChange}></ModalWhenInput>
+        <ModalDay
+          name="when"
+          dateFormat="yyyy/MM/dd"
+          selected={startDate}
+          locale={ko}
+          onChange={(date) => setStartDate(date)}
+        />
         <ModalQurry>누구랑 먹을까?</ModalQurry>
         <ModalWhoButtonWrap>
           <ModalWhobutton onClick={handleWhoChange}></ModalWhobutton>

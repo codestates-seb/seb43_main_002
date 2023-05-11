@@ -145,6 +145,19 @@ export const BoardsWrap = styled.div`
   position: relative;
   background-color: transparent;
   z-index: 1;
+  overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    width: 0.5em;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
 `;
 
 export const BoardWrap = styled.article`

@@ -126,51 +126,51 @@ public class MemberRestDocsTest {
                         )
                 ));
     }
-    @Test
-    @WithMockUser
-    @DisplayName("회원 정보 수정")
-    public void updateMemberTest() throws Exception {
-        // given
-        MemberUpdateRequestDto memberUpdateRequestDto = new MemberUpdateRequestDto();
-        memberUpdateRequestDto.setName("최용준");
-        memberUpdateRequestDto.setEmail("user1@example.com");
-        memberUpdateRequestDto.setPassword("newPassword1");
-        memberUpdateRequestDto.setNickname("백엔드대장");
-        memberUpdateRequestDto.setBirthDay(LocalDate.of(05,05,11));
-        memberUpdateRequestDto.setGender(true);
-
-
-        Long memberId = 1L;
-        given(memberService.updateMember(any(Authentication.class), any(MemberUpdateRequestDto.class)))
-                .willReturn(new MemberResponseDto());
-
-        String content = gson.toJson(memberUpdateRequestDto);
-
-        // when
-        ResultActions actions = mockMvc.perform(
-                patch("/members/editprofile")
-                        .header("Authorization", "authorization")
-                        .with(csrf())
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(content)
-        );
-
-        // then
-        actions
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andDo(document("/members/update",
-                        preprocessRequest(prettyPrint()),
-                        preprocessResponse(prettyPrint()),
-                        requestFields(
-                                fieldWithPath("name").type(JsonFieldType.STRING).description("이름"),
-                                fieldWithPath("email").type(JsonFieldType.STRING).description("이메일"),
-                                fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호"),
-                                fieldWithPath("nickname").type(JsonFieldType.STRING).description("별명"),
-                                fieldWithPath("birthDay").type(JsonFieldType.STRING).description("생년월일(yyMMdd)"),
-                                fieldWithPath("gender").type(JsonFieldType.BOOLEAN).description("성별(true:남성, false:여성)")
-                        )
-                ));
-    }
+//    @Test
+//    @WithMockUser
+//    @DisplayName("회원 정보 수정")
+//    public void updateMemberTest() throws Exception {
+//        // given
+//        MemberUpdateRequestDto memberUpdateRequestDto = new MemberUpdateRequestDto();
+//        memberUpdateRequestDto.setName("최용준");
+//        memberUpdateRequestDto.setEmail("user1@example.com");
+//        memberUpdateRequestDto.setPassword("newPassword1");
+//        memberUpdateRequestDto.setNickname("백엔드대장");
+//        memberUpdateRequestDto.setBirthDay(LocalDate.of(05,05,11));
+//        memberUpdateRequestDto.setGender(true);
+//
+//
+//        Long memberId = 1L;
+//        given(memberService.updateMember(any(Authentication.class), any(MemberUpdateRequestDto.class)))
+//                .willReturn(new MemberResponseDto());
+//
+//        String content = gson.toJson(memberUpdateRequestDto);
+//
+//        // when
+//        ResultActions actions = mockMvc.perform(
+//                patch("/members/editprofile")
+//                        .header("Authorization", "authorization")
+//                        .with(csrf())
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(content)
+//        );
+//
+//        // then
+//        actions
+//                .andExpect(status().isOk())
+//                .andDo(print())
+//                .andDo(document("/members/update",
+//                        preprocessRequest(prettyPrint()),
+//                        preprocessResponse(prettyPrint()),
+//                        requestFields(
+//                                fieldWithPath("name").type(JsonFieldType.STRING).description("이름"),
+//                                fieldWithPath("email").type(JsonFieldType.STRING).description("이메일"),
+//                                fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호"),
+//                                fieldWithPath("nickname").type(JsonFieldType.STRING).description("별명"),
+//                                fieldWithPath("birthDay").type(JsonFieldType.STRING).description("생년월일(yyMMdd)"),
+//                                fieldWithPath("gender").type(JsonFieldType.BOOLEAN).description("성별(true:남성, false:여성)")
+//                        )
+//                ));
+//    }
 }

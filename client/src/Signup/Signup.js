@@ -51,7 +51,7 @@ const Signup = () => {
       setEmailError('올바른 이메일 형식이 아닙니다.');
       return null;
     }
-    // 중복 확인 로직 작성_되는지 아직 점검 안해봄 =>됨=>백엔드와 통신해 볼 것.
+    // 중복 확인 로직 작성_되는지 아직 점검 안해봄 => 됨 => 백엔드와 통신해 볼 것.
     else {
       axios
         .get('members/join', {

@@ -164,7 +164,7 @@ const Signup = () => {
           value={email}
           onChange={handleEmailChange}
         />
-        <CheckDuplicateButton onClick={handleCheckDuplicateEmail}>
+        <CheckDuplicateButton type="button" onClick={handleCheckDuplicateEmail}>
           이메일 중복확인
         </CheckDuplicateButton>
         {emailError && <Error>{emailError}</Error>}
@@ -175,7 +175,10 @@ const Signup = () => {
           value={nickname}
           onChange={handleNicknameChange}
         />
-        <CheckDuplicateButton onClick={handleCheckDuplicateNickName}>
+        <CheckDuplicateButton
+          type="button"
+          onClick={handleCheckDuplicateNickName}
+        >
           활동명 중복확인
         </CheckDuplicateButton>
         {nicknameError && <Error>{nicknameError}</Error>}
@@ -238,7 +241,7 @@ const Signup = () => {
           value={confirmPassword}
           onChange={handleConfirmPasswordChange}
         />
-        <CheckPasswordButton onClick={handlePassword}>
+        <CheckPasswordButton type="button" onClick={handlePassword}>
           비밀번호 일치 여부 확인 버튼
         </CheckPasswordButton>
         {passwordError && <Error>{passwordError}</Error>}

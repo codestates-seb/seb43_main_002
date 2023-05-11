@@ -1,9 +1,19 @@
 import styled from 'styled-components';
 import { FaGoogle } from 'react-icons/fa';
 
-const LoginForm = styled.form`
+const LoginContainer = styled.div`
 justify-content: center;
 align- items: center;
+`;
+
+const Main = styled.p`
+justify-content: center;
+align- items: center;`;
+
+const LoginForm = styled.form`
+justify-content: center;
+align- items: botoom-start;
+margin: 20px;
 padding: 20px;
 `;
 
@@ -22,7 +32,7 @@ const Button = styled.button`
   margin-bottom: 10px;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 25px;
   cursor: pointer;
 
   &:hover {
@@ -76,6 +86,8 @@ const GoogleLogo = styled(FaGoogle)`
 `;
 
 export {
+  Main,
+  LoginContainer,
   LoginForm,
   Input,
   LoginButton,

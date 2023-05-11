@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import {
+  LoginContainer,
   LoginForm,
   Input,
   LoginButton,
@@ -84,43 +85,45 @@ const Login = () => {
   };
 
   return (
-    <LoginForm onSubmit={handleSubmit} noValidate>
-      <h1>Login</h1>
-      <Input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <Error>{validationEmail(email) ? null : emailError}</Error>
-      <Input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <Error>{validationPassword(password) ? null : passwordError}</Error>
-      <Error>{accessError}</Error>
-      <LoginButton type="submit">Login</LoginButton>
-      <Error>{fetchError}</Error>
-      <ForgotPasswordButton
-        type="button"
-        onClick={() => {
-          navigate('/signup');
-        }}
-      >
-        대충 만든 회원가입 버튼
-      </ForgotPasswordButton>
-      <GoogleLoginButton
-        type="button"
-        onClick={() => {
-          console.log('이자리가 맞니?');
-        }}
-      >
-        <GoogleLogo />
-        구글로 로그인
-      </GoogleLoginButton>
-    </LoginForm>
+    <LoginContainer>
+      <h1>Sign in now</h1>
+      <LoginForm onSubmit={handleSubmit} noValidate>
+        <Input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Error>{validationEmail(email) ? null : emailError}</Error>
+        <Input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Error>{validationPassword(password) ? null : passwordError}</Error>
+        <Error>{accessError}</Error>
+        <LoginButton type="submit">Login</LoginButton>
+        <Error>{fetchError}</Error>
+        <ForgotPasswordButton
+          type="button"
+          onClick={() => {
+            navigate('/signup');
+          }}
+        >
+          대충 만든 회원가입 버튼
+        </ForgotPasswordButton>
+        <GoogleLoginButton
+          type="button"
+          onClick={() => {
+            console.log('이자리가 맞니?');
+          }}
+        >
+          <GoogleLogo />
+          구글로 로그인
+        </GoogleLoginButton>
+      </LoginForm>
+    </LoginContainer>
   );
 };
 

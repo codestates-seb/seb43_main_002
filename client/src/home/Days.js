@@ -40,7 +40,7 @@ const Days = () => {
     setSelectedDateIndex(selectedDay);
   };
 
-  console.log(selectedDateIndex);
+  // console.log(selectedDateIndex);
   const filteredBoards = boards.filter((board) => {
     const boardDate = new Date(board.when).getDate();
     return boardDate === selectedDateIndex;

@@ -40,6 +40,7 @@ const PostModal = ({ isOpen, onClose }) => {
     who: '아무나',
     content: '',
     tag: '',
+    comment: [{}],
   });
 
   const handleIncrement = (e) => {
@@ -102,7 +103,7 @@ const PostModal = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (
       postBoard.food === '' ||

@@ -24,7 +24,27 @@
       "who": "여자만",
       "content": "피자먹을사람",
       "tag": "피자1,피자2,피자3",
-      "id": "_KNYGjY"
+      "id": "_KNYGjY",
+      "comment": [
+        {
+          "id": "1",
+          "member": {
+            "displayName": "zeereo",
+            "avatarLink": "없어"
+          },
+          "content": "댓글입력",
+          "updateDate": ""
+        }
+      ]
+    },
+    {
+      "memeber": {
+        "displyName": "zeeeeee",
+        "avatarLing": "아직미완"
+      },
+      "content": "잘됐니?",
+      "updateDate": "2023-05-11T11:42:58.827Z",
+      "id": "ji08pB_"
     },
     {
       "food": "햄버거",
@@ -79,6 +99,24 @@
       "content": "매워요",
       "tag": "맵다,정말",
       "id": "uZe5iMx"
+    },
+    {
+      "food": "식구구함",
+      "people": 6,
+      "when": "2023-05-17T08:50:37.000Z",
+      "who": "아무나",
+      "content": "맛있다",
+      "tag": "한명,나감",
+      "id": "vqDOxS1"
+    },
+    {
+      "food": "식구",
+      "people": 6,
+      "when": "2023-05-12T03:00:00.000Z",
+      "who": "아무나",
+      "content": "한명나감\n",
+      "tag": "백엔드,화이팅",
+      "id": "lxbNqvh"
     }
   ]
 }

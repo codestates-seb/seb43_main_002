@@ -51,6 +51,8 @@ dependencies {
 	// 테스트 + API 문서화 라이브러리
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+	// 문자열, 배열, 날짜 및 시간, 숫자 등의 조작 유틸리티
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
 }
 
 tasks.named('test') {

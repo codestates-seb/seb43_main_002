@@ -41,10 +41,22 @@ const CheckDuplicateButton = styled(Button)`
   margin-left: 10px;
 `;
 
+const CheckPasswordButton = styled(Button)`
+  width: auto;
+  margin-left: 10px;
+`;
+
 const Error = styled.p`
   color: red;
   font-size: 12px;
   margin-top: 3px;
 `;
 
-export { SignupForm, Input, SignupButton, CheckDuplicateButton, Error };
+export {
+  SignupForm,
+  Input,
+  SignupButton,
+  CheckDuplicateButton,
+  CheckPasswordButton,
+  Error,
+};

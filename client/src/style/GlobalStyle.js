@@ -4,8 +4,6 @@ export const GlobalStyle = createGlobalStyle`
    * {
     margin: 0;
     box-sizing: border-box;
-    font-size: 12pt;
-    padding: 0;
   }
 `;
 
@@ -19,4 +17,8 @@ export const GlobalWrap = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fffaed;
+
+  .hide {
+    visibility: hidden;
+  }
 `;

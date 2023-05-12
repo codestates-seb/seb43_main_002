@@ -8,6 +8,9 @@ import { useEffect, useState } from 'react';
 import { login } from './store/userSlice';
 import Signup from './Signup/Signup';
 import Map from './map/Map';
+import MyPage from './mypage/MyPage';
+import EditProfile from './mypage/EditProfile';
+import UserState from './mypage/UserState';
 
 function App() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -42,6 +45,15 @@ function App() {
           </Route>
           <Route path="/map" element={<PrivateRoute />}>
             <Route index element={<Map />} />
+          </Route>
+          <Route path="/mypage" element={<PrivateRoute />}>
+            <Route index element={<MyPage />} />
+          </Route>
+          <Route path="/editprofile" element={<PrivateRoute />}>
+            <Route index element={<EditProfile />} />
+          </Route>
+          <Route path="/state" element={<PrivateRoute />}>
+            <Route index element={<UserState />} />
           </Route>
         </Routes>
       </GlobalWrap>

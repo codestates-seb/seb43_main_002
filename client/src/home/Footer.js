@@ -12,11 +12,11 @@ const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handlePlusClick = () => {
-    setIsModalOpen(true); // 모달 열기
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false); // 모달 닫기
+    setIsModalOpen(false);
   };
 
   return (

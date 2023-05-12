@@ -15,7 +15,6 @@ const Days = () => {
   const today = now.getDate();
   const dayOfWeek = now.getDay();
 
-  // 현재 요일을 중심으로 요일 배열 재배열
   const reorderedDays = [
     ...daysOfWeek.slice(dayOfWeek),
     ...daysOfWeek.slice(0, dayOfWeek),

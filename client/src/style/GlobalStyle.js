@@ -4,13 +4,10 @@ export const GlobalStyle = createGlobalStyle`
    * {
     margin: 0;
     box-sizing: border-box;
-    font-size: 12pt;
-    padding: 20px;
   }
-  
 `;
 
-export const GlobalWrap = styled.form`
+export const GlobalWrap = styled.div`
   width: 400px;
   padding: 0px;
   height: 852px;
@@ -20,4 +17,8 @@ export const GlobalWrap = styled.form`
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fffaed;
+
+  .hide {
+    visibility: hidden;
+  }
 `;

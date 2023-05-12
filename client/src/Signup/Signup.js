@@ -2,6 +2,7 @@ import {
   SignupContainer,
   SignupForm,
   Input,
+  SignupTitle,
   SignupButton,
   CheckboxContainer,
   GenderCheckbox,
@@ -157,8 +158,8 @@ const Signup = () => {
 
   return (
     <SignupContainer>
-      <Text>Create Account</Text>
       <SignupForm onSubmit={handleSubmit} noValidate>
+        <SignupTitle>Create Account</SignupTitle>
         <Input
           type="email"
           placeholder="식구에서 사용하실 이메일을 입력해주세요."
@@ -253,9 +254,9 @@ const Signup = () => {
 
         <SignupButton type="submit">회원가입</SignupButton>
         {fetchError && <Error>{fetchError2}</Error>}
+        <FooterText>이미 식구이신가요?</FooterText>
+        <StyledLink to="/">지금 바로 여기를 눌러 로그인하세요.</StyledLink>
       </SignupForm>
-      <FooterText>이미 식구이신가요?</FooterText>
-      <StyledLink to="/">지금 바로 여기를 눌러 로그인하세요.</StyledLink>
     </SignupContainer>
   );
 };

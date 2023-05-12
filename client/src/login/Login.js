@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   LoginContainer,
   LoginForm,
+  LoginTitle,
   Input,
   LoginButton,
   GoogleLoginButton,
@@ -89,7 +90,7 @@ const Login = () => {
 
   return (
     <LoginContainer>
-      <h1>Sign in now</h1>
+      <LoginTitle>Sign in now</LoginTitle>
       <LoginForm onSubmit={handleSubmit} noValidate>
         <Input
           type="email"

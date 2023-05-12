@@ -23,12 +23,20 @@ margin: 20px, 20px;
 padding: 20px;
 `;
 
+const LoginTitle = styled.h1`
+  font-size: 30px;
+  color: orange;
+  text-align: center;
+  padding-bottom: 10px;
+`;
+
 const Input = styled.input`
   width: 100%;
+  background-color: #f5f6f7;
   margin: 10px 0;
   padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: none;
+  border-radius: 25px;
 `;
 
 const Button = styled.button`
@@ -110,6 +118,7 @@ export {
   Main,
   LoginContainer,
   LoginForm,
+  LoginTitle,
   Input,
   LoginButton,
   ForgotPasswordButton,

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const SignupContainer = styled.div`display: flex;
+const SignupContainer = styled.div`
+display: flex;
 height : 100%;
 flex-direction: column;
 justify-content: center;
@@ -12,6 +13,13 @@ const SignupForm = styled.form`
   justify-content: center;
   align-items: center;
   padding: 20px;
+`;
+
+const SignupTitle = styled.h1`
+  font-size: 45px;
+  color: orange;
+  text-align: center;
+  padding: 10px;
 `;
 
 const Input = styled.input`
@@ -73,7 +81,7 @@ const CheckboxLabel = styled.label`
   display: block;
   position: relative;
   padding-left: 30px;
-  margin: 0px;
+  margin: 10px;
   //여기서부터 다시
   cursor: pointer;
   font-size: 15px;
@@ -127,6 +135,8 @@ const Text = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 10px;
+  padding: 10px;
 `;
 
 const FooterText = styled.p`
@@ -149,6 +159,7 @@ export {
   SignupContainer,
   SignupForm,
   Input,
+  SignupTitle,
   SignupButton,
   CheckboxContainer,
   GenderCheckbox,

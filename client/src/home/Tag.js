@@ -60,7 +60,7 @@ const TagInput = styled.input`
 
 const Tag = ({ name, onChange }) => {
   Tag.propTypes = {
-    name: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
   };
   const [tagItem, setTagItem] = useState('');
@@ -68,6 +68,13 @@ const Tag = ({ name, onChange }) => {
 
   const onKeyPress = (e) => {
     if (e.target.value.length !== 0 && e.key === 'Enter') {
+      submitTagItem();
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
       submitTagItem();
     }
   };
@@ -96,6 +103,7 @@ const Tag = ({ name, onChange }) => {
           placeholder="Press enter to add tags"
           onChange={(e) => setTagItem(e.target.value)}
           value={tagItem}
+          onKeyDown={handleKeyDown}
           onKeyPress={onKeyPress}
         />
         {tagList.map((tagItem, index) => {

@@ -29,6 +29,7 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [nicknameError, setNicknameError] = useState('');
+  const [lengthError, setLengthError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [fetchError, setFetchError] = useState('');
   const [fetchError2, setFetchError2] = useState('');
@@ -46,6 +47,9 @@ const Signup = () => {
 
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
+    if (e.target.value.length > 9) {
+      setLengthError('8글자까지 입력 가능합니다.');
+    }
   };
 
   const handlePasswordChange = (e) => {
@@ -156,8 +160,6 @@ const Signup = () => {
     <>
       <Text>Create Account</Text>
       <SignupForm onSubmit={handleSubmit} noValidate>
-        {/*onSubmit={handleSubmit} 이 부분에서 문제가 생긴듯하다.
-        로그인 파트에서 알아보면 좋겟다고 한 부분도 이 부분이지 않을까 싶다. */}
         <Input
           type="email"
           placeholder="식구에서 사용하실 이메일을 입력해주세요."
@@ -171,7 +173,7 @@ const Signup = () => {
 
         <Input
           type="text"
-          placeholder="식구에서 사용하실 활동명을 입력해주세요."
+          placeholder="식구로 활동할 별명을 8글자까지 입력해주세요."
           value={nickname}
           onChange={handleNicknameChange}
         />
@@ -181,7 +183,9 @@ const Signup = () => {
         >
           활동명 중복확인
         </CheckDuplicateButton>
+        {/* 활동명에 제한을 두어야할까? */}
         {nicknameError && <Error>{nicknameError}</Error>}
+        {lengthError ? <Error>{lengthError}</Error> : null}
         <Text>본인의 성별을 알려주세요.</Text>
         <CheckboxContainer>
           <div>

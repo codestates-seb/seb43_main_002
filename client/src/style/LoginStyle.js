@@ -1,7 +1,10 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
 
 const LoginContainer = styled.div`
+display: flex;
+flex-direction: column;
 justify-content: center;
 align- items: center;
 `;
@@ -11,9 +14,11 @@ justify-content: center;
 align- items: center;`;
 
 const LoginForm = styled.form`
+display: flex;
+flex-direction: column;
 justify-content: center;
-align- items: botoom-start;
-margin: 20px;
+align- items: center;
+margin: 20px, 20px;
 padding: 20px;
 `;
 
@@ -69,6 +74,21 @@ const Error = styled.p`
   font-size: 12px;
   margin-top: 3px;
 `;
+const FooterText = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #979797;
+  padding: 7px;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffc257;
+`;
 
 const GoogleLoginButton = styled(Button)`
   background-color: #4285f4;
@@ -93,6 +113,8 @@ export {
   LoginButton,
   ForgotPasswordButton,
   Error,
+  FooterText,
+  StyledLink,
   GoogleLoginButton,
   GoogleLogo,
 };

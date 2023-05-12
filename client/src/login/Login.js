@@ -4,9 +4,10 @@ import {
   LoginForm,
   Input,
   LoginButton,
-  ForgotPasswordButton,
   GoogleLoginButton,
   Error,
+  FooterText,
+  StyledLink,
   GoogleLogo,
 } from '../style/LoginStyle';
 
@@ -105,14 +106,7 @@ const Login = () => {
         <Error>{accessError}</Error>
         <LoginButton type="submit">Login</LoginButton>
         <Error>{fetchError}</Error>
-        <ForgotPasswordButton
-          type="button"
-          onClick={() => {
-            navigate('/signup');
-          }}
-        >
-          대충 만든 회원가입 버튼
-        </ForgotPasswordButton>
+
         <GoogleLoginButton
           type="button"
           onClick={() => {
@@ -123,6 +117,8 @@ const Login = () => {
           구글로 로그인
         </GoogleLoginButton>
       </LoginForm>
+      <FooterText>아직 식구가 아니신가요?</FooterText>
+      <StyledLink to="/signup">지금 바로 여기를 눌러 가입하세요.</StyledLink>
     </LoginContainer>
   );
 };

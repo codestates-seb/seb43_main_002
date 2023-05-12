@@ -31,7 +31,7 @@ public class Member {
     @Column(name = "age", nullable = false)
     private String age;
     @Column(name = "gender", nullable = false, columnDefinition = "tinyint(1)")
-    private boolean gender;
+    private Boolean gender;
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private MemberStatus status = MemberStatus.MEMBER_ACTIVE;

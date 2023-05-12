@@ -41,7 +41,7 @@ export const ModalContent = styled.form`
 
 /////////////////////////////////////
 
-export const ModalHeadr = styled.div`
+export const ModalQurry = styled.div`
   padding: 10px;
   font-size: 18px;
 `;
@@ -51,11 +51,6 @@ export const ModalInput = styled.input`
   padding: 10px;
   font-size: 14px;
   border-radius: 5%;
-`;
-
-export const ModalPeople = styled.div`
-  padding: 10px;
-  font-size: 18px;
 `;
 
 export const ModalCount = styled.div`
@@ -74,21 +69,11 @@ export const ModalCountbutton = styled.button`
   height: 18px;
 `;
 
-export const ModalWhen = styled.div`
-  padding: 10px;
-  font-size: 18px;
-`;
-
 export const ModalWhenInput = styled.input`
   padding: 10px;
   width: 325px;
   font-size: 14px;
   border-radius: 5%;
-`;
-
-export const ModalWho = styled.div`
-  padding: 10px;
-  font-size: 18px;
 `;
 
 export const ModalWhoButtonWrap = styled.div`
@@ -105,10 +90,6 @@ export const ModalWhobutton = styled.button`
   height: 18px;
 `;
 
-export const ModalWhat = styled.div`
-  padding: 10px;
-  font-size: 18px;
-`;
 export const ModalText = styled.textarea`
   padding: 10px;
   width: 325px;

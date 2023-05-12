@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import { BoardWrap } from './HomeStyle';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { BiTimeFive } from 'react-icons/bi';
 import { FiUsers } from 'react-icons/fi';
 import Comment from './Comment';
+import PropTypes from 'prop-types';
 
 const SexInfomaitonWrap = styled.div`
   padding: 10px;
@@ -73,45 +74,50 @@ const PeopleWrap = styled.div`
   }
 `;
 
-const UserWrap = styled.span`
+const UserWrap = styled.div`
   padding: 0px;
+  width: 40px;
   margin-left: auto;
   border: 1px solid black;
   border-radius: 50%;
 `;
 
-const Board = () => {
-  const initialTag = ['햄버거', '맛집', '수원', '오후 7시'];
-  const [tags, setTags] = useState(initialTag);
-  // console.log(tags);
+const Board = ({ board }) => {
+  Board.propTypes = {
+    board: PropTypes.object.isRequired,
+  };
+  const tags = board.tag.split(',');
+
+  const now = new Date(board.when);
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  const hour = now.getHours();
+  const amPm = hour >= 12 ? '오후' : '오전';
+  const formattedDate = `${month}/${day}일 ${amPm} ${hour % 12}시`;
+  // console.log(board);
 
   return (
     <BoardWrap>
-      <SexInfomaitonWrap>누구나 참여 가능</SexInfomaitonWrap>
+      <SexInfomaitonWrap>{board.who}</SexInfomaitonWrap>
       <ContentWrap>
-        <ContentHeader>바질 크림 스파게티</ContentHeader>
-        <BoardContentWrap>
-          오늘 7시에 ##동 롯데리아로 신제품 햄버거 먹으러 가실 파티원 구합니다!
-          감튀 드실 분은 제 거 양보해 드릴 수 있어요!
-        </BoardContentWrap>
+        <ContentHeader>{board.food}</ContentHeader>
+        <BoardContentWrap>{board.content}</BoardContentWrap>
       </ContentWrap>
       <TagWrap>
-        {tags.map((tag, idx) => (
-          <TagBlock key={idx} setTags={setTags}>
-            {tag}
-          </TagBlock>
+        {tags.map((tag, index) => (
+          <TagBlock key={index}>{tag}</TagBlock>
         ))}
       </TagWrap>
       <SubmitWrap>
         <TimeWrap>
           <BiTimeFive />
-          오후 7시
+          {formattedDate}
         </TimeWrap>
         <PeopleWrap>
           <FiUsers />
-          3/6명
+          {board.people}
         </PeopleWrap>
-        <UserWrap>고양이</UserWrap>
+        <UserWrap>{board.member}</UserWrap>
       </SubmitWrap>
       <Comment></Comment>
     </BoardWrap>

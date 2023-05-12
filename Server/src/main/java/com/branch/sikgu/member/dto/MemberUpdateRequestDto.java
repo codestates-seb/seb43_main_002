@@ -19,6 +19,6 @@ public class MemberUpdateRequestDto {
     @NotBlank(message = "별명을 입력해주세요.")
     private String nickname;
     @NotBlank(message = "생년월일을 입력해주세요.")
-    private LocalDate birthDay;
+    private String birthday;
     private Boolean gender;
 }

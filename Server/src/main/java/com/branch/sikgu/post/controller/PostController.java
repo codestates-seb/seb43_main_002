@@ -54,9 +54,8 @@ public class PostController {
     }
 
     // 특정 멤버의 게시물 목록 조회 API
-    @GetMapping("/{member-id}")
+    @GetMapping("/member")
     public ResponseEntity<List<PostResponseDto.Response>> getPostsByMember(
-            @PathVariable("member-id") @Positive Long memberId,
             @RequestHeader(name = "Authorization") String authentication
     ) {
         List<PostResponseDto.Response> responseDtoList = postService.getPostsByMember(authentication);

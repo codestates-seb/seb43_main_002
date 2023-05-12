@@ -123,7 +123,7 @@ public class PostService {
 
     // 게시물 ID와 작성한 멤버 ID 가져오기
     private Post getPostByIdAndMember(Long postId, Long memberId) {
-        return postRepository.findByIdAndMemberMemberId(postId, memberId)
+        return postRepository.findByPostIdAndMemberMemberId(postId, memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_NOT_FOUND, HttpStatus.NOT_FOUND));
     }
 

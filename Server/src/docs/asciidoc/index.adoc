@@ -1,0 +1,89 @@
+= SikGu!
+:sectnums:
+:toc: left
+:toclevels: 4
+:toc-title: Table of Contents
+:source-highlighter: prettify
+
+
+
+v1.0.0, 2023.05.11
+
+// (4)
+***
+== MemberController
+=== 회원 등록 (/members/signup) POST
+.curl-request
+include::{snippets}/members/signup/curl-request.adoc[]
+
+.http-request
+include::{snippets}/members/signup/http-request.adoc[]
+
+.request-fields
+include::{snippets}/members/signup/request-fields.adoc[]
+
+.http-response
+include::{snippets}/members/signup/http-response.adoc[]
+
+.response-body
+include::{snippets}/members/signup/response-body.adoc[]
+
+.reponse-fields
+include::{snippets}/members/signup/response-fields.adoc[]
+
+=== 회원 정보 수정 (members/editprofile) PATCH
+.curl-request
+include::{snippets}/members/update/curl-request.adoc[]
+
+.http-request
+include::{snippets}/members/update/http-request.adoc[]
+
+.request-headers
+include::{snippets}/members/update/request-headers.adoc[]
+
+.request-fields
+include::{snippets}/members/update/request-fields.adoc[]
+
+.http-response
+include::{snippets}/members/update/http-response.adoc[]
+
+.response-body
+include::{snippets}/members/update/response-body.adoc[]
+
+.response-fields
+include::{snippets}/members/update/response-fields.adoc[]
+
+=== 회원 정보 조회 (/members/me) GET
+.curl-request
+include::{snippets}/members/get/curl-request.adoc[]
+
+.http-request
+include::{snippets}/members/get/http-request.adoc[]
+
+.request-headers
+include::{snippets}/members/get/request-headers.adoc[]
+
+.http-response
+include::{snippets}/members/get/http-response.adoc[]
+
+.response-body
+include::{snippets}/members/get/response-body.adoc[]
+
+.response-fields
+include::{snippets}/members/get/response-fields.adoc[]
+
+=== 회원 탈퇴 (/members) DELETE
+.curl-request
+include::{snippets}/members/delete/curl-request.adoc[]
+
+.http-request
+include::{snippets}/members/delete/http-request.adoc[]
+
+.request-headers
+include::{snippets}/members/delete/request-headers.adoc[]
+
+.http-response
+include::{snippets}/members/delete/http-response.adoc[]
+
+.response-body
+include::{snippets}/members/delete/response-body.adoc[]

@@ -14,7 +14,7 @@ public class MemberSignUpResponseDto {
     private String name;
     private String email;
     private String nickname;
-    private LocalDate birthDay;
+    private String birthday;
     private Boolean gender;
     private LocalDateTime createdAt;
 }

@@ -5,10 +5,7 @@ import com.branch.sikgu.post.dto.PostRequestDto;
 import com.branch.sikgu.post.dto.PostResponseDto;
 import com.branch.sikgu.post.entity.Post;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;

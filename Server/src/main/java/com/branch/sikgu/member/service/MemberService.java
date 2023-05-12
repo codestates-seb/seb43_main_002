@@ -4,14 +4,12 @@ import com.branch.sikgu.auth.jwt.JwtTokenizer;
 import com.branch.sikgu.exception.BusinessLogicException;
 import com.branch.sikgu.exception.ExceptionCode;
 import com.branch.sikgu.exception.HttpStatus;
-import com.branch.sikgu.member.dto.MemberResponseDto;
-import com.branch.sikgu.member.dto.MemberSignUpRequestDto;
-import com.branch.sikgu.member.dto.MemberSignUpResponseDto;
-import com.branch.sikgu.member.dto.MemberUpdateRequestDto;
+import com.branch.sikgu.member.dto.*;
 import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.member.mapper.MemberMapper;
 import com.branch.sikgu.member.repository.MemberRepository;
 import lombok.AllArgsConstructor;
+import org.hibernate.annotations.Check;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,6 +44,19 @@ public class MemberService {
         return memberMapper.memberToMemberSignUpResponseDto(member);
     }
 
+    // 회원가입시 이메일 중복 체크를 위해 작성했습니다. (AJAX?)
+    public boolean checkDuplicateEmail(String email) {
+        return memberRepository.existsByEmail(email);
+    }
+
+    public boolean checkDuplicateNickname(String nickname) {
+        return memberRepository.existsByNickname(nickname);
+    }
+
+    // img 경로 저장
+
+
+
     // 회원정보조회
     public MemberResponseDto findMember(Authentication authentication) {
         return memberMapper.memberToMemberResponseDto(findVerifiedMember(getCurrentMemberId(authentication)));
@@ -68,8 +80,8 @@ public class MemberService {
                 .ifPresent(password -> member.setPassword(passwordEncoder.encode(password)));
         Optional.ofNullable(memberUpdateRequestDto.getNickname())
                 .ifPresent(member::setNickname);
-        Optional.ofNullable(memberUpdateRequestDto.getBirthDay())
-                .ifPresent(member::setBirthDay);
+        Optional.ofNullable(memberUpdateRequestDto.getBirthday())
+                .ifPresent(member::setBirthday);
         Optional.ofNullable(memberUpdateRequestDto.getGender())
                 .ifPresent(member::setGender);
         memberRepository.save(member);
@@ -134,4 +146,20 @@ public class MemberService {
         return optionalMember.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND, HttpStatus.NOT_FOUND));
     }
+
+
+    @Transactional(readOnly = true)
+    public Member findMember(long memberId) {
+        return findVerifiedMember(memberId);
+    }
+
+    public List<Member> findAll() {
+        List<Member> members = memberRepository.findAll();
+        if (members.isEmpty()) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND, HttpStatus.NOT_FOUND);
+        }
+        return members;
+    }
+
+
 }

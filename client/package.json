@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "cors": "^2.8.5",
+    "date-fns": "^2.30.0",
     "http-proxy-middleware": "^2.0.6",
     "json-server": "^0.17.3",
     "jwt-decode": "^3.1.2",
@@ -54,5 +55,5 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0"
   },
-  "proxy": "https://e560-14-72-7-98.ngrok-free.app/"
+  "proxy": "https://e264-14-72-7-98.ngrok-free.app/"
 }

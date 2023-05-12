@@ -4,6 +4,7 @@ import { FaGoogle } from 'react-icons/fa';
 
 const LoginContainer = styled.div`
 display: flex;
+height : 100%;
 flex-direction: column;
 justify-content: center;
 align- items: center;

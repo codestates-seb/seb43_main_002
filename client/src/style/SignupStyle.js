@@ -1,6 +1,13 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+const SignupContainer = styled.div`display: flex;
+height : 100%;
+flex-direction: column;
+justify-content: center;
+align- items: center;
+`;
+
 const SignupForm = styled.form`
   justify-content: center;
   align-items: center;
@@ -66,9 +73,10 @@ const CheckboxLabel = styled.label`
   display: block;
   position: relative;
   padding-left: 30px;
-  margin: 12px;
+  margin: 0px;
+  //여기서부터 다시
   cursor: pointer;
-  font-size: 20px;
+  font-size: 15px;
   user-select: none;
 
   input {
@@ -81,14 +89,14 @@ const CheckboxLabel = styled.label`
     position: absolute;
     top: 0;
     left: 0;
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
     background-color: #ccc;
     border-radius: 50%;
   }
 
   &:hover input ~ span {
-    background-color: #ccc;
+    background-color: #9c9c9c;
   }
 
   input:checked ~ span {
@@ -138,6 +146,7 @@ const StyledLink = styled(Link)`
 `;
 
 export {
+  SignupContainer,
   SignupForm,
   Input,
   SignupButton,

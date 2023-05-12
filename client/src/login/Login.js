@@ -42,7 +42,9 @@ const Login = () => {
         if (token) {
           const decoded = jwt_decode(token);
           const user = {
-            username: decoded.username,
+            email: decoded.email,
+            memberId: decoded.memberId,
+            roles: decoded.roles,
           };
 
           sessionStorage.setItem('user', JSON.stringify(user)); // 세션스토리지에 user정보 저장
@@ -104,6 +106,7 @@ const Login = () => {
         />
         <Error>{validationPassword(password) ? null : passwordError}</Error>
         <Error>{accessError}</Error>
+
         <LoginButton type="submit">Login</LoginButton>
         <Error>{fetchError}</Error>
 

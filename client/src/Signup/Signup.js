@@ -1,4 +1,5 @@
 import {
+  SignupContainer,
   SignupForm,
   Input,
   SignupButton,
@@ -76,48 +77,42 @@ const Signup = () => {
     if (!validationEmail(email)) {
       setEmailError('올바른 이메일 형식이 아닙니다.');
       return null;
-    }
-    // 중복 확인 로직 작성_되는지 아직 점검 안해봄 => 됨 => 백엔드와 통신해 볼 것.
-    else {
+    } else {
       axios
-        .get('members/회원정보 모아 놓은 곳', {
+        .post('members/signup/checkduplicateemail', {
           email,
         })
         .then((response) => {
-          const alreadyExistEmail = response.data.find(
-            (user) => user.email === email
-          );
-          if (alreadyExistEmail) {
-            setEmailError('이미 가입된 이메일입니다.');
-          } else {
-            alert('사용 가능한 이메일입니다.');
+          if (response.data === false) {
+            alert('사용 가능한 메일입니다.');
+            console.log('이게 되네?');
+          } else if (response.data === true) {
+            alert('이미 사용중인 메일입니다.');
+            console.log('중복된 이메일임');
           }
         })
         .catch((error) => {
-          setFetchError('인터넷 연결을 확인하세요.');
+          setFetchError('인터넷 연결을 확인하세요.', error);
           console.log('연결 안됨0');
         });
     }
   };
 
-  const handleCheckDuplicateNickName = () => {
+  const handleCheckDuplicateNickname = () => {
     axios
-      .get('members/회원정보 모아 놓은 곳', {
+      .post('members/signup/checkduplicatenickname', {
         nickname,
       })
       .then((response) => {
-        const alreadyExistNickName = response.data.find(
-          (user) => user.nickname === nickname
-        );
-        if (alreadyExistNickName) {
-          setNicknameError('이미 가입된 활동명입니다.');
-        } else {
+        if (response.data === false) {
           alert('사용 가능한 활동명입니다.');
+        } else {
+          setNicknameError('이미 활동중인 식구이름입니다.');
         }
       })
       .catch((error) => {
         setFetchError('인터넷 연결을 확인하세요.');
-        console.log('연결 안됨1');
+        console.log('연결 안됨1', error);
       });
   };
 
@@ -147,17 +142,21 @@ const Signup = () => {
         gender,
       })
       .then((response) => {
-        alert('회원가입이 성공적으로 완료되었습니다.');
-        navigate('/');
+        if (response.status === 201) {
+          alert('회원가입이 성공적으로 완료되었습니다.');
+          navigate('/');
+        } else {
+          alert('뭔가 문제가 있습니다.');
+        }
       })
       .catch((error) => {
         setFetchError2('인터넷 연결을 확인하세요.2');
-        console.log('연결안됨2;');
+        console.log('연결안됨2;', error);
       });
   };
 
   return (
-    <>
+    <SignupContainer>
       <Text>Create Account</Text>
       <SignupForm onSubmit={handleSubmit} noValidate>
         <Input
@@ -179,7 +178,7 @@ const Signup = () => {
         />
         <CheckDuplicateButton
           type="button"
-          onClick={handleCheckDuplicateNickName}
+          onClick={handleCheckDuplicateNickname}
         >
           활동명 중복확인
         </CheckDuplicateButton>
@@ -202,7 +201,7 @@ const Signup = () => {
                 }}
               />
               <span></span>{' '}
-              {/* 이 span은 styled-components로 디자인한 체크박스를 대신하는 역할을 합니다 */}
+              {/* 이 span은 styled-components로 디자인한 체크박스를 대신하는 역할 */}
               남자
             </CheckboxLabel>
           </div>
@@ -220,7 +219,7 @@ const Signup = () => {
                 }}
               />
               <span></span>{' '}
-              {/* 이 span은 styled-components로 디자인한 체크박스를 대신하는 역할을 합니다 */}
+              {/* 이 span은 styled-components로 디자인한 체크박스를 대신하는 역할 */}
               여자
             </CheckboxLabel>
           </div>
@@ -249,20 +248,15 @@ const Signup = () => {
           비밀번호 일치 여부 확인 버튼
         </CheckPasswordButton>
         {passwordError && <Error>{passwordError}</Error>}
-        <Text>본인의 주민등록번호 앞 6자리를 입력해주세요.</Text>
-        <Input
-          type="text"
-          placeholder="예) 2022년 7월 1일 생 = 220701"
-          value={birthday}
-          onChange={handleBirthday}
-        />
+        <Text>생년월일을 입력해주세요.</Text>
+        <Input type="date" value={birthday} onChange={handleBirthday} />
 
         <SignupButton type="submit">회원가입</SignupButton>
         {fetchError && <Error>{fetchError2}</Error>}
       </SignupForm>
       <FooterText>이미 식구이신가요?</FooterText>
       <StyledLink to="/">지금 바로 여기를 눌러 로그인하세요.</StyledLink>
-    </>
+    </SignupContainer>
   );
 };
 

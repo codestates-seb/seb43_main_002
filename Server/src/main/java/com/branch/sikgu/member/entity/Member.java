@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,6 +26,12 @@ public class Member {
     private String email;
     @Column(name = "password", nullable = false)
     private String password;
+    @Column(name = "nickname", nullable = false)
+    private String nickname;
+    @Column(name = "age", nullable = false)
+    private String age;
+    @Column(name = "gender", nullable = false, columnDefinition = "tinyint(1)")
+    private Boolean gender;
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private MemberStatus status = MemberStatus.MEMBER_ACTIVE;
@@ -31,10 +39,7 @@ public class Member {
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    @Column(name = "gender", nullable = false, columnDefinition = "tinyint(1)")
-    private boolean gender;
-    @Column(name = "age_range", nullable = false)
-    private String ageRange;
+
 
     public enum MemberStatus {
         MEMBER_ACTIVE("활동 중"),
@@ -53,4 +58,8 @@ public class Member {
             this.createdAt = LocalDateTime.now();
         }
     }
+    // 시큐리티 역할 관리를 위해 추가...
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
 }

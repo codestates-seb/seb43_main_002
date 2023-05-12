@@ -95,6 +95,20 @@ const StateButton = styled.button`
   font-size: 10px;
 `;
 
+const CommentInputWrap = styled.div`
+  display: flex;
+`;
+
+const CommentInput = styled.input`
+  padding: 10px;
+  flex: 1;
+`;
+
+const CommentButton = styled.button`
+  background-color: #ffb44a;
+  padding: 10px;
+`;
+
 const Board = ({ board }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -115,7 +129,39 @@ const Board = ({ board }) => {
   const hour = now.getHours();
   const amPm = hour >= 12 ? '오후' : '오전';
   const formattedDate = `${month}/${day}일 ${amPm} ${hour % 12}시`;
-  // console.log(board);
+  const date = new Date();
+  const [addComment, setAddcomment] = useState('');
+  const handleCommentChange = (e) => {
+    setAddcomment(e.target.value);
+  };
+  console.log(board);
+  const handleComment = (e) => {
+    e.preventDefault();
+    const newComment = {
+      member: {
+        displayName: 'zeeeeee',
+        avatarLink: '아직미완',
+      },
+      content: addComment,
+      updateDate: date.toISOString(),
+      id: board.comment.length + 1,
+    };
+    const updatedBoard = {
+      comment: [...board.comment, newComment],
+    };
+    axios
+      .post(`http://localhost:8080/boards/${board.id}/comment`, updatedBoard)
+      .then((res) => {
+        console.log('Comment Success');
+        setAddcomment('');
+      })
+
+      .catch((error) => {
+        console.error('Comment Error', error);
+      });
+    console.log(updatedBoard);
+  };
+
   const handleDelete = () => {
     axios
       .delete(`http://localhost:8080/boards/${board.id}`)
@@ -127,7 +173,6 @@ const Board = ({ board }) => {
         console.error('게시물 삭제 중 오류가 발생했습니다.', error);
       });
   };
-
   return (
     <>
       <BoardWrap>
@@ -156,7 +201,17 @@ const Board = ({ board }) => {
             <StateButton onClick={handleDelete}>삭제</StateButton>
           </ButtonWrap>
         </SubmitWrap>
-        <Comment></Comment>
+        {!!board.comment &&
+          board.comment.map((comment) => (
+            <Comment key={comment.id} board={board} comment={comment} />
+          ))}
+        <CommentInputWrap>
+          <CommentInput
+            onChange={handleCommentChange}
+            placeholder="댓글 입력"
+          />
+          <CommentButton onClick={handleComment}>작성</CommentButton>
+        </CommentInputWrap>
       </BoardWrap>
       <EditModal
         isOpen={isModalOpen}

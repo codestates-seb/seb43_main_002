@@ -67,7 +67,7 @@ const Days = () => {
       </DayWrap>
       <BoardsWrap>
         {filteredBoards.map((board, idx) => (
-          <Board key={idx} board={board} />
+          <Board key={idx} board={board} setBoards={setBoards} />
         ))}
       </BoardsWrap>
     </>

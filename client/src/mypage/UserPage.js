@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Mobile,
   BackGround,
@@ -11,15 +11,18 @@ import {
 } from '../style/MypageStyle';
 import axios from 'axios';
 
-const MyPage = () => {
+const UserPage = () => {
+  const { userId } = useParams();
   const navigate = useNavigate();
 
   const [data, setData] = useState();
+  const [like, setLike] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     axios
       // 로그인 된 유저의 id를 어떻게 가져와야 할지.. API 문서가 있어야 알 거 같음.
-      .get('http://localhost:3001/members/1', {
+      .get(`/members/${userId}`, {
         headers: {
           'Content-Type': `application/json`,
           'ngrok-skip-browser-warning': '69420',
@@ -27,24 +30,26 @@ const MyPage = () => {
       })
       .then((response) => {
         setData(response.data);
+        setLike(response.data.like);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
 
-  function handleEidt() {
-    navigate('/editprofile');
-  }
-
   function handleUser(userId) {
-    // 이곳에서 다른 유저 페이지로 넘어가야 함.
-    // 다른 유저는 연필모양 대신 하트모양이 있고, 누르면 like가 오르게 해야한다.
     navigate(`/members/${userId}`);
   }
 
   // 로그인 한 유저의 정보와 mypage 유저의 정보가 일치하는 조건문이 필요함.
   // 이 부분은 아무래도 얘기를 좀 더 해봐야할 거 같다.
+  function handleLike() {
+    setIsLiked(true);
+
+    let copy = like;
+    copy += 1;
+    setLike(copy);
+  }
 
   return (
     <>
@@ -64,7 +69,9 @@ const MyPage = () => {
               <ul>
                 <li>
                   {data.nickname}
-                  <button onClick={handleEidt}>🖊</button>
+                  <button onClick={handleLike} disabled={isLiked}>
+                    ♥
+                  </button>
                 </li>
                 <li>{data.intro}</li>
                 <li>
@@ -135,4 +142,4 @@ const MyPage = () => {
   );
 };
 
-export default MyPage;
+export default UserPage;

@@ -11,6 +11,7 @@ import Map from './map/Map';
 import MyPage from './mypage/MyPage';
 import EditProfile from './mypage/EditProfile';
 import UserState from './mypage/UserState';
+import UserPage from './mypage/UserPage';
 
 function App() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -46,7 +47,7 @@ function App() {
           <Route path="/map" element={<PrivateRoute />}>
             <Route index element={<Map />} />
           </Route>
-          <Route path="/mypage" element={<PrivateRoute />}>
+          {/* <Route path="/mypage" element={<PrivateRoute />}>
             <Route index element={<MyPage />} />
           </Route>
           <Route path="/editprofile" element={<PrivateRoute />}>
@@ -54,7 +55,11 @@ function App() {
           </Route>
           <Route path="/state" element={<PrivateRoute />}>
             <Route index element={<UserState />} />
-          </Route>
+          </Route> */}
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/editprofile" element={<EditProfile />} />
+          <Route path="/state" element={<UserState />} />
+          <Route path="/members/:userId" element={<UserPage />} />
         </Routes>
       </GlobalWrap>
     </>

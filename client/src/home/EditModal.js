@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ModalWrap,
@@ -31,30 +31,29 @@ const ModalDay = styled(DatePicker)`
   text-align: center;
 `;
 
-const PostModal = ({ isOpen, onClose }) => {
+const EditModal = ({ isOpen, onClose, board }) => {
+  const [editedBoard, setEditedBoard] = useState(board);
   const [startDate, setStartDate] = useState(new Date());
-  const [postBoard, setPostBoard] = useState({
-    food: '',
-    people: 0,
-    when: startDate,
-    who: '아무나',
-    content: '',
-    tag: '',
-    comment: [],
-  });
+
+  //   console.log(editedBoard.tag);
 
   const handleIncrement = (e) => {
     e.preventDefault();
-    setPostBoard((prevBoard) => ({
+    setEditedBoard((prevBoard) => ({
       ...prevBoard,
       people: prevBoard.people + 1,
     }));
   };
 
+  useEffect(() => {
+    setEditedBoard({ ...board });
+    setStartDate(new Date());
+  }, [board]);
+
   const handleDecrement = (e) => {
     e.preventDefault();
-    if (postBoard.people > 0) {
-      setPostBoard((prevBoard) => ({
+    if (editedBoard.people > 0) {
+      setEditedBoard((prevBoard) => ({
         ...prevBoard,
         people: prevBoard.people - 1,
       }));
@@ -63,15 +62,15 @@ const PostModal = ({ isOpen, onClose }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setPostBoard({
-      ...postBoard,
+    setEditedBoard((prevBoard) => ({
+      ...prevBoard,
       [name]: value,
-    });
+    }));
   };
 
   const handleDateChange = (date) => {
     setStartDate(date);
-    setPostBoard((prevBoard) => ({
+    setEditedBoard((prevBoard) => ({
       ...prevBoard,
       when: date,
     }));
@@ -79,42 +78,40 @@ const PostModal = ({ isOpen, onClose }) => {
 
   const handleWhoChange = (e) => {
     e.preventDefault();
-    switch (postBoard.who) {
+    let updatedWho = '';
+
+    switch (editedBoard.who) {
       case '아무나':
-        setPostBoard((prevBoard) => ({
-          ...prevBoard,
-          who: '여자만',
-        }));
+        updatedWho = '여자만';
         break;
       case '여자만':
-        setPostBoard((prevBoard) => ({
-          ...prevBoard,
-          who: '남자만',
-        }));
+        updatedWho = '남자만';
         break;
       case '남자만':
-        setPostBoard((prevBoard) => ({
-          ...prevBoard,
-          who: '아무나',
-        }));
+        updatedWho = '아무나';
         break;
       default:
         break;
     }
+
+    setEditedBoard((prevBoard) => ({
+      ...prevBoard,
+      who: updatedWho,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
-      postBoard.food === '' ||
-      postBoard.people === 0 ||
-      postBoard.content === ''
+      editedBoard.food === '' ||
+      editedBoard.people === 0 ||
+      editedBoard.content === ''
     ) {
       alert('모든 곳을 입력해주세요.');
       return;
     }
     axios
-      .post('http://localhost:8080/boards', postBoard)
+      .patch(`http://localhost:8080/boards/${board.id}`, editedBoard)
       .then(() => {
         console.log('게시물이 성공적으로 작성되었습니다.');
         onClose();
@@ -131,21 +128,25 @@ const PostModal = ({ isOpen, onClose }) => {
     onClose();
   };
 
-  PostModal.propTypes = {
+  EditModal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
+    board: PropTypes.object.isRequired,
   };
-  // console.log(startDate);
 
   return (
     <ModalWrap isOpen={isOpen}>
       <ModalContent onSubmit={handleSubmit}>
         <ModalQurry>같이 먹을 음식은?</ModalQurry>
-        <ModalInput name="food" onChange={handleChange}></ModalInput>
+        <ModalInput
+          name="food"
+          onChange={handleChange}
+          value={editedBoard.food}
+        ></ModalInput>
         <ModalQurry>같이 먹을 인원은?</ModalQurry>
         <ModalCount name="people" onChange={handleChange}>
           <ModalCountbutton onClick={handleDecrement}>-</ModalCountbutton>
-          <span>{postBoard.people}</span>
+          <span>{editedBoard.people}</span>
           <ModalCountbutton onClick={handleIncrement}>+</ModalCountbutton>
         </ModalCount>
         <ModalQurry>언제 먹을까?</ModalQurry>
@@ -163,14 +164,18 @@ const PostModal = ({ isOpen, onClose }) => {
         <ModalQurry>누구랑 먹을까?</ModalQurry>
         <ModalWhoButtonWrap>
           <ModalWhobutton onClick={handleWhoChange}></ModalWhobutton>
-          <span>{postBoard.who}</span>
+          <span>{editedBoard.who}</span>
           <ModalWhobutton onClick={handleWhoChange}></ModalWhobutton>
         </ModalWhoButtonWrap>
         <ModalQurry>추가로 입력할 정보는?</ModalQurry>
-        <ModalText name="content" onChange={handleChange}></ModalText>
-        <Tag name="tag" onChange={handleChange}></Tag>
+        <ModalText
+          name="content"
+          onChange={handleChange}
+          value={editedBoard.content}
+        ></ModalText>
+        <Tag name="tag" onChange={handleChange} value={editedBoard.tag}></Tag>
         <ModalButtonWrap>
-          <ModalButton type="submit">작성하기</ModalButton>
+          <ModalButton type="submit">수정하기</ModalButton>
           <ModalButton onClick={handleCancel}>취소하기</ModalButton>
         </ModalButtonWrap>
       </ModalContent>
@@ -178,4 +183,4 @@ const PostModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default PostModal;
+export default EditModal;

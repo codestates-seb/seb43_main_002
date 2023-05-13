@@ -1,23 +1,24 @@
-package com.branch.sikgu.post.dto;
+package com.branch.sikgu.board.dto;
 
-import com.branch.sikgu.post.entity.Post;
+import com.branch.sikgu.board.entity.Board;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-public class PostResponseDto {
+public class BoardResponseDto {
     @Getter
     @AllArgsConstructor
     public static class Response{
-        private long memberId;
-        private long postId;
+        private Long memberId;
+        private Long boardId;
         private String title;
         private String body;
         private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
 
         private int total;
-        private Post.PassedGender passedGender;
+        private Board.PassedGender passedGender;
         private LocalDateTime mealTime;
     }
 }

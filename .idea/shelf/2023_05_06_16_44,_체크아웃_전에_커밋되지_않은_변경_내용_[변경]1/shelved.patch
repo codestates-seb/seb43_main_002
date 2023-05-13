@@ -1,0 +1,54 @@
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"zulu-11\" project-jdk-type=\"JavaSDK\">\n    <output url=\"file://$PROJECT_DIR$/out\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	
++++ b/.idea/misc.xml	
+@@ -1,6 +1,9 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ExternalStorageConfigurationManager" enabled="true" />
++  <component name="FrameworkDetectionExcludesConfiguration">
++    <file type="web" url="file://$PROJECT_DIR$/Server/sikgu" />
++  </component>
+   <component name="ProjectRootManager" version="2" project-jdk-name="zulu-11" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectModuleManager\">\n    <modules>\n      <module fileurl=\"file://$PROJECT_DIR$/.idea/seb43_main_002.iml\" filepath=\"$PROJECT_DIR$/.idea/seb43_main_002.iml\" />\n    </modules>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+--- a/.idea/modules.xml	
++++ b/.idea/modules.xml	
+@@ -3,6 +3,7 @@
+   <component name="ProjectModuleManager">
+     <modules>
+       <module fileurl="file://$PROJECT_DIR$/.idea/seb43_main_002.iml" filepath="$PROJECT_DIR$/.idea/seb43_main_002.iml" />
++      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sickgu.main.iml" filepath="$PROJECT_DIR$/.idea/modules/sickgu.main.iml" />
+     </modules>
+   </component>
+ </project>
+\ No newline at end of file
+diff --git a/Server/sickgu/settings.gradle b/Server/sikgu/settings.gradle
+rename from Server/sickgu/settings.gradle
+rename to Server/sikgu/settings.gradle
+diff --git a/Server/sickgu/build.gradle b/Server/sikgu/build.gradle
+rename from Server/sickgu/build.gradle
+rename to Server/sikgu/build.gradle
+diff --git a/Server/sickgu/.gitignore b/Server/sikgu/.gitignore
+rename from Server/sickgu/.gitignore
+rename to Server/sikgu/.gitignore
+diff --git a/Server/sickgu/gradle/wrapper/gradle-wrapper.properties b/Server/sikgu/gradle/wrapper/gradle-wrapper.properties
+rename from Server/sickgu/gradle/wrapper/gradle-wrapper.properties
+rename to Server/sikgu/gradle/wrapper/gradle-wrapper.properties
+diff --git a/Server/sickgu/src/main/resources/application.properties b/Server/sikgu/src/main/resources/application.properties
+rename from Server/sickgu/src/main/resources/application.properties
+rename to Server/sikgu/src/main/resources/application.properties

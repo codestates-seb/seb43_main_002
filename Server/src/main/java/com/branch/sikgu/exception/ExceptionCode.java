@@ -5,9 +5,10 @@ public enum ExceptionCode {
     INVALID_PASSWORD("잘못된 비밀번호입니다."),
     INVALID_TOKEN("유효한 토큰이 아닙니다."),
 
-    // Post
-    POST_NOT_FOUND("해당 포스트를 찾을 수 없습니다."),
-    INACTIVED_POST("비활성화 된 게시물입니다."),
+    // Board
+    BOARD_NOT_FOUND("해당 포스트를 찾을 수 없습니다."),
+    INACTIVE_BOARD("비활성화된 게시물입니다."),
+    DELETED_BOARD("삭제된 게시물입니다."),
 
     //Member & Auth Exception
     MEMBER_NOT_FOUND("Member not found"),

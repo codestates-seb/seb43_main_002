@@ -1,22 +1,27 @@
-package com.branch.sikgu.post.dto;
+package com.branch.sikgu.board.dto;
 
+import com.branch.sikgu.board.entity.Board;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
-public class PostRequestDto {
+public class BoardPostDto {
+    @Setter
     @Getter
     @AllArgsConstructor
-    public static class Request {
+    @NoArgsConstructor
+    public static class Post {
         @NotBlank
         private String title;
         @NotBlank
         private String body;
 
         private int total;
-        private com.branch.sikgu.post.entity.Post.PassedGender passedGender;
+        private Board.PassedGender passedGender;
         private LocalDateTime mealTime;
     }
 }

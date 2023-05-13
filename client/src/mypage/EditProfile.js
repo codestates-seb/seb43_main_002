@@ -48,13 +48,23 @@ const EditProfile = () => {
 
   const profileChange = (e) => {
     if (e.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setProfileImage(reader.result);
-        }
-      };
-      reader.readAsDataURL(e.target.files[0]);
+      const formData = new FormData();
+      formData.append('file', e.target.files[0], e.target.files[0].name);
+
+      axios
+        .post('/members/images/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then((response) => {
+          console.log(response.data); // 이미지 업로드 성공 시 서버에서 전송한 응답 데이터
+          setProfileImage(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+          console.log(error.response.data);
+        });
     }
   };
 

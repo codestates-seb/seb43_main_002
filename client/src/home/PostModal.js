@@ -40,7 +40,7 @@ const PostModal = ({ isOpen, onClose }) => {
     who: '아무나',
     content: '',
     tag: '',
-    comment: [{}],
+    comment: [],
   });
 
   const handleIncrement = (e) => {

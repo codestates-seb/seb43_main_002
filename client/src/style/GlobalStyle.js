@@ -4,6 +4,16 @@ export const GlobalStyle = createGlobalStyle`
    * {
     margin: 0;
     box-sizing: border-box;
+<<<<<<< HEAD
+    font-size: 12pt;
+    padding: 0;
+    overflow-y: auto;
+    max-height: 60vh;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+=======
+>>>>>>> fb3ac14afdac12fbaed76a3bc8c300a20d99ac08
   }
 `;
 

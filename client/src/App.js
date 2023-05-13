@@ -19,9 +19,10 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedUSer = sessionStorage.getItem('user');
-    if (storedUSer) {
-      dispatch(login(JSON.parse(storedUSer)));
+    const storedUser = sessionStorage.getItem('user');
+    const storedToken = sessionStorage.getItem('jwt');
+    if (storedUser && storedToken) {
+      dispatch(login(storedUser));
     }
     setLoading(false);
   }, [dispatch]);
@@ -40,7 +41,6 @@ function App() {
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Login />} />
-
           <Route path="/boards" element={<PrivateRoute />}>
             <Route index element={<Main />} />
           </Route>

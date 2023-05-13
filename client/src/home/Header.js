@@ -17,6 +17,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const handleLogout = () => {
     sessionStorage.removeItem('user');
+    sessionStorage.removeItem('jwt');
     dispatch(logout());
   };
 

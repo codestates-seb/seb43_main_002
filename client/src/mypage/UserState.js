@@ -18,6 +18,8 @@ const UserState = () => {
   const [user, setUser] = useState();
 
   const [isOpen, setIsOpen] = useState(true);
+  const [postId, setPostId] = useState();
+  const [isActive, setIsActive] = useState(false);
   const [popup, setPopup] = useState(false);
   const [modal, setModal] = useState(false);
 
@@ -33,7 +35,12 @@ const UserState = () => {
       });
 
     axios
-      .get('http://localhost:3001/members')
+      .get('/members/all', {
+        headers: {
+          'Content-Type': `application/json`,
+          'ngrok-skip-browser-warning': '69420',
+        },
+      })
       .then((response) => {
         setUser(response.data);
       })
@@ -56,7 +63,7 @@ const UserState = () => {
 
     const comment = userReviews[userId];
     axios
-      .post(`http://localhost:3001/members`, {
+      .post(`/members/all`, {
         name: `테스트`,
         img: `테스트`,
         comment,
@@ -74,7 +81,7 @@ const UserState = () => {
   const handleLike = (userId) => {
     // PUT 메소드로 해당 유저의 like 값을 1 증가시키는 요청을 보내기
     axios
-      .patch(`http://localhost:3001/members/${userId}`, {
+      .patch(`/${userId}`, {
         //user.id와 같은 값을 가진 데이터를 찾아서 like를 업데이트 시켜준다.
         like: user.find((el) => el.id === userId).like + 1,
       })
@@ -100,11 +107,17 @@ const UserState = () => {
     }
   }
 
-  function handlePopup() {
+  function handlePopup(postId) {
+    setPostId(postId);
     setPopup(!popup);
   }
 
   function handleModalTrue() {
+    setData((prevData) =>
+      prevData.map((el) => (el.id === postId ? { ...el, state: true } : el))
+    );
+
+    setIsActive(postId);
     setModal(!modal);
     setPopup(false);
   }
@@ -129,9 +142,10 @@ const UserState = () => {
           </Title>
           <Posts>
             {data.map((el, idx) => {
+              const isDisabled = isActive === el.id || postId === el.id;
               return (
                 <div className="post" key={idx}>
-                  <div className={el.state === 1 ? 'before' : 'complete'}></div>
+                  <div className={el.state ? 'complete' : 'before'}></div>
                   <div>
                     <ul>
                       <li>{el.title}</li>
@@ -141,7 +155,12 @@ const UserState = () => {
                       </li>
                     </ul>
                   </div>
-                  <button onClick={handlePopup}>〉</button>
+                  <button
+                    onClick={() => handlePopup(el.id)}
+                    disabled={isDisabled || el.state}
+                  >
+                    〉
+                  </button>
                 </div>
               );
             })}
@@ -198,6 +217,7 @@ const UserState = () => {
                         <input
                           placeholder="한 줄 평가를 입력하세요."
                           onChange={(e) => handleReviewChange(el.id, e)}
+                          maxLength="20"
                         />
                         <button onClick={() => handleReviewSubmit(el.id)}>
                           확인

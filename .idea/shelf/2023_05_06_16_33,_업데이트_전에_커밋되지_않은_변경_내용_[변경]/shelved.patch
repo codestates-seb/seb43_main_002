@@ -1,0 +1,337 @@
+Index: Server/sickgu/src/main/resources/application.properties
+===================================================================
+diff --git a/Server/sickgu/src/main/resources/application.properties b/Server/sickgu/src/main/resources/application.properties
+deleted file mode 100644
+--- a/Server/sickgu/src/main/resources/application.properties	(revision 9b548f42243234dc20daecc7e050fe3194502ea9)
++++ /dev/null	(revision 9b548f42243234dc20daecc7e050fe3194502ea9)
+@@ -1,1 +0,0 @@
+-
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectRootManager\">\n    <output url=\"file://$PROJECT_DIR$/out\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 9b548f42243234dc20daecc7e050fe3194502ea9)
++++ b/.idea/misc.xml	(date 1683266604936)
+@@ -1,6 +1,10 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager">
++  <component name="ExternalStorageConfigurationManager" enabled="true" />
++  <component name="FrameworkDetectionExcludesConfiguration">
++    <file type="web" url="file://$PROJECT_DIR$/Server/sickgu" />
++  </component>
++  <component name="ProjectRootManager" version="2" project-jdk-name="11" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: Server/src/main/java/com/branch/sickgu/post/entity/Post.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Server/src/main/java/com/branch/sickgu/post/entity/Post.java b/Server/src/main/java/com/branch/sickgu/post/entity/Post.java
+new file mode 100644
+--- /dev/null	(date 1683270391400)
++++ b/Server/src/main/java/com/branch/sickgu/post/entity/Post.java	(date 1683270391400)
+@@ -0,0 +1,29 @@
++package com.branch.sickgu.post.entity;
++
++import lombok.Getter;
++import lombok.NoArgsConstructor;
++import lombok.Setter;
++
++import javax.persistence.*;
++import java.time.LocalDateTime;
++
++@Getter
++@Setter
++@Entity
++@NoArgsConstructor
++public class Post {
++
++    @Id
++    @GeneratedValue(strategy = GenerationType.IDENTITY)
++    private Long postId;
++
++    @Column
++    private String title;
++
++    @Column
++    private String body;
++
++    @Column
++    private LocalDateTime createdAt = LocalDateTime.now();
++
++}
+Index: Server/sickgu/src/main/java/com/branch/sickgu/ServletInitializer.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Server/sickgu/src/main/java/com/branch/sickgu/ServletInitializer.java b/Server/src/main/java/com/branch/sickgu/ServletInitializer.java
+rename from Server/sickgu/src/main/java/com/branch/sickgu/ServletInitializer.java
+rename to Server/src/main/java/com/branch/sickgu/ServletInitializer.java
+--- a/Server/sickgu/src/main/java/com/branch/sickgu/ServletInitializer.java	(revision 9b548f42243234dc20daecc7e050fe3194502ea9)
++++ b/Server/src/main/java/com/branch/sickgu/ServletInitializer.java	(date 1683186119330)
+@@ -9,5 +9,4 @@
+ 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+ 		return application.sources(SickguApplication.class);
+ 	}
+-
+ }
+Index: Server/src/main/java/com/branch/sickgu/response/ErrorResponse.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Server/src/main/java/com/branch/sickgu/response/ErrorResponse.java b/Server/src/main/java/com/branch/sickgu/response/ErrorResponse.java
+new file mode 100644
+--- /dev/null	(date 1683275576794)
++++ b/Server/src/main/java/com/branch/sickgu/response/ErrorResponse.java	(date 1683275576794)
+@@ -0,0 +1,26 @@
++package com.branch.sickgu.response;
++
++
++import com.undefined14.pre.exception.ExceptionCode;
++import lombok.AllArgsConstructor;
++import lombok.Getter;
++import org.springframework.http.HttpStatus;
++
++@Getter
++@AllArgsConstructor
++public class ErrorResponse {
++    private int status;
++    private String message;
++
++    public static ErrorResponse of(ExceptionCode exceptionCode) {
++        return new ErrorResponse(exceptionCode.getStatus(), exceptionCode.getMessage());
++    }
++
++    public static ErrorResponse of(HttpStatus httpStatus) {
++        return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase());
++    }
++
++    public static ErrorResponse of(HttpStatus httpStatus, String message) {
++        return new ErrorResponse(httpStatus.value(), message);
++    }
++}
+\ No newline at end of file
+Index: Server/src/main/java/com/branch/sickgu/member/entity/Member.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Server/src/main/java/com/branch/sickgu/member/entity/Member.java b/Server/src/main/java/com/branch/sickgu/member/entity/Member.java
+new file mode 100644
+--- /dev/null	(date 1683270391392)
++++ b/Server/src/main/java/com/branch/sickgu/member/entity/Member.java	(date 1683270391392)
+@@ -0,0 +1,4 @@
++package com.branch.sickgu.member.entity;
++
++public class Member {
++}
+Index: Server/src/main/java/com/branch/sickgu/group/entity/Group.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Server/src/main/java/com/branch/sickgu/group/entity/Group.java b/Server/src/main/java/com/branch/sickgu/group/entity/Group.java
+new file mode 100644
+--- /dev/null	(date 1683270391394)
++++ b/Server/src/main/java/com/branch/sickgu/group/entity/Group.java	(date 1683270391394)
+@@ -0,0 +1,4 @@
++package com.branch.sickgu.group.entity;
++
++public class Group {
++}
+Index: Server/src/main/java/com/branch/sickgu/comment/entity/Comment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Server/src/main/java/com/branch/sickgu/comment/entity/Comment.java b/Server/src/main/java/com/branch/sickgu/comment/entity/Comment.java
+new file mode 100644
+--- /dev/null	(date 1683270391388)
++++ b/Server/src/main/java/com/branch/sickgu/comment/entity/Comment.java	(date 1683270391388)
+@@ -0,0 +1,4 @@
++package com.branch.sickgu.comment.entity;
++
++public class Comment {
++}
+Index: Server/src/main/java/com/branch/sickgu/tag/entity/Tag.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Server/src/main/java/com/branch/sickgu/tag/entity/Tag.java b/Server/src/main/java/com/branch/sickgu/tag/entity/Tag.java
+new file mode 100644
+--- /dev/null	(date 1683270391396)
++++ b/Server/src/main/java/com/branch/sickgu/tag/entity/Tag.java	(date 1683270391396)
+@@ -0,0 +1,4 @@
++package com.branch.sickgu.tag.entity;
++
++public class Tag {
++}
+Index: Server/src/main/java/com/branch/sickgu/myPage/entity/MyPage.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Server/src/main/java/com/branch/sickgu/myPage/entity/MyPage.java b/Server/src/main/java/com/branch/sickgu/myPage/entity/MyPage.java
+new file mode 100644
+--- /dev/null	(date 1683270391402)
++++ b/Server/src/main/java/com/branch/sickgu/myPage/entity/MyPage.java	(date 1683270391402)
+@@ -0,0 +1,4 @@
++package com.branch.sickgu.myPage.entity;
++
++public class MyPage {
++}
+Index: Server/src/main/resources/application.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Server/src/main/resources/application.yml b/Server/src/main/resources/application.yml
+new file mode 100644
+--- /dev/null	(date 1683273333156)
++++ b/Server/src/main/resources/application.yml	(date 1683273333156)
+@@ -0,0 +1,72 @@
++spring:
++  output:
++    ansi:
++      enabled: ALWAYS
++
++  config:
++    use-legacy-processing: true
++
++  jpa:
++    hibernate:
++      # ddl-auto: update
++      ddl-auto: create  # (1) ??? ?? ??
++    show-sql: true      # (2) SQL ?? ??
++    properties:
++      hibernate:
++        format_sql: true
++        highlight_sql: true
++        color-codes: true
++        use_sql_comments: true
++        type:
++          descriptor:
++            sql: trace
++  datasource:
++    driver-class-name:
++    url: jdbc:mysql://localhost:3306/sickgu
++    username: root
++    password: ${MYSQL_SECRET_KEY}
++
++  security:
++    oauth2:
++      client:
++        registration:
++          kakao:
++            client-id: ${REST_API_KEY}
++            redirect-uri: http://localhost:3000/login/oauth2/kakao
++            authorization-grant-type: authorization_code
++            client-authentication-method: POST
++            client-name: Kakao
++            scope:
++              - profile_image
++              - account_email
++              - gender
++              - age_range
++        provider:
++          kakao:
++            authorization-uri: https://kauth.kakao.com/oauth/authorize
++            token-uri: https://kauth.kakao.com/oauth/token
++            user-info-uri: https://kapi.kakao.com/v2/user/me
++            user-name-attribute: id
++
++server:
++  servlet:
++    encoding:
++      force-response: true
++
++logging:
++  level:
++    org:
++      springframework:
++        orm:
++          jpa: debug
++
++      hibernate:
++        SQL: debug
++        type:
++          descriptor:
++            sql:
++              BasicBinder: trace
++jwt:
++  key: ${JWT_SECRET_KEY}               # ??? ??? ??? ?? ???? ????.
++  access-token-expiration-minutes: 30
++  refresh-token-expiration-minutes: 420
+\ No newline at end of file
+Index: Server/sickgu/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Server/sickgu/build.gradle b/Server/build.gradle
+rename from Server/sickgu/build.gradle
+rename to Server/build.gradle
+--- a/Server/sickgu/build.gradle	(revision 9b548f42243234dc20daecc7e050fe3194502ea9)
++++ b/Server/build.gradle	(date 1683275640804)
+@@ -21,11 +21,23 @@
+ 
+ dependencies {
+ 	implementation 'org.springframework.boot:spring-boot-starter-web'
++	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
++	implementation group: 'org.springframework.security', name: 'spring-security-oauth2-client', version: '5.6.3'
++	implementation 'org.springframework.boot:spring-boot-starter-security'
++	implementation 'com.google.code.gson:gson'
+ 	compileOnly 'org.projectlombok:lombok'
+ 	runtimeOnly 'com.mysql:mysql-connector-j'
+ 	annotationProcessor 'org.projectlombok:lombok'
+ 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+ 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
++
++	//Spring Security 적용
++	implementation 'org.springframework.boot:spring-boot-starter-security'
++
++	// JWT를 위한 jjwt 라이브러리
++	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
++	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
++	runtimeOnly	'io.jsonwebtoken:jjwt-jackson:0.11.5'
+ }
+ 
+ tasks.named('test') {
+diff --git a/Server/sickgu/src/main/java/com/branch/tag/entity/Tag.java b/Server/sickgu/src/main/java/com/branch/tag/entity/Tag.java
+deleted file mode 100644
+diff --git a/Server/sickgu/src/main/java/com/branch/group/entity/Group.java b/Server/sickgu/src/main/java/com/branch/group/entity/Group.java
+deleted file mode 100644
+diff --git a/Server/sickgu/src/main/java/com/branch/member/entity/Member.java b/Server/sickgu/src/main/java/com/branch/member/entity/Member.java
+deleted file mode 100644
+diff --git a/Server/sickgu/src/main/java/com/branch/board/comment/entity/Comment.java b/Server/sickgu/src/main/java/com/branch/board/comment/entity/Comment.java
+deleted file mode 100644
+diff --git a/Server/sickgu/src/main/java/com/branch/board/post/entity/Post.java b/Server/sickgu/src/main/java/com/branch/board/post/entity/Post.java
+deleted file mode 100644
+diff --git a/Server/sickgu/src/main/java/com/branch/myPage/entity/MyPage.java b/Server/sickgu/src/main/java/com/branch/myPage/entity/MyPage.java
+deleted file mode 100644
+diff --git a/Server/sickgu/gradle/wrapper/gradle-wrapper.properties b/Server/gradle/wrapper/gradle-wrapper.properties
+rename from Server/sickgu/gradle/wrapper/gradle-wrapper.properties
+rename to Server/gradle/wrapper/gradle-wrapper.properties
+diff --git a/Server/sickgu/src/test/java/com/branch/sickgu/SickguApplicationTests.java b/Server/src/test/java/com/branch/sickgu/SickguApplicationTests.java
+rename from Server/sickgu/src/test/java/com/branch/sickgu/SickguApplicationTests.java
+rename to Server/src/test/java/com/branch/sickgu/SickguApplicationTests.java
+diff --git a/Server/sickgu/src/main/java/com/branch/sickgu/SickguApplication.java b/Server/src/main/java/com/branch/sickgu/SickguApplication.java
+rename from Server/sickgu/src/main/java/com/branch/sickgu/SickguApplication.java
+rename to Server/src/main/java/com/branch/sickgu/SickguApplication.java
+diff --git a/Server/sickgu/settings.gradle b/Server/settings.gradle
+rename from Server/sickgu/settings.gradle
+rename to Server/settings.gradle
+diff --git a/Server/sickgu/.gitignore b/Server/.gitignore
+rename from Server/sickgu/.gitignore
+rename to Server/.gitignore

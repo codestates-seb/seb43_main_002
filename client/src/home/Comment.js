@@ -1,15 +1,14 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchBoards } from '../store/boardSlice';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteComment, updateComment } from '../store/boardSlice';
 
 const CommentsWrap = styled.div`
   margin-top: 10px;
   padding: 10px 0px 0px 10px;
   border-top: 1px solid black;
   display: flex;
-  flex-direction: column;
 `;
 
 const CommentProfileWrap = styled.div`
@@ -17,83 +16,84 @@ const CommentProfileWrap = styled.div`
   border: 1px solid black;
   border-radius: 50%;
 `;
-const CommentWrap = styled.div`
-  padding: 0px;
-  display: flex;
-`;
+
 const CommentNameWrap = styled.h2`
   padding: 0px;
 `;
+
 const CommentContentWrap = styled.div`
   padding: 0px;
 `;
 
-const CommentInputWrap = styled.div`
-  display: flex;
-`;
-
-const CommentInput = styled.input`
-  padding: 10px;
-  flex: 1;
+const CommentStateWrap = styled.div`
+  padding: 0px;
 `;
 
 const CommentButton = styled.button`
-  background-color: #ffb44a;
-  padding: 10px;
+  background-color: pink;
 `;
 
-const Comment = () => {
-  const date = new Date();
-  const [addComment, setAddcomment] = useState('');
+const Comment = ({ board, comment }) => {
+  Comment.propTypes = {
+    board: PropTypes.object.isRequired,
+    comment: PropTypes.object.isRequired,
+  };
+
+  const [editing, setEditing] = useState(false);
+  const [content, setContent] = useState(comment.content);
   const dispatch = useDispatch();
-  const boards = useSelector((state) => state.board);
 
-  useEffect(() => {
-    dispatch(fetchBoards());
-  }, [dispatch]);
-
-  const handleCommentChange = (e) => {
-    setAddcomment(e.target.value);
+  const handleEdit = () => {
+    setEditing(true);
   };
-  const handleComment = (e) => {
-    e.preventDefault();
-    const newCommnent = {
-      memeber: {
-        displyName: 'zeeeeee',
-        avatarLing: '아직미완',
-      },
-      content: addComment,
-      updateDate: date,
-    };
-    axios
-      .post('http://localhost:8080/boards', newCommnent)
-      .then((res) => {
-        console.log('Comment Success');
-        setAddcomment([...addComment, res.data]);
-        // navigate(0);
-      })
-      .catch((error) => {
-        console.error('Comment Error', error);
-      });
-  };
-  // const commentExample = boards.comment;
 
-  console.log(boards);
+  const handleCancelEdit = () => {
+    setEditing(false);
+    setContent(comment.content);
+  };
+
+  const handleSave = () => {
+    dispatch(
+      updateComment({ boardId: board.id, commentId: comment.id, content })
+    );
+    setEditing(false);
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteComment({ boardId: board.id, commentId: comment.id }));
+  };
 
   return (
-    <CommentsWrap>
-      <CommentWrap>
-        <CommentProfileWrap></CommentProfileWrap>
-        <div>
-          <CommentNameWrap>닉네임</CommentNameWrap>
-          <CommentContentWrap>내용</CommentContentWrap>
-        </div>
-      </CommentWrap>
-      <CommentInputWrap>
-        <CommentInput onChange={handleCommentChange} placeholder="댓글 입력" />
-        <CommentButton onClick={handleComment}>작성</CommentButton>
-      </CommentInputWrap>
-    </CommentsWrap>
+    <>
+      {!!comment.content && (
+        <CommentsWrap>
+          <CommentProfileWrap>{comment.member?.avatarLink}</CommentProfileWrap>
+          <div>
+            <CommentNameWrap>{comment.member?.displayName}</CommentNameWrap>
+            {editing ? (
+              <>
+                <textarea
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                ></textarea>
+                <div>
+                  <button onClick={handleSave}>저장</button>
+                  <button onClick={handleCancelEdit}>취소</button>
+                </div>
+              </>
+            ) : (
+              <>
+                <CommentContentWrap>{comment.content}</CommentContentWrap>
+                <CommentStateWrap>
+                  <CommentButton onClick={handleEdit}>수정</CommentButton>
+                  <CommentButton onClick={handleDelete}>삭제</CommentButton>
+                </CommentStateWrap>
+              </>
+            )}
+          </div>
+        </CommentsWrap>
+      )}
+    </>
   );
 };
 

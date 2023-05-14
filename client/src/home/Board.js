@@ -109,9 +109,18 @@ const CommentButton = styled.button`
   padding: 10px;
 `;
 
+const CommentOpenButton = styled.button`
+  padding: 5px;
+  margin-left: auto;
+`;
+
 const Board = ({ board }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [commentOpen, setCommentOpen] = useState(false);
   const navigate = useNavigate();
+  const handleOpen = () => {
+    setCommentOpen(!commentOpen);
+  };
   const handlePlusClick = () => {
     setIsModalOpen(true);
   };
@@ -176,6 +185,7 @@ const Board = ({ board }) => {
   return (
     <>
       <BoardWrap>
+        <CommentOpenButton onClick={handleOpen}>+</CommentOpenButton>
         <SexInfomaitonWrap>{board.who}</SexInfomaitonWrap>
         <ContentWrap>
           <ContentHeader>{board.food}</ContentHeader>
@@ -201,17 +211,21 @@ const Board = ({ board }) => {
             <StateButton onClick={handleDelete}>삭제</StateButton>
           </ButtonWrap>
         </SubmitWrap>
-        {!!board.comment &&
-          board.comment.map((comment) => (
-            <Comment key={comment.id} board={board} comment={comment} />
-          ))}
-        <CommentInputWrap>
-          <CommentInput
-            onChange={handleCommentChange}
-            placeholder="댓글 입력"
-          />
-          <CommentButton onClick={handleComment}>작성</CommentButton>
-        </CommentInputWrap>
+        {commentOpen && (
+          <>
+            {board.comment &&
+              board.comment.map((comment) => (
+                <Comment key={comment.id} board={board} comment={comment} />
+              ))}
+            <CommentInputWrap>
+              <CommentInput
+                onChange={handleCommentChange}
+                placeholder="댓글 입력"
+              />
+              <CommentButton onClick={handleComment}>작성</CommentButton>
+            </CommentInputWrap>
+          </>
+        )}
       </BoardWrap>
       <EditModal
         isOpen={isModalOpen}

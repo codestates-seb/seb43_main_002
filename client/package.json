@@ -63,7 +63,7 @@
     "eslint-plugin-react-hooks": "^4.6.0"
   },
 
-  "proxy": "https://e264-14-72-7-98.ngrok-free.app/"
+  "proxy": "http:localhost:8080/"
 
 
 }

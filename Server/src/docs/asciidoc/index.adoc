@@ -28,7 +28,7 @@ include::{snippets}/members/signup/http-response.adoc[]
 .response-body
 include::{snippets}/members/signup/response-body.adoc[]
 
-.reponse-fields
+.response-fields
 include::{snippets}/members/signup/response-fields.adoc[]
 
 === 회원 정보 수정 (members/editprofile) PATCH

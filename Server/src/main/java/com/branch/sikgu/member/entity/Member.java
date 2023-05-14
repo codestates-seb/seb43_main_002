@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class Member {
     @Column(name = "nickname", nullable = false)
     private String nickname;
     @Column(name = "birthday", nullable = false)
-    private String birthday;
+    private LocalDate birthday;
     @Column(name = "gender", nullable = false, columnDefinition = "tinyint(1)")
     private Boolean gender;
     @Enumerated(EnumType.STRING)

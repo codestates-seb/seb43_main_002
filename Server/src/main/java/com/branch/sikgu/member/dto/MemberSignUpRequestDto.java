@@ -13,6 +13,6 @@ public class MemberSignUpRequestDto {
     private String email;
     private String password;
     private String nickname;
-    private String birthday;
+    private LocalDate birthday;
     private Boolean gender;
 }

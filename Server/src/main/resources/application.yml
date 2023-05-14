@@ -25,6 +25,6 @@ logging:
     root: DEBUG
 # BASE_URL 설정 추가
 myapp:
-  img-path: ${IMG-PATH}
-
+#  img-path: ${IMG-PATH}
+   img-path: C:\Users\SYJ\Desktop\seb43_main_002\Server\src\main\resources\static
 

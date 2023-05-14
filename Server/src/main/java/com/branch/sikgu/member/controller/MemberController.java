@@ -45,6 +45,7 @@ public class MemberController {
         return ResponseEntity.ok(false); // 200 status code
     }
 
+    // 닉네임 중복 검사 버튼
     @PostMapping("signup/checkduplicatenickname")
     public ResponseEntity<Boolean> checkNickname(@RequestBody NicknameCheckRequestDto requestDTO) {
         boolean isDuplicateNickname = memberService.checkDuplicateEmail(requestDTO.getNickname());
@@ -61,15 +62,6 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(memberResponseDto);
     }
 
-//    @GetMapping("/{member-id}")
-//    public ResponseEntity getMember(
-//            @PathVariable("member-id") @Positive Long memberId) {
-//        Member member = memberService.findMember(memberId);
-//        return ResponseEntity.ok(memberMapper.memberToMemberResponse(member));
-//    }
-
-    // 회원정보조회 (로그인 안된 상태로 회원정보 조회하기)
-
 
     // 회원정보수정
     @PatchMapping("/editprofile")
@@ -80,7 +72,7 @@ public class MemberController {
     }
 
     // 회원 탈퇴 -> DB에서 삭제는 하지 않고 status만 변경
-    @DeleteMapping
+    @DeleteMapping("/delete")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMember(Authentication authentication) {
         memberService.deleteMember(authentication);

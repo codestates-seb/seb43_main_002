@@ -18,10 +18,6 @@ public interface MemberMapper {
 
     MemberResponseDto memberToMemberResponseDto(Member member);
 
-    MemberResponseDto memberToMemberResponseDtoWithoutSensitiveInfo(MemberResponseDto member);
-
-    List<MemberResponseDto> memberToMemberList(List<Member> members);
-
     List<MemberResponseDto> membersToMemberResponseDtos(List<Member> members);
 
 

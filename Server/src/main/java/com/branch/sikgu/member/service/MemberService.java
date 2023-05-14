@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,9 @@ public class MemberService {
         if (memberRepository.existsByEmail(memberSignUpRequestDto.getEmail())) {
             throw new BusinessLogicException(ExceptionCode.DUPLICATE_EMAIL, HttpStatus.CONFLICT);
         }
+        if (memberRepository.existsByNickname(memberSignUpRequestDto.getNickname())) {
+            throw new BusinessLogicException(ExceptionCode.DUPLICATE_NICKNAME, HttpStatus.CONFLICT);
+        }
 
         String encodedPassword = passwordEncoder.encode(memberSignUpRequestDto.getPassword());
         memberSignUpRequestDto.setPassword(encodedPassword);
@@ -49,12 +53,10 @@ public class MemberService {
         return memberRepository.existsByEmail(email);
     }
 
+    // 회원가입시 닉네임 중복 체크를 위해 작성했습니다.
     public boolean checkDuplicateNickname(String nickname) {
         return memberRepository.existsByNickname(nickname);
     }
-
-    // img 경로 저장
-
 
 
     // 회원정보조회
@@ -79,16 +81,24 @@ public class MemberService {
         Optional.ofNullable(memberUpdateRequestDto.getPassword())
                 .ifPresent(password -> member.setPassword(passwordEncoder.encode(password)));
         Optional.ofNullable(memberUpdateRequestDto.getNickname())
-                .ifPresent(member::setNickname);
+                .ifPresent(nickname -> {
+                    if (!member.getNickname().equals(nickname) && memberRepository.existsByNickname(nickname)) {
+                        throw new BusinessLogicException(ExceptionCode.DUPLICATE_NICKNAME, HttpStatus.CONFLICT);
+                    }
+                    member.setNickname(nickname);
+                });
         Optional.ofNullable(memberUpdateRequestDto.getBirthday())
                 .ifPresent(member::setBirthday);
         Optional.ofNullable(memberUpdateRequestDto.getGender())
                 .ifPresent(member::setGender);
+
+        member.setUpdatedAt(LocalDateTime.now());
         memberRepository.save(member);
 
         // 회원정보를 수정해도 현재 가지고 있는 Authentication은 로그인 시점의 회원정보를 담고 있어서 회원정보 수정 이후 서비스 이용이 불가
         // 그래서 Authentication의 회원정보를 수정해 줘야 하는데 일반적으로 Principal 속성이 읽기 전용이기 때문에 직접 변경이 불가
         // 결국 새로운 회원정보를 담고있는 Authentication을 만들어서 SecurityContextHolder의 기존 Authentication을 새로운 Authentication로 덮어씌워야 하는 것 같다.
+        // ----------------회원의 EMAIL을 고유 식별자로 정해야할 것 같습니다. 변경 불가하게 수정 예정-------------------------
         UsernamePasswordAuthenticationToken newAuthentication = new UsernamePasswordAuthenticationToken(member, authentication.getCredentials(), authentication.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(newAuthentication);
         return memberMapper.memberToMemberResponseDto(member);

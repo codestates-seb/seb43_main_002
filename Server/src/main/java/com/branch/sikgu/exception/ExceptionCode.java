@@ -2,6 +2,7 @@ package com.branch.sikgu.exception;
 
 public enum ExceptionCode {
     DUPLICATE_EMAIL("중복된 이메일입니다."),
+    DUPLICATE_NICKNAME("중복된 닉네임입니다."),
     INVALID_PASSWORD("잘못된 비밀번호입니다."),
     INVALID_TOKEN("유효한 토큰이 아닙니다."),
 

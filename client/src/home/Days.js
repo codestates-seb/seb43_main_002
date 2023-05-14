@@ -6,14 +6,17 @@ import {
   DayNumberWrap,
   BoardsWrap,
 } from './HomeStyle';
-import axios from 'axios';
 import Board from './Board';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBoards } from '../store/boardSlice';
 
 const Days = () => {
   const now = new Date();
   const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   const today = now.getDate();
   const dayOfWeek = now.getDay();
+  const dispatch = useDispatch();
+  const boards = useSelector((state) => state.board.boards);
 
   const reorderedDays = [
     ...daysOfWeek.slice(dayOfWeek),
@@ -21,25 +24,16 @@ const Days = () => {
   ];
 
   const [selectedDateIndex, setSelectedDateIndex] = useState(today);
-  const [boards, setBoards] = useState([]);
 
   useEffect(() => {
-    axios
-      .get('http://localhost:8080/boards')
-      .then((res) => {
-        setBoards(res.data);
-      })
-      .catch((error) => {
-        console.error('게시글 불러오기 실패:', error);
-      });
-  }, []);
+    dispatch(fetchBoards());
+  }, [dispatch]);
 
   const handleClick = (index) => {
     const selectedDay = today + index;
     setSelectedDateIndex(selectedDay);
   };
 
-  // console.log(selectedDateIndex);
   const filteredBoards = boards.filter((board) => {
     const boardDate = new Date(board.when).getDate();
     return boardDate === selectedDateIndex;
@@ -67,7 +61,7 @@ const Days = () => {
       </DayWrap>
       <BoardsWrap>
         {filteredBoards.map((board, idx) => (
-          <Board key={idx} board={board} setBoards={setBoards} />
+          <Board key={idx} board={board} />
         ))}
       </BoardsWrap>
     </>

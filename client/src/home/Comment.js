@@ -33,10 +33,11 @@ const CommentButton = styled.button`
   background-color: pink;
 `;
 
-const Comment = ({ board, comment }) => {
+const Comment = ({ board, comment, handlePeople }) => {
   Comment.propTypes = {
     board: PropTypes.object.isRequired,
     comment: PropTypes.object.isRequired,
+    handlePeople: PropTypes.string.isRequired,
   };
 
   const [editing, setEditing] = useState(false);
@@ -67,7 +68,13 @@ const Comment = ({ board, comment }) => {
     <>
       {!!comment.content && (
         <CommentsWrap>
-          <CommentProfileWrap>{comment.member?.avatarLink}</CommentProfileWrap>
+          <div>
+            <CommentProfileWrap>
+              {comment.member?.avatarLink}
+            </CommentProfileWrap>
+            <CommentButton>수락</CommentButton>
+            <CommentButton>거절</CommentButton>
+          </div>
           <div>
             <CommentNameWrap>{comment.member?.displayName}</CommentNameWrap>
             {editing ? (

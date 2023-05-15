@@ -4,53 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09fddecd-4d33-4be8-96e9-4bd8e69fc688" name="변경" comment="Post 작성 - Test 전">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_33,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_33,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_33,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_33,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_33__________.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]1/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]1/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]1/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]1/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44__________.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44__________1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_17_12,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_17_12,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_17_12,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]1/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_17_12,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]1/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_17_12__________.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_17_48,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_17_48__________.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/.gradle/7.6.1/checksums/checksums.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/.gradle/7.6.1/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/.gradle/7.6.1/dependencies-accessors/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/.gradle/7.6.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/.gradle/7.6.1/fileChanges/last-build.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/.gradle/7.6.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/.gradle/7.6.1/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/.gradle/vcs-1/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/Board/BoardRestDocsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/filter/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/filter/JwtAuthenticationFilter.java" afterDir="false" />
+    <list default="true" id="09fddecd-4d33-4be8-96e9-4bd8e69fc688" name="변경" comment="Comment 작성&#10;Board 일부 수정">
+      <change afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/controller/CommentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/dto/CommentDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/mapper/CommentMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/repository/CommentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/service/CommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]1/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]1/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]1/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44__________1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_17_48,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_17_48__________.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/controller/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/dto/BoardPostDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/entity/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/entity/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/mapper/BoardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/mapper/BoardMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/service/BoardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/entity/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/entity/Comment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/exception/ExceptionCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/exception/ExceptionCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/controller/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/dto/PostPatchDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/dto/BoardPatchDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/dto/PostRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/dto/BoardPostDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/dto/PostResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/dto/BoardResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/entity/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/entity/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/mapper/PostMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/mapper/BoardMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/repository/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/repository/BoardRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/service/BoardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/Board/BoardRestDocsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/Board/BoardRestDocsTest.java" afterDir="false" />
+    </list>
+    <list id="dbeadf4f-c196-4440-954d-02f04367a6e7" name="SYJ 님이 변경한 내용" comment="">
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/dto/BoardPatchDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/dto/BoardResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/Board/BoardRestDocsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/Board/BoardRestDocsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +69,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -95,7 +77,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feat/todo_post" />
+        <entry key="$PROJECT_DIR$" value="feat/todo_comment" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -115,11 +97,11 @@
                 <list>
                   <RecentBranch>
                     <option name="branchName" value="dev" />
-                    <option name="lastUsedInstant" value="1683609956" />
+                    <option name="lastUsedInstant" value="1684140511" />
                   </RecentBranch>
                   <RecentBranch>
-                    <option name="branchName" value="feat/todo_post" />
-                    <option name="lastUsedInstant" value="1683609940" />
+                    <option name="branchName" value="feat/todo_comment" />
+                    <option name="lastUsedInstant" value="1684076060" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="main" />
@@ -141,6 +123,32 @@
         <option name="url" value="https://github.com/dydwns9436/seb43_main_002" />
       </UrlAndAccount>
     </option>
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/Board/BoardRestDocsTest.java">
+      <ranges>
+        <range start1="3" end1="6" start2="3" end2="4" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
+        <range start1="8" end1="9" start2="6" end2="6" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
+        <range start1="23" end1="24" start2="20" end2="20" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
+        <range start1="26" end1="27" start2="22" end2="22" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
+        <range start1="29" end1="30" start2="24" end2="24" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
+        <range start1="71" end1="73" start2="65" end2="67" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
+        <range start1="80" end1="82" start2="74" end2="76" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
+        <range start1="122" end1="123" start2="116" end2="117" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
+        <range start1="126" end1="127" start2="120" end2="121" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
+        <range start1="135" end1="136" start2="129" end2="130" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
+        <range start1="148" end1="149" start2="142" end2="143" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
+        <range start1="155" end1="157" start2="149" end2="151" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
+        <range start1="162" end1="162" start2="156" end2="159" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
+        <range start1="189" end1="190" start2="186" end2="187" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
+        <range start1="198" end1="223" start2="195" end2="220" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
+        <range start1="232" end1="235" start2="229" end2="232" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
+        <range start1="296" end1="300" start2="293" end2="305" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
+        <range start1="301" end1="302" start2="306" end2="307" changelist="dbeadf4f-c196-4440-954d-02f04367a6e7" />
+        <range start1="310" end1="312" start2="315" end2="317" changelist="dbeadf4f-c196-4440-954d-02f04367a6e7" />
+        <range start1="316" end1="319" start2="321" end2="324" changelist="dbeadf4f-c196-4440-954d-02f04367a6e7" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -301,11 +309,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.BoardRestDocsTest.getBoardTest" />
-        <item itemvalue="JUnit.BoardRestDocsTest.createBoardTest" />
-        <item itemvalue="JUnit.BoardRestDocsTest.deleteBoardTest" />
-        <item itemvalue="JUnit.BoardRestDocsTest.getBoardsTest" />
         <item itemvalue="JUnit.BoardRestDocsTest.updateBoardTest" />
+        <item itemvalue="JUnit.BoardRestDocsTest.getBoardsTest" />
+        <item itemvalue="JUnit.BoardRestDocsTest.getBoardTest" />
+        <item itemvalue="JUnit.BoardRestDocsTest.deleteBoardTest" />
+        <item itemvalue="JUnit.BoardRestDocsTest.createBoardTest" />
       </list>
     </recent_temporary>
   </component>
@@ -328,7 +336,10 @@
       <workItem from="1683362100367" duration="761000" />
       <workItem from="1683363066464" duration="1985000" />
       <workItem from="1683593008535" duration="66191000" />
-      <workItem from="1683801822040" duration="37349000" />
+      <workItem from="1683801822040" duration="37557000" />
+      <workItem from="1683962996367" duration="6758000" />
+      <workItem from="1684069500670" duration="4370000" />
+      <workItem from="1684113183911" duration="16908000" />
     </task>
     <task id="LOCAL-00001" summary="firstCommit">
       <created>1683175149306</created>
@@ -379,7 +390,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683769170886</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Post Test&#10;완료 - Post, Get&#10;실패 - Delete, Patch">
+      <created>1683962281923</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1683962281923</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -402,7 +420,9 @@
     <MESSAGE value="패키지 구조 변경2" />
     <MESSAGE value="Post Service 작성중, [jwt token 활용하기 위한 중간 MERGE]" />
     <MESSAGE value="Post 작성 - Test 전" />
-    <option name="LAST_COMMIT_MESSAGE" value="Post 작성 - Test 전" />
+    <MESSAGE value="Post Test&#10;완료 - Post, Get&#10;실패 - Delete, Patch" />
+    <MESSAGE value="Comment 작성&#10;Board 일부 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="Comment 작성&#10;Board 일부 수정" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

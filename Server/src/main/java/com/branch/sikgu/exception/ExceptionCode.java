@@ -10,6 +10,10 @@ public enum ExceptionCode {
     INACTIVE_BOARD("비활성화된 게시물입니다."),
     DELETED_BOARD("삭제된 게시물입니다."),
 
+    // Comment
+    COMMENT_NOT_FOUND("해당 댓글을 찾을 수 없습니다."),
+    DELETED_COMMENT("삭제된 댓글입니다."),
+
     //Member & Auth Exception
     MEMBER_NOT_FOUND("Member not found"),
     MEMBER_EXISTS("Member already exists"),

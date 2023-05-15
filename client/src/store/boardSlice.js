@@ -5,7 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// 게시물 목록
+// 게시물 목록 가져오기
 export const fetchBoards = createAsyncThunk('boards/fetchBoards', async () => {
   const response = await axios.get('http://localhost:8080/boards');
   return response.data;
@@ -40,7 +40,7 @@ export const addComment = createAsyncThunk(
       `http://localhost:8080/boards/${boardId}/comment`,
       comment
     );
-    return response.data;
+    return { boardId, comment: response.data };
   }
 );
 
@@ -81,73 +81,92 @@ const boardSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchBoards.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    });
-    builder.addCase(fetchBoards.fulfilled, (state, action) => {
-      state.loading = false;
-      state.error = null;
+    builder
+      .addCase(fetchBoards.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchBoards.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.boards = action.payload;
+      })
+      .addCase(fetchBoards.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(addComment.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
 
-      state.boards = action.payload;
-    });
-    builder.addCase(fetchBoards.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
-    });
+        const { boardId, comment } = action.payload;
+        const updatedBoards = state.boards.map((board) => {
+          if (board.id === boardId) {
+            return {
+              ...board,
+              comment: [...board.comment, comment],
+            };
+          }
+          return board;
+        });
 
-    builder.addCase(addComment.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    });
-    builder.addCase(addComment.fulfilled, (state, action) => {
-      state.loading = false;
-      state.error = null;
+        state.boards = updatedBoards;
+      })
+      .addCase(updateComment.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
 
-      const { boardId, comment } = action.meta.arg;
-      const board = state.boards.find((b) => b.id === boardId);
-      if (board) {
-        board.comment.push(comment);
-      }
-    });
-    builder.addCase(addComment.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
-    });
+        const { boardId, commentId, content } = action.payload;
+        const updatedBoards = state.boards.map((board) => {
+          if (board.id === boardId) {
+            const updatedComments = board.comment.map((comment) => {
+              if (comment.id === commentId) {
+                return {
+                  ...comment,
+                  content,
+                };
+              }
+              return comment;
+            });
 
-    builder.addCase(deleteBoard.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    });
-    builder.addCase(deleteBoard.fulfilled, (state, action) => {
-      state.loading = false;
-      state.error = null;
+            return {
+              ...board,
+              comment: updatedComments,
+            };
+          }
+          return board;
+        });
 
-      const boardId = action.payload;
-      state.boards = state.boards.filter((board) => board.id !== boardId);
-    });
-    builder.addCase(deleteBoard.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
-    });
+        state.boards = updatedBoards;
+      })
+      .addCase(deleteComment.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
 
-    builder.addCase(updateBoard.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    });
-    builder.addCase(updateBoard.fulfilled, (state, action) => {
-      state.loading = false;
-      state.error = null;
+        const { boardId, commentId } = action.payload;
+        const updatedBoards = state.boards.map((board) => {
+          if (board.id === boardId) {
+            const updatedComments = board.comment.filter(
+              (comment) => comment.id !== commentId
+            );
 
-      const updatedBoard = action.payload;
-      state.boards = state.boards.map((board) =>
-        board.id === updatedBoard.id ? updatedBoard : board
-      );
-    });
-    builder.addCase(updateBoard.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
-    });
+            return {
+              ...board,
+              comment: updatedComments,
+            };
+          }
+          return board;
+        });
+
+        state.boards = updatedBoards;
+      })
+      .addCase(deleteBoard.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+
+        const boardId = action.payload;
+        state.boards = state.boards.filter((board) => board.id !== boardId);
+      });
   },
 });
 
@@ -158,20 +177,18 @@ export const selectFilteredBoards = createSelector(
   (state) => state.board.searchTerm,
   (boards, searchTerm) => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
-    const filteredBoards = boards.filter(
-      (board) =>
-        String(board.food).toLowerCase().includes(lowerCaseSearchTerm) ||
-        String(board.content).toLowerCase().includes(lowerCaseSearchTerm) ||
-        String(board.who).toLowerCase().includes(lowerCaseSearchTerm) ||
-        String(board.tag).toLowerCase().includes(lowerCaseSearchTerm) ||
-        board.comment.some((comment) =>
-          String(comment.content).toLowerCase().includes(lowerCaseSearchTerm)
-        )
-    );
-    console.log('필터링된 게시물: ', filteredBoards);
-    return filteredBoards;
+    return boards.filter((board) => {
+      const { food, content, who, tag, comment } = board;
+      const comments = comment.map((c) => c.content.toLowerCase());
+      return (
+        food.toLowerCase().includes(lowerCaseSearchTerm) ||
+        content.toLowerCase().includes(lowerCaseSearchTerm) ||
+        who.toLowerCase().includes(lowerCaseSearchTerm) ||
+        tag.toLowerCase().includes(lowerCaseSearchTerm) ||
+        comments.some((c) => c.includes(lowerCaseSearchTerm))
+      );
+    });
   }
 );
 
-export const { actions, reducer } = boardSlice;
-export default reducer;
+export default boardSlice.reducer;

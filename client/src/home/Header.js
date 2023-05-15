@@ -32,7 +32,6 @@ const Header = () => {
   };
 
   const onSearchTermChange = (e) => {
-    e.preventDefault();
     dispatch(setSearchTerm(e.target.value));
     console.log('검색어 : ', e.target.value);
   };

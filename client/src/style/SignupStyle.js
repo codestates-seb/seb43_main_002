@@ -6,7 +6,24 @@ display: flex;
 height : 100%;
 flex-direction: column;
 justify-content: center;
-align- items: center;
+align-items: end;
+overflow-y: auto;
+&::-webkit-scrollbar {
+  display: none;
+`;
+const BackGround = styled.div`
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+`;
+const BackYellow = styled.div`
+  background-color: #ffca61;
+  height: 102px;
+  top: 0;
+  left: 0;
 `;
 
 const SignupForm = styled.form`
@@ -157,6 +174,8 @@ const StyledLink = styled(Link)`
 
 export {
   SignupContainer,
+  BackGround,
+  BackYellow,
   SignupForm,
   Input,
   SignupTitle,

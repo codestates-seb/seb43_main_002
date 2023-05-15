@@ -43,6 +43,7 @@ export const addComment = createAsyncThunk(
     return response.data;
   }
 );
+
 // 댓글 수정
 export const updateComment = createAsyncThunk(
   'boards/updateComment',
@@ -68,14 +69,12 @@ export const deleteComment = createAsyncThunk(
 
 const boardSlice = createSlice({
   name: 'board',
-
-  initialState: { boards: [], searchTerm: '' },
+  initialState: { boards: [], searchTerm: '', loading: false, error: null },
   reducers: {
     setSearchTerm: (state, action) => {
       state.searchTerm = action.payload;
     },
   },
-
   extraReducers: (builder) => {
     builder.addCase(fetchBoards.pending, (state) => {
       state.loading = true;
@@ -125,36 +124,43 @@ const boardSlice = createSlice({
     builder.addCase(deleteBoard.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+    });
 
-      builder.addCase(updateBoard.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      });
-      builder.addCase(updateBoard.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = null;
+    builder.addCase(updateBoard.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(updateBoard.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = null;
 
-        const updatedBoard = action.payload;
-        state.boards = state.boards.map((board) =>
-          board.id === updatedBoard.id ? updatedBoard : board
-        );
-      });
-      builder.addCase(updateBoard.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      });
+      const updatedBoard = action.payload;
+      state.boards = state.boards.map((board) =>
+        board.id === updatedBoard.id ? updatedBoard : board
+      );
+    });
+    builder.addCase(updateBoard.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
     });
   },
 });
+
 export const { setSearchTerm } = boardSlice.actions;
 
-// This selector will return the boards that match the search term.
 export const selectFilteredBoards = createSelector(
   (state) => state.board.boards,
   (state) => state.board.searchTerm,
   (boards, searchTerm) =>
-    boards.filter((board) =>
-      board.title.toLowerCase().includes(searchTerm.toLowerCase())
+    boards.filter(
+      (board) =>
+        board.food.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        board.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        board.who.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        board.tag.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        board.comment.some((comment) =>
+          comment.content.toLowerCase().includes(searchTerm.toLowerCase())
+        )
     )
 );
 

@@ -45,13 +45,6 @@ const Header = () => {
     border-radius: 10px;
   `;
 
-  //   const SearchIcon = styled(AiOutlineSearch)`
-  //     position: absolute;
-  //     top: 50%;
-  //     right: 10px;
-  //     transform: translateY(-50%);
-  //   `;
-
   return (
     <>
       <HeaderBackWrap>
@@ -60,7 +53,7 @@ const Header = () => {
           <>
             <SearchSpan
               visible={onSearch}
-              placeholder="무슨 기준으로 검색할까요?"
+              placeholder="음식 이름, 작성자, 내용, 태그 또는 댓글을 검색하세요."
               onChange={onSearchTermChange}
             ></SearchSpan>
             <SearchWrap>

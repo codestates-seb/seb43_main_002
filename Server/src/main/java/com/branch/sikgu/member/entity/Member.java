@@ -1,5 +1,8 @@
 package com.branch.sikgu.member.entity;
 
+import com.branch.sikgu.group.entity.Group;
+import com.branch.sikgu.myPage.entity.MyPage;
+import com.branch.sikgu.post.entity.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +16,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "MEMBERS")
 public class Member {
@@ -40,10 +41,23 @@ public class Member {
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
     @Column(name = "image")
     private String image;
+    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "my_page_id")
+    private MyPage myPage;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Post> posts = new ArrayList<>();
 
+//    private List<Group> groups = new ArrayList<>();
+
+    public Member() {
+        this.myPage = new MyPage();
+    }
+    public void setMyPage(MyPage myPage) {
+        this.myPage = myPage;
+        myPage.setMember(this);
+    }
 
     public enum MemberStatus {
         MEMBER_ACTIVE("활동 중"),

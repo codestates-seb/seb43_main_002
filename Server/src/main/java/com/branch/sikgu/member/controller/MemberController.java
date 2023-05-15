@@ -48,7 +48,7 @@ public class MemberController {
     // 닉네임 중복 검사 버튼
     @PostMapping("signup/checkduplicatenickname")
     public ResponseEntity<Boolean> checkNickname(@RequestBody NicknameCheckRequestDto requestDTO) {
-        boolean isDuplicateNickname = memberService.checkDuplicateEmail(requestDTO.getNickname());
+        boolean isDuplicateNickname = memberService.checkDuplicateNickname(requestDTO.getNickname());
         if (isDuplicateNickname) {
             return ResponseEntity.ok(true); // 409 status code
         }

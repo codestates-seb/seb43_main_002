@@ -8,6 +8,7 @@ import com.branch.sikgu.member.dto.*;
 import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.member.mapper.MemberMapper;
 import com.branch.sikgu.member.repository.MemberRepository;
+import com.branch.sikgu.myPage.entity.MyPage;
 import lombok.AllArgsConstructor;
 import org.hibernate.annotations.Check;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -130,11 +131,8 @@ public class MemberService {
         } else {
             throw new IllegalStateException("Unknown principal type: " + principal.getClass());
         }
-    } // 우리 코드에서는 무조건 Object principal = authentication.getPrincipal();가 String 객체 인것 같아요
-    // 그래서 email을 변경하면 db에 변경된 email이 들어가지만 현재 가지고있는 authentication 은 변경전의 email정보를 가지고 있어서
-    // email을 수정하고 나면 무조건 재 로그인을 해야합니다. - 수정 완료 - updateMember에 로직과 설명 추가했습니다.
+    }
 
-    // 나중에 이 메서드를 사용하고 싶어서 추가해놨어요 - 수정 완료 - 사용할 수 있게 수정했습니다.
     public Member findMember(String token) {
 
         long memberId = jwtTokenizer.getMemberId(token);

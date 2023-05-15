@@ -82,7 +82,6 @@ const boardSlice = createSlice({
       state.error = null;
     });
     builder.addCase(fetchBoards.fulfilled, (state, action) => {
-
       state.loading = false;
       state.error = null;
 

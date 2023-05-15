@@ -59,7 +59,7 @@ const MyPage = () => {
             <div>아이콘</div>
           </Title>
           <Profile>
-            <div></div>
+            <img src={data.img} alt="프로필 이미지" />
             <div>
               <ul>
                 <li>
@@ -110,7 +110,7 @@ const MyPage = () => {
               {data.review.map((el, idx) => {
                 return (
                   <div key={idx}>
-                    <div></div>
+                    <img src={el.img} alt="프로필 이미지" />
                     <div>
                       <ul>
                         <li>{el.name}</li>

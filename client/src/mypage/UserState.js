@@ -35,7 +35,7 @@ const UserState = () => {
       });
 
     axios
-      .get('/members/all', {
+      .get('http://localhost:3001/members', {
         headers: {
           'Content-Type': `application/json`,
           'ngrok-skip-browser-warning': '69420',
@@ -192,8 +192,8 @@ const UserState = () => {
               <div className="header">
                 <div></div>
                 <div>
-                  <h3>좋은 식구들을 만나셨나요?</h3>
-                  <span>식구들을 평가해주세요.</span>
+                  <span>좋은 식구들을 만나셨나요?</span>
+                  <h3>식구들을 평가해주세요.</h3>
                 </div>
               </div>
               {user.map((el, idx) => {

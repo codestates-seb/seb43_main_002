@@ -10,7 +10,9 @@ export const BackGround = styled.div`
 `;
 
 export const BackYellow = styled.div`
-  background-color: #ffca61;
+  background-image: linear-gradient(135deg, #ffd571, #ffac36);
+  box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 25px 25px;
   height: 272px;
   top: 0;
   left: 0;
@@ -18,11 +20,13 @@ export const BackYellow = styled.div`
 
 export const Mobile = styled.div`
   position: relative;
+  font-family: 'Noto Sans KR', sans-serif;
   width: 400px;
   height: 850px;
 
   box-sizing: border-box;
   padding: 20px;
+  overflow: hidden;
 `;
 
 export const Title = styled.div`
@@ -38,6 +42,7 @@ export const Title = styled.div`
 
   > div:nth-child(2) {
     margin-left: 10px;
+    font-family: 'Playball' !important;
     font-size: 24pt;
     font-weight: 700;
     color: white;
@@ -54,7 +59,8 @@ export const Profile = styled.div`
   margin-top: 20px;
   letter-spacing: -0.05em;
 
-  > div:first-child {
+  > img {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     background-color: #cdeeff;
     box-sizing: border-box;
     border-radius: 10px;
@@ -129,6 +135,7 @@ export const NewPosts = styled.div`
 
     > div {
       background-color: white;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
       width: 175px;
       padding: 10px;
       border-radius: 10px;
@@ -184,8 +191,9 @@ export const History = styled.div`
     background-color: white;
     box-sizing: border-box;
     border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
 
-    > div:first-child {
+    > img {
       background-color: #cdeeff;
       width: 50px;
       height: 50px;

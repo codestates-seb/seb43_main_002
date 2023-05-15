@@ -15,11 +15,13 @@ import {
 } from './ModalStyles';
 import PropTypes from 'prop-types';
 import Tag from './Tag';
-import axios from 'axios';
+// import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { updateBoard } from '../store/boardSlice';
 
 const ModalDay = styled(DatePicker)`
   padding: 10px;
@@ -32,8 +34,12 @@ const ModalDay = styled(DatePicker)`
 `;
 
 const EditModal = ({ isOpen, onClose, board }) => {
-  const [editedBoard, setEditedBoard] = useState(board);
   const [startDate, setStartDate] = useState(new Date());
+  const [editedBoard, setEditedBoard] = useState({
+    food: board.food,
+    people: board.people,
+    content: board.content,
+  });
 
   //   console.log(editedBoard.tag);
 
@@ -44,6 +50,7 @@ const EditModal = ({ isOpen, onClose, board }) => {
       people: prevBoard.people + 1,
     }));
   };
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setEditedBoard({ ...board });
@@ -110,8 +117,9 @@ const EditModal = ({ isOpen, onClose, board }) => {
       alert('모든 곳을 입력해주세요.');
       return;
     }
-    axios
-      .patch(`http://localhost:8080/boards/${board.id}`, editedBoard)
+
+    dispatch(updateBoard({ boardId: board.id, board: editedBoard }))
+      .unwrap()
       .then(() => {
         console.log('게시물이 성공적으로 작성되었습니다.');
         onClose();

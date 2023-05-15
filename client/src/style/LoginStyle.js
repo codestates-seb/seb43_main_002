@@ -1,18 +1,42 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
 
-const LoginForm = styled.form`
+const LoginContainer = styled.div`
+display: flex;
+height : 100%;
+flex-direction: column;
 justify-content: center;
 align- items: center;
+`;
+
+const Main = styled.p`
+justify-content: center;
+align- items: center;`;
+
+const LoginForm = styled.form`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align- items: center;
+margin: 20px, 20px;
 padding: 20px;
+`;
+
+const LoginTitle = styled.h1`
+  font-size: 30px;
+  color: orange;
+  text-align: center;
+  padding-bottom: 10px;
 `;
 
 const Input = styled.input`
   width: 100%;
+  background-color: #f5f6f7;
   margin: 10px 0;
   padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: none;
+  border-radius: 25px;
 `;
 
 const Button = styled.button`
@@ -22,7 +46,7 @@ const Button = styled.button`
   margin-bottom: 10px;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 25px;
   cursor: pointer;
 
   &:hover {
@@ -59,6 +83,21 @@ const Error = styled.p`
   font-size: 12px;
   margin-top: 3px;
 `;
+const FooterText = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #979797;
+  padding: 7px;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffc257;
+`;
 
 const GoogleLoginButton = styled(Button)`
   background-color: #4285f4;
@@ -76,11 +115,16 @@ const GoogleLogo = styled(FaGoogle)`
 `;
 
 export {
+  Main,
+  LoginContainer,
   LoginForm,
+  LoginTitle,
   Input,
   LoginButton,
   ForgotPasswordButton,
   Error,
+  FooterText,
+  StyledLink,
   GoogleLoginButton,
   GoogleLogo,
 };

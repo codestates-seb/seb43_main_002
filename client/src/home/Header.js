@@ -10,6 +10,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/userSlice';
+import { setSearchTerm } from '../store/boardSlice';
 
 const Header = () => {
   const [onSearch, setOnSerach] = useState(false);
@@ -17,11 +18,16 @@ const Header = () => {
   const dispatch = useDispatch();
   const handleLogout = () => {
     sessionStorage.removeItem('user');
+    sessionStorage.removeItem('jwt');
     dispatch(logout());
   };
 
   const SearchHandler = () => {
     setOnSerach(!onSearch);
+  };
+
+  const onSearchTermChange = (e) => {
+    dispatch(setSearchTerm(e.target.value));
   };
 
   const SearchSpan = styled.input`
@@ -50,6 +56,7 @@ const Header = () => {
             <SearchSpan
               visible={onSearch}
               placeholder="무슨 기준으로 검색할까요?"
+              onChange={onSearchTermChange}
             ></SearchSpan>
             <SearchWrap>
               <AiOutlineSearch

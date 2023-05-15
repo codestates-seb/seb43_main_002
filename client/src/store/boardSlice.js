@@ -1,4 +1,8 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAsyncThunk,
+  createSelector,
+} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 // 게시물 목록
@@ -64,20 +68,24 @@ export const deleteComment = createAsyncThunk(
 
 const boardSlice = createSlice({
   name: 'board',
-  initialState: {
-    boards: [],
-    loading: false,
-    error: null,
+
+  initialState: { boards: [], searchTerm: '' },
+  reducers: {
+    setSearchTerm: (state, action) => {
+      state.searchTerm = action.payload;
+    },
   },
-  reducers: {},
+
   extraReducers: (builder) => {
     builder.addCase(fetchBoards.pending, (state) => {
       state.loading = true;
       state.error = null;
     });
     builder.addCase(fetchBoards.fulfilled, (state, action) => {
+
       state.loading = false;
       state.error = null;
+
       state.boards = action.payload;
     });
     builder.addCase(fetchBoards.rejected, (state, action) => {
@@ -139,6 +147,17 @@ const boardSlice = createSlice({
     });
   },
 });
+export const { setSearchTerm } = boardSlice.actions;
+
+// This selector will return the boards that match the search term.
+export const selectFilteredBoards = createSelector(
+  (state) => state.board.boards,
+  (state) => state.board.searchTerm,
+  (boards, searchTerm) =>
+    boards.filter((board) =>
+      board.title.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+);
 
 export const { actions, reducer } = boardSlice;
 export default reducer;

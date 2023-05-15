@@ -8,6 +8,10 @@ import { useEffect, useState } from 'react';
 import { login } from './store/userSlice';
 import Signup from './Signup/Signup';
 import Map from './map/Map';
+import MyPage from './mypage/MyPage';
+import EditProfile from './mypage/EditProfile';
+import UserState from './mypage/UserState';
+import UserPage from './mypage/UserPage';
 
 function App() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -15,9 +19,10 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedUSer = sessionStorage.getItem('user');
-    if (storedUSer) {
-      dispatch(login(JSON.parse(storedUSer)));
+    const storedUser = sessionStorage.getItem('user');
+    const storedToken = sessionStorage.getItem('jwt');
+    if (storedUser && storedToken) {
+      dispatch(login(storedUser));
     }
     setLoading(false);
   }, [dispatch]);
@@ -36,13 +41,26 @@ function App() {
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Login />} />
-
-          <Route path="/boards" element={<PrivateRoute />}>
+          {/* <Route path="/boards" element={<PrivateRoute />}>
             <Route index element={<Main />} />
-          </Route>
+          </Route> */}
           <Route path="/map" element={<PrivateRoute />}>
             <Route index element={<Map />} />
           </Route>
+          {/* <Route path="/mypage" element={<PrivateRoute />}>
+            <Route index element={<MyPage />} />
+          </Route>
+          <Route path="/editprofile" element={<PrivateRoute />}>
+            <Route index element={<EditProfile />} />
+          </Route>
+          <Route path="/state" element={<PrivateRoute />}>
+            <Route index element={<UserState />} />
+          </Route> */}
+          <Route path="/main" element={<Main />} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/editprofile" element={<EditProfile />} />
+          <Route path="/state" element={<UserState />} />
+          <Route path="/members/:userId" element={<UserPage />} />
         </Routes>
       </GlobalWrap>
     </>

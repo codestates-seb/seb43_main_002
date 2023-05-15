@@ -44,22 +44,35 @@ public class SecurityConfiguration {
         http
                 .headers().frameOptions().sameOrigin()
                 .and()
+
                 .csrf().disable()
                 .cors(withDefaults())
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+
                 .formLogin().disable()
                 .httpBasic().disable()
+                .logout() // 로그아웃 설정
+                .logoutUrl("/members/logout") // 로그아웃 URL 설정
+                .logoutSuccessHandler((httpServletRequest, httpServletResponse, authentication) -> {
+                    // JWT 토큰을 삭제합니다.
+                    httpServletResponse.setHeader("Authorization", "");
+                })
+                .deleteCookies("JSESSIONID")
+                .and()
+
                 .exceptionHandling()
                 .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                 .accessDeniedHandler(new MemberAccessDeniedHandler())
                 .and()
+
                 .apply(new CustomFilterConfigurer())
                 .and()
+
                 .authorizeHttpRequests(authorize -> authorize
-                                .antMatchers(HttpMethod.POST, "/*/members").permitAll()
-                                .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
-                                .anyRequest().permitAll()
+//                        .antMatchers(HttpMethod.POST, "/*/members/signup").permitAll()
+//                        .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
+                        .anyRequest().permitAll()
                 );
         return http.build();
     }

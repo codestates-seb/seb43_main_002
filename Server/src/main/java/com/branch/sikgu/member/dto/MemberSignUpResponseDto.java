@@ -8,13 +8,12 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class MemberSignUpResponseDto {
     private Long memberId;
     private String name;
     private String email;
     private String nickname;
     private String age;
-    private boolean gender;
+    private Boolean gender;
     private LocalDateTime createdAt;
 }

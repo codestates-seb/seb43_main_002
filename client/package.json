@@ -9,12 +9,19 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "cors": "^2.8.5",
+    "date-fns": "^2.30.0",
+    "date-picker": "^0.5.0",
     "http-proxy-middleware": "^2.0.6",
     "json-server": "^0.17.3",
+
+    "jwt-decode": "^3.1.2",
+
     "prop-types": "^15.8.1",
+
     "react": "^18.2.0",
     "react-datepicker": "^4.11.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
@@ -47,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^8.40.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
@@ -54,5 +62,8 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0"
   },
-  "proxy": "http://localhost:8080"
+
+  "proxy": "http:localhost:8080/"
+
+
 }

@@ -12,7 +12,9 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use((config) => {
   const token = sessionStorage.getItem('jwt');
   if (token) {
-    config.headers['Authorization'] = `Bearer ${token}`; // 공백 추가
+    config.headers['Authorization'] = `Bearer ${token}`;
+    // 만약 토큰이 있다면 토큰을 또 담아서 보내주는 건 아닌거지?
+    // 헷갈리네
   }
   return config;
 });

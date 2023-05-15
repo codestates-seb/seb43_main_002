@@ -1,4 +1,8 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAsyncThunk,
+  createSelector,
+} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchBoards = createAsyncThunk('boards/fetchBoards', () => {
@@ -40,11 +44,15 @@ export const updateComment = createAsyncThunk(
 
 const boardSlice = createSlice({
   name: 'board',
-  initialState: [],
-  reducers: {},
+  initialState: { boards: [], searchTerm: '' },
+  reducers: {
+    setSearchTerm: (state, action) => {
+      state.searchTerm = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchBoards.fulfilled, (state, action) => {
-      return action.payload;
+      state.boards = action.payload;
     });
     builder.addCase(deleteComment.fulfilled, (state, action) => {
       const { boardId, commentId } = action.payload;
@@ -72,5 +80,16 @@ const boardSlice = createSlice({
     });
   },
 });
+export const { setSearchTerm } = boardSlice.actions;
+
+// This selector will return the boards that match the search term.
+export const selectFilteredBoards = createSelector(
+  (state) => state.board.boards,
+  (state) => state.board.searchTerm,
+  (boards, searchTerm) =>
+    boards.filter((board) =>
+      board.title.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+);
 
 export default boardSlice.reducer;

@@ -1,12 +1,20 @@
 import styled from 'styled-components';
 
-export const Mapbox = styled.div`
+export const MapContainer = styled.div`
+  position: relative;
   display: flex;
-  flex-direction: center;
+  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
-  top: 20%;
-  height: 50%;
+  top: 10%;
+  height: 80%;
   width: 90%;
+`;
+
+export const Mapbox = styled.div`
+  position: relative;
+  height: 100%;
+  width: 100%;
 `;
 
 export const ButtonWrap = styled.div`
@@ -17,9 +25,10 @@ export const ButtonWrap = styled.div`
 `;
 
 export const CategoryButton = styled.button`
-  padding: 10px 20px;
+  padding: 7px 7px;
   border: none;
-  border-radius: 5px;
+  border-radius: 0px;
+  margin: 0px;
   background-color: #3498db;
   color: white;
   font-size: 1rem;
@@ -28,4 +37,17 @@ export const CategoryButton = styled.button`
   &:hover {
     background-color: #2980b9;
   }
+`;
+export const ButtonContainer = styled.div`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+`;
+
+export const CurrentLocationButton = styled.button`
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 10;
 `;

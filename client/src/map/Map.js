@@ -2,7 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import { MainWrap } from '../home/HomeStyle';
 import Header from '../home/Header';
 import Footer from '../home/Footer';
-import { Mapbox, ButtonWrap, CategoryButton } from './MapStyle';
+import {
+  Mapbox,
+  MapContainer,
+  CategoryButton,
+  ButtonContainer,
+  CurrentLocationButton,
+} from './MapStyle';
 
 const Map = () => {
   // Map 컴포넌트의 상태 및 참조를 초기화
@@ -103,11 +109,13 @@ const Map = () => {
   return (
     <MainWrap>
       <Header></Header>
-      <Mapbox ref={mapRef} id="map"></Mapbox>
-      <ButtonWrap>
-        {categoryButtons}
-        <button onClick={updateCurrentLocation}>현재 위치</button>
-      </ButtonWrap>
+      <MapContainer>
+        <ButtonContainer>{categoryButtons}</ButtonContainer>
+        <CurrentLocationButton onClick={updateCurrentLocation}>
+          현재 위치
+        </CurrentLocationButton>
+        <Mapbox ref={mapRef} id="map"></Mapbox>
+      </MapContainer>
       <Footer></Footer>
     </MainWrap>
   );

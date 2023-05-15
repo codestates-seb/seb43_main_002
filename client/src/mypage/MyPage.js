@@ -38,7 +38,6 @@ const MyPage = () => {
   }
 
   function handleUser(userId) {
-    // 이곳에서 다른 유저 페이지로 넘어가야 함.
     // 다른 유저는 연필모양 대신 하트모양이 있고, 누르면 like가 오르게 해야한다.
     navigate(`/members/${userId}`);
   }

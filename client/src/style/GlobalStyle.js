@@ -7,7 +7,6 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 12pt;
     padding: 0;
     overflow-y: auto;
-    max-height: 60vh;
     &::-webkit-scrollbar {
       display: none;
     }

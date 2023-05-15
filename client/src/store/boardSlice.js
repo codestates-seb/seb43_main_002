@@ -69,7 +69,12 @@ export const deleteComment = createAsyncThunk(
 
 const boardSlice = createSlice({
   name: 'board',
-  initialState: { boards: [], searchTerm: '', loading: false, error: null },
+  initialState: {
+    boards: [],
+    searchTerm: '',
+    loading: false,
+    error: null,
+  },
   reducers: {
     setSearchTerm: (state, action) => {
       state.searchTerm = action.payload;
@@ -151,17 +156,21 @@ export const { setSearchTerm } = boardSlice.actions;
 export const selectFilteredBoards = createSelector(
   (state) => state.board.boards,
   (state) => state.board.searchTerm,
-  (boards, searchTerm) =>
-    boards.filter(
+  (boards, searchTerm) => {
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    const filteredBoards = boards.filter(
       (board) =>
-        board.food.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        board.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        board.who.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        board.tag.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        String(board.food).toLowerCase().includes(lowerCaseSearchTerm) ||
+        String(board.content).toLowerCase().includes(lowerCaseSearchTerm) ||
+        String(board.who).toLowerCase().includes(lowerCaseSearchTerm) ||
+        String(board.tag).toLowerCase().includes(lowerCaseSearchTerm) ||
         board.comment.some((comment) =>
-          comment.content.toLowerCase().includes(searchTerm.toLowerCase())
+          String(comment.content).toLowerCase().includes(lowerCaseSearchTerm)
         )
-    )
+    );
+    console.log('필터링된 게시물: ', filteredBoards);
+    return filteredBoards;
+  }
 );
 
 export const { actions, reducer } = boardSlice;

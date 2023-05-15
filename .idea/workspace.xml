@@ -5,30 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09fddecd-4d33-4be8-96e9-4bd8e69fc688" name="변경" comment="Comment 작성&#10;Board 일부 수정">
-      <change afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/controller/CommentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/dto/CommentDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/mapper/CommentMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/repository/CommentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/service/CommentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]1/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]1/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]1/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44__________1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_17_48,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_17_48__________.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/controller/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/dto/BoardPostDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/entity/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/entity/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/mapper/BoardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/mapper/BoardMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/service/BoardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/entity/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/entity/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/exception/ExceptionCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/exception/ExceptionCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/Board/BoardRestDocsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/Board/BoardRestDocsTest.java" afterDir="false" />
     </list>
-    <list id="dbeadf4f-c196-4440-954d-02f04367a6e7" name="SYJ 님이 변경한 내용" comment="">
+    <list id="dbeadf4f-c196-4440-954d-02f04367a6e7" name="SYJ 님이 변경한 내용" comment="SYJ 님이 변경한 내용">
       <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/dto/BoardPatchDto.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/dto/BoardResponseDto.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/Board/BoardRestDocsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/Board/BoardRestDocsTest.java" afterDir="false" />
@@ -123,32 +102,6 @@
         <option name="url" value="https://github.com/dydwns9436/seb43_main_002" />
       </UrlAndAccount>
     </option>
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/Board/BoardRestDocsTest.java">
-      <ranges>
-        <range start1="3" end1="6" start2="3" end2="4" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
-        <range start1="8" end1="9" start2="6" end2="6" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
-        <range start1="23" end1="24" start2="20" end2="20" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
-        <range start1="26" end1="27" start2="22" end2="22" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
-        <range start1="29" end1="30" start2="24" end2="24" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
-        <range start1="71" end1="73" start2="65" end2="67" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
-        <range start1="80" end1="82" start2="74" end2="76" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
-        <range start1="122" end1="123" start2="116" end2="117" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
-        <range start1="126" end1="127" start2="120" end2="121" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
-        <range start1="135" end1="136" start2="129" end2="130" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
-        <range start1="148" end1="149" start2="142" end2="143" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
-        <range start1="155" end1="157" start2="149" end2="151" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
-        <range start1="162" end1="162" start2="156" end2="159" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
-        <range start1="189" end1="190" start2="186" end2="187" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
-        <range start1="198" end1="223" start2="195" end2="220" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
-        <range start1="232" end1="235" start2="229" end2="232" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
-        <range start1="296" end1="300" start2="293" end2="305" changelist="09fddecd-4d33-4be8-96e9-4bd8e69fc688" />
-        <range start1="301" end1="302" start2="306" end2="307" changelist="dbeadf4f-c196-4440-954d-02f04367a6e7" />
-        <range start1="310" end1="312" start2="315" end2="317" changelist="dbeadf4f-c196-4440-954d-02f04367a6e7" />
-        <range start1="316" end1="319" start2="321" end2="324" changelist="dbeadf4f-c196-4440-954d-02f04367a6e7" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -339,7 +292,7 @@
       <workItem from="1683801822040" duration="37557000" />
       <workItem from="1683962996367" duration="6758000" />
       <workItem from="1684069500670" duration="4370000" />
-      <workItem from="1684113183911" duration="16908000" />
+      <workItem from="1684113183911" duration="17996000" />
     </task>
     <task id="LOCAL-00001" summary="firstCommit">
       <created>1683175149306</created>
@@ -397,7 +350,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683962281923</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Comment 작성&#10;Board 일부 수정">
+      <created>1684141512649</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1684141512650</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

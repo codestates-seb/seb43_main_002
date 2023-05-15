@@ -11,15 +11,20 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/userSlice';
 import { setSearchTerm } from '../store/boardSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [onSearch, setOnSerach] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('jwt');
+    alert('로그아웃 되었습니다.');
     dispatch(logout());
+    navigate('/');
   };
 
   const SearchHandler = () => {

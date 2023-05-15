@@ -44,7 +44,7 @@ const Map = () => {
       if (status === window.kakao.maps.services.Status.OK) {
         result.forEach((place) => {
           let locPosition = new window.kakao.maps.LatLng(place.y, place.x),
-            message = `<div style="padding:5px;">${category}: ${place.place_name}</div>`;
+            message = `<div style="padding:5px;">${place.place_name}</div>`;
           displayMarker(locPosition, message);
         });
       }
@@ -62,9 +62,7 @@ const Map = () => {
       navigator.geolocation.getCurrentPosition(function (position) {
         let lat = position.coords.latitude,
           lon = position.coords.longitude;
-        let locPosition = new window.kakao.maps.LatLng(lat, lon),
-          message = '<div style="padding:5px;">현재위치</div>';
-        displayMarker(locPosition, message);
+        let locPosition = new window.kakao.maps.LatLng(lat, lon);
         mapInstance.current.setCenter(locPosition);
       });
     } else {

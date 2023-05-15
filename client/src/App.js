@@ -56,7 +56,8 @@ function App() {
           <Route path="/state" element={<PrivateRoute />}>
             <Route index element={<UserState />} />
           </Route> */}
-          <Route path="/main" element={<Main />} />
+          {/* <Route path="/main" element={<Main />} /> */}
+          <Route path="/boards" element={<Main />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/editprofile" element={<EditProfile />} />
           <Route path="/state" element={<UserState />} />

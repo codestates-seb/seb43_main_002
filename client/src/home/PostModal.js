@@ -31,7 +31,7 @@ const ModalDay = styled(DatePicker)`
   text-align: center;
 `;
 
-const PostModal = ({ isOpen, onClose }) => {
+const PostModal = ({ isOpen, onClose, people }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [postBoard, setPostBoard] = useState({
     food: '',
@@ -43,6 +43,7 @@ const PostModal = ({ isOpen, onClose }) => {
     comment: [],
   });
 
+  console.log(people);
   const handleIncrement = (e) => {
     e.preventDefault();
     setPostBoard((prevBoard) => ({
@@ -134,6 +135,7 @@ const PostModal = ({ isOpen, onClose }) => {
   PostModal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
+    people: PropTypes.string.isRequired,
   };
   // console.log(startDate);
 

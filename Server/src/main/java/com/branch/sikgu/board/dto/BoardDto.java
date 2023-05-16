@@ -29,6 +29,7 @@ public class BoardDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Setter
+    @EqualsAndHashCode
     public static class Patch {
         @Setter
         private Long boardId;

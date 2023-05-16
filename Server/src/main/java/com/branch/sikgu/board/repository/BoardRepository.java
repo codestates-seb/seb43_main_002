@@ -9,8 +9,8 @@ import java.util.Optional;
 
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Long> {
-    // 멤버Id와 PostId로 Board 를 찾는 건데, 필요한지 모르겠음
-    Optional<Board> findByBoardIdAndMemberMemberId(Long postId, Long memberId);
+    // 멤버Id와 boardId로 Board 를 찾는 건데, 필요한지 모르겠음
+    Optional<Board> findByBoardIdAndMemberMemberId(Long boardId, Long memberId);
 
     // 게시물
     Optional<Board> findById(Long boardId);

@@ -1,8 +1,15 @@
+server:
+  port: 8080
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/SikGu
     username: root
     password: ${DB_PASSWORD}
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    modules:
+        - com.fasterxml.jackson.datatype:jackson-datatype-jsr310
   jpa:
     hibernate:
       ddl-auto: create

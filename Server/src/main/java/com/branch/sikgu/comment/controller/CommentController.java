@@ -1,5 +1,6 @@
 package com.branch.sikgu.comment.controller;
 
+import com.branch.sikgu.board.entity.Board;
 import com.branch.sikgu.comment.dto.CommentDto;
 import com.branch.sikgu.comment.entity.Comment;
 import com.branch.sikgu.comment.mapper.CommentMapper;
@@ -29,15 +30,17 @@ public class CommentController {
     public ResponseEntity postComment(@RequestHeader(name = "Authorization") String authentication,
                                       @PathVariable("board-id") @Positive long boardId,
                                       @Valid @RequestBody CommentDto.Post commentPostDto) {
+
         Comment comment = commentService.createComment(
-                commentMapper.commentPostDto_to_Comment(commentPostDto), authentication);
+                commentMapper.commentPostDto_to_Comment(commentPostDto), boardId, authentication);
         CommentDto.Response response = commentMapper.commentToCommentResponseDto(comment);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     //댓글 수정
-    @PatchMapping("/comments/{comment-id}")
+    @PatchMapping("comments/{comment-id}")
     public ResponseEntity patchComment(@RequestHeader(name = "Authorization") String authentication,
+//                                       @PathVariable("board-id") @Positive long boardId,
                                        @PathVariable("comment-id") @Positive long commentId,
                                        @Valid @RequestBody CommentDto.Patch commentPatchDto) {
         commentPatchDto.setCommentId(commentId);
@@ -49,9 +52,11 @@ public class CommentController {
     }
 
     // 댓글 조회
-    @GetMapping("/comments/{comment-id}")
-    public ResponseEntity getComment(@PathVariable("comment-id") @Positive long commentId){
-        List<Comment> comments = commentService.findComments(commentId);
+    @GetMapping("{board-id}/comments")
+    public ResponseEntity getComment(@PathVariable("board-id") @Positive long boardId
+//                                     @PathVariable("comment-id") @Positive long commentId
+    ){
+        List<Comment> comments = commentService.findComments(boardId);
 
         List<CommentDto.Response> responses = commentMapper.comments_to_CommentResponseDto(comments);
 

@@ -13,6 +13,7 @@ import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.member.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -28,21 +29,22 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final MemberService memberService;
     private final BoardService boardService;
-    private final CommentService commentService;
     private final Comment comment;
-    private final JwtTokenizer jwtTokenizer;
 
     // 댓글 작성
-    public Comment createComment(Comment comment, String authentication) {
+    public Comment createComment(Comment comment, long boardId, String authentication) {
         Member member = memberService.findMember(authentication);
+        Board board = boardService.getBoardById(boardId);
+
         comment.setMember(member);
+        comment.setBoard(board);
 
         return commentRepository.save(comment);
     }
 
     // 댓글 수정
     public Comment updateComment(Comment comment, String authentication) {
-        Comment findComment = findComment(comment.getCommentId());
+        Comment findComment = findVerificationComment(comment.getCommentId());
         Member findmember = findComment.getMember();
 
         // 토큰에서 가져온 멤버와 댓글 작성자인 멤버가 다른지 확인하고 다르면 예외 발생
@@ -57,7 +59,7 @@ public class CommentService {
 
 
     // 댓글 조회
-    public List<Comment> findComments(long boardId) {
+    public List<Comment> findComments(long boardId) { // 보드 Id로 보드를 가져옴.....
         Board board = boardService.getBoardById(boardId);
 
         return commentRepository.findByBoardId(board.getBoardId());
@@ -68,10 +70,13 @@ public class CommentService {
         Comment findComment = findComment(commentId);
         Member findmember = findComment.getMember();
 
+        // 작성자와 삭제하려는 멤버가 다른 경우 예외 발생
         if (!findmember.getMemberId().equals(memberService.findMember(authentication).getMemberId())) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_FORBIDDEN, HttpStatus.FORBIDDEN);
         }
         comment.setCommentStatus(Comment.CommentStatus.DELETED_COMMENT);
+
+        commentRepository.delete(findComment);
     }
 
 

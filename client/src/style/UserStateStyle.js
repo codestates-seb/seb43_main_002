@@ -36,7 +36,9 @@ export const Title = styled.div`
   > div:first-child {
     width: 50px;
     height: 50px;
-    background-color: white;
+    background-image: url('/icon/main-logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   > div:nth-child(2) {
@@ -90,15 +92,9 @@ export const Posts = styled.div`
       border-radius: 25px;
       width: 40px;
       height: 40px;
-
-      ::before {
-        content: '✓';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 24px;
-      }
+      background-image: url('/icon/state-check.png');
+      background-repeat: no-repeat;
+      background-position: center;
     }
 
     > div:nth-child(2) {
@@ -244,15 +240,15 @@ export const Modal = styled.div`
 
     > .post {
       background-color: white;
-      position: relative;
       border-radius: 10px;
+      margin-top: 30px;
       box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 
       > div:first-child {
+        position: relative;
         padding: 15px 20px 20px 20px;
-        margin-top: 30px;
 
-        > div:first-child {
+        > img {
           position: absolute;
           left: 20px;
           top: -10px;

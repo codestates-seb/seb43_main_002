@@ -101,9 +101,10 @@ export const EditForm = styled.form`
       ::before {
         content: '+';
         position: absolute;
-        font-size: 16px;
+        font-size: 20px;
         font-weight: bold;
         color: #444;
+        top: 2px;
         left: 8px;
       }
     }
@@ -130,20 +131,10 @@ export const EditForm = styled.form`
     width: 100%;
     height: 45px;
     border: none;
-    padding-left: 35px;
+    padding-left: 38px;
     border-radius: 10px;
     font-size: 12pt;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
-  }
-
-  > div .icon {
-    background-color: #c9c9c9;
-    position: absolute;
-    top: 44px;
-    left: 10px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50px;
   }
 
   > div:nth-child(5) input {
@@ -182,4 +173,15 @@ export const EditForm = styled.form`
     border-radius: 100px;
     border: none;
   }
+`;
+
+export const EditIcon = styled.form`
+  background-image: ${(props) => `url(${props.backgroundImage})`};
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position: center;
+  top: 41px;
+  left: 10px;
+  width: 25px;
+  height: 20px;
 `;

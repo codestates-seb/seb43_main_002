@@ -200,7 +200,7 @@ const UserState = () => {
                 return (
                   <div className="post" key={idx}>
                     <div>
-                      <div></div>
+                      <img src={el.img} alt="프로필 이미지" />
                       <div>
                         <div>
                           <div>{el.nickname}</div>

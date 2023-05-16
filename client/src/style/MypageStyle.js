@@ -37,7 +37,9 @@ export const Title = styled.div`
   > div:first-child {
     width: 50px;
     height: 50px;
-    background-color: white;
+    background-image: url('/icon/main-logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   > div:nth-child(2) {
@@ -48,7 +50,9 @@ export const Title = styled.div`
     color: white;
   }
 
-  > div:last-child {
+  > button {
+    border: none;
+    background-color: red;
     margin-left: auto;
     color: white;
   }
@@ -105,11 +109,10 @@ export const Profile = styled.div`
           list-style: none;
 
           > li:first-child {
-            width: 30px;
+            width: 32px;
             height: 30px;
             margin-right: 10px;
             border-radius: 50px;
-            background-color: #cdeeff;
           }
 
           > li:last-child > div:first-child {
@@ -144,13 +147,6 @@ export const NewPosts = styled.div`
         list-style: none;
         margin: 0;
         padding: 0;
-
-        li:first-child div {
-          background-color: #cdeeff;
-          border-radius: 30px;
-          width: 30px;
-          height: 30px;
-        }
 
         li:nth-child(2) {
           text-align: right;
@@ -239,4 +235,12 @@ export const History = styled.div`
       }
     }
   }
+`;
+
+export const PostIcon = styled.div`
+  background-image: ${(props) =>
+    props.isType ? `url("${props.imageA}")` : `url("${props.imageB}")`};
+  width: 35px;
+  height: 30px;
+  background-repeat: no-repeat;
 `;

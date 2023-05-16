@@ -20,6 +20,7 @@ import { login } from '../store/userSlice';
 // import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import axiosInstance from '../axiosConfig';
+import BackLogo from './public/SVG/backlogo.svg';
 
 const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -95,6 +96,8 @@ const Login = () => {
       <BackGround>
         <BackYellow />
       </BackGround>
+      <img src={BackLogo} alt="로고" />
+
       <LoginContainer>
         <LoginTitle>Sign in now</LoginTitle>
         <LoginForm onSubmit={handleSubmit} noValidate>

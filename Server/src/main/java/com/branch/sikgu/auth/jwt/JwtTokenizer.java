@@ -104,26 +104,6 @@ public class JwtTokenizer {
         return key;
     }
 
-    // 로그인 컨트롤러를 작성하기 위해 추가했습니다.
-    public String generateAccessToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("username", userDetails.getUsername());
-        // 클레임 추가 불필요
-
-        Date expiration = getTokenExpiration(accessTokenExpirationMinutes);
-
-        String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
-
-        return generateAccessToken(claims, userDetails.getUsername(), expiration, base64EncodedSecretKey);
-    }
-
-    public String generateRefreshToken(UserDetails userDetails) {
-        Date expiration = getTokenExpiration(refreshTokenExpirationMinutes);
-
-        String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
-
-        return generateRefreshToken(userDetails.getUsername(), expiration, base64EncodedSecretKey);
-    }
 
     public Long getMemberId(String token) {
         long memberId = parseToken1(token).get("memberId", Long.class);

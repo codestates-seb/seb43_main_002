@@ -227,8 +227,8 @@ public class BoardRestDocsTest {
 
         // 가상의 게시글 데이터
         List<BoardDto.Response> boards = Arrays.asList(
-                new BoardDto.Response(1L, 1L,"제목1", "내용1",  timeX, null, 3, Board.PassedGender.MALE, timeY),
-                new BoardDto.Response(2L, 3L,"제목2", "내용2",  timeX,  null, 4, Board.PassedGender.FEMALE, timeY)
+                new BoardDto.Response(1L, 1L, "제목1", "내용1", timeX, null, 3, Board.PassedGender.MALE, timeY),
+                new BoardDto.Response(2L, 3L, "제목2", "내용2", timeX, null, 4, Board.PassedGender.FEMALE, timeY)
         );
 
         // boardService의 getBoards() 메서드가 가상의 게시글 데이터를 반환하도록 설정
@@ -405,5 +405,5 @@ public class BoardRestDocsTest {
 //                                )
 //                        )
 //                );
-    }
 }
+

@@ -112,12 +112,12 @@ public class MemberService {
     public Long getCurrentMemberId(Authentication authentication) {
         Object principal = authentication.getPrincipal();
         if (principal instanceof String) {
-            String username = (String) principal;
-            Optional<Member> memberOptional = memberRepository.findByEmail(username);
+            String email = (String) principal;
+            Optional<Member> memberOptional = memberRepository.findByEmail(email);
             if (memberOptional.isPresent()) {
                 return memberOptional.get().getMemberId();
             } else {
-                throw new IllegalStateException("Cannot find member with email: " + username);
+                throw new IllegalStateException("해당하는 이메일의 멤버를 찾을 수 없습니다.: " + email);
             }
         } else {
             throw new IllegalStateException("Unknown principal type: " + principal.getClass());

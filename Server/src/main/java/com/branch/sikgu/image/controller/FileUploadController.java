@@ -21,11 +21,11 @@ public class FileUploadController {
 
     FileService fileService;
 
-    @Value("${myapp.img-path}")
+//    @Value("${myapp.img-path}")
     private String imgPath;
 
 
-    private String staticPath = "https://1319-14-72-7-98.ngrok-free.app/static/";
+    private String staticPath = "/static/";
 
     public FileUploadController(FileService fileService) {
         this.fileService = fileService;

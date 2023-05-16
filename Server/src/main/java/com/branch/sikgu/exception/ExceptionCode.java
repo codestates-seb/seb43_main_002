@@ -7,8 +7,8 @@ public enum ExceptionCode {
     INVALID_TOKEN("유효한 토큰이 아닙니다."),
 
     // Post
-    POST_NOT_FOUND("해당 포스트를 찾을 수 없습니다."),
-    INACTIVED_POST("비활성화 된 게시물입니다."),
+    BOARD_NOT_FOUND("해당 포스트를 찾을 수 없습니다."),
+    INACTIVED_BOARD("비활성화 된 게시물입니다."),
 
     // Comment
     COMMENT_NOT_FOUND("해당 댓글을 찾을 수 없습니다."),

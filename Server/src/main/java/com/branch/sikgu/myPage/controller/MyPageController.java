@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/mypages")
 @AllArgsConstructor
@@ -24,10 +26,9 @@ public class MyPageController {
     }
 
     // 마이페이지 수정
-    @PatchMapping
+    @PatchMapping("/{memberId}")
     public ResponseEntity<MyPageResponseDto> updateMyPage(@PathVariable Long memberId, @RequestBody MyPageRequestDto myPageRequestDto, Authentication authentication) {
         MyPageResponseDto myPageResponseDto = myPageService.updateMyPage(memberId, myPageRequestDto, authentication);
-
         return ResponseEntity.ok(myPageResponseDto);
     }
 }

@@ -1,8 +1,8 @@
 package com.branch.sikgu.myPage.entity;
 
-import com.branch.sikgu.group.entity.Group;
+import com.branch.sikgu.board.entity.Board;
 import com.branch.sikgu.member.entity.Member;
-import com.branch.sikgu.post.entity.Post;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +20,8 @@ public class MyPage {
     @Column(name = "my_page_id")
     private Long myPageId;
 
+    @Column(name = "image")
+    private String imagePath;
     @Column(name = "introduce")
     private String introduce;
 
@@ -32,6 +34,8 @@ public class MyPage {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Board> recentPost = new ArrayList<>();
 
+
+    // 나중에 식사한 인원의 평가들을 담을 필드 연관관계 매핑 후 수정 예정
     @Column(name = "review", columnDefinition = "TEXT")
     private String review;
 
@@ -42,7 +46,4 @@ public class MyPage {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member;
-    public void setMember(Member member) {
-        this.member = member;
-    }
 }

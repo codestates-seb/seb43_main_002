@@ -19,8 +19,6 @@ public class FileService {
     public Long addImage(Image image) {
         Long id = imageRepository.addImage(image);
         return id;
-
-
     }
 
     public Image getImageById(Long id) {

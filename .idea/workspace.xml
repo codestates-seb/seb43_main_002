@@ -5,13 +5,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09fddecd-4d33-4be8-96e9-4bd8e69fc688" name="변경" comment="Comment 작성&#10;Board 일부 수정">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_33__________.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_33__________.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44__________.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44__________.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_17_12__________.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_17_12__________.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26__________.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26__________.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023-05-15_PM_1_19__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023-05-15_PM_1_19__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023-05-15_PM_1_19__Changes_by_wooddy_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023-05-15_PM_1_19__Changes_by_wooddy_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
-    <list id="dbeadf4f-c196-4440-954d-02f04367a6e7" name="SYJ 님이 변경한 내용" comment="SYJ 님이 변경한 내용">
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/dto/BoardPatchDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/dto/BoardResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/.gradle/7.6.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Server/.gradle/7.6.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/.gradle/7.6.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Server/.gradle/7.6.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/.gradle/7.6.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Server/.gradle/7.6.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/.gradle/7.6.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Server/.gradle/7.6.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Server/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/Server/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/controller/LoginController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/controller/LogoutController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/filter/JwtVerificationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/filter/JwtVerificationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/jwt/JwtTokenizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/jwt/JwtTokenizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/service/BoardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/controller/CommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/repository/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/repository/CommentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/service/CommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/exception/ExceptionCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/exception/ExceptionCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/image/Service/FileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/image/Service/FileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/image/controller/FileUploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/image/controller/FileUploadController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/entity/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/entity/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/service/MemberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/controller/MyPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/controller/MyPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/dto/MyPageRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/dto/MyPageRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/dto/MyPageResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/dto/MyPageResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/entity/MyPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/entity/MyPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/service/MyPageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/service/MyPageService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/Board/BoardRestDocsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/Board/BoardRestDocsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/test/resources/application-test.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/test/resources/application-test.yml" afterDir="false" />
     </list>
+    <list id="dbeadf4f-c196-4440-954d-02f04367a6e7" name="SYJ 님이 변경한 내용" comment="SYJ 님이 변경한 내용" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,6 +61,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$/Server">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
@@ -148,38 +181,40 @@
       <recent name="$PROJECT_DIR$/Server/sickgu/src/main/java/com/branch/board" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BoardRestDocsTest.getBoardTest">
-    <configuration name="BoardRestDocsTest.createBoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Server.test" />
+  <component name="RunManager" selected="Application.SikguApplication">
+    <configuration name="SikguApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.branch.sikgu.SikguApplication" />
+      <module name="Server.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.branch.sikgu.Board.*" />
+          <option name="PATTERN" value="com.branch.sikgu.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.branch.sikgu.Board" />
-      <option name="MAIN_CLASS_NAME" value="com.branch.sikgu.Board.BoardRestDocsTest" />
-      <option name="METHOD_NAME" value="createBoardTest" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BoardRestDocsTest.deleteBoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Server.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.branch.sikgu.Board.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.branch.sikgu.Board" />
-      <option name="MAIN_CLASS_NAME" value="com.branch.sikgu.Board.BoardRestDocsTest" />
-      <option name="METHOD_NAME" value="deleteBoardTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="Server [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Server" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dependencies" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
     </configuration>
     <configuration name="BoardRestDocsTest.getBoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Server.test" />
@@ -253,20 +288,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.BoardRestDocsTest.createBoardTest" />
-      <item itemvalue="JUnit.BoardRestDocsTest.deleteBoardTest" />
+      <item itemvalue="Application.SikguApplication" />
+      <item itemvalue="Gradle.Server [dependencies]" />
       <item itemvalue="JUnit.BoardRestDocsTest.getBoardTest" />
       <item itemvalue="JUnit.BoardRestDocsTest.getBoardsTest" />
       <item itemvalue="JUnit.BoardRestDocsTest.updateBoardTest" />
-      <item itemvalue="Spring Boot.SikguApplication" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SikguApplication" />
+        <item itemvalue="Gradle.Server [dependencies]" />
+        <item itemvalue="JUnit.BoardRestDocsTest.getBoardTest" />
         <item itemvalue="JUnit.BoardRestDocsTest.updateBoardTest" />
         <item itemvalue="JUnit.BoardRestDocsTest.getBoardsTest" />
-        <item itemvalue="JUnit.BoardRestDocsTest.getBoardTest" />
-        <item itemvalue="JUnit.BoardRestDocsTest.deleteBoardTest" />
-        <item itemvalue="JUnit.BoardRestDocsTest.createBoardTest" />
       </list>
     </recent_temporary>
   </component>
@@ -401,6 +435,9 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/seb43_main_002$BoardRestDocsTest_getBoardTest.ic" NAME="BoardRestDocsTest.getBoardTest 커버리지 결과" MODIFIED="1683960978691" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.branch.sikgu.Board.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/seb43_main_002$SikguApplication.ic" NAME="SikguApplication Coverage Results" MODIFIED="1684198364046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.branch.sikgu.*</FILTER>
     </SUITE>
   </component>
 </project>

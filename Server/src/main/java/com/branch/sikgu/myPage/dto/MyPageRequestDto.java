@@ -7,5 +7,4 @@ import lombok.Setter;
 @Setter
 public class MyPageRequestDto {
     private String introduce;
-    private String review;
 }

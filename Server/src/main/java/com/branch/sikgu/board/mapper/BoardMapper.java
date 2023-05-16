@@ -1,9 +1,5 @@
 package com.branch.sikgu.board.mapper;
 
-import com.branch.sikgu.board.dto.BoardPatchDto;
-import com.branch.sikgu.board.dto.BoardPostDto;
-import com.branch.sikgu.board.dto.BoardResponseDto;
-import com.branch.sikgu.board.entity.Board;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.stereotype.Component;
@@ -17,8 +13,8 @@ import java.util.stream.Collectors;
 public interface BoardMapper {
 
     // Response
-    default BoardResponseDto.Response toResponseDto(Board board) {
-        return new BoardResponseDto.Response(
+    default com.branch.sikgu.post.dto.BoardResponseDto.Response toResponseDto(com.branch.sikgu.post.entity.Board board) {
+        return new com.branch.sikgu.post.dto.BoardResponseDto.Response(
                 board.getMember().getMemberId(),
                 board.getBoardId(),
                 board.getTitle(),

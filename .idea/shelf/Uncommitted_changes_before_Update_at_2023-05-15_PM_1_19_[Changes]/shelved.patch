@@ -1,0 +1,191 @@
+Index: Server/src/docs/asciidoc/index.adoc
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>= SikGu!\r\n:sectnums:\r\n:toc: left\r\n:toclevels: 4\r\n:toc-title: Table of Contents\r\n:source-highlighter: prettify\r\n\r\n\r\n\r\nv1.0.0, 2023.05.11\r\n\r\n// (4)\r\n***\r\n== MemberController\r\n=== 회원 등록 (/members/signup) POST\r\n.curl-request\r\ninclude::{snippets}/members/signup/curl-request.adoc[]\r\n\r\n.http-request\r\ninclude::{snippets}/members/signup/http-request.adoc[]\r\n\r\n.request-fields\r\ninclude::{snippets}/members/signup/request-fields.adoc[]\r\n\r\n.http-response\r\ninclude::{snippets}/members/signup/http-response.adoc[]\r\n\r\n.response-body\r\ninclude::{snippets}/members/signup/response-body.adoc[]\r\n\r\n.response-fields\r\ninclude::{snippets}/members/signup/response-fields.adoc[]\r\n\r\n=== 회원 정보 수정 (members/editprofile) PATCH\r\n.curl-request\r\ninclude::{snippets}/members/update/curl-request.adoc[]\r\n\r\n.http-request\r\ninclude::{snippets}/members/update/http-request.adoc[]\r\n\r\n.request-headers\r\ninclude::{snippets}/members/update/request-headers.adoc[]\r\n\r\n.request-fields\r\ninclude::{snippets}/members/update/request-fields.adoc[]\r\n\r\n.http-response\r\ninclude::{snippets}/members/update/http-response.adoc[]\r\n\r\n.response-body\r\ninclude::{snippets}/members/update/response-body.adoc[]\r\n\r\n.response-fields\r\ninclude::{snippets}/members/update/response-fields.adoc[]\r\n\r\n=== 회원 정보 조회 (/members/me) GET\r\n.curl-request\r\ninclude::{snippets}/members/get/curl-request.adoc[]\r\n\r\n.http-request\r\ninclude::{snippets}/members/get/http-request.adoc[]\r\n\r\n.request-headers\r\ninclude::{snippets}/members/get/request-headers.adoc[]\r\n\r\n.http-response\r\ninclude::{snippets}/members/get/http-response.adoc[]\r\n\r\n.response-body\r\ninclude::{snippets}/members/get/response-body.adoc[]\r\n\r\n.response-fields\r\ninclude::{snippets}/members/get/response-fields.adoc[]\r\n\r\n=== 회원 탈퇴 (/members) DELETE\r\n.curl-request\r\ninclude::{snippets}/members/delete/curl-request.adoc[]\r\n\r\n.http-request\r\ninclude::{snippets}/members/delete/http-request.adoc[]\r\n\r\n.request-headers\r\ninclude::{snippets}/members/delete/request-headers.adoc[]\r\n\r\n.http-response\r\ninclude::{snippets}/members/delete/http-response.adoc[]\r\n\r\n.response-body\r\ninclude::{snippets}/members/delete/response-body.adoc[]
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Server/src/docs/asciidoc/index.adoc b/Server/src/docs/asciidoc/index.adoc
+--- a/Server/src/docs/asciidoc/index.adoc	(revision ff10b993a059d7a500a5db1e715aa7c1d6930000)
++++ b/Server/src/docs/asciidoc/index.adoc	(date 1684124288641)
+@@ -1,89 +1,89 @@
+-= SikGu!
+-:sectnums:
+-:toc: left
+-:toclevels: 4
+-:toc-title: Table of Contents
+-:source-highlighter: prettify
+-
+-
+-
+-v1.0.0, 2023.05.11
+-
+-// (4)
+-***
+-== MemberController
+-=== 회원 등록 (/members/signup) POST
+-.curl-request
+-include::{snippets}/members/signup/curl-request.adoc[]
+-
+-.http-request
+-include::{snippets}/members/signup/http-request.adoc[]
+-
+-.request-fields
+-include::{snippets}/members/signup/request-fields.adoc[]
+-
+-.http-response
+-include::{snippets}/members/signup/http-response.adoc[]
+-
+-.response-body
+-include::{snippets}/members/signup/response-body.adoc[]
+-
+-.response-fields
+-include::{snippets}/members/signup/response-fields.adoc[]
+-
+-=== 회원 정보 수정 (members/editprofile) PATCH
+-.curl-request
+-include::{snippets}/members/update/curl-request.adoc[]
+-
+-.http-request
+-include::{snippets}/members/update/http-request.adoc[]
+-
+-.request-headers
+-include::{snippets}/members/update/request-headers.adoc[]
+-
+-.request-fields
+-include::{snippets}/members/update/request-fields.adoc[]
+-
+-.http-response
+-include::{snippets}/members/update/http-response.adoc[]
+-
+-.response-body
+-include::{snippets}/members/update/response-body.adoc[]
+-
+-.response-fields
+-include::{snippets}/members/update/response-fields.adoc[]
+-
+-=== 회원 정보 조회 (/members/me) GET
+-.curl-request
+-include::{snippets}/members/get/curl-request.adoc[]
+-
+-.http-request
+-include::{snippets}/members/get/http-request.adoc[]
+-
+-.request-headers
+-include::{snippets}/members/get/request-headers.adoc[]
+-
+-.http-response
+-include::{snippets}/members/get/http-response.adoc[]
+-
+-.response-body
+-include::{snippets}/members/get/response-body.adoc[]
+-
+-.response-fields
+-include::{snippets}/members/get/response-fields.adoc[]
+-
+-=== 회원 탈퇴 (/members) DELETE
+-.curl-request
+-include::{snippets}/members/delete/curl-request.adoc[]
+-
+-.http-request
+-include::{snippets}/members/delete/http-request.adoc[]
+-
+-.request-headers
+-include::{snippets}/members/delete/request-headers.adoc[]
+-
+-.http-response
+-include::{snippets}/members/delete/http-response.adoc[]
+-
+-.response-body
+-include::{snippets}/members/delete/response-body.adoc[]
+\ No newline at end of file
++// = SikGu!
++// :sectnums:
++// :toc: left
++// :toclevels: 4
++// :toc-title: Table of Contents
++// :source-highlighter: prettify
++//
++//
++//
++// v1.0.0, 2023.05.11
++//
++// // (4)
++// ***
++// == MemberController
++// === 회원 등록 (/members/signup) POST
++// .curl-request
++// include::{snippets}/members/signup/curl-request.adoc[]
++//
++// .http-request
++// include::{snippets}/members/signup/http-request.adoc[]
++//
++// .request-fields
++// include::{snippets}/members/signup/request-fields.adoc[]
++//
++// .http-response
++// include::{snippets}/members/signup/http-response.adoc[]
++//
++// .response-body
++// include::{snippets}/members/signup/response-body.adoc[]
++//
++// .response-fields
++// include::{snippets}/members/signup/response-fields.adoc[]
++//
++// === 회원 정보 수정 (members/editprofile) PATCH
++// .curl-request
++// include::{snippets}/members/update/curl-request.adoc[]
++//
++// .http-request
++// include::{snippets}/members/update/http-request.adoc[]
++//
++// .request-headers
++// include::{snippets}/members/update/request-headers.adoc[]
++//
++// .request-fields
++// include::{snippets}/members/update/request-fields.adoc[]
++//
++// .http-response
++// include::{snippets}/members/update/http-response.adoc[]
++//
++// .response-body
++// include::{snippets}/members/update/response-body.adoc[]
++//
++// .response-fields
++// include::{snippets}/members/update/response-fields.adoc[]
++//
++// === 회원 정보 조회 (/members/me) GET
++// .curl-request
++// include::{snippets}/members/get/curl-request.adoc[]
++//
++// .http-request
++// include::{snippets}/members/get/http-request.adoc[]
++//
++// .request-headers
++// include::{snippets}/members/get/request-headers.adoc[]
++//
++// .http-response
++// include::{snippets}/members/get/http-response.adoc[]
++//
++// .response-body
++// include::{snippets}/members/get/response-body.adoc[]
++//
++// .response-fields
++// include::{snippets}/members/get/response-fields.adoc[]
++//
++// === 회원 탈퇴 (/members) DELETE
++// .curl-request
++// include::{snippets}/members/delete/curl-request.adoc[]
++//
++// .http-request
++// include::{snippets}/members/delete/http-request.adoc[]
++//
++// .request-headers
++// include::{snippets}/members/delete/request-headers.adoc[]
++//
++// .http-response
++// include::{snippets}/members/delete/http-response.adoc[]
++//
++// .response-body
++// include::{snippets}/members/delete/response-body.adoc[]
+\ No newline at end of file

@@ -25,10 +25,10 @@ public class BoardController {
 
     // 게시물 등록 API
     @PostMapping
-    public ResponseEntity<BoardResponseDto.Response> createBoard(
-            @RequestBody @Valid BoardPostDto.Post postDto,
+    public ResponseEntity<com.branch.sikgu.post.dto.BoardResponseDto.Response> createBoard(
+            @RequestBody @Valid com.branch.sikgu.post.dto.BoardPostDto.Post postDto,
             @RequestHeader(name = "Authorization") String authentication) {
-        BoardResponseDto.Response responseDto = boardService.createBoard(postDto, authentication);
+        BoardResponse.Response responseDto = boardService.createBoard(postDto, authentication);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }

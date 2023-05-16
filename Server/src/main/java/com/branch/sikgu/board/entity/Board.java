@@ -14,11 +14,11 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
+public class Board {
     // 게시물 ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long postId;
+    private Long boardId;
 
     // 제목
     @Column(nullable = false, length = 25)
@@ -57,10 +57,10 @@ public class Post {
         POST_INACTIVE("비활성화된 게시물");
 
         @Getter
-        private final String postStatus;
+        private final String boardStatus;
 
-        PostStatus(String postStatus) {
-            this.postStatus = postStatus;
+        PostStatus(String boardStatus) {
+            this.boardStatus = boardStatus;
         }
     }
 

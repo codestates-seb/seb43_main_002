@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="09fddecd-4d33-4be8-96e9-4bd8e69fc688" name="변경" comment="Post 작성 - Test 전">
       <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_33,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/gradle-wrapper.jar" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_33,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/gradlew" afterDir="false" />
@@ -52,6 +53,156 @@
       <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/repository/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/repository/BoardRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/service/BoardService.java" afterDir="false" />
     </list>
+=======
+    <list default="true" id="6f9da59e-159a-4414-9273-9c06f103f7b9" name="Changes" comment="MyPage 작업 중">
+      <change beforePath="$PROJECT_DIR$/.github/PULL_REQUEST_TEMPLATE.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/git_toolbox_prj.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/Server.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/seb43_main_002.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/buildOutputCleanup.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/dependencies-accessors.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/gradle-wrapper1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/gradle-wrapper2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/gradle-wrapper3.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/gradle-wrapper4.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26__________.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/docs/asciidoc/index.adoc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/docs/asciidoc/login.adoc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/docs/asciidoc/member.adoc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/ServletInitializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/SikguApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/controller/LoginController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/controller/LogoutController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/dto/JwtResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/dto/LoginDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/filter/JwtAuthenticationFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/filter/JwtVerificationFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/handler/MemberAccessDeniedHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/handler/MemberAuthenticationEntryPoint.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/handler/MemberAuthenticationFailureHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/handler/MemberAuthenticationSuccessHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/jwt/JwtTokenType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/jwt/JwtTokenizer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/userdetails/MemberDetailsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/utils/CustomAuthorityUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/utils/ErrorResponder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/entity/Comment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/config/OutsideController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/config/SecurityConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/config/WebConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/exception/BusinessLogicException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/exception/ExceptionCode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/exception/HttpStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/group/entity/Group.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/image/Entity/Image.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/image/Repository/ImageRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/image/Service/FileService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/image/controller/FileUploadController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/controller/MemberController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/dto/EmailCheckRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/dto/MemberResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/dto/MemberSignUpRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/dto/MemberSignUpResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/dto/MemberUpdateRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/dto/NicknameCheckRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/entity/Member.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/mapper/MemberMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/repository/MemberRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/service/MemberService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/controller/MyPageController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/dto/MyPageResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/entity/MyPage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/mapper/MyPageMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/repository/MyPageRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/service/MyPageService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/controller/PostController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/dto/PostPatchDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/dto/PostRequestDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/dto/PostResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/entity/Post.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/mapper/PostMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/repository/PostRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/post/service/PostService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/response/ErrorResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/tag/entity/Tag.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/SikguApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/logintest/LoginTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/member/MemberRestDocsTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/loginData.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/Logo/Logo1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/Logo/Logo2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/Logo/Logo3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/Logo/Logo4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/logo512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/.prettierrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Signup/Signup.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/home/Board.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/home/Boards.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/home/Comment.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/home/Days.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/home/Footer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/home/Header.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/home/HomeStyle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/home/Main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/home/ModalStyles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/home/ModalTagInput.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/home/PostModal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/home/Tag.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/login/Login.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/loginData.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/map/Map.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/map/MapStyle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/reportWebVitals.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/setupProxy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/setupTests.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/store.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/userSlice.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/style/GlobalStyle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/style/LoginStyle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/style/SignupStyle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/users.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/users.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/users.json" beforeDir="false" />
+    </list>
+    <list id="2f49d20c-d1fc-4d90-88da-5a7216f95a9b" name="Changes by wooddy" comment="" />
+>>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,16 +212,25 @@
     <projectState path="$PROJECT_DIR$/Server">
       <ProjectState />
     </projectState>
+<<<<<<< Updated upstream
     <projectState path="$PROJECT_DIR$/Server/sickgu">
       <ProjectState />
     </projectState>
     <projectState path="$PROJECT_DIR$/Server/sikgu">
       <ProjectState />
     </projectState>
+=======
+>>>>>>> Stashed changes
   </component>
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+<<<<<<< Updated upstream
+=======
+        <task path="$PROJECT_DIR$/Server">
+          <activation />
+        </task>
+>>>>>>> Stashed changes
         <projects_view>
           <tree_state>
             <expand>
@@ -88,11 +248,20 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+<<<<<<< Updated upstream
         <option value="Class" />
+=======
+        <option value="package-info" />
+        <option value="Enum" />
+        <option value="Empty" />
+        <option value="Class" />
+        <option value="Interface" />
+>>>>>>> Stashed changes
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+<<<<<<< Updated upstream
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="feat/todo_post" />
@@ -275,10 +444,61 @@
       </envs>
       <module name="com.branch.Server.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.branch.sikgu.SikguApplication" />
+=======
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2PPbb8Uln1sJwrP9TnrFxmYQu3s" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultPlantUmlFileTemplate": "Empty",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "TODO_SCOPE": "All Places",
+    "last_opened_file_path": "C:/Users/SYJ/Desktop/seb43_pre_014/Server/pre/build.gradle",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\SYJ\Desktop\seb43_main_002\.github" />
+      <recent name="C:\Users\SYJ\Desktop\seb43_main_002" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.branch.sikgu.member" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.Server [dependencies]">
+    <configuration name="SikguApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+      <envs>
+        <env name="DB_PASSWORD" value="yongjang5" />
+        <env name="IMG-PATH" value="C:\Users\SYJ\Desktop\seb43_main_002\Server\src\main\resources\static" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="com.branch.sikgu.SikguApplication" />
+      <module name="Server.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.branch.sikgu.member.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+>>>>>>> Stashed changes
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< Updated upstream
     <configuration name="SikguApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <envs>
         <env name="JWT_SECRET_KEY" value="password1234123412341234123412341234" />
@@ -384,6 +604,280 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+=======
+    <configuration name="MemberRestDocsTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Server" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.branch.sikgu.member.MemberRestDocsTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="MemberRestDocsTest.MemberSignUpTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Server" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.branch.sikgu.member.MemberRestDocsTest.MemberSignUpTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="MemberRestDocsTest.deleteMemberTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Server" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.branch.sikgu.member.MemberRestDocsTest.deleteMemberTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="MemberRestDocsTest.getMemberTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Server" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.branch.sikgu.member.MemberRestDocsTest.getMemberTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Server [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Server" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dependencies" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.SikguApplication" />
+      <item itemvalue="Gradle.MemberRestDocsTest" />
+      <item itemvalue="Gradle.MemberRestDocsTest.MemberSignUpTest" />
+      <item itemvalue="Gradle.MemberRestDocsTest.deleteMemberTest" />
+      <item itemvalue="Gradle.MemberRestDocsTest.getMemberTest" />
+      <item itemvalue="Gradle.Server [dependencies]" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.Server [dependencies]" />
+        <item itemvalue="Gradle.MemberRestDocsTest" />
+        <item itemvalue="Gradle.MemberRestDocsTest.deleteMemberTest" />
+        <item itemvalue="Gradle.MemberRestDocsTest.MemberSignUpTest" />
+        <item itemvalue="Gradle.MemberRestDocsTest.getMemberTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6f9da59e-159a-4414-9273-9c06f103f7b9" name="Changes" comment="" />
+      <created>1683361733295</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1683361733295</updated>
+    </task>
+    <task id="LOCAL-00001" summary="패키지 구조 변경">
+      <created>1683362020966</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1683362020966</updated>
+    </task>
+    <task id="LOCAL-00002" summary="패키지 구조 변경">
+      <created>1683362235414</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1683362235414</updated>
+    </task>
+    <task id="LOCAL-00003" summary="JWT 구현 완료&#10;멤버 로그인 구현 완료&#10;회원정보조회 본인의 정보만 조회할 수 있도록 수정">
+      <created>1683574410252</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1683574410252</updated>
+    </task>
+    <task id="LOCAL-00004" summary="중복된 코드 제거,&#10;회원 정보 조회 로직 수정">
+      <created>1683609219201</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1683609219201</updated>
+    </task>
+    <task id="LOCAL-00005" summary="회원탈퇴기능 구현 완료 (DB에서 status만 변경)&#10;회원정보조회 로직 수정 V2">
+      <created>1683618341675</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1683618341675</updated>
+    </task>
+    <task id="LOCAL-00006" summary="회원 수정 구현중 + 깃헙 템플릿 테스트">
+      <created>1683620316943</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1683620316943</updated>
+    </task>
+    <task id="LOCAL-00007" summary="회원 수정 구현중 + 깃헙 템플릿 테스트">
+      <created>1683620493246</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1683620493246</updated>
+    </task>
+    <task id="LOCAL-00008" summary="회원 수정 구현중 + 깃헙 템플릿 테스트">
+      <created>1683620578347</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1683620578347</updated>
+    </task>
+    <task id="LOCAL-00009" summary="회원 수정 구현중 + 깃헙 템플릿 테스트">
+      <created>1683621103010</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1683621103010</updated>
+    </task>
+    <task id="LOCAL-00010" summary="로그아웃, 회원정보수정, 회원탈퇴 구현완료">
+      <created>1683659926920</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1683659926920</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Member api문서화를 위한 테스트코드 작성중&#10;-회원가입 테스트 완료&#10;-회원정보 수정 테스트 예정&#10;-회원정보 조회 테스트 예정&#10;-회원탈퇴 테스트 예정">
+      <created>1683746533209</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1683746533209</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Member api문서화를 위한 테스트코드 작성중&#10;-회원가입 테스트 완료&#10;-회원정보 수정 테스트 예정&#10;-회원정보 조회 테스트 예정&#10;-회원탈퇴 테스트 예정">
+      <created>1683769442290</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1683769442290</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Member api문서화를 위한 테스트코드 작성중&#10;-회원가입 테스트 완료&#10;-회원정보 수정 테스트 예정&#10;-회원정보 조회 테스트 예정&#10;-회원탈퇴 테스트 예정">
+      <created>1683769797129</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1683769797129</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Member api문서화 (security 제외) 완료&#10;이미지 파일 업로드 기능 완료">
+      <created>1683920662529</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1683920662529</updated>
+    </task>
+    <task id="LOCAL-00015" summary="로그인 로그아웃 api 문서화를 위한 테스트 완료&#10;회원의 생년월일(birthday) 타입 LocalDate로 변경">
+      <created>1684035715358</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1684035715359</updated>
+    </task>
+    <task id="LOCAL-00016" summary="로그인 로그아웃 api 문서화를 위한 테스트 완료&#10;회원의 생년월일(birthday) 타입 LocalDate로 변경">
+      <created>1684035767163</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1684035767163</updated>
+    </task>
+    <task id="LOCAL-00017" summary="MyPage 작업 중">
+      <created>1684124149774</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1684124149774</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
+>>>>>>> Stashed changes
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -397,6 +891,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+<<<<<<< Updated upstream
     <MESSAGE value="firstCommit" />
     <MESSAGE value="jwt_copy" />
     <MESSAGE value="패키지 구조 변경2" />
@@ -413,14 +908,31 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+=======
+    <MESSAGE value="패키지 구조 변경" />
+    <MESSAGE value="JWT 구현 완료&#10;멤버 로그인 구현 완료&#10;회원정보조회 본인의 정보만 조회할 수 있도록 수정" />
+    <MESSAGE value="중복된 코드 제거,&#10;회원 정보 조회 로직 수정" />
+    <MESSAGE value="회원정보조회 로직 수정 V2" />
+    <MESSAGE value="회원탈퇴기능 구현 완료 (DB에서 status만 변경)&#10;회원정보조회 로직 수정 V2" />
+    <MESSAGE value="회원 수정 구현중 + 깃헙 템플릿 테스트" />
+    <MESSAGE value="로그아웃, 회원정보수정, 회원탈퇴 구현완료" />
+    <MESSAGE value="Member api문서화를 위한 테스트코드 작성중&#10;-회원가입 테스트 완료&#10;-회원정보 수정 테스트 예정&#10;-회원정보 조회 테스트 예정&#10;-회원탈퇴 테스트 예정" />
+    <MESSAGE value="Member api문서화 (security 제외) 완료&#10;이미지 파일 업로드 기능 완료" />
+    <MESSAGE value="로그인 로그아웃 api 문서화를 위한 테스트 완료&#10;회원의 생년월일(birthday) 타입 LocalDate로 변경" />
+    <MESSAGE value="MyPage 작업 중" />
+    <option name="LAST_COMMIT_MESSAGE" value="MyPage 작업 중" />
+>>>>>>> Stashed changes
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
   </component>
+<<<<<<< Updated upstream
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/seb43_main_002$BoardRestDocsTest_getBoardTest.ic" NAME="BoardRestDocsTest.getBoardTest 커버리지 결과" MODIFIED="1683960978691" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.branch.sikgu.Board.*</FILTER>
     </SUITE>
   </component>
+=======
+>>>>>>> Stashed changes
 </project>

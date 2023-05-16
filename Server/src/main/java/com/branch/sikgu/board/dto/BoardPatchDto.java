@@ -7,7 +7,7 @@ import lombok.Getter;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
-public class PostPatchDto {
+public class BoardPatchDto {
     @Getter
     @AllArgsConstructor
     public static class Patch {

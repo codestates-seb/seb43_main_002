@@ -6,7 +6,7 @@ import lombok.Getter;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
-public class PostRequestDto {
+public class BoardPostDto {
     @Getter
     @AllArgsConstructor
     public static class Request {

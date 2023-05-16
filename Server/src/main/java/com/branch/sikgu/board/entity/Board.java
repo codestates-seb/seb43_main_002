@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@Table(name = "BOARD")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -51,7 +52,7 @@ public class Board {
     private PassedGender passedGender = PassedGender.ANY;
 
     // 게시물 상태
-    @Column
+    @Column(name = "STATUS")
     private BoardStatus boardStatus = BoardStatus.ACTIVE_BOARD;
 
     public enum BoardStatus {

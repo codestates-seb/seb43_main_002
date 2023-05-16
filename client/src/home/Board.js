@@ -31,7 +31,7 @@ const Board = ({ board }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [commentOpen, setCommentOpen] = useState(false);
   const [people, setPeople] = useState(1);
-  console.log(people);
+  // console.log(people);
 
   const dispatch = useDispatch();
   const handlePeople = () => {
@@ -49,6 +49,7 @@ const Board = ({ board }) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
   Board.propTypes = {
     board: PropTypes.object.isRequired,
   };

@@ -8,7 +8,6 @@ const Main = () => {
     <MainWrap>
       <Header></Header>
       <Days></Days>
-
       <Footer></Footer>
     </MainWrap>
   );

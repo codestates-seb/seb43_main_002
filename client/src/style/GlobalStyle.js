@@ -6,6 +6,10 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-size: 12pt;
     padding: 0;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 
@@ -19,4 +23,8 @@ export const GlobalWrap = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fffaed;
+
+  .hide {
+    visibility: hidden;
+  }
 `;

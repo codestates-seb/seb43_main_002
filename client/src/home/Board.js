@@ -4,6 +4,12 @@ import { useState } from 'react';
 import { BiTimeFive } from 'react-icons/bi';
 import { FiUsers } from 'react-icons/fi';
 import Comment from './Comment';
+import PropTypes from 'prop-types';
+import EditModal from './EditModal';
+// import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { deleteBoard } from '../store/boardSlice';
 
 const SexInfomaitonWrap = styled.div`
   padding: 10px;
@@ -47,7 +53,7 @@ const SubmitWrap = styled.div`
   display: flex;
 `;
 
-const TimeWrap = styled.div`
+const IconWrap = styled.div`
   margin-left: 10px;
   padding: 0px;
   font-size: 10px;
@@ -60,61 +66,192 @@ const TimeWrap = styled.div`
   }
 `;
 
-const PeopleWrap = styled.div`
-  margin-left: 30px;
+const UserWrap = styled.div`
   padding: 0px;
-  font-size: 10px;
-  display: flex;
-  color: #3e3c3a;
-  svg {
-    margin-right: 10px;
-    padding: 0px;
-    font-size: 15px;
-  }
-`;
-
-const UserWrap = styled.span`
-  padding: 0px;
+  width: 40px;
   margin-left: auto;
   border: 1px solid black;
   border-radius: 50%;
 `;
 
-const Board = () => {
-  const initialTag = ['햄버거', '맛집', '수원', '오후 7시'];
-  const [tags, setTags] = useState(initialTag);
-  // console.log(tags);
+const ButtonWrap = styled.span`
+  padding: 5px;
+  display: flex;
+  justify-content: end;
+`;
+const StateButton = styled.button`
+  padding: 5px;
+  font-size: 10px;
+`;
+
+const CommentInputWrap = styled.div`
+  display: flex;
+`;
+
+const CommentInput = styled.input`
+  padding: 10px;
+  flex: 1;
+`;
+
+const CommentButton = styled.button`
+  background-color: #ffb44a;
+  padding: 10px;
+`;
+
+const CommentOpenButton = styled.button`
+  padding: 5px;
+  margin-left: auto;
+`;
+
+const Board = ({ board }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [commentOpen, setCommentOpen] = useState(false);
+  const [people, setPeople] = useState(1);
+  console.log(people);
+
+  const dispatch = useDispatch();
+  const handlePeople = () => {
+    setPeople(people + 1);
+  };
+
+  const navigate = useNavigate();
+  const handleOpen = () => {
+    setCommentOpen(!commentOpen);
+  };
+  const handlePlusClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  Board.propTypes = {
+    board: PropTypes.object.isRequired,
+  };
+  const tags = board.tag.split(',');
+  const now = new Date(board.when);
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  const hour = now.getHours();
+  const amPm = hour >= 12 ? '오후' : '오전';
+  const formattedDate = `${month}/${day}일 ${amPm} ${hour % 12}시`;
+  // const date = new Date();
+  // const [addComment, setAddcomment] = useState('');
+  // const handleCommentChange = (e) => {
+  //   setAddcomment(e.target.value);
+  // };
+
+  // const handleComment = (e) => {
+  //   e.preventDefault();
+  //   const newComment = {
+  //     member: {
+  //       displayName: 'zeeeeee',
+  //       avatarLink: '아직미완',
+  //     },
+  //     content: addComment,
+  //     updateDate: date.toISOString(),
+  //     id: board.comment.length + 1,
+  //   };
+  //   const updatedBoard = {
+  //     comment: [...board.comment, newComment],
+  //   };
+  //   axios
+  //     .post(`http://localhost:8080/boards/${board.id}/comment`, updatedBoard)
+  //     .then((res) => {
+  //       console.log('Comment Success');
+  //       setAddcomment('');
+  //     })
+
+  //     .catch((error) => {
+  //       console.error('Comment Error', error);
+  //     });
+  //   console.log(updatedBoard);
+  // };
+
+  // const handleDelete = () => {
+  //   axios
+  //     .delete(`http://localhost:8080/boards/${board.id}`)
+  //     .then(() => {
+  //       console.log('게시물이 성공적으로 삭제되었습니다.');
+  //       navigate(0);
+  //     })
+  //     .catch((error) => {
+  //       console.error('게시물 삭제 중 오류가 발생했습니다.', error);
+  //     });
+  // };
+
+  const handleDelete = () => {
+    dispatch(deleteBoard(board.id))
+      .unwrap()
+      .then(() => {
+        console.log('게시물이 성공적으로 삭제되었습니다.');
+        navigate(0);
+      })
+      .catch((error) => {
+        console.error('게시물 삭제 중 오류가 발생했습니다.', error);
+      });
+  };
 
   return (
-    <BoardWrap>
-      <SexInfomaitonWrap>누구나 참여 가능</SexInfomaitonWrap>
-      <ContentWrap>
-        <ContentHeader>바질 크림 스파게티</ContentHeader>
-        <BoardContentWrap>
-          오늘 7시에 ##동 롯데리아로 신제품 햄버거 먹으러 가실 파티원 구합니다!
-          감튀 드실 분은 제 거 양보해 드릴 수 있어요!
-        </BoardContentWrap>
-      </ContentWrap>
-      <TagWrap>
-        {tags.map((tag, idx) => (
-          <TagBlock key={idx} setTags={setTags}>
-            {tag}
-          </TagBlock>
-        ))}
-      </TagWrap>
-      <SubmitWrap>
-        <TimeWrap>
-          <BiTimeFive />
-          오후 7시
-        </TimeWrap>
-        <PeopleWrap>
-          <FiUsers />
-          3/6명
-        </PeopleWrap>
-        <UserWrap>고양이</UserWrap>
-      </SubmitWrap>
-      <Comment></Comment>
-    </BoardWrap>
+    <>
+      <BoardWrap>
+        <CommentOpenButton onClick={handleOpen}>+</CommentOpenButton>
+        <SexInfomaitonWrap>{board.who}</SexInfomaitonWrap>
+        <ContentWrap>
+          <ContentHeader>{board.food}</ContentHeader>
+          <BoardContentWrap>{board.content}</BoardContentWrap>
+        </ContentWrap>
+        <TagWrap>
+          {tags.map((tag, index) => (
+            <TagBlock key={index}>{tag}</TagBlock>
+          ))}
+        </TagWrap>
+        <SubmitWrap>
+          <IconWrap>
+            <BiTimeFive />
+            {formattedDate}
+          </IconWrap>
+          <IconWrap>
+            <FiUsers />
+            {board.people}
+          </IconWrap>
+          <UserWrap>{board.member}</UserWrap>
+          <ButtonWrap>
+            <StateButton onClick={handlePlusClick}>수정</StateButton>
+            <StateButton onClick={handleDelete}>삭제</StateButton>
+          </ButtonWrap>
+        </SubmitWrap>
+        {commentOpen && (
+          <>
+            {board.comment &&
+              board.comment.map((comment) => (
+                <Comment
+                  key={comment.id}
+                  board={board}
+                  comment={comment}
+                  handlePeople={handlePeople}
+                />
+              ))}
+            <CommentInputWrap>
+              <CommentInput
+                // onChange={handleCommentChange}
+                placeholder="댓글 입력"
+              />
+              <CommentButton
+              // onClick={handleComment}
+              >
+                작성
+              </CommentButton>
+            </CommentInputWrap>
+          </>
+        )}
+      </BoardWrap>
+      <EditModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        board={board}
+      ></EditModal>
+    </>
   );
 };
 

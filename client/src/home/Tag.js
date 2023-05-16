@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -58,16 +58,36 @@ const TagInput = styled.input`
   cursor: text;
 `;
 
-const Tag = ({ name, onChange }) => {
+const Tag = ({ name, onChange, value }) => {
   Tag.propTypes = {
-    name: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
+    value: PropTypes.string.isRequired,
   };
   const [tagItem, setTagItem] = useState('');
-  const [tagList, setTagList] = useState([]);
+  const [tagList, setTagList] = useState(value ? value.split(',') : []);
+
+  useEffect(() => {
+    setTagList(value ? value.split(',') : []);
+  }, [value]);
+
+  // console.log(tagList);
 
   const onKeyPress = (e) => {
     if (e.target.value.length !== 0 && e.key === 'Enter') {
+      submitTagItem();
+    }
+  };
+
+  // const handleTagChange = (e) => {
+  //   const { value } = e.target;
+  //   const tags = value.split(',');
+  //   onChange({ target: { name, value: tags } });
+  // };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
       submitTagItem();
     }
   };
@@ -81,11 +101,10 @@ const Tag = ({ name, onChange }) => {
   };
 
   const deleteTagItem = (e) => {
-    const deleteTagItem = e.target.parentElement.firstChild.innerText;
-    const filteredTagList = tagList.filter(
-      (tagItem) => tagItem !== deleteTagItem
-    );
+    const deletedTag = e.target.parentElement.firstChild.innerText;
+    const filteredTagList = tagList.filter((tagItem) => tagItem !== deletedTag);
     setTagList(filteredTagList);
+    onChange({ target: { name, value: filteredTagList.join(',') } });
   };
 
   return (
@@ -95,7 +114,9 @@ const Tag = ({ name, onChange }) => {
           type="text"
           placeholder="Press enter to add tags"
           onChange={(e) => setTagItem(e.target.value)}
+          // onChange={handleTagChange}
           value={tagItem}
+          onKeyDown={handleKeyDown}
           onKeyPress={onKeyPress}
         />
         {tagList.map((tagItem, index) => {

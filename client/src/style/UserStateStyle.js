@@ -10,13 +10,16 @@ export const BackGround = styled.div`
 `;
 
 export const BackYellow = styled.div`
-  background-color: #ffca61;
+  background-image: linear-gradient(135deg, #ffd571, #ffac36);
+  box-shadow: 0px 2px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 15px 15px;
   height: 102px;
   top: 0;
   left: 0;
 `;
 
 export const Mobile = styled.div`
+  font-family: 'Noto Sans KR', sans-serif;
   box-sizing: border-box;
   position: relative;
   width: 400px;
@@ -33,7 +36,9 @@ export const Title = styled.div`
   > div:first-child {
     width: 50px;
     height: 50px;
-    background-color: white;
+    background-image: url('/icon/main-logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   > div:nth-child(2) {
@@ -55,6 +60,7 @@ export const Posts = styled.div`
 
   > .post {
     background-color: white;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     width: 100%;
@@ -64,16 +70,16 @@ export const Posts = styled.div`
     margin-bottom: 20px;
 
     > .before {
-      background-color: #ffca61;
+      background-image: linear-gradient(135deg, #ffd571, #ffac36);
       border-radius: 25px;
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
 
       ::before {
         content: '';
         display: block;
-        width: 36px;
-        height: 36px;
+        width: 26px;
+        height: 26px;
         margin: 7px;
         border-radius: 50%;
         background-color: white;
@@ -84,17 +90,11 @@ export const Posts = styled.div`
       position: relative;
       background-color: #c9c9c9;
       border-radius: 25px;
-      width: 50px;
-      height: 50px;
-
-      ::before {
-        content: '✓';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 24px;
-      }
+      width: 40px;
+      height: 40px;
+      background-image: url('/icon/state-check.png');
+      background-repeat: no-repeat;
+      background-position: center;
     }
 
     > div:nth-child(2) {
@@ -111,12 +111,14 @@ export const Posts = styled.div`
           white-space: nowrap;
           text-overflow: ellipsis;
           font-weight: 700;
+          margin-bottom: 2px;
           width: 90%;
         }
 
         li span {
           font-size: 10pt;
           color: #c9c9c9;
+          margin-left: 10px;
         }
 
         li:last-child span:first-child {
@@ -142,6 +144,7 @@ export const PopUp = styled.div`
 
   > div {
     background-color: white;
+    box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.2);
     width: 360px;
     height: 160px;
     border-radius: 10px;
@@ -175,7 +178,7 @@ export const PopUp = styled.div`
 
   button:first-child {
     margin-right: 20px;
-    background-color: #ffca61;
+    background-image: linear-gradient(135deg, #ffd571, #ffac36);
   }
 `;
 
@@ -194,11 +197,12 @@ export const Modal = styled.div`
   align-items: self-end;
 
   > div {
-    background-color: #e9e9e9;
+    background-color: #fffaed;
     width: 100%;
-    height: 600px;
-    border-radius: 20px 20px 0 0;
-    padding: 20px;
+    height: auto;
+    min-height: 280px;
+    border-radius: 15px 15px 0 0;
+    padding: 30px 20px 40px 20px;
     letter-spacing: -0.05em;
 
     overflow-y: auto;
@@ -236,14 +240,15 @@ export const Modal = styled.div`
 
     > .post {
       background-color: white;
-      position: relative;
       border-radius: 10px;
+      margin-top: 30px;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 
       > div:first-child {
+        position: relative;
         padding: 15px 20px 20px 20px;
-        margin-top: 30px;
 
-        > div:first-child {
+        > img {
           position: absolute;
           left: 20px;
           top: -10px;
@@ -274,7 +279,7 @@ export const Modal = styled.div`
         }
 
         > div:last-child {
-          margin-top: 10px;
+          margin-top: 12px;
           width: 100%;
           display: flex;
 
@@ -282,7 +287,7 @@ export const Modal = styled.div`
             flex: 1;
             border: none;
             height: 30px;
-            background-color: #c9c9c9;
+            background-color: #d9d9d9;
             border-radius: 5px 0 0 5px;
             padding-left: 5px;
           }
@@ -290,7 +295,7 @@ export const Modal = styled.div`
           button {
             border: none;
             border-radius: 0 5px 5px 0;
-            background-color: #ffca61;
+            background-image: linear-gradient(135deg, #ffd571, #ffac36);
           }
         }
       }

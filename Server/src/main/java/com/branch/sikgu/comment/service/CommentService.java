@@ -13,6 +13,7 @@ import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.member.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -29,7 +30,6 @@ public class CommentService {
     private final MemberService memberService;
     private final BoardService boardService;
     private final Comment comment;
-    private final JwtTokenizer jwtTokenizer;
 
     // 댓글 작성
     public Comment createComment(Comment comment, long boardId, String authentication) {

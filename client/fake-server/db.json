@@ -38,13 +38,15 @@
       "recently": [
         {
           "id": 9,
+          "type": true,
           "date": "2018-12-31",
           "title": "당장 먹고 싶은 햄버거"
         },
         {
           "id": 10,
+          "type": false,
           "date": "2023-12-31",
-          "title": "스파게티 드실 분"
+          "title": "동네 모임"
         }
       ],
       "review": [

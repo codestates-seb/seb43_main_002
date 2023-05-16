@@ -1,5 +1,6 @@
 package com.branch.sikgu.comment.controller;
 
+import com.branch.sikgu.board.entity.Board;
 import com.branch.sikgu.comment.dto.CommentDto;
 import com.branch.sikgu.comment.entity.Comment;
 import com.branch.sikgu.comment.mapper.CommentMapper;

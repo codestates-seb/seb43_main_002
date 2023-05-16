@@ -87,9 +87,8 @@ public class BoardService {
         return boardMapper.toResponseDtoList(boards);
     }
 
-    // 해당 멤버의 게시물 조회
+    // 내 게시물 조회
     public List<BoardDto.Response> getBoardsByMember(String authentication) {
-//        validateAuthentication(authentication);
         Member member = memberService.findMember(authentication);
         List<Board> boards = boardRepository.findByMemberMemberId(member.getMemberId());
         return boardMapper.toResponseDtoList(boards);

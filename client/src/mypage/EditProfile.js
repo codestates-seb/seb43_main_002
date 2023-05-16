@@ -7,6 +7,7 @@ import {
   BackYellow,
   Title,
   EditForm,
+  EditIcon,
 } from '../style/EditProfileStyle';
 import axios from 'axios';
 
@@ -105,6 +106,13 @@ const EditProfile = () => {
     navigate(-1);
   }
 
+  const nameIcon = '/icon/join-name.png';
+  const introIcon = '/icon/join-intro.png';
+  const dateIcon = '/icon/join-date.png';
+  // const genderIcon = '/icon/join-gender.png';
+  const mailIcon = '/icon/join-mail.png';
+  const pwdIcon = '/icon/join-password.png';
+
   return (
     <>
       {data && (
@@ -115,7 +123,7 @@ const EditProfile = () => {
           <Title>
             <button onClick={handleBack}>〈</button>
             <div>Edit Profile</div>
-            <div>콘</div>
+            <div></div>
           </Title>
           <EditForm onSubmit={handleSubmit(onSubmit)}>
             <div>
@@ -143,7 +151,7 @@ const EditProfile = () => {
                   setName(e.target.value);
                 }}
               />
-              <div className="icon"></div>
+              <EditIcon backgroundImage={nameIcon} />
             </div>
             <div className="form-nickname">
               <label htmlFor="nickname">닉네임</label>
@@ -154,7 +162,7 @@ const EditProfile = () => {
                   setNickname(e.target.value);
                 }}
               />
-              <div className="icon"></div>
+              <EditIcon backgroundImage={nameIcon} />
             </div>
             <div className="form-intro">
               <label htmlFor="intro">자기소개</label>
@@ -165,7 +173,7 @@ const EditProfile = () => {
                   setIntro(e.target.value);
                 }}
               />
-              <div className="icon"></div>
+              <EditIcon backgroundImage={introIcon} />
             </div>
             <div className="form-birth">
               <label htmlFor="birth">생년월일</label>
@@ -177,7 +185,7 @@ const EditProfile = () => {
                   setBirthDay(e.target.value);
                 }}
               />
-              <div className="icon"></div>
+              <EditIcon backgroundImage={dateIcon} />
             </div>
             <div className="form-gender">
               <label htmlFor="gender">성별</label>
@@ -218,7 +226,7 @@ const EditProfile = () => {
                   setEmail(e.target.value);
                 }}
               />
-              <div className="icon"></div>
+              <EditIcon backgroundImage={mailIcon} />
             </div>
             <div className="form-pwd">
               <label htmlFor="pwd">비밀번호</label>
@@ -229,7 +237,7 @@ const EditProfile = () => {
                   setPassword(e.target.value);
                 }}
               />
-              <div className="icon"></div>
+              <EditIcon backgroundImage={pwdIcon} />
             </div>
             <div className="form-pwd-check">
               <label htmlFor="pwd-check">비밀번호 확인</label>
@@ -240,7 +248,7 @@ const EditProfile = () => {
                   setConfirmPassword(e.target.value);
                 }}
               />
-              <div className="icon"></div>
+              <EditIcon backgroundImage={pwdIcon} />
               {errors.passwordConfirm && <p>비밀번호가 일치하지 않습니다.</p>}
             </div>
             <button type="submit">수정 완료</button>

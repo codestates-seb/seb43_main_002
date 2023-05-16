@@ -10,7 +10,7 @@ export const BackGround = styled.div`
 `;
 
 export const BackYellow = styled.div`
-  background-color: #ffca61;
+  background-image: linear-gradient(135deg, #ffd571, #ffac36);
   height: 220px;
   border-radius: 0 0 50% 50%;
   top: 0;
@@ -19,6 +19,7 @@ export const BackYellow = styled.div`
 
 export const Mobile = styled.div`
   position: relative;
+  font-family: 'Noto Sans KR', sans-serif;
   width: 400px;
   height: 850px;
   padding: 20px;
@@ -70,6 +71,7 @@ export const EditForm = styled.form`
       width: 100px;
       height: 100px;
       border-radius: 50px;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 
       > img {
         position: absolute;
@@ -99,9 +101,10 @@ export const EditForm = styled.form`
       ::before {
         content: '+';
         position: absolute;
-        font-size: 16px;
+        font-size: 20px;
         font-weight: bold;
         color: #444;
+        top: 2px;
         left: 8px;
       }
     }
@@ -128,19 +131,10 @@ export const EditForm = styled.form`
     width: 100%;
     height: 45px;
     border: none;
-    padding-left: 35px;
+    padding-left: 38px;
     border-radius: 10px;
     font-size: 12pt;
-  }
-
-  > div .icon {
-    background-color: #c9c9c9;
-    position: absolute;
-    top: 44px;
-    left: 10px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
   }
 
   > div:nth-child(5) input {
@@ -156,6 +150,9 @@ export const EditForm = styled.form`
         width: 100%;
         height: 40px;
         border-radius: 50px;
+        background-color: #d4d4d4;
+        color: white;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 
         :last-child {
           margin-left: 20px;
@@ -163,7 +160,7 @@ export const EditForm = styled.form`
       }
 
       .active {
-        background-color: #ffca61;
+        background-image: linear-gradient(135deg, #ffd571, #ffac36);
       }
     }
   }
@@ -171,8 +168,20 @@ export const EditForm = styled.form`
   > button {
     width: 100%;
     height: 50px;
-    background-color: #ffca61;
+    background-image: linear-gradient(135deg, #ffd571, #ffac36);
+    color: white;
     border-radius: 100px;
     border: none;
   }
+`;
+
+export const EditIcon = styled.form`
+  background-image: ${(props) => `url(${props.backgroundImage})`};
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position: center;
+  top: 41px;
+  left: 10px;
+  width: 25px;
+  height: 20px;
 `;

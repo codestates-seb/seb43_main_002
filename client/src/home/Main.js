@@ -1,4 +1,4 @@
-import { MainWrap } from './HomeStyle';
+import { MainWrap } from '../style/HomeStyle';
 import Header from './Header';
 import Boards from './Boards';
 import Footer from './Footer';

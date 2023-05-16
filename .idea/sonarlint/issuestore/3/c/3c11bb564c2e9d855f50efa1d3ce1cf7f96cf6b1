@@ -1,0 +1,10 @@
+
+
+java:S1488<"cImmediately return this expression instead of assigning it to the temporary variable "responseDto".(ÜÙÂl8ò¥ü‚1
+Y
+java:S1854B"<Remove this useless assignment to local variable "memberId".(Âå”İ8ş¥ü‚1
+J
+java:S1481B"-Remove this unused "memberId" local variable.(Âå”İ8ÿ¥ü‚1
+]	java:S125N"<This block of commented-out lines of code should be removed.(³Íà´ûÿÿÿÿ8€¦ü‚1
+\
+java:S1144{":Remove this unused private "getBoardByIdAndMember" method.(†İ„·ÿÿÿÿÿ8¤¬Ùò1

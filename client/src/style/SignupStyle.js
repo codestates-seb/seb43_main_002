@@ -14,9 +14,6 @@ const SignupContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow-y: auto;
-  &::-webkit-scrollbar {
-    display: none;
 `;
 const BackYellow = styled.div`
   position: relative;
@@ -34,6 +31,8 @@ const Mobile = styled.div`
   padding: 0px;
   box-sizing: border-box;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
 
   /* 스크롤바 */
   ::-webkit-scrollbar {

@@ -33,6 +33,7 @@ const ModalDay = styled(DatePicker)`
   border-radius: 4px;
   box-sizing: border-box;
   text-align: center;
+  cursor: pointer;
   border: none;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
 `;
@@ -151,7 +152,11 @@ const PostModal = ({ isOpen, onClose }) => {
     <ModalWrap isOpen={isOpen}>
       <ModalContent onSubmit={handleSubmit}>
         <ModalQurry>같이 먹을 음식은?</ModalQurry>
-        <ModalInput name="food" onChange={handleChange}></ModalInput>
+        <ModalInput
+          placeholder="함께하고 싶은 음식을 적어주세요"
+          name="food"
+          onChange={handleChange}
+        ></ModalInput>
         <ModalQurry>같이 먹을 인원은?</ModalQurry>
         <ModalCount name="people" onChange={handleChange}>
           <ModalCountbutton onClick={handleDecrement}>-</ModalCountbutton>
@@ -181,7 +186,11 @@ const PostModal = ({ isOpen, onClose }) => {
           </ModalWhobutton>
         </ModalWhoButtonWrap>
         <ModalQurry>추가로 입력할 정보는?</ModalQurry>
-        <ModalText name="content" onChange={handleChange}></ModalText>
+        <ModalText
+          placeholder="추가로 입력해야 할 사항들을 적어주세요"
+          name="content"
+          onChange={handleChange}
+        ></ModalText>
         <Tag name="tag" onChange={handleChange}></Tag>
         <ModalButtonWrap>
           <ModalButton type="submit">작성하기</ModalButton>

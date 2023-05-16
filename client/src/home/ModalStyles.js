@@ -1,13 +1,4 @@
-import styled, { keyframes } from 'styled-components';
-
-const slideIn = keyframes`
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
-`;
+import styled from 'styled-components';
 
 export const ModalWrap = styled.div`
   position: fixed;
@@ -16,7 +7,7 @@ export const ModalWrap = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
@@ -27,16 +18,17 @@ export const ModalWrap = styled.div`
 
 export const ModalContent = styled.form`
   background-color: #fffaed;
+  font-size: 15px;
   border-top-right-radius: 40px;
   border-top-left-radius: 40px;
   padding: 20px;
-  animation: ${slideIn} 0.5s ease-in-out;
   width: 100%;
   height: 90%;
   max-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: start;
+  animation: 0.5s forwards;
 `;
 
 /////////////////////////////////////
@@ -44,6 +36,7 @@ export const ModalContent = styled.form`
 export const ModalQurry = styled.div`
   padding: 10px;
   font-size: 18px;
+  font-size: 17px;
 `;
 
 export const ModalInput = styled.input`
@@ -54,6 +47,9 @@ export const ModalInput = styled.input`
   border-radius: 5%;
   border: none;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const ModalCount = styled.div`
@@ -142,6 +138,9 @@ export const ModalText = styled.textarea`
   border: none;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const ModalTag = styled.input`
@@ -149,6 +148,9 @@ export const ModalTag = styled.input`
   padding: 10px;
   font-size: 12px;
   width: 325px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const ModalButtonWrap = styled.div`

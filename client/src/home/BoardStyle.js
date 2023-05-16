@@ -82,34 +82,75 @@ export const IconWrap = styled.div`
 
 export const UserWrap = styled.div`
   padding: 0px;
-  width: 40px;
-  margin-left: auto;
+  width: 30px;
+  height: 30px;
+  margin-left: 15px;
   border: 1px solid black;
   border-radius: 50%;
 `;
 
 export const ButtonWrap = styled.span`
   padding: 5px;
+  margin-left: auto;
   display: flex;
-  justify-content: end;
+  justify-content: center;
+  align-items: end;
 `;
-export const StateButton = styled.button`
+
+export const StateButton = styled.div`
   padding: 5px;
+  width: 40px;
+  height: 10px;
   font-size: 10px;
+  margin-left: 10px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  svg {
+    color: #ffddac;
+  }
+  &:hover {
+    svg {
+      color: #ffb44a;
+    }
+  }
 `;
 
 export const CommentInputWrap = styled.div`
+  margin-top: 20px;
   display: flex;
 `;
 
 export const CommentInput = styled.input`
   padding: 10px;
+  height: 30px;
+  border-radius: 20px 0 0 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
   flex: 1;
+  background-color: rgba(0, 0, 0, 0.1);
+  font-size: 12px;
 `;
 
 export const CommentButton = styled.button`
-  background-color: #ffb44a;
+  border-radius: 0 20px 20px 0;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  height: 30px;
+  font-size: 12px;
   padding: 10px;
+  display: flex;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #ffb44a;
+  border: none;
+  &:hover {
+    background-color: #ff9933;
+    color: white;
+  }
 `;
 
 export const CommentOpenButton = styled.button`
@@ -118,16 +159,17 @@ export const CommentOpenButton = styled.button`
   /* padding: 5px; */
   margin-left: 320px;
   border-radius: 50%;
-  color: #ffddac;
+  color: white;
   border: none;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: white;
+  background-color: #ffddac;
   transition: background-color 0.3s ease;
   &:hover {
-    background-color: #ffddac;
+    background-color: #ffac36;
   }
   position: absolute;
+  cursor: pointer;
 `;

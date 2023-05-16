@@ -22,17 +22,19 @@ const TagBox = styled.div`
   &:focus-within {
     border-color: white;
   }
+  /* justify-content: flex-end; */
 `;
 
 const TagItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 5px;
+  margin-top: 10px;
+  margin-right: 7px;
   padding: 5px;
-  background-color: black;
-  border-radius: 5px;
-  color: white;
+  background-color: #ffddac;
+  border-radius: 15px;
+  color: black;
   font-size: 13px;
 `;
 
@@ -42,17 +44,22 @@ const TagCloseButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  font-size: 10px;
   width: 15px;
   height: 15px;
   margin-left: 5px;
-  background-color: white;
+  background-color: #ffac36;
   border-radius: 50%;
-  color: tomato;
+  border: none;
+  color: white;
+  cursor: pointer;
 `;
 
 const TagInput = styled.input`
   display: inline-flex;
   width: 310px;
+  height: 40px;
   max-width: 310px;
   min-width: 150px;
   background: white;
@@ -115,7 +122,7 @@ const Tag = ({ name, onChange, value }) => {
       <TagBox>
         <TagInput
           type="text"
-          placeholder="Press enter to add tags"
+          placeholder="태그를 입력하시고 Enter를 눌러주세요"
           onChange={(e) => setTagItem(e.target.value)}
           // onChange={handleTagChange}
           value={tagItem}

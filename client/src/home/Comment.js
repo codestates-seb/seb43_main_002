@@ -3,18 +3,33 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteComment, updateComment } from '../store/boardSlice';
+import { BiEdit } from 'react-icons/bi';
+import { AiFillDelete } from 'react-icons/ai';
+import { StateButton } from './BoardStyle';
 
 const CommentsWrap = styled.div`
   margin-top: 10px;
   padding: 10px 0px 0px 10px;
-  border-top: 1px solid black;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
   display: flex;
 `;
 
 const CommentProfileWrap = styled.div`
   padding: 10px;
+  height: 40px;
+  width: 40px;
   border: 1px solid black;
   border-radius: 50%;
+`;
+
+const ContentWrap = styled.div`
+  padding-left: 20px;
+`;
+
+const ProfiletWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
 `;
 
 const CommentNameWrap = styled.h2`
@@ -22,15 +37,50 @@ const CommentNameWrap = styled.h2`
 `;
 
 const CommentContentWrap = styled.div`
-  padding: 0px;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 12px;
 `;
 
 const CommentStateWrap = styled.div`
   padding: 0px;
+  display: flex;
 `;
 
-const CommentButton = styled.button`
-  background-color: pink;
+const AcceptButton = styled.button`
+  border-radius: 10px;
+  font-size: 10px;
+  margin-top: 10px;
+  width: 40px;
+  height: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #ffddac;
+  border: none;
+  &:hover {
+    background-color: #ffb44a;
+    color: white;
+  }
+`;
+
+const RefuseButton = styled.button`
+  border-radius: 10px;
+  margin-top: 10px;
+  font-size: 10px;
+  width: 40px;
+  height: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #ffbebe;
+  border: none;
+  &:hover {
+    background-color: #ff8888;
+    color: white;
+  }
 `;
 
 const Comment = ({ board, comment, handlePeople }) => {
@@ -68,15 +118,23 @@ const Comment = ({ board, comment, handlePeople }) => {
     <>
       {!!comment.content && (
         <CommentsWrap>
-          <div>
+          <ProfiletWrap>
             <CommentProfileWrap>
               {comment.member?.avatarLink}
             </CommentProfileWrap>
-            <CommentButton onClick={handlePeople}>수락</CommentButton>
-            <CommentButton>거절</CommentButton>
-          </div>
-          <div>
-            <CommentNameWrap>{comment.member?.displayName}</CommentNameWrap>
+            <AcceptButton onClick={handlePeople}>수락</AcceptButton>
+            <RefuseButton>거절</RefuseButton>
+          </ProfiletWrap>
+          <ContentWrap>
+            <CommentStateWrap>
+              <CommentNameWrap>{comment.member?.displayName}</CommentNameWrap>
+              <StateButton onClick={handleEdit}>
+                <BiEdit />
+              </StateButton>
+              <StateButton onClick={handleDelete}>
+                <AiFillDelete />
+              </StateButton>
+            </CommentStateWrap>
             {editing ? (
               <>
                 <textarea
@@ -91,13 +149,9 @@ const Comment = ({ board, comment, handlePeople }) => {
             ) : (
               <>
                 <CommentContentWrap>{comment.content}</CommentContentWrap>
-                <CommentStateWrap>
-                  <CommentButton onClick={handleEdit}>수정</CommentButton>
-                  <CommentButton onClick={handleDelete}>삭제</CommentButton>
-                </CommentStateWrap>
               </>
             )}
-          </div>
+          </ContentWrap>
         </CommentsWrap>
       )}
     </>

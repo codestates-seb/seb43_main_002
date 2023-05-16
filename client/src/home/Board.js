@@ -1,6 +1,7 @@
 import { BoardWrap } from './HomeStyle';
 import { useState } from 'react';
-import { BiTimeFive } from 'react-icons/bi';
+import { BiTimeFive, BiEdit } from 'react-icons/bi';
+import { AiFillDelete } from 'react-icons/ai';
 import { FiUsers } from 'react-icons/fi';
 import Comment from './Comment';
 import PropTypes from 'prop-types';
@@ -8,6 +9,7 @@ import EditModal from './EditModal';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { deleteBoard } from '../store/boardSlice';
+
 import {
   SexInfomaitonWrap,
   ContentWrap,
@@ -94,10 +96,14 @@ const Board = ({ board }) => {
             <FiUsers />
             {people}/{board.people}
           </IconWrap>
-          <UserWrap>{board.member}</UserWrap>
           <ButtonWrap>
-            <StateButton onClick={handlePlusClick}>수정</StateButton>
-            <StateButton onClick={handleDelete}>삭제</StateButton>
+            <StateButton onClick={handlePlusClick}>
+              <BiEdit></BiEdit>
+            </StateButton>
+            <StateButton onClick={handleDelete}>
+              <AiFillDelete></AiFillDelete>
+            </StateButton>
+            <UserWrap>{board.member}</UserWrap>
           </ButtonWrap>
         </SubmitWrap>
         {commentOpen && (
@@ -113,8 +119,8 @@ const Board = ({ board }) => {
                 />
               ))}
             <CommentInputWrap>
-              <CommentInput placeholder="댓글 입력" />
-              <CommentButton>작성</CommentButton>
+              <CommentInput placeholder="깨끗한 문화를 위해 노력해주세요." />
+              <CommentButton>답글</CommentButton>
             </CommentInputWrap>
           </>
         )}

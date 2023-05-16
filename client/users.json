@@ -24,7 +24,20 @@
       "who": "누구나 참여가능",
       "content": "짬뽕",
       "tag": "짬뽕1,짬뽕2",
-      "comment": [],
+      "comment": [{
+        "member" : {
+          "displayName" : "zzzzz",
+          "avtarLink" : "미완"
+        },
+        "content" : "짬뽕 맛집 너무 좋아요"
+      },
+      {
+        "member" : {
+          "displayName" : "zzzzz",
+          "avtarLink" : "미완"
+        },
+        "content" : "짬뽕 맛집 너무 좋아요 빨리 가고 싶어요"
+      }],
       "id": 1
     },
     {

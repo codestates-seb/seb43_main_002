@@ -170,17 +170,6 @@ export const BoardWrap = styled.article`
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  &::before {
-    content: '';
-    position: absolute;
-    border-radius: 0% 0% 0% 50%;
-    top: 0px;
-    right: 0px;
-    width: 40px;
-    height: 40px;
-    background-color: #ffb44a;
-    z-index: 0;
-  }
 `;
 
 export const FooterWrap = styled.footer`
@@ -213,6 +202,7 @@ export const FooterIcon = styled.div`
   a:hover {
     color: #ffb44a;
   }
+
   .active svg {
     fill: #ffb44a !important;
     color: #ffb44a !important;
@@ -240,11 +230,11 @@ export const FooterCicleWrap = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-40%, -110%);
+  cursor: pointer;
   svg {
     color: #ffb44a;
     padding: 0px;
     font-size: 25px;
   }
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
 `;

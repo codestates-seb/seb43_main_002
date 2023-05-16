@@ -108,7 +108,14 @@ const Login = () => {
         <Error>{validationPassword(password) ? null : passwordError}</Error>
         <Error>{accessError}</Error>
 
-        <LoginButton type="submit">Login</LoginButton>
+        <LoginButton
+          type="submit"
+          onClick={() => {
+            console.log('찍히나?');
+          }}
+        >
+          Login
+        </LoginButton>
         <Error>{fetchError}</Error>
 
         <GoogleLoginButton

@@ -70,6 +70,8 @@ const Map = () => {
           lon = position.coords.longitude;
         let locPosition = new window.kakao.maps.LatLng(lat, lon);
         mapInstance.current.setCenter(locPosition);
+        // 현재 위치를 업데이트 한 후에 '맛집'에 대한 장소를 검색
+        searchAndDisplayPlacesByCategory('맛집');
       });
     } else {
       // 위치 정보를 사용할 수 없는 경우 기본 위치를 설정하고 해당 위치에 마커를 표시
@@ -111,9 +113,9 @@ const Map = () => {
       <Header></Header>
       <MapContainer>
         <ButtonContainer>{categoryButtons}</ButtonContainer>
-        <CurrentLocationButton onClick={updateCurrentLocation}>
-          현재 위치
-        </CurrentLocationButton>
+        <CurrentLocationButton
+          onClick={updateCurrentLocation}
+        ></CurrentLocationButton>
         <Mapbox ref={mapRef} id="map"></Mapbox>
       </MapContainer>
       <Footer></Footer>

@@ -4,7 +4,7 @@ import {
   LogoWrap,
   SearchWrap,
   LogoutButton,
-} from './HomeStyle';
+} from '../style/HomeStyle';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useState } from 'react';
 import styled from 'styled-components';

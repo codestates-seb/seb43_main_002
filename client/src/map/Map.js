@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { MainWrap } from '../home/HomeStyle';
+import { MainWrap } from '../style/HomeStyle';
 import Header from '../home/Header';
 import Footer from '../home/Footer';
 import {

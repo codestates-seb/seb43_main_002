@@ -5,7 +5,7 @@ import {
   WeekWrap,
   DayNumberWrap,
   BoardsWrap,
-} from './HomeStyle';
+} from '../style/HomeStyle';
 import Board from './Board';
 import { useDispatch, useSelector } from 'react-redux';
 import {

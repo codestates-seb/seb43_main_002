@@ -1,4 +1,4 @@
-import { BoardWrap } from './HomeStyle';
+import { BoardWrap } from '../style/HomeStyle';
 import { useState } from 'react';
 import { BiTimeFive } from 'react-icons/bi';
 import { FiUsers } from 'react-icons/fi';

@@ -108,8 +108,6 @@ LServer/src/main/java/com/branch/sikgu/member/dto/MemberUpdateRequestDto.java,2
 MServer/src/main/java/com/branch/sikgu/member/dto/NicknameCheckRequestDto.java,7\c\7ca9537158a8d96e919cdf6ddb35194fa147913b
 u
 EServer/src/main/java/com/branch/sikgu/member/mapper/MemberMapper.java,4\d\4d74b5e66ca25d5a9bf60707a9f8ac1d5f830502
-}
-MServer/src/main/java/com/branch/sikgu/myPage/repository/MyPageRepository.java,b\b\bb365dac760e54c209c41f69ac1b5953f8cee006
 q
 AServer/src/main/java/com/branch/sikgu/response/ErrorResponse.java,b\7\b787b5bd59285447fa1173e9a810582a0713bc05
 i
@@ -176,12 +174,6 @@ BServer/src/main/java/com/branch/sikgu/exception/ExceptionCode.java,2\1\21a7995
 PServer/src/main/java/com/branch/sikgu/image/controller/FileUploadController.java,0\b\0b55b86f49fd544bc979f2aa601c5d94fece7151
 t
 DServer/src/main/java/com/branch/sikgu/image/Service/FileService.java,d\d\dd95ae61a245230730b35103e39863fbc657a60d
-}
-MServer/src/main/java/com/branch/sikgu/myPage/controller/MyPageController.java,c\8\c8a82049539a3aa527c2d5603357f09d37013ab7
-v
-FServer/src/main/java/com/branch/sikgu/myPage/dto/MyPageRequestDto.java,d\f\df7a1b997e0d03e81433ed6bfb9cc19f2533fec1
-w
-GServer/src/main/java/com/branch/sikgu/myPage/dto/MyPageResponseDto.java,6\d\6df3f2a99a9393ee1a154b2e72a9047143e23774
 o
 ?Server/src/main/java/com/branch/sikgu/myPage/entity/MyPage.java,e\2\e25ec168560c19978f2fec4b67919cc73f6c612b
 r

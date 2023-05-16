@@ -4,13 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09fddecd-4d33-4be8-96e9-4bd8e69fc688" name="변경" comment="Comment 작성&#10;Board 일부 수정">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_33__________.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_33__________.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44__________.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_16_44__________.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_06_17_12__________.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_06_17_12__________.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26__________.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26__________.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023-05-15_PM_1_19__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023-05-15_PM_1_19__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023-05-15_PM_1_19__Changes_by_wooddy_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023-05-15_PM_1_19__Changes_by_wooddy_.xml" afterDir="false" />
+    <list default="true" id="09fddecd-4d33-4be8-96e9-4bd8e69fc688" name="변경" comment="통합용 커밋 + 공동 작전">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/buildOutputCleanup.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/dependencies-accessors.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/gradle-wrapper1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/gradle-wrapper2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/gradle-wrapper3.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/gradle-wrapper4.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26,_업데이트_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023_05_09_14_26__________.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/.gradle/7.6.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Server/.gradle/7.6.1/executionHistory/executionHistory.bin" afterDir="false" />
@@ -19,27 +26,6 @@
       <change beforePath="$PROJECT_DIR$/Server/.gradle/7.6.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Server/.gradle/7.6.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Server/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/Server/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/controller/LoginController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/controller/LogoutController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/filter/JwtVerificationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/filter/JwtVerificationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/jwt/JwtTokenizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/auth/jwt/JwtTokenizer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/board/service/BoardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/controller/CommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/repository/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/repository/CommentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/comment/service/CommentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/exception/ExceptionCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/exception/ExceptionCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/image/Service/FileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/image/Service/FileService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/image/controller/FileUploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/image/controller/FileUploadController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/entity/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/entity/Member.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/member/service/MemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/controller/MyPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/controller/MyPageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/dto/MyPageRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/dto/MyPageRequestDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/dto/MyPageResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/dto/MyPageResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/entity/MyPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/entity/MyPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/service/MyPageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu/myPage/service/MyPageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/Board/BoardRestDocsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/test/java/com/branch/sikgu/Board/BoardRestDocsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/test/resources/application-test.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/test/resources/application-test.yml" afterDir="false" />
     </list>
     <list id="dbeadf4f-c196-4440-954d-02f04367a6e7" name="SYJ 님이 변경한 내용" comment="SYJ 님이 변경한 내용" />
     <option name="SHOW_DIALOG" value="false" />
@@ -152,6 +138,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
@@ -391,7 +378,21 @@
       <option name="project" value="LOCAL" />
       <updated>1684141512650</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="통합용 커밋">
+      <created>1684212333661</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1684212333661</updated>
+    </task>
+    <task id="LOCAL-00011" summary="통합용 커밋 + 공동 작전">
+      <created>1684220585223</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1684220585223</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -416,7 +417,9 @@
     <MESSAGE value="Post 작성 - Test 전" />
     <MESSAGE value="Post Test&#10;완료 - Post, Get&#10;실패 - Delete, Patch" />
     <MESSAGE value="Comment 작성&#10;Board 일부 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="Comment 작성&#10;Board 일부 수정" />
+    <MESSAGE value="통합용 커밋" />
+    <MESSAGE value="통합용 커밋 + 공동 작전" />
+    <option name="LAST_COMMIT_MESSAGE" value="통합용 커밋 + 공동 작전" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

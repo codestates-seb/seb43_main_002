@@ -1,16 +1,5 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
-const SignupContainer = styled.div`
-display: flex;
-height : 100%;
-flex-direction: column;
-justify-content: center;
-align-items: end;
-overflow-y: auto;
-&::-webkit-scrollbar {
-  display: none;
-`;
 const BackGround = styled.div`
   position: absolute;
   z-index: -1;
@@ -19,11 +8,49 @@ const BackGround = styled.div`
   top: 0;
   left: 0;
 `;
+const SignupContainer = styled.div`
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+`;
 const BackYellow = styled.div`
-  background-color: #ffca61;
-  height: 102px;
+  position: relative;
+  background-image: linear-gradient(135deg, #ffd571, #ffac36);
+  height: 220px;
+  border-radius: 0 0 100% 00%;
   top: 0;
-  left: 0;
+  left: 0px;
+`;
+const Mobile = styled.div`
+  position: relative;
+  font-family: 'Noto Sans KR', sans-serif;
+  width: 400px;
+  height: 850px;
+  padding: 0px;
+  box-sizing: border-box;
+  overflow-y: auto;
+
+  /* 스크롤바 */
+  ::-webkit-scrollbar {
+    display: none;
+    width: 8px; /* 스크롤바 너비 */
+  }
+
+  /* 스크롤바 thumb */
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 */
+    border-radius: 4px; /* 스크롤바 모서리 반경 */
+  }
+
+  /* 스크롤바 track */
+  ::-webkit-scrollbar-track {
+    background-color: transparent; /* 스크롤바 트랙 색상 */
+  }
 `;
 
 const SignupForm = styled.form`
@@ -33,7 +60,7 @@ const SignupForm = styled.form`
 `;
 
 const SignupTitle = styled.h1`
-  font-size: 45px;
+  font-size: 35px;
   color: orange;
   text-align: center;
   padding: 10px;
@@ -189,4 +216,5 @@ export {
   FooterText,
   StyledLink,
   CheckboxLabel,
+  Mobile,
 };

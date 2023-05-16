@@ -2,6 +2,24 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
 
+const BackGround = styled.div`
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+`;
+
+const BackYellow = styled.div`
+  position: relative;
+  background-image: linear-gradient(135deg, #ffd571, #ffac36);
+  height: 220px;
+  border-radius: 0 0 100% 00%;
+  top: 0;
+  left: 0px;
+`;
+
 const LoginContainer = styled.div`
 display: flex;
 height : 100%;
@@ -83,6 +101,7 @@ const Error = styled.p`
   font-size: 12px;
   margin-top: 3px;
 `;
+
 const FooterText = styled.p`
   display: flex;
   justify-content: center;
@@ -109,6 +128,7 @@ const GoogleLoginButton = styled(Button)`
     background-color: #357ae8;
   }
 `;
+
 const GoogleLogo = styled(FaGoogle)`
   margin-right: 8px;
   color: white;
@@ -127,4 +147,6 @@ export {
   StyledLink,
   GoogleLoginButton,
   GoogleLogo,
+  BackGround,
+  BackYellow,
 };

@@ -2,7 +2,6 @@ import {
   SignupContainer,
   BackYellow,
   SignupForm,
-  BackGround,
   Input,
   SignupTitle,
   SignupButton,
@@ -14,6 +13,7 @@ import {
   Text,
   FooterText,
   StyledLink,
+  Mobile,
   Error,
 } from '../style/SignupStyle';
 import { useState } from 'react';
@@ -159,115 +159,113 @@ const Signup = () => {
   };
 
   return (
-    <>
+    <Mobile>
+      <BackYellow />
       <SignupContainer>
-        <BackGround>
-          <BackYellow />
-          <SignupForm onSubmit={handleSubmit} noValidate>
-            <SignupTitle>Create Account</SignupTitle>
-            <Input
-              type="email"
-              placeholder="식구에서 사용하실 이메일을 입력해주세요."
-              value={email}
-              onChange={handleEmailChange}
-            />
-            <CheckDuplicateButton
-              type="button"
-              onClick={handleCheckDuplicateEmail}
-            >
-              이메일 중복확인
-            </CheckDuplicateButton>
-            {emailError && <Error>{emailError}</Error>}
+        <SignupForm onSubmit={handleSubmit} noValidate>
+          <SignupTitle>Create Account</SignupTitle>
+          <Input
+            type="email"
+            placeholder="식구에서 사용하실 이메일을 입력해주세요."
+            value={email}
+            onChange={handleEmailChange}
+          />
+          <CheckDuplicateButton
+            type="button"
+            onClick={handleCheckDuplicateEmail}
+          >
+            이메일 중복확인
+          </CheckDuplicateButton>
+          {emailError && <Error>{emailError}</Error>}
 
-            <Input
-              type="text"
-              placeholder="식구로 활동할 별명을 8글자까지 입력해주세요."
-              value={nickname}
-              onChange={handleNicknameChange}
-            />
-            <CheckDuplicateButton
-              type="button"
-              onClick={handleCheckDuplicateNickname}
-            >
-              활동명 중복확인
-            </CheckDuplicateButton>
-            {/* 활동명에 제한을 두어야할까? */}
-            {nicknameError && <Error>{nicknameError}</Error>}
-            {lengthError ? <Error>{lengthError}</Error> : null}
-            <Text>본인의 성별을 알려주세요.</Text>
-            <CheckboxContainer>
-              <div>
-                <CheckboxLabel>
-                  <GenderCheckbox
-                    type="radio"
-                    id="male"
-                    name="gender"
-                    value="male"
-                    checked={gender === true}
-                    onChange={handleGender}
-                    onClick={() => {
-                      console.log('남자임');
-                    }}
-                  />
-                  <span></span>{' '}
-                  {/* 이 span은 styled-components로 디자인한 체크박스를 대신하는 역할 */}
-                  남자
-                </CheckboxLabel>
-              </div>
-              <div>
-                <CheckboxLabel>
-                  <GenderCheckbox
-                    type="radio"
-                    id="female"
-                    name="gender"
-                    value="female"
-                    checked={gender === false}
-                    onChange={handleGender}
-                    onClick={() => {
-                      console.log('여자임');
-                    }}
-                  />
-                  <span></span>{' '}
-                  {/* 이 span은 styled-components로 디자인한 체크박스를 대신하는 역할 */}
-                  여자
-                </CheckboxLabel>
-              </div>
-            </CheckboxContainer>
-            <Input
-              type="text"
-              placeholder="식구가 될 분의 이름을 적어주세요."
-              value={name}
-              onChange={handleName}
-            />
+          <Input
+            type="text"
+            placeholder="식구로 활동할 별명을 8글자까지 입력해주세요."
+            value={nickname}
+            onChange={handleNicknameChange}
+          />
+          <CheckDuplicateButton
+            type="button"
+            onClick={handleCheckDuplicateNickname}
+          >
+            활동명 중복확인
+          </CheckDuplicateButton>
+          {/* 활동명에 제한을 두어야할까? */}
+          {nicknameError && <Error>{nicknameError}</Error>}
+          {lengthError ? <Error>{lengthError}</Error> : null}
+          <Text>본인의 성별을 알려주세요.</Text>
+          <CheckboxContainer>
+            <div>
+              <CheckboxLabel>
+                <GenderCheckbox
+                  type="radio"
+                  id="male"
+                  name="gender"
+                  value="male"
+                  checked={gender === true}
+                  onChange={handleGender}
+                  onClick={() => {
+                    console.log('남자임');
+                  }}
+                />
+                <span></span>{' '}
+                {/* 이 span은 styled-components로 디자인한 체크박스를 대신하는 역할 */}
+                남자
+              </CheckboxLabel>
+            </div>
+            <div>
+              <CheckboxLabel>
+                <GenderCheckbox
+                  type="radio"
+                  id="female"
+                  name="gender"
+                  value="female"
+                  checked={gender === false}
+                  onChange={handleGender}
+                  onClick={() => {
+                    console.log('여자임');
+                  }}
+                />
+                <span></span>{' '}
+                {/* 이 span은 styled-components로 디자인한 체크박스를 대신하는 역할 */}
+                여자
+              </CheckboxLabel>
+            </div>
+          </CheckboxContainer>
+          <Input
+            type="text"
+            placeholder="식구가 될 분의 이름을 적어주세요."
+            value={name}
+            onChange={handleName}
+          />
 
-            <Input
-              type="password"
-              placeholder="숫자, 영문자 포함 8글자 이상이어야 합니다."
-              value={password}
-              onChange={handlePasswordChange}
-            />
+          <Input
+            type="password"
+            placeholder="숫자, 영문자 포함 8글자 이상이어야 합니다."
+            value={password}
+            onChange={handlePasswordChange}
+          />
 
-            <Input
-              type="password"
-              placeholder="비밀번호를 한 번 더 입력해주세요."
-              value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
-            />
-            <CheckPasswordButton type="button" onClick={handlePassword}>
-              비밀번호 일치 여부 확인 버튼
-            </CheckPasswordButton>
-            {passwordError && <Error>{passwordError}</Error>}
-            <Text>생년월일을 입력해주세요.</Text>
-            <Input type="date" value={birthday} onChange={handleBirthday} />
+          <Input
+            type="password"
+            placeholder="비밀번호를 한 번 더 입력해주세요."
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+          />
+          <CheckPasswordButton type="button" onClick={handlePassword}>
+            비밀번호 일치 여부 확인 버튼
+          </CheckPasswordButton>
+          {passwordError && <Error>{passwordError}</Error>}
+          <Text>생년월일을 입력해주세요.</Text>
+          <Input type="date" value={birthday} onChange={handleBirthday} />
 
-            <SignupButton type="submit">회원가입</SignupButton>
-            {fetchError && <Error>{fetchError2}</Error>}
-            <FooterText>이미 식구이신가요?</FooterText>
-            <StyledLink to="/">지금 바로 여기를 눌러 로그인하세요.</StyledLink>
-          </SignupForm>
-        </BackGround>
+          <SignupButton type="submit">회원가입</SignupButton>
+          {fetchError && <Error>{fetchError2}</Error>}
+          <FooterText>이미 식구이신가요?</FooterText>
+          <StyledLink to="/">지금 바로 여기를 눌러 로그인하세요.</StyledLink>
+        </SignupForm>
       </SignupContainer>
-    </>
+    </Mobile>
   );
 };
 

@@ -10,6 +10,8 @@ import {
   FooterText,
   StyledLink,
   GoogleLogo,
+  BackGround,
+  BackYellow,
 } from '../style/LoginStyle';
 
 import { useState } from 'react';
@@ -89,48 +91,53 @@ const Login = () => {
   };
 
   return (
-    <LoginContainer>
-      <LoginTitle>Sign in now</LoginTitle>
-      <LoginForm onSubmit={handleSubmit} noValidate>
-        <Input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Error>{validationEmail(email) ? null : emailError}</Error>
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Error>{validationPassword(password) ? null : passwordError}</Error>
-        <Error>{accessError}</Error>
+    <>
+      <BackGround>
+        <BackYellow />
+      </BackGround>
+      <LoginContainer>
+        <LoginTitle>Sign in now</LoginTitle>
+        <LoginForm onSubmit={handleSubmit} noValidate>
+          <Input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Error>{validationEmail(email) ? null : emailError}</Error>
+          <Input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Error>{validationPassword(password) ? null : passwordError}</Error>
+          <Error>{accessError}</Error>
 
-        <LoginButton
-          type="submit"
-          onClick={() => {
-            console.log('찍히나?');
-          }}
-        >
-          Login
-        </LoginButton>
-        <Error>{fetchError}</Error>
+          <LoginButton
+            type="submit"
+            onClick={() => {
+              console.log('찍히나?');
+            }}
+          >
+            Login
+          </LoginButton>
+          <Error>{fetchError}</Error>
 
-        <GoogleLoginButton
-          type="button"
-          onClick={() => {
-            console.log('이자리가 맞니?');
-          }}
-        >
-          <GoogleLogo />
-          구글로 로그인
-        </GoogleLoginButton>
-      </LoginForm>
-      <FooterText>아직 식구가 아니신가요?</FooterText>
-      <StyledLink to="/signup">지금 바로 여기를 눌러 가입하세요.</StyledLink>
-    </LoginContainer>
+          <GoogleLoginButton
+            type="button"
+            onClick={() => {
+              console.log('이자리가 맞니?');
+            }}
+          >
+            <GoogleLogo />
+            구글로 로그인
+          </GoogleLoginButton>
+        </LoginForm>
+        <FooterText>아직 식구가 아니신가요?</FooterText>
+        <StyledLink to="/signup">지금 바로 여기를 눌러 가입하세요.</StyledLink>
+      </LoginContainer>
+    </>
   );
 };
 

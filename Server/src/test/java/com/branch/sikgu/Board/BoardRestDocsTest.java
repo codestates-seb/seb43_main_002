@@ -1,12 +1,9 @@
 package com.branch.sikgu.Board;
 
 import com.branch.sikgu.board.controller.BoardController;
-import com.branch.sikgu.board.dto.BoardPatchDto;
-import com.branch.sikgu.board.dto.BoardPostDto;
-import com.branch.sikgu.board.dto.BoardResponseDto;
+import com.branch.sikgu.board.dto.BoardDto;
 import com.branch.sikgu.board.entity.Board;
 import com.branch.sikgu.board.service.BoardService;
-import com.branch.sikgu.member.entity.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
@@ -21,13 +18,10 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -69,8 +63,8 @@ public class BoardRestDocsTest {
         // given
         LocalDateTime timeX = LocalDateTime.parse("2023-05-25T13:30");
 
-        BoardPostDto.Post boardPostDto =
-                new BoardPostDto.Post(
+        BoardDto.Post boardPostDto =
+                new BoardDto.Post(
                         "제목",
                         "본문",
                         4,
@@ -78,8 +72,8 @@ public class BoardRestDocsTest {
                         timeX
                 );
 
-        given(boardService.createBoard(Mockito.any(BoardPostDto.Post.class), Mockito.any(String.class)))
-                .willReturn(new BoardResponseDto.Response(
+        given(boardService.createBoard(Mockito.any(BoardDto.Post.class), Mockito.any(String.class)))
+                .willReturn(new BoardDto.Response(
                         1L,
                         1L,
                         "제목",
@@ -120,11 +114,11 @@ public class BoardRestDocsTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "USER")
     @DisplayName("게시물 수정")
     public void updateBoardTest() throws Exception {
         LocalDateTime timeX = LocalDateTime.parse("2023-05-20T13:30");
-        BoardPatchDto.Patch boardPatchDto = new BoardPatchDto.Patch(
+        BoardDto.Patch boardPatchDto = new BoardDto.Patch(
                 1L,
                 "제목",
                 "본문",
@@ -133,7 +127,7 @@ public class BoardRestDocsTest {
                 timeX);
         String content = gson.toJson(boardPatchDto);
 
-        BoardResponseDto.Response responseDto = new BoardResponseDto.Response(
+        BoardDto.Response responseDto = new BoardDto.Response(
                 1L,
                 1L,
                 "수정 제목",
@@ -146,20 +140,23 @@ public class BoardRestDocsTest {
 
         );
 
-        given(boardService.updateBoard(any(), any(), any())).willReturn(responseDto);
+        given(boardService.updateBoard(boardPatchDto.getBoardId(), boardPatchDto, "test-token")).willReturn(responseDto);
 
         mockMvc.perform(
                         patch("/boards/{board-id}", 1L)
                                 .with(csrf())
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
-//                        .content(objectMapper.writeValueAsString(boardPatchDto))
-                                .content(content)
+                                .content(objectMapper.writeValueAsString(boardPatchDto))
+//                                .content(content)
                                 .header("Authorization", "Bearer " + "test-token")
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.boardId").value(boardPatchDto.getBoardId()))
                 .andExpect(jsonPath("$.body").value(boardPatchDto.getBody()))
+//                .andExpect(jsonPath("$.memberId", is(1)))
+//                .andExpect(jsonPath("$.title", is("수정 제목")))
+//                .andExpect(jsonPath("$.body", is("수정 본문")))
                 .andDo(print())
                 .andDo(document("update-board",
                         preprocessRequest(prettyPrint()),
@@ -187,7 +184,7 @@ public class BoardRestDocsTest {
                                         fieldWithPath("title").type(JsonFieldType.STRING).description("게시글 제목"),
                                         fieldWithPath("body").type(JsonFieldType.STRING).description("게시글 본문"),
                                         fieldWithPath("createdAt").type(JsonFieldType.STRING).description("게시글 작성 시각"),
-                                        fieldWithPath("updatedAt").type(JsonFieldType.STRING).description("게시글 수정 시각"),
+                                        fieldWithPath("updatedAt").type(JsonFieldType.STRING).description("게시글 수정 시각").optional(),
                                         fieldWithPath("total").type(JsonFieldType.NUMBER).description("참여자 총 인원").optional(),
                                         fieldWithPath("passedGender").type(JsonFieldType.STRING).description("참여자 성별 제한").optional(),
                                         fieldWithPath("mealTime").type(JsonFieldType.STRING).description("식사 시간").optional()
@@ -196,31 +193,31 @@ public class BoardRestDocsTest {
                 ));
     }
 
-//    @Test
-//    @WithMockUser(roles = "USER")
-//    @DisplayName("게시물 삭제")
-//    public void deleteBoardTest() throws Exception {
-//        long boardId = 1L;
-//        doNothing().when(boardService).deleteBoard(boardId, eq(any()));
-//
-//        mockMvc.perform(
-//                        delete("/boards/{board-id}", boardId)
-//                                .header("Authorization", "Bearer " + "test-token")
-//                                .accept(MediaType.APPLICATION_JSON)
-//                )
-//                .andExpect(status().isNoContent())
-//                .andDo(print())
-//                .andDo(document("delete-board",
-//                        preprocessRequest(prettyPrint()),
-//                        preprocessResponse(prettyPrint()),
-//                        pathParameters(
-//                                parameterWithName("board-id").description("게시글 식별자")
-//                        ),
-//                        requestHeaders(
-//                                headerWithName("Authorization").description("액세스 토큰")
-//                        )
-//                ));
-//    }
+    @Test
+    @WithMockUser(roles = "USER")
+    @DisplayName("게시물 삭제") // -> 403
+    public void deleteBoardTest() throws Exception {
+        long boardId = 1L;
+        doNothing().when(boardService).deleteBoard(boardId, eq(any()));
+
+        mockMvc.perform(
+                        delete("/boards/{board-id}", boardId)
+                                .header("Authorization", "Bearer " + "test-token")
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isNoContent())
+                .andDo(print())
+                .andDo(document("delete-board",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(
+                                parameterWithName("board-id").description("게시글 식별자")
+                        ),
+                        requestHeaders(
+                                headerWithName("Authorization").description("액세스 토큰")
+                        )
+                ));
+    }
 
     @Test
     @WithMockUser
@@ -230,9 +227,9 @@ public class BoardRestDocsTest {
         LocalDateTime timeY = LocalDateTime.parse("2023-05-21T14:00:00");
 
         // 가상의 게시글 데이터
-        List<BoardResponseDto.Response> boards = Arrays.asList(
-                new BoardResponseDto.Response(1L, 1L,"제목1", "내용1",  timeX, null, 3, Board.PassedGender.MALE, timeY),
-                new BoardResponseDto.Response(2L, 3L,"제목2", "내용2",  timeX,  null, 4, Board.PassedGender.FEMALE, timeY)
+        List<BoardDto.Response> boards = Arrays.asList(
+                new BoardDto.Response(1L, 1L,"제목1", "내용1",  timeX, null, 3, Board.PassedGender.MALE, timeY),
+                new BoardDto.Response(2L, 3L,"제목2", "내용2",  timeX,  null, 4, Board.PassedGender.FEMALE, timeY)
         );
 
         // boardService의 getBoards() 메서드가 가상의 게시글 데이터를 반환하도록 설정
@@ -294,10 +291,18 @@ public class BoardRestDocsTest {
         LocalDateTime timeX = LocalDateTime.parse("2023-05-20T13:30:00");
         LocalDateTime timeY = LocalDateTime.parse("2023-05-21T14:00:00");
         // 가상의 게시글 데이터
-        Board board = new Board(1L, "제목1", "내용1", 3, timeX, null, timeY, Board.PassedGender.ANY, Board.BoardStatus.ACTIVE_BOARD, new Member());
-        board.setBoardId(1L);
-        Member member = new Member();
-        member.setMemberId(1L);
+//        Board board = new Board(1L, "제목1", "내용1", 3, timeX, null, timeY, Board.PassedGender.ANY, Board.BoardStatus.ACTIVE_BOARD, new Member());
+        BoardDto.Response responseDto = new BoardDto.Response(
+                1L,
+                1L,
+                "수정 제목",
+                "수정 본문",
+                timeX,
+                null,
+                3,
+                Board.PassedGender.MALE,
+                timeY);
+
         // boardService의 getBoardById() 메서드가 가상의 게시글 데이터를 반환하도록 설정
         when(boardService.getBoardById(1L)).thenReturn(board);
 

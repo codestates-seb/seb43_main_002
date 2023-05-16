@@ -8,6 +8,7 @@ import {
   Profile,
   NewPosts,
   History,
+  PostIcon,
 } from '../style/MypageStyle';
 import axios from 'axios';
 
@@ -38,7 +39,6 @@ const MyPage = () => {
   }
 
   function handleUser(userId) {
-    // 이곳에서 다른 유저 페이지로 넘어가야 함.
     // 다른 유저는 연필모양 대신 하트모양이 있고, 누르면 like가 오르게 해야한다.
     navigate(`/members/${userId}`);
   }
@@ -56,10 +56,10 @@ const MyPage = () => {
           <Title>
             <div></div>
             <div>Sik:Gu</div>
-            <div>아이콘</div>
+            <button>아이콘</button>
           </Title>
           <Profile>
-            <div></div>
+            <img src={data.img} alt="프로필 이미지" />
             <div>
               <ul>
                 <li>
@@ -69,14 +69,18 @@ const MyPage = () => {
                 <li>{data.intro}</li>
                 <li>
                   <ul>
-                    <li></li>
+                    <li>
+                      <img src="/icon/mypage-like.png" alt="식구" />
+                    </li>
                     <li>
                       <div>식구</div>
                       <div>{data.follower}</div>
                     </li>
                   </ul>
                   <ul>
-                    <li></li>
+                    <li>
+                      <img src="/icon/mypage-follow.PNG" alt="친구" />
+                    </li>
                     <li>
                       <div>좋아요</div>
                       <div>{data.like}</div>
@@ -90,11 +94,18 @@ const MyPage = () => {
             <h3>최근 작성한 게시글</h3>
             <div className="post">
               {data.recently.slice(0, 2).map((el, idx) => {
+                const community = '/icon/mypage-community.png';
+                const sikgu = '/icon/mypage-sikgu.png';
+
                 return (
                   <div key={idx}>
                     <ul>
                       <li>
-                        <div></div>
+                        <PostIcon
+                          isType={el.type}
+                          imageA={sikgu}
+                          imageB={community}
+                        />
                       </li>
                       <li>{el.date}</li>
                       <li>{el.title}</li>
@@ -110,7 +121,7 @@ const MyPage = () => {
               {data.review.map((el, idx) => {
                 return (
                   <div key={idx}>
-                    <div></div>
+                    <img src={el.img} alt="프로필 이미지" />
                     <div>
                       <ul>
                         <li>{el.name}</li>

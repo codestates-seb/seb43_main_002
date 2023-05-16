@@ -1,16 +1,18 @@
-package com.branch.sikgu.post.entity;
+package com.branch.sikgu.board.entity;
 
 import com.branch.sikgu.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@Table(name = "BOARD")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -42,6 +44,7 @@ public class Board {
 
     // 식사 시간
     @Column(name = "meal_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime mealTime;
 
     // 허용된 성별
@@ -49,17 +52,18 @@ public class Board {
     private PassedGender passedGender = PassedGender.ANY;
 
     // 게시물 상태
-    @Column
-    private PostStatus postStatus = PostStatus.POST_ACTIVE;
+    @Column(name = "STATUS")
+    private BoardStatus boardStatus = BoardStatus.ACTIVE_BOARD;
 
-    public enum PostStatus {
-        POST_ACTIVE("활성화된 게시물"),
-        POST_INACTIVE("비활성화된 게시물");
+    public enum BoardStatus {
+        ACTIVE_BOARD("활성화된 게시물"),
+        INACTIVE_BOARD("비활성화된 게시물"),
+        DELETED_BOARD("삭제된 게시물");
 
         @Getter
         private final String boardStatus;
 
-        PostStatus(String boardStatus) {
+        BoardStatus(String boardStatus) {
             this.boardStatus = boardStatus;
         }
     }

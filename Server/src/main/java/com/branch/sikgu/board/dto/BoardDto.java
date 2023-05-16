@@ -1,10 +1,7 @@
 package com.branch.sikgu.board.dto;
 
 import com.branch.sikgu.board.entity.Board;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;

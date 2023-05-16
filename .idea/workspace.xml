@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b186e6f8-51d1-464b-9b52-97178a02c69b" name="Changes" comment="통합용 커밋 + 공동 작전">
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/0/d036520bd053c1d4b37bd5c88e6ba2af75294d86" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/Server">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/Server/sickgu">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/Server/sikgu">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/Server">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Server" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feat/todo_comment" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+  }
+}</component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="dev" />
+                    <option name="lastUsedInstant" value="1684140511" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="feat/todo_comment" />
+                    <option name="lastUsedInstant" value="1684076060" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1683175016" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="473dd7da-03e8-45db-b096-f5c88402cf66" />
+        <option name="url" value="https://github.com/dydwns9436/seb43_main_002" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2PJUpTLsIge7S3LsipU94dCkJQL" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "dev",
+    "last_opened_file_path": "/Users/juny/Documents/Projects/seb43_main_002",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "모듈",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "spring.configuration.checksum": "ac40b3de68353c0d575589379fd6e4ba",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/Server/sickgu/src/main/java/com/branch/sickgu" />
+      <recent name="$PROJECT_DIR$/Server/sickgu/src/main/java/com/branch/sickgu/auth" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Server/src/main/java/com/branch/sikgu" />
+      <recent name="$PROJECT_DIR$/Server" />
+      <recent name="$PROJECT_DIR$/Server/sickgu/src/main/java/com/branch/board" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.SikguApplication">
+    <configuration name="SikguApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.branch.sikgu.SikguApplication" />
+      <module name="Server.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.branch.sikgu.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Server" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dependencies" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="BoardRestDocsTest.getBoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Server.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.branch.sikgu.Board.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.branch.sikgu.Board" />
+      <option name="MAIN_CLASS_NAME" value="com.branch.sikgu.Board.BoardRestDocsTest" />
+      <option name="METHOD_NAME" value="getBoardTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BoardRestDocsTest.getBoardsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Server.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.branch.sikgu.Board.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.branch.sikgu.Board" />
+      <option name="MAIN_CLASS_NAME" value="com.branch.sikgu.Board.BoardRestDocsTest" />
+      <option name="METHOD_NAME" value="getBoardsTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BoardRestDocsTest.updateBoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Server.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.branch.sikgu.Board.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.branch.sikgu.Board" />
+      <option name="MAIN_CLASS_NAME" value="com.branch.sikgu.Board.BoardRestDocsTest" />
+      <option name="METHOD_NAME" value="updateBoardTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SikguApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <envs>
+        <env name="DB_PASSWORD" value="yongjun7114" />
+        <env name="jwt.secret-key" value="yongjun7114123456789123456789" />
+      </envs>
+      <module name="com.branch.Server.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.branch.sikgu.SikguApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SikguApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <envs>
+        <env name="JWT_SECRET_KEY" value="password1234123412341234123412341234" />
+        <env name="MYSQL_SECRET_KEY" value="yongjun7114" />
+        <env name="REST_API_KEY" value="e7d0968619fbe27f3171a2ae8675d7b9" />
+      </envs>
+      <module name="sickgu.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.branch.sikgu.SikguApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.SikguApplication" />
+      <item itemvalue="Gradle.Server [dependencies]" />
+      <item itemvalue="JUnit.BoardRestDocsTest.getBoardTest" />
+      <item itemvalue="JUnit.BoardRestDocsTest.getBoardsTest" />
+      <item itemvalue="JUnit.BoardRestDocsTest.updateBoardTest" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.SikguApplication" />
+        <item itemvalue="Gradle.Server [dependencies]" />
+        <item itemvalue="JUnit.BoardRestDocsTest.getBoardTest" />
+        <item itemvalue="JUnit.BoardRestDocsTest.updateBoardTest" />
+        <item itemvalue="JUnit.BoardRestDocsTest.getBoardsTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="09fddecd-4d33-4be8-96e9-4bd8e69fc688" name="변경" comment="" />
+      <created>1683174860315</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1683174860315</updated>
+      <workItem from="1683174861943" duration="1873000" />
+      <workItem from="1683180706676" duration="193000" />
+      <workItem from="1683181022831" duration="6336000" />
+      <workItem from="1683266656693" duration="8001000" />
+      <workItem from="1683358294107" duration="588000" />
+      <workItem from="1683358906592" duration="330000" />
+      <workItem from="1683359327817" duration="1933000" />
+      <workItem from="1683361702945" duration="392000" />
+      <workItem from="1683362100367" duration="761000" />
+      <workItem from="1683363066464" duration="1985000" />
+      <workItem from="1683593008535" duration="66191000" />
+      <workItem from="1683801822040" duration="37557000" />
+      <workItem from="1683962996367" duration="6758000" />
+      <workItem from="1684069500670" duration="4370000" />
+      <workItem from="1684113183911" duration="17996000" />
+    </task>
+    <task id="LOCAL-00001" summary="firstCommit">
+      <created>1683175149306</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1683175149306</updated>
+    </task>
+    <task id="LOCAL-00002" summary="firstCommit">
+      <created>1683181450868</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1683181450868</updated>
+    </task>
+    <task id="LOCAL-00003" summary="jwt_copy">
+      <created>1683358488454</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1683358488454</updated>
+    </task>
+    <task id="LOCAL-00004" summary="jwt_copy">
+      <created>1683358749502</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1683358749502</updated>
+    </task>
+    <task id="LOCAL-00005" summary="패키지 구조 변경2">
+      <created>1683364086920</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1683364086920</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Post Service 작성중, [jwt token 활용하기 위한 중간 MERGE]">
+      <created>1683609763822</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1683609763822</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Post 작성 - Test 전">
+      <created>1683769170886</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1683769170886</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Post Test&#10;완료 - Post, Get&#10;실패 - Delete, Patch">
+      <created>1683962281923</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1683962281923</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Comment 작성&#10;Board 일부 수정">
+      <created>1684141512649</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1684141512650</updated>
+    </task>
+    <task id="LOCAL-00010" summary="통합용 커밋">
+      <created>1684212333661</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1684212333661</updated>
+    </task>
+    <task id="LOCAL-00011" summary="통합용 커밋 + 공동 작전">
+      <created>1684220585223</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1684220585223</updated>
+    </task>
+    <task id="LOCAL-00012" summary="통합용 커밋 + 공동 작전">
+      <created>1684221445545</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1684221445545</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="firstCommit" />
+    <MESSAGE value="jwt_copy" />
+    <MESSAGE value="패키지 구조 변경2" />
+    <MESSAGE value="Post Service 작성중, [jwt token 활용하기 위한 중간 MERGE]" />
+    <MESSAGE value="Post 작성 - Test 전" />
+    <MESSAGE value="Post Test&#10;완료 - Post, Get&#10;실패 - Delete, Patch" />
+    <MESSAGE value="Comment 작성&#10;Board 일부 수정" />
+    <MESSAGE value="통합용 커밋" />
+    <MESSAGE value="통합용 커밋 + 공동 작전" />
+    <option name="LAST_COMMIT_MESSAGE" value="통합용 커밋 + 공동 작전" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.springframework.beans.factory.UnsatisfiedDependencyException" package="org.springframework.beans.factory" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/seb43_main_002$BoardRestDocsTest_getBoardTest.ic" NAME="BoardRestDocsTest.getBoardTest 커버리지 결과" MODIFIED="1683960978691" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.branch.sikgu.Board.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/seb43_main_002$SikguApplication.ic" NAME="SikguApplication Coverage Results" MODIFIED="1684198364046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.branch.sikgu.*</FILTER>
+    </SUITE>
+  </component>
+</project>

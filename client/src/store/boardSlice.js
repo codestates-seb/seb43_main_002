@@ -11,6 +11,18 @@ export const fetchBoards = createAsyncThunk('boards/fetchBoards', async () => {
   return response.data;
 });
 
+// 게시물 추가
+export const createBoard = createAsyncThunk(
+  'boards/createBoard',
+  async (postBoard) => {
+    const response = await axios.post(
+      'http://localhost:8080/boards',
+      postBoard
+    );
+    return response.data;
+  }
+);
+
 // 게시물 수정
 export const updateBoard = createAsyncThunk(
   'boards/updateBoard',

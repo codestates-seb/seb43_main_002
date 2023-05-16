@@ -7,43 +7,48 @@ import {
   ModalInput,
   ModalCount,
   ModalCountbutton,
+  ModalPlusbutton,
   ModalWhoButtonWrap,
   ModalWhobutton,
   ModalText,
   ModalButtonWrap,
   ModalButton,
+  CancelButton,
 } from './ModalStyles';
 import PropTypes from 'prop-types';
 import Tag from './Tag';
-import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { createBoard } from '../store/boardSlice';
+import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs';
 
 const ModalDay = styled(DatePicker)`
   padding: 10px;
-  margin-left: 20px;
-  width: 325px;
+  margin-left: 10px;
+  width: 340px;
   font-size: 14px;
   border-radius: 4px;
   box-sizing: border-box;
   text-align: center;
+  border: none;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
 `;
 
-const PostModal = ({ isOpen, onClose, people }) => {
+const PostModal = ({ isOpen, onClose }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [postBoard, setPostBoard] = useState({
     food: '',
     people: 0,
     when: startDate,
-    who: '아무나',
+    who: '누구나 참여가능',
     content: '',
     tag: '',
     comment: [],
   });
 
-  console.log(people);
   const handleIncrement = (e) => {
     e.preventDefault();
     setPostBoard((prevBoard) => ({
@@ -81,28 +86,30 @@ const PostModal = ({ isOpen, onClose, people }) => {
   const handleWhoChange = (e) => {
     e.preventDefault();
     switch (postBoard.who) {
-      case '아무나':
+      case '누구나 참여가능':
         setPostBoard((prevBoard) => ({
           ...prevBoard,
-          who: '여자만',
+          who: '여성만 참여가능',
         }));
         break;
-      case '여자만':
+      case '여성만 참여가능':
         setPostBoard((prevBoard) => ({
           ...prevBoard,
-          who: '남자만',
+          who: '남성만 참여가능',
         }));
         break;
-      case '남자만':
+      case '남성만 참여가능':
         setPostBoard((prevBoard) => ({
           ...prevBoard,
-          who: '아무나',
+          who: '누구나 참여가능',
         }));
         break;
       default:
         break;
     }
   };
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -114,8 +121,9 @@ const PostModal = ({ isOpen, onClose, people }) => {
       alert('모든 곳을 입력해주세요.');
       return;
     }
-    axios
-      .post('http://localhost:8080/boards', postBoard)
+
+    dispatch(createBoard(postBoard))
+      .unwrap()
       .then(() => {
         console.log('게시물이 성공적으로 작성되었습니다.');
         onClose();
@@ -148,7 +156,7 @@ const PostModal = ({ isOpen, onClose, people }) => {
         <ModalCount name="people" onChange={handleChange}>
           <ModalCountbutton onClick={handleDecrement}>-</ModalCountbutton>
           <span>{postBoard.people}</span>
-          <ModalCountbutton onClick={handleIncrement}>+</ModalCountbutton>
+          <ModalPlusbutton onClick={handleIncrement}>+</ModalPlusbutton>
         </ModalCount>
         <ModalQurry>언제 먹을까?</ModalQurry>
         <ModalDay
@@ -164,16 +172,20 @@ const PostModal = ({ isOpen, onClose, people }) => {
         />
         <ModalQurry>누구랑 먹을까?</ModalQurry>
         <ModalWhoButtonWrap>
-          <ModalWhobutton onClick={handleWhoChange}></ModalWhobutton>
+          <ModalWhobutton onClick={handleWhoChange}>
+            <BsArrowLeftShort />
+          </ModalWhobutton>
           <span>{postBoard.who}</span>
-          <ModalWhobutton onClick={handleWhoChange}></ModalWhobutton>
+          <ModalWhobutton onClick={handleWhoChange}>
+            <BsArrowRightShort />
+          </ModalWhobutton>
         </ModalWhoButtonWrap>
         <ModalQurry>추가로 입력할 정보는?</ModalQurry>
         <ModalText name="content" onChange={handleChange}></ModalText>
         <Tag name="tag" onChange={handleChange}></Tag>
         <ModalButtonWrap>
           <ModalButton type="submit">작성하기</ModalButton>
-          <ModalButton onClick={handleCancel}>취소하기</ModalButton>
+          <CancelButton onClick={handleCancel}>취소하기</CancelButton>
         </ModalButtonWrap>
       </ModalContent>
     </ModalWrap>

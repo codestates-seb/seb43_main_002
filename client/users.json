@@ -19,61 +19,33 @@
   "boards": [
     {
       "food": "짬뽕",
-      "people": 5,
-      "when": "2023-05-15T02:00:00.766Z",
-      "who": "아무나",
-      "content": "짬뽕1",
-      "tag": "짬뽕2,짬뽕3,짬뽕4",
-      "id": 1,
-      "comment": [
-        {
-          "member": {
-            "displayName": "zeeeeee",
-            "avatarLink": "아직미완"
-          },
-          "content": "새로운 댓글",
-          "updateDate": "2023-05-14T07:37:43.938Z",
-          "id": 2
-        },
-        {
-          "member": {
-            "displayName": "zzzzzz",
-            "avatarLink": "미완"
-          },
-          "content": " 댓글",
-          "updateDate": "2023-05-12T07:37:43.938Z",
-          "id": 3
-        }
-      ]
+      "people": 2,
+      "when": "2023-05-16T08:38:57.194Z",
+      "who": "누구나 참여가능",
+      "content": "짬뽕",
+      "tag": "짬뽕1,짬뽕2",
+      "comment": [],
+      "id": 1
+    },
+    {
+      "food": "쌀국수",
+      "people": 2,
+      "when": "2023-05-16T08:39:14.211Z",
+      "who": "여성만 참여가능",
+      "content": "쌀국수",
+      "tag": "쌀국수1,쌀국수2",
+      "comment": [],
+      "id": 2
     },
     {
       "food": "짜장면",
-      "people": 5,
-      "when": "2023-05-15T02:00:00.766Z",
-      "who": "아무나",
-      "content": "짬뽕1",
-      "tag": "짬뽕2,짬뽕3,짬뽕4",
-      "id": 1,
-      "comment": [
-        {
-          "member": {
-            "displayName": "zeeeeee",
-            "avatarLink": "아직미완"
-          },
-          "content": "새로운 댓글",
-          "updateDate": "2023-05-14T07:37:43.938Z",
-          "id": 2
-        },
-        {
-          "member": {
-            "displayName": "zzzzzz",
-            "avatarLink": "미완"
-          },
-          "content": " 댓글",
-          "updateDate": "2023-05-12T07:37:43.938Z",
-          "id": 3
-        }
-      ]
+      "people": 2,
+      "when": "2023-05-16T13:00:00.326Z",
+      "who": "남성만 참여가능",
+      "content": "짜장면\n",
+      "tag": "짜장면,짜장면2",
+      "comment": [],
+      "id": 3
     }
   ]
 }

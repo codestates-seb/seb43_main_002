@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const WholeBox = styled.div`
-  padding: 10px;
+  margin-top: 15px;
 `;
 
 const TagBox = styled.div`
@@ -12,10 +12,13 @@ const TagBox = styled.div`
   flex-wrap: wrap;
   min-height: 50px;
   margin: 10px;
+  width: 340px;
   padding: 0 10px;
   border: 1px solid black;
   border-radius: 10px;
   background-color: white;
+  border: none;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
   &:focus-within {
     border-color: white;
   }

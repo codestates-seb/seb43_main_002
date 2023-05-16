@@ -53,8 +53,6 @@ export const LogoutButton = styled.button`
   }
 `;
 
-// export const
-
 export const SearchWrap = styled.div`
   padding: 0px;
   margin-right: 10px;
@@ -117,7 +115,7 @@ export const WeekWrap = styled.div`
 export const DayNumberWrap = styled.div`
   margin-top: 10px;
   width: 60%;
-  height: 100%;
+  /* height: 100%; */
   padding: 0px;
   /* border-bottom: 1px solid white; */
   position: relative;
@@ -162,7 +160,7 @@ export const BoardsWrap = styled.div`
 
 export const BoardWrap = styled.article`
   margin-top: 10px;
-  padding: 20px;
+  padding: 10px;
   width: 100%;
   /* border: 1px solid black; */
   border-radius: 10px;
@@ -172,6 +170,17 @@ export const BoardWrap = styled.article`
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
+  &::before {
+    content: '';
+    position: absolute;
+    border-radius: 0% 0% 0% 50%;
+    top: 0px;
+    right: 0px;
+    width: 40px;
+    height: 40px;
+    background-color: #ffb44a;
+    z-index: 0;
+  }
 `;
 
 export const FooterWrap = styled.footer`

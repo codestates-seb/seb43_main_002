@@ -72,7 +72,7 @@ const Comment = ({ board, comment, handlePeople }) => {
             <CommentProfileWrap>
               {comment.member?.avatarLink}
             </CommentProfileWrap>
-            <CommentButton>수락</CommentButton>
+            <CommentButton onClick={handlePeople}>수락</CommentButton>
             <CommentButton>거절</CommentButton>
           </div>
           <div>

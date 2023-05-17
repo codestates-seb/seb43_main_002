@@ -3,6 +3,7 @@ package com.branch.sikgu.comment.service;
 import com.branch.sikgu.auth.jwt.JwtTokenizer;
 import com.branch.sikgu.board.entity.Board;
 import com.branch.sikgu.board.service.BoardService;
+import com.branch.sikgu.comment.dto.CommentDto;
 import com.branch.sikgu.comment.entity.Comment;
 import com.branch.sikgu.comment.mapper.CommentMapper;
 import com.branch.sikgu.comment.repository.CommentRepository;
@@ -59,7 +60,7 @@ public class CommentService {
 
 
     // 댓글 조회
-    public List<Comment> findComments(long boardId) { // 보드 Id로 보드를 가져옴.....
+    public List<CommentDto.Response> findComments(long boardId) { // 보드 Id로 보드를 가져옴.....
         Board board = boardService.getBoardById(boardId);
 
         return commentRepository.findByBoardId(board.getBoardId());

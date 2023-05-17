@@ -10,6 +10,7 @@ import org.mapstruct.ReportingPolicy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
@@ -30,5 +31,11 @@ public interface CommentMapper {
         );
 
         return commentResponseDto;
+    }
+
+    default List<CommentDto.Response> commentToResponseDtoList(List<Comment> comments) {
+        return comments.stream()
+                .map(this::commentToCommentResponseDto)
+                .collect(Collectors.toList());
     }
 }

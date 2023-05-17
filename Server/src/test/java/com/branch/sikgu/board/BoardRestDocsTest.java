@@ -1,10 +1,9 @@
-package com.branch.sikgu.Board;
+package com.branch.sikgu.board;
 
 import com.branch.sikgu.board.controller.BoardController;
 import com.branch.sikgu.board.dto.BoardDto;
 import com.branch.sikgu.board.entity.Board;
 import com.branch.sikgu.board.service.BoardService;
-import com.branch.sikgu.member.service.MemberService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +20,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -354,8 +352,8 @@ public class BoardRestDocsTest {
 //
 //        // 가상의 게시글 데이터
 //        List<BoardDto.Response> boards = Arrays.asList(
-//                new BoardDto.Response(1L, 1L,"제목1", "내용1",  timeX, null, 3, Board.PassedGender.MALE, timeY),
-//                new BoardDto.Response(1L, 3L,"제목2", "내용2",  timeX,  null, 4, Board.PassedGender.FEMALE, timeY)
+//                new BoardDto.Response(1L, 1L, "제목1", "내용1", timeX, null, 3, Board.PassedGender.MALE, timeY),
+//                new BoardDto.Response(1L, 3L, "제목2", "내용2", timeX, null, 4, Board.PassedGender.FEMALE, timeY)
 //        );
 //
 //        when(boardService.getBoardsByMember(any())).thenReturn(boards);
@@ -405,5 +403,6 @@ public class BoardRestDocsTest {
 //                                )
 //                        )
 //                );
+//    }
 }
 

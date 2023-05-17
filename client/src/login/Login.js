@@ -47,15 +47,14 @@ const Login = () => {
           const decoded = jwt_decode(token);
           const user = {
             email: decoded.email,
-            memberId: decoded.memberId,
-            roles: decoded.roles,
+            nickname: decoded.nickname,
           };
 
           sessionStorage.setItem('user', JSON.stringify(user)); // 세션스토리지에 user정보 저장
           sessionStorage.setItem('jwt', token); // sessionStorage에 토큰 저장
 
           dispatch(login(user));
-          alert('로그인 되었습니다!');
+          alert(`${user.nickname}님, 식사는 잡쉈어?`);
           navigate('/boards');
         } else {
           console.log(response.data);

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ReactComponent as BackLogo } from '../svg/main-logo.svg';
 
@@ -68,7 +68,7 @@ const Input = styled.input`
 const Button = styled.button`
   width: 100%;
   padding: 12px;
-  background-color: #ffc257;
+  background-image: linear-gradient(135deg, #ffd571, #ffac36);
   margin-bottom: 10px;
   color: white;
   border: none;
@@ -93,10 +93,6 @@ const CheckboxContainer = styled.div`
   justify-content: space-around;
 `;
 
-const GenderCheckbox = styled.input`
-  margin: 10px 0;
-`;
-
 const CheckDuplicateButton = styled(Button)`
   width: auto;
   margin-left: 10px;
@@ -112,55 +108,42 @@ const Error = styled.p`
   font-size: 12px;
   margin-top: 3px;
 `;
-const CheckboxLabel = styled.label`
-  display: block;
-  position: relative;
-  padding-left: 30px;
-  margin: 10px;
-  cursor: pointer;
-  font-size: 15px;
-  user-select: none;
 
-  input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
-
-  span {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: #ccc;
-    border-radius: 50%;
-  }
-
-  &:hover input ~ span {
-    background-color: #9c9c9c;
-  }
-
-  input:checked ~ span {
-    background-color: #ffc257;
-  }
-
-  span:after {
-    content: '';
-    position: absolute;
-    display: none;
-  }
-
-  input:checked ~ span:after {
-    display: block;
-  }
+const GenderBox = styled.div`
+display:flex;
+flex direction : row;
+justify-content: space-around;
+align-items : center;
 `;
+
+const GenderButton = styled.button`
+  margin: 10px 0;
+  padding: 12px;
+  border: none;
+  width: 100%;
+  height: 40px;
+  border-radius: 50px;
+  background-color: #d4d4d4;
+  color: white;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+
+  &:last-child {
+    margin-left: 20px;
+  }
+
+  ${(props) =>
+    props.active &&
+    css`
+      background-image: linear-gradient(135deg, #ffd571, #ffac36);
+    `}
+`;
+
 const Text = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px;
-  padding: 10px;
+  margin: 5px;
+  padding: 5px;
 `;
 
 const FooterText = styled.p`
@@ -204,14 +187,15 @@ export {
   SignupTitle,
   SignupButton,
   CheckboxContainer,
-  GenderCheckbox,
   CheckDuplicateButton,
   CheckPasswordButton,
+  GenderButton,
   Error,
   Text,
   FooterText,
   StyledLink,
-  CheckboxLabel,
+  // CheckboxLabel,
+  GenderBox,
   StyledLogo,
   LogoContainer,
   Mobile,

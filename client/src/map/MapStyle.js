@@ -5,7 +5,7 @@ export const MapContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   top: 10%;
   height: 80%;
   width: 90%;
@@ -38,6 +38,7 @@ export const CategoryButton = styled.button`
     background-color: #2980b9;
   }
 `;
+
 export const ButtonContainer = styled.div`
   position: absolute;
   top: 10px;
@@ -47,7 +48,43 @@ export const ButtonContainer = styled.div`
 
 export const CurrentLocationButton = styled.button`
   position: absolute;
-  bottom: 10px;
+  bottom: 230px;
   right: 10px;
   z-index: 10;
+`;
+
+export const SearchResults = styled.div`
+  position: absolute; // 추가
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 5px;
+  width: 100%;
+  height: 200px;
+  overflow-y: auto;
+  background: rgba(255, 213, 113, 0.7);
+  border-top: 1px solid #ddd;
+  z-index: 10;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+export const ResultItem = styled.div`
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  &:hover {
+    background: #eee;
+  }
+  z-index: 20;
 `;

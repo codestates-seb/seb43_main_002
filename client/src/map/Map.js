@@ -54,9 +54,11 @@ const Map = () => {
       marker.infowindow.close();
     });
     setMarkers([]);
+    console.log('marker remove');
   };
   // 카테고리에 대한 장소를 검색하고 결과를 지도에 표시
   const searchAndDisplayPlacesByCategory = (category) => {
+    console.log(`Searching for category: ${category}`);
     clearMarkers();
     setSearchResults([]); // 검색 결과 초기화
     const places = new window.kakao.maps.services.Places();
@@ -181,7 +183,7 @@ const Map = () => {
           animate={animation}
           onClick={updateCurrentLocation}
         >
-          현재 위치
+          <img src="/icon/location.svg" alt="현재위치" />
         </CurrentLocationButton>
         <SearchResults animate={animation}>{resultItems}</SearchResults>
       </MapContainer>

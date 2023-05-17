@@ -58,14 +58,14 @@ export const CategoryButton = styled.button`
   border: none;
   border-radius: 5px;
   margin: 3px;
-  background-image: radial-gradient(#ffd571, #ffac36);
+  background: radial-gradient(#ffd571, #ffac36);
   color: black;
   font-size: 1rem;
   cursor: pointer;
   z-index: 20;
 
   &:hover {
-    background-color: #ffd571;
+    background: radial-gradient(#ccad5c, #cc8400);
   }
 `;
 
@@ -81,18 +81,35 @@ export const ButtonContainer = styled.div`
   z-index: 20;
 `;
 
-export const CurrentLocationButton = styled.button`
+export const CurrentLocationButton = styled.div`
   position: absolute;
   bottom: ${(props) => (props.animate ? '230px' : '10px')};
+  height: 40px;
+  width: 40px;
+  padding: 7px 7px;
+  border: none;
+  border-radius: 50px;
+  margin: 3px;
   right: 10px;
+  background-image: radial-gradient(#ffd571, #ffac36);
   transition: bottom 1s;
   z-index: 20;
+  cursor: pointer;
+  &:hover {
+    background-image: radial-gradient(#ccad5c, #cc8400);
+  }
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const SearchResults = styled.div`
   position: absolute;
-  bottom: ${(props) => (props.animate ? '20px' : '-200px')};
-  transition: bottom 1s;
+  bottom: 20px;
+  transform: ${(props) =>
+    props.animate ? 'translateY(0)' : 'translateY(calc(100% + 20px))'};
+  transition: transform 1s;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -101,7 +118,7 @@ export const SearchResults = styled.div`
   width: 100%;
   height: 200px;
   overflow-y: auto;
-  background: rgba(255, 213, 113, 0.7);
+  background: rgba(255, 250, 237, 0.8);
   border-top: 1px solid #ddd;
   z-index: 20;
   scrollbar-width: none;

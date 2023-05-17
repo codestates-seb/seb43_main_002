@@ -67,6 +67,12 @@ export const SearchResults = styled.div`
   background: rgba(255, 213, 113, 0.7);
   border-top: 1px solid #ddd;
   z-index: 10;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const ResultItem = styled.div`

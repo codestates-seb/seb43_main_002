@@ -19,11 +19,26 @@ const Map = () => {
   const [markers, setMarkers] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   // 지정된 위치에 마커와 인포윈도우 표시
-  const displayMarker = (locPosition, message) => {
+  const displayMarker = (locPosition, place) => {
     let marker = new window.kakao.maps.Marker({
       map: mapInstance.current,
       position: locPosition,
     });
+    let message = `
+    <div style="
+    width: 180px; 
+    height: 80px; 
+    border-radius: 8px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  ">
+    <b>${place.place_name}</b>
+    <br/>${place.address_name}
+    ${place.phone ? `<br />${place.phone}` : ''}
+  </div>`;
     let infowindow = new window.kakao.maps.InfoWindow({
       content: message,
     });
@@ -47,9 +62,8 @@ const Map = () => {
       if (status === window.kakao.maps.services.Status.OK) {
         setSearchResults(result); // 검색 결과를 상태에 저장
         result.forEach((place) => {
-          let locPosition = new window.kakao.maps.LatLng(place.y, place.x),
-            message = `<div style="padding:5px;">${place.place_name}</div>`;
-          displayMarker(locPosition, message);
+          let locPosition = new window.kakao.maps.LatLng(place.y, place.x);
+          displayMarker(locPosition, place);
         });
       }
     };
@@ -103,9 +117,8 @@ const Map = () => {
   useEffect(() => {
     clearMarkers(); // 기존 마커 제거
     searchResults.forEach((result) => {
-      let locPosition = new window.kakao.maps.LatLng(result.y, result.x),
-        message = `<div style="padding:5px;">${result.place_name}</div>`;
-      displayMarker(locPosition, message);
+      let locPosition = new window.kakao.maps.LatLng(result.y, result.x);
+      displayMarker(locPosition, result);
     });
   }, [searchResults]);
 

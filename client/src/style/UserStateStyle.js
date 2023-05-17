@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const BackGround = styled.div`
   position: absolute;
@@ -74,13 +74,14 @@ export const Posts = styled.div`
 
     > div:nth-child(2) {
       flex-grow: 1;
+      max-width: calc(100% - 60px);
 
-      ul {
+      > ul {
         list-style: none;
         margin: 0;
         padding: 0 0 0 15px;
 
-        li:first-child {
+        > li:first-child {
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
@@ -90,14 +91,21 @@ export const Posts = styled.div`
           max-width: 90%;
         }
 
-        li span {
-          font-size: 10pt;
-          color: #c9c9c9;
-          margin-left: 10px;
-        }
+        > li:last-child {
+          display: flex;
+          align-items: center;
 
-        li:last-child span:first-child {
-          margin-right: 40px;
+          > img {
+            width: 20px;
+            height: 15px;
+            margin-right: 2px;
+          }
+
+          > span {
+            font-size: 10pt;
+            color: #c9c9c9;
+            margin-right: 15px;
+          }
         }
       }
     }
@@ -116,6 +124,24 @@ export const Posts = styled.div`
     .hide {
       display: none;
     }
+  }
+`;
+
+const scaleIn = keyframes`
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
+
+const scaleOut = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
   }
 `;
 
@@ -170,6 +196,32 @@ export const PopUp = styled.div`
   button:first-child {
     margin-right: 20px;
     background-image: linear-gradient(135deg, #ffd571, #ffac36);
+  }
+
+  .scale-in {
+    animation: ${scaleIn} 0.3s ease-out;
+  }
+
+  .scale-out {
+    animation: ${scaleOut} 0.8s ease-out;
+  }
+`;
+
+const slideIn = keyframes`
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+`;
+
+const slideOut = keyframes`
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(100%);
   }
 `;
 
@@ -309,5 +361,13 @@ export const Modal = styled.div`
         }
       }
     }
+  }
+
+  .slide-in {
+    animation: ${slideIn} 0.3s ease-out;
+  }
+
+  .slide-out {
+    animation: ${slideOut} 0.3s ease-out;
   }
 `;

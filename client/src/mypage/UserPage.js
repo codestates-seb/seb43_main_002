@@ -1,5 +1,6 @@
-import Header from './Header';
 import Footer from './Footer';
+import Header from './Header';
+import Loding from './Loding';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
@@ -20,6 +21,7 @@ const UserPage = () => {
   const [data, setData] = useState();
   const [like, setLike] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -33,6 +35,7 @@ const UserPage = () => {
       .then((response) => {
         setData(response.data);
         setLike(response.data.like);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -55,101 +58,105 @@ const UserPage = () => {
 
   return (
     <>
-      {data && (
-        <>
-          <Mobile>
-            <BackGround>
-              <BackYellow />
-            </BackGround>
-            <Header iconSrc="/svg/header-logout.svg" />
-            <Profile>
-              <div></div>
-              <div>
-                <ul>
-                  <li>
-                    {data.nickname}
-                    <button onClick={handleLike} disabled={isLiked}>
-                      <img src="/svg/mypage-like.svg" alt="수정버튼" />
-                    </button>
-                  </li>
-                  <li>{data.intro}</li>
-                  <li>
-                    <ul>
-                      <li>
-                        <img src="/icon/mypage-like.png" alt="식구" />
-                      </li>
-                      <li>
-                        <div>식구</div>
-                        <div>{data.follower}</div>
-                      </li>
-                    </ul>
-                    <ul>
-                      <li>
-                        <img src="/icon/mypage-follow.PNG" alt="친구" />
-                      </li>
-                      <li>
-                        <div>좋아요</div>
-                        <div>{data.like}</div>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </Profile>
-            <NewPosts>
-              <h3>최근 작성한 게시글</h3>
-              <div className="post">
-                {data.recently.slice(0, 2).map((el, idx) => {
-                  const community = '/icon/mypage-community.png';
-                  const sikgu = '/icon/mypage-sikgu.png';
-
-                  return (
-                    <div key={idx}>
+      <Mobile>
+        <BackGround>
+          <BackYellow />
+        </BackGround>
+        <Header iconSrc="/svg/header-logout.svg" fnc="logout" />
+        {isLoading ? (
+          <Loding />
+        ) : (
+          data && (
+            <>
+              <Profile>
+                <img src={data.img} alt="프로필 이미지" />
+                <div>
+                  <ul>
+                    <li>
+                      {data.nickname}
+                      <button onClick={handleLike} disabled={isLiked}>
+                        <img src="/svg/mypage-like.svg" alt="좋아요버튼" />
+                      </button>
+                    </li>
+                    <li>{data.intro}</li>
+                    <li>
                       <ul>
                         <li>
-                          <PostIcon
-                            isType={el.type}
-                            imageA={sikgu}
-                            imageB={community}
-                          />
+                          <img src="/svg/mypage-like.svg" alt="식구" />
                         </li>
-                        <li>{el.date}</li>
-                        <li>{el.title}</li>
+                        <li>
+                          <div>식구</div>
+                          <div>{data.follower}</div>
+                        </li>
                       </ul>
-                    </div>
-                  );
-                })}
-              </div>
-            </NewPosts>
-            <History>
-              <h3>식구랑 먹었던 이력</h3>
-              <div className="post">
-                {data.review.map((el, idx) => {
-                  return (
-                    <div key={idx}>
-                      <img src={el.img} alt="프로필 이미지" />
-                      <div>
+                      <ul>
+                        <li>
+                          <img src="/svg/mypage-follow.svg" alt="친구" />
+                        </li>
+                        <li>
+                          <div>좋아요</div>
+                          <div>{data.like}</div>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </Profile>
+              <NewPosts>
+                <h3>최근 작성한 게시글</h3>
+                <div className="post">
+                  {data.recently.slice(0, 2).map((el, idx) => {
+                    const community = '/svg/mypage-community.svg';
+                    const sikgu = '/svg/mypage-sikgu.svg';
+
+                    return (
+                      <div key={idx}>
                         <ul>
-                          <li>{el.name}</li>
-                          <li>{el.comment}</li>
+                          <li>
+                            <PostIcon
+                              isType={el.type}
+                              imageA={sikgu}
+                              imageB={community}
+                            />
+                          </li>
+                          <li>{el.date}</li>
+                          <li>{el.title}</li>
                         </ul>
                       </div>
-                      <button
-                        onClick={() => {
-                          handleUser(el.id);
-                        }}
-                      >
-                        +
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
-            </History>
-          </Mobile>
-          <Footer />
-        </>
-      )}
+                    );
+                  })}
+                </div>
+              </NewPosts>
+              <History>
+                <h3>식구랑 먹었던 이력</h3>
+                <div className="post">
+                  {data.review.map((el, idx) => {
+                    return (
+                      <div key={idx}>
+                        <img src={el.img} alt="프로필 이미지" />
+                        <div>
+                          <ul>
+                            <li>{el.name}</li>
+                            <li>{el.comment}</li>
+                          </ul>
+                        </div>
+                        <button
+                          onClick={() => {
+                            handleUser(el.id);
+                          }}
+                        >
+                          +
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </History>
+            </>
+          )
+        )}
+      </Mobile>
+      <Footer activeIcon="mypage" />
     </>
   );
 };

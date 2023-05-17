@@ -44,7 +44,7 @@ const Footer = ({ activeIcon }) => {
             onMouseEnter={() => setHomeHovered(true)}
             onMouseLeave={() => {
               if (activeIcon !== 'boards') {
-                setMypageHovered(false);
+                setHomeHovered(false);
               }
             }}
           >
@@ -59,7 +59,7 @@ const Footer = ({ activeIcon }) => {
             onMouseEnter={() => setMapHovered(true)}
             onMouseLeave={() => {
               if (activeIcon !== 'map') {
-                setMypageHovered(false);
+                setMapHovered(false);
               }
             }}
           >
@@ -84,7 +84,7 @@ const Footer = ({ activeIcon }) => {
             onMouseEnter={() => setStateHovered(true)}
             onMouseLeave={() => {
               if (activeIcon !== 'state') {
-                setMypageHovered(false);
+                setStateHovered(false);
               }
             }}
           >

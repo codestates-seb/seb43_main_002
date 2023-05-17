@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const Title = styled.div`
+  @import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,7 +18,7 @@ export const Title = styled.div`
 
   > div:nth-child(2) {
     margin-left: 10px;
-    font-family: 'Playball' !important;
+    font-family: 'Fredoka One';
     font-size: 24pt;
     font-weight: 700;
     color: white;
@@ -101,4 +103,16 @@ export const MainIcon = styled.div`
   background-image: ${({ backgroundImage }) => `url(${backgroundImage})`};
   background-repeat: no-repeat;
   background-position: center;
+`;
+
+export const LodingDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  > img {
+    width: 50px;
+    height: 50px;
+  }
 `;

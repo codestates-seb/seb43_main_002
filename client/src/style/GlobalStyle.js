@@ -22,6 +22,7 @@ export const GlobalWrap = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fffaed;
+  overflow: hidden;
 
   .hide {
     visibility: hidden;

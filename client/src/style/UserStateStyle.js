@@ -23,35 +23,8 @@ export const Mobile = styled.div`
   box-sizing: border-box;
   position: relative;
   width: 400px;
-  height: 850px;
+  height: 792px;
   padding: 20px;
-`;
-
-export const Title = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-
-  > div:first-child {
-    width: 50px;
-    height: 50px;
-    background-image: url('/icon/main-logo.png');
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-
-  > div:nth-child(2) {
-    margin-left: 10px;
-    font-size: 24pt;
-    font-weight: 700;
-    color: white;
-  }
-
-  > div:last-child {
-    margin-left: auto;
-    color: white;
-  }
 `;
 
 export const Posts = styled.div`
@@ -68,6 +41,7 @@ export const Posts = styled.div`
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
+    overflow: hidden;
 
     > .before {
       background-image: linear-gradient(135deg, #ffd571, #ffac36);
@@ -92,14 +66,14 @@ export const Posts = styled.div`
       border-radius: 25px;
       width: 40px;
       height: 40px;
-      background-image: url('/icon/state-check.png');
+      background-image: url('/svg/state-check.svg');
+      background-size: 15px 15px;
       background-repeat: no-repeat;
       background-position: center;
     }
 
     > div:nth-child(2) {
-      flex: 1;
-      max-width: calc(100% - 75px);
+      flex-grow: 1;
 
       ul {
         list-style: none;
@@ -113,6 +87,7 @@ export const Posts = styled.div`
           font-weight: 700;
           margin-bottom: 2px;
           width: 90%;
+          max-width: 90%;
         }
 
         li span {
@@ -125,6 +100,21 @@ export const Posts = styled.div`
           margin-right: 40px;
         }
       }
+    }
+
+    > button {
+      width: 20px;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+
+      img {
+        height: 25px;
+      }
+    }
+
+    .hide {
+      display: none;
     }
   }
 `;
@@ -174,6 +164,7 @@ export const PopUp = styled.div`
     color: white;
     border-radius: 50px;
     background-color: #c9c9c9;
+    cursor: pointer;
   }
 
   button:first-child {
@@ -228,8 +219,10 @@ export const Modal = styled.div`
       > div:first-child {
         width: 50px;
         height: 50px;
-        border-radius: 25px;
-        background-color: #c9c9c9;
+        background-image: url('/svg/main-logo-2.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
         margin-bottom: 5px;
       }
 
@@ -275,6 +268,13 @@ export const Modal = styled.div`
 
           > button {
             margin-left: auto;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+
+            > img {
+              height: 15px;
+            }
           }
         }
 
@@ -287,15 +287,24 @@ export const Modal = styled.div`
             flex: 1;
             border: none;
             height: 30px;
-            background-color: #d9d9d9;
+            background-color: #e9e9e9;
             border-radius: 5px 0 0 5px;
             padding-left: 5px;
+
+            :focus {
+              border: 2px solid #ffd571;
+              outline: none;
+            }
           }
 
           button {
+            width: 50px;
+            font-weight: 700;
             border: none;
+            color: white;
             border-radius: 0 5px 5px 0;
             background-image: linear-gradient(135deg, #ffd571, #ffac36);
+            cursor: pointer;
           }
         }
       }

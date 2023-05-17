@@ -139,6 +139,9 @@ export const NewPosts = styled.div`
           margin-top: 3px;
           text-align: right;
           font-weight: 700;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
       }
 
@@ -210,6 +213,8 @@ export const History = styled.div`
       font-size: 14pt;
       font-weight: 700;
       cursor: pointer;
+
+      transition: background-color 0.3s ease;
 
       :hover {
         background-color: #ffca61 !important;

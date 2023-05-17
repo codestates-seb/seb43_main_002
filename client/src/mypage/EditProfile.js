@@ -59,12 +59,10 @@ const EditProfile = () => {
           },
         })
         .then((response) => {
-          console.log(response.data); // 이미지 업로드 성공 시 서버에서 전송한 응답 데이터
           setProfileImage(response.data);
         })
         .catch((error) => {
           console.error(error);
-          console.log(error.response.data);
         });
     }
   };
@@ -120,7 +118,7 @@ const EditProfile = () => {
           <BackGround>
             <BackYellow />
           </BackGround>
-          <Header iconSrc="/svg/header-back.svg" />
+          <Header iconSrc="/svg/header-back.svg" fnc="back" />
           <EditForm onSubmit={handleSubmit(onSubmit)}>
             <div>
               <div>

@@ -19,7 +19,7 @@ export const HeaderBackWrap = styled.div`
   border-bottom-left-radius: 15%;
   border-bottom-right-radius: 15%;
   position: absolute;
-  background-image: radial-gradient(#ffd571, #ffac36);
+  background-image: linear-gradient(135deg, #ffd571, #ffac36);
 `;
 
 export const HeaderWrap = styled.header`

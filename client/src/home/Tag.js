@@ -18,7 +18,7 @@ const TagBox = styled.div`
   border-radius: 10px;
   background-color: white;
   border: none;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   &:focus-within {
     border-color: white;
   }

@@ -7,11 +7,13 @@ import {
   ModalInput,
   ModalCount,
   ModalCountbutton,
+  ModalPlusbutton,
   ModalWhoButtonWrap,
   ModalWhobutton,
   ModalText,
   ModalButtonWrap,
   ModalButton,
+  CancelButton,
 } from './ModalStyles';
 import PropTypes from 'prop-types';
 import Tag from './Tag';
@@ -22,6 +24,7 @@ import { ko } from 'date-fns/esm/locale';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { updateBoard } from '../store/boardSlice';
+import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs';
 
 const ModalDay = styled(DatePicker)`
   padding: 10px;
@@ -88,14 +91,14 @@ const EditModal = ({ isOpen, onClose, board }) => {
     let updatedWho = '';
 
     switch (editedBoard.who) {
-      case '아무나':
-        updatedWho = '여자만';
+      case '누구나 참여가능':
+        updatedWho = '여성만 참여가능';
         break;
-      case '여자만':
-        updatedWho = '남자만';
+      case '여성만 참여가능':
+        updatedWho = '남성만 참여가능';
         break;
-      case '남자만':
-        updatedWho = '아무나';
+      case '남성만 참여가능':
+        updatedWho = '누구나 참여가능';
         break;
       default:
         break;
@@ -155,7 +158,7 @@ const EditModal = ({ isOpen, onClose, board }) => {
         <ModalCount name="people" onChange={handleChange}>
           <ModalCountbutton onClick={handleDecrement}>-</ModalCountbutton>
           <span>{editedBoard.people}</span>
-          <ModalCountbutton onClick={handleIncrement}>+</ModalCountbutton>
+          <ModalPlusbutton onClick={handleIncrement}>+</ModalPlusbutton>
         </ModalCount>
         <ModalQurry>언제 먹을까?</ModalQurry>
         <ModalDay
@@ -171,9 +174,13 @@ const EditModal = ({ isOpen, onClose, board }) => {
         />
         <ModalQurry>누구랑 먹을까?</ModalQurry>
         <ModalWhoButtonWrap>
-          <ModalWhobutton onClick={handleWhoChange}></ModalWhobutton>
+          <ModalWhobutton onClick={handleWhoChange}>
+            <BsArrowLeftShort />
+          </ModalWhobutton>
           <span>{editedBoard.who}</span>
-          <ModalWhobutton onClick={handleWhoChange}></ModalWhobutton>
+          <ModalWhobutton onClick={handleWhoChange}>
+            <BsArrowRightShort />
+          </ModalWhobutton>
         </ModalWhoButtonWrap>
         <ModalQurry>추가로 입력할 정보는?</ModalQurry>
         <ModalText
@@ -184,7 +191,7 @@ const EditModal = ({ isOpen, onClose, board }) => {
         <Tag name="tag" onChange={handleChange} value={editedBoard.tag}></Tag>
         <ModalButtonWrap>
           <ModalButton type="submit">수정하기</ModalButton>
-          <ModalButton onClick={handleCancel}>취소하기</ModalButton>
+          <CancelButton onClick={handleCancel}>취소하기</CancelButton>
         </ModalButtonWrap>
       </ModalContent>
     </ModalWrap>

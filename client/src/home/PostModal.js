@@ -35,7 +35,7 @@ const ModalDay = styled(DatePicker)`
   text-align: center;
   cursor: pointer;
   border: none;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 `;
 
 const PostModal = ({ isOpen, onClose }) => {

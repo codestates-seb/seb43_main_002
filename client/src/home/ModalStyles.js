@@ -1,8 +1,17 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const slideIn = keyframes`
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+`;
 
 export const ModalWrap = styled.div`
   position: fixed;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
   height: 100%;
@@ -17,6 +26,9 @@ export const ModalWrap = styled.div`
 `;
 
 export const ModalContent = styled.form`
+  position: relative;
+  /* bottom: ${({ isOpen }) => (isOpen ? '0' : '-100%')}; */
+  left: 0;
   background-color: #fffaed;
   font-size: 15px;
   border-top-right-radius: 40px;
@@ -28,7 +40,8 @@ export const ModalContent = styled.form`
   display: flex;
   flex-direction: column;
   align-items: start;
-  animation: 0.5s forwards;
+  animation: ${slideIn} 0.5s forwards;
+  /* transition: bottom 0.5s ease-in-out; */
 `;
 
 /////////////////////////////////////
@@ -46,7 +59,7 @@ export const ModalInput = styled.input`
   font-size: 14px;
   border-radius: 5%;
   border: none;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   &:focus {
     outline: none;
   }
@@ -63,7 +76,7 @@ export const ModalCount = styled.div`
   display: flex;
   justify-content: space-between;
   border: none;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 `;
 
 export const ModalCountbutton = styled.button`
@@ -78,7 +91,7 @@ export const ModalCountbutton = styled.button`
   align-items: center;
   cursor: pointer;
   text-align: center;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   &:hover {
     background-color: #696969;
   }
@@ -92,7 +105,7 @@ export const ModalPlusbutton = styled.button`
   height: 18px;
   border: none;
   cursor: pointer;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   &:hover {
     background-image: radial-gradient(#ffb44a, #ffca28);
   }
@@ -123,7 +136,7 @@ export const ModalWhobutton = styled.button`
   height: 18px;
   border: none;
   cursor: pointer;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   &:hover {
     background-image: radial-gradient(#ffb44a, #ffca28);
   }
@@ -136,7 +149,7 @@ export const ModalText = styled.textarea`
   height: 132px;
   font-size: 12px;
   border: none;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   &:focus {
     outline: none;
@@ -166,7 +179,7 @@ export const ModalButton = styled.button`
   border-radius: 40px;
   color: white;
   border: none;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   background-color: #ffb44a;
   transition: background-color 0.3s ease;
   &:hover {
@@ -179,7 +192,7 @@ export const CancelButton = styled.button`
   border-radius: 40px;
   color: white;
   border: none;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   background-color: #9b9b9b;
   transition: background-color 0.3s ease;
 

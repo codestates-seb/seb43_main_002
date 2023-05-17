@@ -1,0 +1,123 @@
+= SikGu!
+:sectnums:
+:toc: left
+:toclevels: 4
+:toc-title: Table of Contents
+:source-highlighter: prettify
+
+v1.0.0, 2023.05.17
+
+
+***
+== Comment Controller
+
+=== POST 댓글 등록
+
+.curl-request
+include::{snippets}/create-comment/curl-request.adoc[]
+
+.httpie-request
+include::{snippets}/create-comment/httpie-request.adoc[]
+
+.http-request
+include::{snippets}/create-comment/http-request.adoc[]
+
+.request-body
+include::{snippets}/create-comment/request-body.adoc[]
+
+.request-fields
+include::{snippets}/create-comment/request-fields.adoc[]
+
+.http-response
+include::{snippets}/create-comment/http-response.adoc[]
+
+.response-body
+include::{snippets}/create-comment/response-body.adoc[]
+
+.request-headers
+include::{snippets}/create-comment/request-headers.adoc[]
+
+
+=== GET 게시물의 댓글 조회
+
+.curl-request
+include::{snippets}/get-commentsByBoardId/curl-request.adoc[]
+
+.httpie-request
+include::{snippets}/get-commentsByBoardId/httpie-request.adoc[]
+
+.http-request
+include::{snippets}/get-commentsByBoardId/http-request.adoc[]
+
+.request-headers
+include::{snippets}/get-commentsByBoardId/request-headers.adoc[]
+
+.request-body
+include::{snippets}/get-commentsByBoardId/request-body.adoc[]
+
+.http-response
+include::{snippets}/get-commentsByBoardId/http-response.adoc[]
+
+.response-body
+include::{snippets}/get-commentsByBoardId/response-body.adoc[]
+
+.response-fields
+include::{snippets}/get-commentsByBoardId/response-fields.adoc[]
+
+=== PATCH 댓글 수정
+
+.curl-request
+include::{snippets}/update-comment/curl-request.adoc[]
+
+.httpie-request
+include::{snippets}/update-comment/httpie-request.adoc[]
+
+.http-request
+include::{snippets}/update-comment/http-request.adoc[]
+
+.request-headers
+include::{snippets}/update-comment/request-headers.adoc[]
+
+.request-body
+include::{snippets}/update-comment/request-body.adoc[]
+
+.request-fields
+include::{snippets}/update-comment/request-fields.adoc[]
+
+.http-response
+include::{snippets}/update-comment/http-response.adoc[]
+
+.response-body
+include::{snippets}/update-comment/response-body.adoc[]
+
+.response-fields
+include::{snippets}/update-comment/response-fields.adoc[]
+
+.path-parameters
+include::{snippets}/update-comment/path-parameters.adoc[]
+
+=== 게시물 삭제 DELETE
+
+.curl-request
+include::{snippets}/delete-comment/curl-request.adoc[]
+
+.httpie-request
+include::{snippets}/delete-comment/httpie-request.adoc[]
+
+.http-request
+include::{snippets}/delete-comment/http-request.adoc[]
+
+.request-headers
+include::{snippets}/delete-comment/request-headers.adoc[]
+
+.request-body
+include::{snippets}/delete-comment/request-body.adoc[]
+
+.http-response
+include::{snippets}/delete-comment/http-response.adoc[]
+
+.response-body
+include::{snippets}/delete-comment/response-body.adoc[]
+
+.path-parameters
+include::{snippets}/delete-comment/path-parameters.adoc[]

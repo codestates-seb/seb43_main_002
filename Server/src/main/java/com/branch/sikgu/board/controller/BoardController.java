@@ -50,7 +50,7 @@ public class BoardController {
         return ResponseEntity.noContent().build();
     }
 
-    //  내 게시물 목록 조회 API -> 마이페이지에서 구현행할 듯
+    // 내 게시물 목록 조회 API -> 마이페이지에서 구현행할 듯
     @GetMapping("/myBoard")
     public ResponseEntity<List<BoardDto.Response>> getBoardsByMember(
             @RequestHeader(name = "Authorization") String authentication) {

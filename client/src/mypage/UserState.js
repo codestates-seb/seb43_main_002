@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+import Footer from './Footer';
+import Header from './Header';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   Mobile,
   BackGround,
   BackYellow,
-  Title,
   Posts,
   PopUp,
   Modal,
@@ -19,9 +20,10 @@ const UserState = () => {
 
   const [isOpen, setIsOpen] = useState(true);
   const [postId, setPostId] = useState();
-  const [isActive, setIsActive] = useState(false);
   const [popup, setPopup] = useState(false);
   const [modal, setModal] = useState(false);
+
+  const [buttonDisabled, setButtonDisabled] = useState([]);
 
   useEffect(() => {
     axios
@@ -113,123 +115,145 @@ const UserState = () => {
   }
 
   function handleModalTrue() {
+    setModal(!modal);
+    setPopup(false);
+
     setData((prevData) =>
       prevData.map((el) => (el.id === postId ? { ...el, state: true } : el))
     );
-
-    setIsActive(postId);
-    setModal(!modal);
-    setPopup(false);
   }
 
   function handleModalFalse() {
     // 거절 버튼 눌렀을 경우
     setModal(false);
     setPopup(false);
+    // 버튼 비활성화 상태 업데이트
+    setButtonDisabled((prevButtonDisabled) => ({
+      ...prevButtonDisabled,
+      [postId]: false,
+    }));
   }
 
   return (
     <>
       {data && user && (
-        <Mobile>
-          <BackGround>
-            <BackYellow />
-          </BackGround>
-          <Title>
-            <div></div>
-            <div>Sik:Gu</div>
-            <div>아이콘</div>
-          </Title>
-          <Posts>
-            {data.map((el, idx) => {
-              const isDisabled = isActive === el.id || postId === el.id;
-              return (
-                <div className="post" key={idx}>
-                  <div className={el.state ? 'complete' : 'before'}></div>
-                  <div>
-                    <ul>
-                      <li>{el.title}</li>
-                      <li>
-                        <span>{el.date}</span>
-                        <span>{el.time}</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <button
-                    onClick={() => handlePopup(el.id)}
-                    disabled={isDisabled || el.state}
-                  >
-                    〉
-                  </button>
-                </div>
-              );
-            })}
-          </Posts>
-          <PopUp className={popup && isOpen ? '' : 'hide'} onClick={handleOpen}>
-            <div
-              role="button"
-              tabIndex={0}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <ul>
-                <li>
-                  <h3>완료되셨나요?</h3>
-                </li>
-                <li>어쩌구저쩌구..어쩌구저쩌구..</li>
-                <li>
-                  <button onClick={handleModalTrue}>수락</button>
-                  <button onClick={handleModalFalse}>거절</button>
-                </li>
-              </ul>
-            </div>
-          </PopUp>
-          <Modal className={modal && isOpen ? '' : 'hide'} onClick={handleOpen}>
-            <div
-              role="button"
-              tabIndex={0}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="header">
-                <div></div>
-                <div>
-                  <span>좋은 식구들을 만나셨나요?</span>
-                  <h3>식구들을 평가해주세요.</h3>
-                </div>
-              </div>
-              {user.map((el, idx) => {
+        <>
+          <Mobile>
+            <BackGround>
+              <BackYellow />
+            </BackGround>
+            <Header iconSrc="/svg/header-logout.svg" />
+            <Posts>
+              {data.map((el, idx) => {
+                const isDisabled = buttonDisabled[el.id]; // 버튼의 활성화 상태 가져오기
                 return (
                   <div className="post" key={idx}>
+                    <div className={el.state ? 'complete' : 'before'}></div>
                     <div>
-                      <img src={el.img} alt="프로필 이미지" />
-                      <div>
-                        <div>
-                          <div>{el.nickname}</div>
-                          <div>{el.intro}</div>
-                        </div>
-                        <button
-                          onClick={() => handleLike(el.id)}
-                          disabled={likeClicked}
-                        >
-                          👍🏻
-                        </button>
-                      </div>
-                      <div>
-                        <input
-                          placeholder="한 줄 평가를 입력하세요."
-                          onChange={(e) => handleReviewChange(el.id, e)}
-                          maxLength="20"
-                        />
-                        <button onClick={() => handleReviewSubmit(el.id)}>
-                          확인
-                        </button>
-                      </div>
+                      <ul>
+                        <li>{el.title}</li>
+                        <li>
+                          <span>{el.date}</span>
+                          <span>{el.time}</span>
+                          <span>{el.part}</span>
+                        </li>
+                      </ul>
                     </div>
+                    <button
+                      onClick={() => {
+                        handlePopup(el.id);
+                        console.log(isDisabled, el.state);
+                      }}
+                      disabled={isDisabled || el.state}
+                    >
+                      <img src="svg/userstate-plus.svg" alt="확인버튼" />
+                    </button>
                   </div>
                 );
               })}
-            </div>
-          </Modal>
-        </Mobile>
+            </Posts>
+            <PopUp
+              className={popup && isOpen ? '' : 'hide'}
+              onClick={handleOpen}
+            >
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <ul>
+                  <li>
+                    <h3>완료되셨나요?</h3>
+                  </li>
+                  <li>어쩌구저쩌구..어쩌구저쩌구..</li>
+                  <li>
+                    <button onClick={handleModalTrue}>수락</button>
+                    <button onClick={handleModalFalse}>거절</button>
+                  </li>
+                </ul>
+              </div>
+            </PopUp>
+            <Modal
+              className={modal && isOpen ? '' : 'hide'}
+              onClick={handleOpen}
+            >
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="header">
+                  <div></div>
+                  <div>
+                    <span>좋은 식구들을 만나셨나요?</span>
+                    <h3>식구들을 평가해주세요.</h3>
+                  </div>
+                </div>
+                {user.map((el, idx) => {
+                  return (
+                    <div className="post" key={idx}>
+                      <div>
+                        <img src={el.img} alt="프로필 이미지" />
+                        <div>
+                          <div>
+                            <div>{el.nickname}</div>
+                            <div>{el.intro}</div>
+                          </div>
+                          <button
+                            onClick={() => {
+                              handleLike(el.id);
+                            }}
+                            disabled={likeClicked}
+                          >
+                            <img
+                              src={
+                                likeClicked
+                                  ? '/svg/like-2.svg'
+                                  : '/svg/like.svg'
+                              }
+                              alt="좋아요"
+                            />
+                          </button>
+                        </div>
+                        <div>
+                          <input
+                            placeholder="한 줄 평가를 입력하세요. (최대 20글자)"
+                            onChange={(e) => handleReviewChange(el.id, e)}
+                            maxLength="20"
+                          />
+                          <button onClick={() => handleReviewSubmit(el.id)}>
+                            확인
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </Modal>
+          </Mobile>
+          <Footer activeIcon="state" />
+        </>
       )}
     </>
   );

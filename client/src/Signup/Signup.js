@@ -13,7 +13,10 @@ import {
   Text,
   FooterText,
   StyledLink,
+  StyledLogo,
   Mobile,
+  BackGround,
+  LogoContainer,
   Error,
 } from '../style/SignupStyle';
 import { useState } from 'react';
@@ -160,7 +163,12 @@ const Signup = () => {
 
   return (
     <Mobile>
-      <BackYellow />
+      <BackGround>
+        <BackYellow />
+      </BackGround>
+      <LogoContainer>
+        <StyledLogo />
+      </LogoContainer>
       <SignupContainer>
         <SignupForm onSubmit={handleSubmit} noValidate>
           <SignupTitle>Create Account</SignupTitle>

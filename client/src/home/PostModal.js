@@ -12,7 +12,7 @@ import {
   ModalText,
   ModalButtonWrap,
   ModalButton,
-} from './ModalStyles';
+} from '../style/ModalStyles';
 import PropTypes from 'prop-types';
 import Tag from './Tag';
 import axios from 'axios';
@@ -112,7 +112,7 @@ const PostModal = ({ isOpen, onClose, people }) => {
       postBoard.content === ''
     ) {
       alert('모든 곳을 입력해주세요.');
-      return;
+      return null;
     }
     axios
       .post('http://localhost:8080/boards', postBoard)

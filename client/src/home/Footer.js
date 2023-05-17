@@ -1,4 +1,4 @@
-import { FooterWrap, FooterIcon, FooterCicleWrap } from './HomeStyle';
+import { FooterWrap, FooterIcon, FooterCicleWrap } from '../style/HomeStyle';
 import { GrHomeRounded } from 'react-icons/gr';
 import { MdOutlineFastfood } from 'react-icons/md';
 import { BsBookmark, BsPlusCircleFill } from 'react-icons/bs';

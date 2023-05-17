@@ -12,7 +12,7 @@ import {
   ModalText,
   ModalButtonWrap,
   ModalButton,
-} from './ModalStyles';
+} from '../style/ModalStyles';
 import PropTypes from 'prop-types';
 import Tag from './Tag';
 // import axios from 'axios';

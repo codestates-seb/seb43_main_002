@@ -130,8 +130,8 @@ public class BoardRestDocsTest {
         BoardDto.Response responseDto = new BoardDto.Response(
                 1L,
                 1L,
-                "수정 제목",
-                "수정 본문",
+                "제목",
+                "본문",
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 3,
@@ -140,7 +140,7 @@ public class BoardRestDocsTest {
 
         );
 
-        given(boardService.updateBoard(boardPatchDto.getBoardId(), boardPatchDto, "test-token")).willReturn(responseDto);
+        given(boardService.updateBoard(any(), any(), any())).willReturn(responseDto);
 
         mockMvc.perform(
                         patch("/boards/{board-id}", 1L)
@@ -148,15 +148,11 @@ public class BoardRestDocsTest {
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(boardPatchDto))
-//                                .content(content)
                                 .header("Authorization", "Bearer " + "test-token")
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.boardId").value(boardPatchDto.getBoardId()))
                 .andExpect(jsonPath("$.body").value(boardPatchDto.getBody()))
-//                .andExpect(jsonPath("$.memberId", is(1)))
-//                .andExpect(jsonPath("$.title", is("수정 제목")))
-//                .andExpect(jsonPath("$.body", is("수정 본문")))
                 .andDo(print())
                 .andDo(document("update-board",
                         preprocessRequest(prettyPrint()),

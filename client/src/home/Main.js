@@ -1,4 +1,4 @@
-import { MainWrap } from './HomeStyle';
+import { MainWrap } from '../style/HomeStyle';
 import Header from './Header';
 import Footer from './Footer';
 import Days from './Days';

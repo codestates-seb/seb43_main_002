@@ -52,7 +52,7 @@ public class BoardService {
 
         // 비활성화된 게시물인지 확인
         Board existingBoard = boardRepository.findById(boardId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.INACTIVE_BOARD, HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.INACTIVED_BOARD, HttpStatus.NOT_FOUND));
 
         boardMapper.updateEntity(existingBoard, patchDto);
         Board updatedBoard = boardRepository.save(existingBoard);
@@ -87,9 +87,8 @@ public class BoardService {
         return boardMapper.toResponseDtoList(boards);
     }
 
-    // 해당 멤버의 게시물 조회
+    // 내 게시물 조회
     public List<BoardDto.Response> getBoardsByMember(String authentication) {
-//        validateAuthentication(authentication);
         Member member = memberService.findMember(authentication);
         List<Board> boards = boardRepository.findByMemberMemberId(member.getMemberId());
         return boardMapper.toResponseDtoList(boards);
@@ -117,7 +116,7 @@ public class BoardService {
     // 게시물 가져오기
     public Board getBoardById(Long boardId) {
         return boardRepository.findById(boardId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.DELETED_BOARD, HttpStatus.NO_CONTENT));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.INACTIVED_BOARD, HttpStatus.NO_CONTENT));
     }
 
     // 게시물 ID와 작성한 멤버 ID 확인
@@ -129,7 +128,7 @@ public class BoardService {
     // 삭제된 게시물인지 확인
     private static void checkIfDeleted(Board findBoard) {
         if (findBoard.getBoardStatus().equals(Board.BoardStatus.DELETED_BOARD)) {
-            throw new BusinessLogicException(ExceptionCode.DELETED_BOARD, HttpStatus.NO_CONTENT);
+            throw new BusinessLogicException(ExceptionCode.INACTIVED_BOARD, HttpStatus.NO_CONTENT);
         }
     }
 

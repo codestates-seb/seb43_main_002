@@ -4,22 +4,27 @@ import {
   LogoWrap,
   SearchWrap,
   LogoutButton,
-} from './HomeStyle';
+} from '../style/HomeStyle';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/userSlice';
 import { setSearchTerm } from '../store/boardSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [onSearch, setOnSerach] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('jwt');
+    alert('로그아웃 되었습니다.');
     dispatch(logout());
+    navigate('/');
   };
 
   const SearchHandler = () => {
@@ -28,6 +33,7 @@ const Header = () => {
 
   const onSearchTermChange = (e) => {
     dispatch(setSearchTerm(e.target.value));
+    console.log('검색어 : ', e.target.value);
   };
 
   const SearchSpan = styled.input`
@@ -40,13 +46,6 @@ const Header = () => {
     border-radius: 10px;
   `;
 
-  //   const SearchIcon = styled(AiOutlineSearch)`
-  //     position: absolute;
-  //     top: 50%;
-  //     right: 10px;
-  //     transform: translateY(-50%);
-  //   `;
-
   return (
     <>
       <HeaderBackWrap>
@@ -55,7 +54,7 @@ const Header = () => {
           <>
             <SearchSpan
               visible={onSearch}
-              placeholder="무슨 기준으로 검색할까요?"
+              placeholder="음식 이름, 작성자, 내용, 태그 또는 댓글을 검색하세요."
               onChange={onSearchTermChange}
             ></SearchSpan>
             <SearchWrap>

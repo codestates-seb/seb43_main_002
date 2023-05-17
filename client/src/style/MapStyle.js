@@ -1,20 +1,48 @@
 import styled from 'styled-components';
 
+export const HeaderBackWrap = styled.div`
+  padding: 0px;
+  display: flex;
+  height: 10%;
+  width: 100%;
+  border-bottom-left-radius: 21px;
+  border-bottom-right-radius: 21px;
+  position: absolute;
+  background-image: radial-gradient(#ffd571, #ffac36);
+  z-index: 100;
+`;
+
+export const HeaderWrap = styled.header`
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const LogoWrap = styled.img`
+  padding-left: 30px;
+`;
+
 export const MapContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  top: 10%;
+  top: 8%;
   height: 80%;
-  width: 90%;
+  width: 100%;
+  overflow: hidden;
+  z-index: 10;
 `;
 
 export const Mapbox = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
+  z-index: 10;
 `;
 
 export const ButtonWrap = styled.div`
@@ -25,37 +53,46 @@ export const ButtonWrap = styled.div`
 `;
 
 export const CategoryButton = styled.button`
+  position: relative;
   padding: 7px 7px;
   border: none;
-  border-radius: 0px;
-  margin: 0px;
-  background-color: #3498db;
-  color: white;
+  border-radius: 5px;
+  margin: 3px;
+  background-image: radial-gradient(#ffd571, #ffac36);
+  color: black;
   font-size: 1rem;
   cursor: pointer;
+  z-index: 20;
 
   &:hover {
-    background-color: #2980b9;
+    background-color: #ffd571;
   }
 `;
 
 export const ButtonContainer = styled.div`
   position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 10;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  top: 5%;
+  left: ${(props) => (props.animate ? '10px' : '-500px')};
+  transition: left 1s;
+  z-index: 20;
 `;
 
 export const CurrentLocationButton = styled.button`
   position: absolute;
-  bottom: 230px;
+  bottom: ${(props) => (props.animate ? '230px' : '10px')};
   right: 10px;
-  z-index: 10;
+  transition: bottom 1s;
+  z-index: 20;
 `;
 
 export const SearchResults = styled.div`
-  position: absolute; // 추가
-  bottom: 20px;
+  position: absolute;
+  bottom: ${(props) => (props.animate ? '20px' : '-200px')};
+  transition: bottom 1s;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -66,7 +103,7 @@ export const SearchResults = styled.div`
   overflow-y: auto;
   background: rgba(255, 213, 113, 0.7);
   border-top: 1px solid #ddd;
-  z-index: 10;
+  z-index: 20;
   scrollbar-width: none;
   -ms-overflow-style: none;
 
@@ -78,7 +115,8 @@ export const SearchResults = styled.div`
 export const ResultItem = styled.div`
   width: 90%;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   border-radius: 5px;
   background: #fff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);

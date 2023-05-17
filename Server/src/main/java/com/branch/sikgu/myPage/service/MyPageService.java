@@ -5,6 +5,7 @@ import com.branch.sikgu.exception.ExceptionCode;
 import com.branch.sikgu.exception.HttpStatus;
 import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.member.service.MemberService;
+import com.branch.sikgu.myPage.dto.FollowingDto;
 import com.branch.sikgu.myPage.dto.MyPageRequestDto;
 import com.branch.sikgu.myPage.dto.MyPageResponseDto;
 import com.branch.sikgu.myPage.entity.MyPage;
@@ -15,7 +16,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -34,6 +37,16 @@ public class MyPageService {
         String nickname = myPage.getMember().getNickname();
         myPageResponseDto.setNickname(nickname);
 
+        List<FollowingDto> followingList = myPage.getFollowings().stream()
+                .map(following -> {
+                    FollowingDto followingDto = new FollowingDto();
+                    followingDto.setFollowingId(following.getMyPageId());
+                    followingDto.setFollowingName(following.getMember().getNickname());
+                    return followingDto;
+                })
+                .collect(Collectors.toList());
+        myPageResponseDto.setFollowings(followingList);
+        myPageResponseDto.setFollowingCount(myPage.getFollowingCount());
         return myPageResponseDto;
     }
 
@@ -55,6 +68,43 @@ public class MyPageService {
             // 권한이 없는 경우 예외처리
             throw new BusinessLogicException(ExceptionCode.MEMBER_FORBIDDEN, HttpStatus.FORBIDDEN);
         }
+    }
+
+    public void followMyPage(Long myPageId, Long followingId) {
+        MyPage myPage = myPageRepository.findById(myPageId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND, HttpStatus.NOT_FOUND));
+        MyPage following = myPageRepository.findById(followingId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND, HttpStatus.NOT_FOUND));
+
+        if (myPage.getFollowings().contains(following)) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS, HttpStatus.CONFLICT);
+        }
+
+        myPage.getFollowings().add(following);
+        myPage.setFollowingCount(myPage.getFollowingCount() + 1);
+        myPageRepository.save(myPage);
+
+        following.setFollowerCount(following.getFollowerCount() + 1);
+        myPageRepository.save(following);
+    }
+
+    public void unfollowMyPage(Long myPageId, Long followingId) {
+        MyPage myPage = myPageRepository.findById(myPageId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND, HttpStatus.NOT_FOUND));
+        MyPage following = myPageRepository.findById(followingId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND, HttpStatus.NOT_FOUND));
+
+        if (!myPage.getFollowings().contains(following)) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND, HttpStatus.NOT_FOUND);
+        }
+
+
+        myPage.getFollowings().remove(following);
+        myPage.setFollowingCount(myPage.getFollowingCount() - 1);
+        myPageRepository.save(myPage);
+
+        following.setFollowerCount(following.getFollowerCount() - 1);
+        myPageRepository.save(following);
     }
 
 }

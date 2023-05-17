@@ -28,8 +28,21 @@ public class MyPage {
     @Column(name = "likes")
     private Long likes = 0L;
 
+    @Column(name = "following_count")
+    private Long followingCount = 0L;
+
     @Column(name = "follower_count")
     private Long followerCount = 0L;
+
+
+    // 팔로잉 관계 설정
+    @ManyToMany
+    @JoinTable(
+            name = "following",
+            joinColumns = @JoinColumn(name = "follower_id"),
+            inverseJoinColumns = @JoinColumn(name = "following_id")
+    )
+    private List<MyPage> followings = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Board> recentPost = new ArrayList<>();
@@ -46,4 +59,7 @@ public class MyPage {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member;
+
+
+
 }

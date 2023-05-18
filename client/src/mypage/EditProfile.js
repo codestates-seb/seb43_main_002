@@ -1,3 +1,4 @@
+import Header from './Header';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -5,7 +6,6 @@ import {
   Mobile,
   BackGround,
   BackYellow,
-  Title,
   EditForm,
   EditIcon,
 } from '../style/EditProfileStyle';
@@ -59,12 +59,10 @@ const EditProfile = () => {
           },
         })
         .then((response) => {
-          console.log(response.data); // 이미지 업로드 성공 시 서버에서 전송한 응답 데이터
           setProfileImage(response.data);
         })
         .catch((error) => {
           console.error(error);
-          console.log(error.response.data);
         });
     }
   };
@@ -102,16 +100,16 @@ const EditProfile = () => {
       });
   };
 
-  function handleBack() {
-    navigate(-1);
-  }
+  // function handleBack() {
+  //   navigate(-1);
+  // }
 
-  const nameIcon = '/icon/join-name.png';
-  const introIcon = '/icon/join-intro.png';
-  const dateIcon = '/icon/join-date.png';
-  // const genderIcon = '/icon/join-gender.png';
-  const mailIcon = '/icon/join-mail.png';
-  const pwdIcon = '/icon/join-password.png';
+  const nameIcon = '/svg/join-name.svg';
+  const introIcon = '/svg/join-intro.svg';
+  const dateIcon = '/svg/join-date.svg';
+  const genderIcon = '/svg/join-gender.svg';
+  const mailIcon = '/svg/join-mail.svg';
+  const pwdIcon = '/svg/join-password.svg';
 
   return (
     <>
@@ -120,11 +118,7 @@ const EditProfile = () => {
           <BackGround>
             <BackYellow />
           </BackGround>
-          <Title>
-            <button onClick={handleBack}>〈</button>
-            <div>Edit Profile</div>
-            <div></div>
-          </Title>
+          <Header iconSrc="/svg/header-back.svg" fnc="back" />
           <EditForm onSubmit={handleSubmit(onSubmit)}>
             <div>
               <div>
@@ -143,7 +137,10 @@ const EditProfile = () => {
               />
             </div>
             <div className="form-name">
-              <label htmlFor="name">이름</label>
+              <label htmlFor="name">
+                <EditIcon backgroundImage={nameIcon} />
+                이름
+              </label>
               <input
                 id="name"
                 defaultValue={data.name}
@@ -151,10 +148,12 @@ const EditProfile = () => {
                   setName(e.target.value);
                 }}
               />
-              <EditIcon backgroundImage={nameIcon} />
             </div>
             <div className="form-nickname">
-              <label htmlFor="nickname">닉네임</label>
+              <label htmlFor="nickname">
+                <EditIcon backgroundImage={nameIcon} />
+                닉네임
+              </label>
               <input
                 id="nickname"
                 defaultValue={data.nickname}
@@ -162,10 +161,12 @@ const EditProfile = () => {
                   setNickname(e.target.value);
                 }}
               />
-              <EditIcon backgroundImage={nameIcon} />
             </div>
             <div className="form-intro">
-              <label htmlFor="intro">자기소개</label>
+              <label htmlFor="intro">
+                <EditIcon backgroundImage={introIcon} />
+                자기소개
+              </label>
               <input
                 id="intro"
                 defaultValue={data.intro}
@@ -173,10 +174,12 @@ const EditProfile = () => {
                   setIntro(e.target.value);
                 }}
               />
-              <EditIcon backgroundImage={introIcon} />
             </div>
             <div className="form-birth">
-              <label htmlFor="birth">생년월일</label>
+              <label htmlFor="birth">
+                <EditIcon backgroundImage={dateIcon} />
+                생년월일
+              </label>
               <input
                 id="birth"
                 type="date"
@@ -185,10 +188,12 @@ const EditProfile = () => {
                   setBirthDay(e.target.value);
                 }}
               />
-              <EditIcon backgroundImage={dateIcon} />
             </div>
             <div className="form-gender">
-              <label htmlFor="gender">성별</label>
+              <label htmlFor="gender">
+                <EditIcon backgroundImage={genderIcon} />
+                성별
+              </label>
               <div>
                 <button
                   type="button"
@@ -211,7 +216,10 @@ const EditProfile = () => {
               </div>
             </div>
             <div className="form-email">
-              <label htmlFor="email">이메일</label>
+              <label htmlFor="email">
+                <EditIcon backgroundImage={mailIcon} />
+                이메일
+              </label>
               <input
                 id="email"
                 defaultValue={data.email}
@@ -225,11 +233,14 @@ const EditProfile = () => {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
+                readOnly
               />
-              <EditIcon backgroundImage={mailIcon} />
             </div>
             <div className="form-pwd">
-              <label htmlFor="pwd">비밀번호</label>
+              <label htmlFor="pwd">
+                <EditIcon backgroundImage={pwdIcon} />
+                비밀번호
+              </label>
               <input
                 id="pwd"
                 type="password"
@@ -237,10 +248,12 @@ const EditProfile = () => {
                   setPassword(e.target.value);
                 }}
               />
-              <EditIcon backgroundImage={pwdIcon} />
             </div>
             <div className="form-pwd-check">
-              <label htmlFor="pwd-check">비밀번호 확인</label>
+              <label htmlFor="pwd-check">
+                <EditIcon backgroundImage={pwdIcon} />
+                비밀번호 확인
+              </label>
               <input
                 id="pwd-check"
                 type="password"
@@ -248,7 +261,6 @@ const EditProfile = () => {
                   setConfirmPassword(e.target.value);
                 }}
               />
-              <EditIcon backgroundImage={pwdIcon} />
               {errors.passwordConfirm && <p>비밀번호가 일치하지 않습니다.</p>}
             </div>
             <button type="submit">수정 완료</button>

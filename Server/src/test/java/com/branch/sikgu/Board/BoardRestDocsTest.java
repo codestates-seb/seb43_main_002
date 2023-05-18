@@ -4,6 +4,7 @@ import com.branch.sikgu.board.controller.BoardController;
 import com.branch.sikgu.board.dto.BoardDto;
 import com.branch.sikgu.board.entity.Board;
 import com.branch.sikgu.board.service.BoardService;
+import com.branch.sikgu.member.service.MemberService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
@@ -20,6 +21,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -199,6 +201,7 @@ public class BoardRestDocsTest {
         mockMvc.perform(
                         delete("/boards/{board-id}", boardId)
                                 .header("Authorization", "Bearer " + "test-token")
+                                .with(csrf())
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isNoContent())
@@ -224,8 +227,8 @@ public class BoardRestDocsTest {
 
         // 가상의 게시글 데이터
         List<BoardDto.Response> boards = Arrays.asList(
-                new BoardDto.Response(1L, 1L,"제목1", "내용1",  timeX, null, 3, Board.PassedGender.MALE, timeY),
-                new BoardDto.Response(2L, 3L,"제목2", "내용2",  timeX,  null, 4, Board.PassedGender.FEMALE, timeY)
+                new BoardDto.Response(1L, 1L, "제목1", "내용1", timeX, null, 3, Board.PassedGender.MALE, timeY),
+                new BoardDto.Response(2L, 3L, "제목2", "내용2", timeX, null, 4, Board.PassedGender.FEMALE, timeY)
         );
 
         // boardService의 getBoards() 메서드가 가상의 게시글 데이터를 반환하도록 설정
@@ -300,7 +303,7 @@ public class BoardRestDocsTest {
                 timeY);
 
         // boardService의 getBoardById() 메서드가 가상의 게시글 데이터를 반환하도록 설정
-        when(boardService.getBoardById(1L)).thenReturn(board);
+        when(boardService.getBoardResponseById(1L)).thenReturn(responseDto);
 
         mockMvc.perform(
                         get("/boards/{board-id}", 1L)
@@ -309,15 +312,15 @@ public class BoardRestDocsTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.boardId", is(1))) // 게시글의 id 확인
-                .andExpect(jsonPath("$.title", is("제목1"))) // 게시글의 제목 확인
-                .andExpect(jsonPath("$.body", is("내용1"))) // 게시글의 내용 확인
+                .andExpect(jsonPath("$.title", is("수정 제목"))) // 게시글의 제목 확인
+                .andExpect(jsonPath("$.body", is("수정 본문"))) // 게시글의 내용 확인
                 .andExpect(jsonPath("$.total", is(3))) // 게시글의 참가자 수 확인
                 .andExpect(jsonPath("$.createdAt", is("2023-05-20T13:30:00"))) // 게시글의 작성일 확인
                 .andExpect(jsonPath("$.updatedAt").doesNotExist())// 게시글의 수정일 확인
                 .andExpect(jsonPath("$.mealTime", is("2023-05-21T14:00:00"))) // 게시글의 식사 날짜 확인
-                .andExpect(jsonPath("$.passedGender", is("ANY"))) // 게시글의 참가자 성별 제한 확인
-                .andExpect(jsonPath("$.boardStatus", is("ACTIVE_BOARD")))
-                .andExpect(jsonPath("$.memberId", is(member))) // 게시글의 멤버 id 확인
+                .andExpect(jsonPath("$.passedGender", is("MALE"))) // 게시글의 참가자 성별 제한 확인
+//                .andExpect(jsonPath("$.boardStatus", is("ACTIVE_BOARD")))
+                .andExpect(jsonPath("$.memberId", is(1))) // 게시글의 멤버 id 확인
                 .andDo(print())
                 .andDo(document("get-board",
                         preprocessRequest(prettyPrint()),
@@ -341,4 +344,66 @@ public class BoardRestDocsTest {
                         )
                 ));
     }
+
+//    @Test
+//    @WithMockUser
+//    @DisplayName("내 게시글 조회")
+//    public void getMyBoardTest () throws Exception {
+//        LocalDateTime timeX = LocalDateTime.parse("2023-05-20T13:30:00");
+//        LocalDateTime timeY = LocalDateTime.parse("2023-05-21T14:00:00");
+//
+//        // 가상의 게시글 데이터
+//        List<BoardDto.Response> boards = Arrays.asList(
+//                new BoardDto.Response(1L, 1L,"제목1", "내용1",  timeX, null, 3, Board.PassedGender.MALE, timeY),
+//                new BoardDto.Response(1L, 3L,"제목2", "내용2",  timeX,  null, 4, Board.PassedGender.FEMALE, timeY)
+//        );
+//
+//        when(boardService.getBoardsByMember(any())).thenReturn(boards);
+//
+//        mockMvc.perform(
+//                        get("/boards")
+//                                .header("Authorization", "Bearer " + "test-token")
+//                                .accept(MediaType.APPLICATION_JSON)
+//                )
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$[0].memberId", is(1))) // 첫 번째 게시글의 멤버 id 확인
+//                .andExpect(jsonPath("$[0].boardId", is(1))) // 첫 번째 게시글의 id 확인
+//                .andExpect(jsonPath("$[0].title", is("제목1"))) // 첫 번째 게시글의 제목 확인
+//                .andExpect(jsonPath("$[0].body", is("내용1"))) // 첫 번째 게시글의 내용 확인
+//                .andExpect(jsonPath("$[0].createdAt", is(notNullValue())))
+//                .andExpect(jsonPath("$[0].updatedAt").doesNotExist())
+//                .andExpect(jsonPath("$[0].total", is(3)))
+//                .andExpect(jsonPath("$[0].passedGender", is("MALE")))
+//                .andExpect(jsonPath("$[0].mealTime", is("2023-05-21T14:00:00")))
+//
+//                .andExpect(jsonPath("$[1].memberId", is(1))) // 두 번째 게시글의 멤버 id 확인
+//                .andExpect(jsonPath("$[1].boardId", is(3))) // 첫 번째 게시글의 id 확인
+//                .andExpect(jsonPath("$[1].title", is("제목2"))) // 두 번째 게시글의 제목 확인
+//                .andExpect(jsonPath("$[1].body", is("내용2"))) // 두 번째 게시글의 내용 확인
+//                .andExpect(jsonPath("$[1].createdAt", is(notNullValue())))
+//                .andExpect(jsonPath("$[1].updatedAt").doesNotExist())
+//                .andExpect(jsonPath("$[1].total", is(4)))
+//                .andExpect(jsonPath("$[1].passedGender", is("FEMALE")))
+//                .andExpect(jsonPath("$[1].mealTime", is("2023-05-21T14:00:00")))
+//                .andDo(print())
+//                .andDo(document("get-boards",
+//                                preprocessRequest(prettyPrint()),
+//                                preprocessResponse(prettyPrint()),
+//                                requestHeaders(
+//                                        headerWithName("Authorization").description("액세스 토큰")
+//                                ),
+//                                responseFields(
+//                                        fieldWithPath("[].memberId").description("게시글 작성자"),
+//                                        fieldWithPath("[].boardId").description("게시글 식별자"),
+//                                        fieldWithPath("[].title").description("게시글 제목"),
+//                                        fieldWithPath("[].body").description("게시글 내용"),
+//                                        fieldWithPath("[].createdAt").description("게시글 작성일"),
+//                                        fieldWithPath("[].updatedAt").description("게시글 수정일").optional(),
+//                                        fieldWithPath("[].total").description("참가자 수"),
+//                                        fieldWithPath("[].passedGender").description("참가자 성별 제한"),
+//                                        fieldWithPath("[].mealTime").description("식사 날짜")
+//                                )
+//                        )
+//                );
 }
+

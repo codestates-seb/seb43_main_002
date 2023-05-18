@@ -5,7 +5,7 @@ import { BsBookmark, BsPlusCircleFill } from 'react-icons/bs';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
-import PostModal from './PostModal'; // 모달 컴포넌트 임포트
+import PostModal from './PostModal';
 
 const Footer = () => {
   // const history = useHistory();
@@ -18,7 +18,7 @@ const Footer = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
+  // console.log(isModalOpen);
   return (
     <>
       <FooterWrap>

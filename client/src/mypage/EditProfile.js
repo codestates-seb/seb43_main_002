@@ -48,9 +48,12 @@ const EditProfile = () => {
   }, []);
 
   const profileChange = (e) => {
-    if (e.target.files[0]) {
+    if (e.target.files.length > 0) {
       const formData = new FormData();
-      formData.append('file', e.target.files[0], e.target.files[0].name);
+      for (let i = 0; i < e.target.files.length; i++) {
+        // formData 객체가 따로 있다. 키 / 값 형태로 서버에 들어간다고 함.
+        formData.append('files', e.target.files[i], e.target.files[i].name);
+      }
 
       axios
         .post('/members/images/upload', formData, {

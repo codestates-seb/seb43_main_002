@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const Title = styled.div`
-  @import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -71,7 +69,7 @@ export const FooterCicleWrap = styled.div`
   position: absolute;
   top: -30%;
   left: 45%;
-  transform: ${({ isHovered }) => (isHovered ? 'scale(1.2)' : 'scale(1)')};
+  transform: ${({ isHovered }) => (isHovered ? 'scale(1)' : 'scale(1.2)')};
   transition: transform 0.5s ease;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -106,13 +104,16 @@ export const MainIcon = styled.div`
 `;
 
 export const LodingDiv = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 
   > img {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
   }
 `;

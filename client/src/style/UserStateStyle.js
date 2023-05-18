@@ -31,6 +31,13 @@ export const Posts = styled.div`
   position: relative;
   letter-spacing: -0.05em;
 
+  > .opacity {
+    > div:nth-child(2) > ul > li:first-child {
+      color: #898989;
+      text-decoration: line-through;
+    }
+  }
+
   > .post {
     background-color: white;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
@@ -119,6 +126,10 @@ export const Posts = styled.div`
       img {
         height: 25px;
       }
+
+      :disabled {
+        cursor: auto;
+      }
     }
 
     .hide {
@@ -172,12 +183,13 @@ export const PopUp = styled.div`
       padding: 0;
 
       li h3 {
-        font-size: 14pt;
+        font-size: 16pt;
         margin-bottom: 5px;
       }
 
       li:nth-child(2) {
-        color: #c9c9c9;
+        color: #393939;
+        opacity: 0.6;
       }
     }
   }
@@ -275,11 +287,18 @@ export const Modal = styled.div`
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
-        margin-bottom: 5px;
+        margin-bottom: 15px;
       }
 
       > div:last-child {
-        font-size: 14pt;
+        > span {
+          font-size: 14pt;
+          opacity: 0.6;
+        }
+
+        > h3 {
+          font-size: 16pt;
+        }
       }
     }
 

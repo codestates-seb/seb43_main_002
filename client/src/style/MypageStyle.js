@@ -40,13 +40,14 @@ export const Profile = styled.div`
     border-radius: 10px;
     width: 100px;
     height: 200px;
+    object-fit: cover;
   }
 
   > div:last-child {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 10px;
+    margin-left: 15px;
     flex: 1;
 
     > ul {
@@ -73,7 +74,7 @@ export const Profile = styled.div`
 
       > li:nth-child(2) {
         font-size: 10pt;
-        opacity: 0.8;
+        opacity: 0.9;
       }
 
       > li:last-child {
@@ -82,7 +83,7 @@ export const Profile = styled.div`
 
         > ul {
           display: flex;
-          margin: 10px 0 0 0;
+          margin: 15px 0 0 0;
           padding: 0;
 
           font-size: 10pt;

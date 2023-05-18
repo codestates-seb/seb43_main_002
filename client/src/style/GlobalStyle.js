@@ -10,7 +10,6 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 12pt;
     padding: 0;
     }
-  }
 `;
 
 export const GlobalWrap = styled.div`

@@ -92,8 +92,8 @@ export const EditForm = styled.form`
         font-size: 20px;
         font-weight: bold;
         color: #444;
-        top: 2px;
-        left: 8px;
+        top: -3px;
+        left: 7px;
       }
     }
 
@@ -111,9 +111,10 @@ export const EditForm = styled.form`
   > div label {
     display: flex;
     align-items: center;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 7px;
-    font-size: 14pt;
+    font-size: 13pt;
+    color: #292929;
   }
 
   > div > input {

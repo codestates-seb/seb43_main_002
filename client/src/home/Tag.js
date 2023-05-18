@@ -68,11 +68,12 @@ const TagInput = styled.input`
   cursor: text;
 `;
 
-const Tag = ({ name, onChange, value }) => {
+const Tag = ({ name, onChange, value, tag }) => {
   Tag.propTypes = {
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.string.isRequired,
+    tag: PropTypes.array.isRequired,
   };
   const [tagItem, setTagItem] = useState('');
   const [tagList, setTagList] = useState(value ? value.split(',') : []);
@@ -81,7 +82,7 @@ const Tag = ({ name, onChange, value }) => {
     setTagList(value ? value.split(',') : []);
   }, [value]);
 
-  // console.log(tagList);
+  console.log(tag);
 
   const onKeyPress = (e) => {
     if (e.target.value.length !== 0 && e.key === 'Enter') {

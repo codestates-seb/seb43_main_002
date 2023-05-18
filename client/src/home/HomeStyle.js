@@ -72,7 +72,7 @@ export const SearchWrap = styled.div`
 export const DayWrap = styled.div`
   padding: 0px;
   margin-top: 70px;
-  z-index: 2;
+  z-index: 1;
   /* border: 1px solid black; */
   background-color: transparent;
   display: flex;

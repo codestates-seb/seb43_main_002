@@ -16,7 +16,7 @@ import {
   CancelButton,
 } from './ModalStyles';
 import PropTypes from 'prop-types';
-import Tag from './Tag';
+// import Tag from './Tag';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
@@ -41,20 +41,20 @@ const ModalDay = styled(DatePicker)`
 const PostModal = ({ isOpen, onClose }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [postBoard, setPostBoard] = useState({
-    food: '',
-    people: 0,
-    when: startDate,
-    who: '누구나 참여가능',
-    content: '',
-    tag: '',
-    comment: [],
+    title: '',
+    total: 0,
+    mealTime: startDate,
+    passedGender: '누구나 참여가능',
+    body: '',
+    // tag: '',
+    // comment: [],
   });
 
   const handleIncrement = (e) => {
     e.preventDefault();
     setPostBoard((prevBoard) => ({
       ...prevBoard,
-      people: prevBoard.people + 1,
+      total: prevBoard.total + 1,
     }));
   };
 
@@ -63,7 +63,7 @@ const PostModal = ({ isOpen, onClose }) => {
     if (postBoard.people > 0) {
       setPostBoard((prevBoard) => ({
         ...prevBoard,
-        people: prevBoard.people - 1,
+        total: prevBoard.total - 1,
       }));
     }
   };
@@ -80,29 +80,29 @@ const PostModal = ({ isOpen, onClose }) => {
     setStartDate(date);
     setPostBoard((prevBoard) => ({
       ...prevBoard,
-      when: date,
+      mealTime: date,
     }));
   };
 
   const handleWhoChange = (e) => {
     e.preventDefault();
-    switch (postBoard.who) {
+    switch (postBoard.passedGender) {
       case '누구나 참여가능':
         setPostBoard((prevBoard) => ({
           ...prevBoard,
-          who: '여성만 참여가능',
+          passedGender: '여성만 참여가능',
         }));
         break;
       case '여성만 참여가능':
         setPostBoard((prevBoard) => ({
           ...prevBoard,
-          who: '남성만 참여가능',
+          passedGender: '남성만 참여가능',
         }));
         break;
       case '남성만 참여가능':
         setPostBoard((prevBoard) => ({
           ...prevBoard,
-          who: '누구나 참여가능',
+          passedGender: '누구나 참여가능',
         }));
         break;
       default:
@@ -114,14 +114,14 @@ const PostModal = ({ isOpen, onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (
-      postBoard.food === '' ||
-      postBoard.people === 0 ||
-      postBoard.content === ''
-    ) {
-      alert('모든 곳을 입력해주세요.');
-      return;
-    }
+    // if (
+    //   postBoard.title === '' ||
+    //   postBoard.total === 0 ||
+    //   postBoard.body === ''
+    // ) {
+    //   alert('모든 곳을 입력해주세요.');
+    //   return;
+    // }
 
     dispatch(createBoard(postBoard))
       .unwrap()
@@ -150,7 +150,7 @@ const PostModal = ({ isOpen, onClose }) => {
 
   return (
     <ModalWrap isOpen={isOpen}>
-      <ModalContent onSubmit={handleSubmit}>
+      <ModalContent isOpen={isOpen} onSubmit={handleSubmit}>
         <ModalQurry>같이 먹을 음식은?</ModalQurry>
         <ModalInput
           placeholder="함께하고 싶은 음식을 적어주세요"
@@ -160,7 +160,7 @@ const PostModal = ({ isOpen, onClose }) => {
         <ModalQurry>같이 먹을 인원은?</ModalQurry>
         <ModalCount name="people" onChange={handleChange}>
           <ModalCountbutton onClick={handleDecrement}>-</ModalCountbutton>
-          <span>{postBoard.people}</span>
+          <span>{postBoard.total}</span>
           <ModalPlusbutton onClick={handleIncrement}>+</ModalPlusbutton>
         </ModalCount>
         <ModalQurry>언제 먹을까?</ModalQurry>
@@ -180,7 +180,7 @@ const PostModal = ({ isOpen, onClose }) => {
           <ModalWhobutton onClick={handleWhoChange}>
             <BsArrowLeftShort />
           </ModalWhobutton>
-          <span>{postBoard.who}</span>
+          <span>{postBoard.passedGender}</span>
           <ModalWhobutton onClick={handleWhoChange}>
             <BsArrowRightShort />
           </ModalWhobutton>
@@ -191,7 +191,7 @@ const PostModal = ({ isOpen, onClose }) => {
           name="content"
           onChange={handleChange}
         ></ModalText>
-        <Tag name="tag" onChange={handleChange}></Tag>
+        {/* <Tag name="tag" onChange={handleChange}></Tag> */}
         <ModalButtonWrap>
           <ModalButton type="submit">작성하기</ModalButton>
           <CancelButton onClick={handleCancel}>취소하기</CancelButton>

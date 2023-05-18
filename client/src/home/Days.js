@@ -34,11 +34,15 @@ const Days = () => {
     setSelectedDateIndex(selectedDay);
   };
 
+  console.log(boards);
+
   const filteredBoards = boards.filter((board) => {
-    const boardDate = new Date(board.when).getDate();
+    const boardDate = new Date(board.mealTime).getDate();
+    console.log('filter1:', boardDate);
     return boardDate === selectedDateIndex;
   });
 
+  console.log('filter2:', selectedDateIndex);
   return (
     <>
       <DayWrap>

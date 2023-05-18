@@ -22,12 +22,11 @@ export const ModalWrap = styled.div`
   z-index: 999;
   visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};
   opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
-  transition: opacity 0.5s ease-in-out;
 `;
 
 export const ModalContent = styled.form`
   position: relative;
-  /* bottom: ${({ isOpen }) => (isOpen ? '0' : '-100%')}; */
+  bottom: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
   left: 0;
   background-color: #fffaed;
   font-size: 15px;
@@ -40,8 +39,8 @@ export const ModalContent = styled.form`
   display: flex;
   flex-direction: column;
   align-items: start;
-  animation: ${slideIn} 0.5s forwards;
-  /* transition: bottom 0.5s ease-in-out; */
+  animation: ${slideIn} 0.5s;
+  transition: bottom 0.5s;
 `;
 
 /////////////////////////////////////

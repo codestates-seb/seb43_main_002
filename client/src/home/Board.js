@@ -15,8 +15,8 @@ import {
   ContentWrap,
   ContentHeader,
   BoardContentWrap,
-  TagWrap,
-  TagBlock,
+  // TagWrap,
+  // TagBlock,
   SubmitWrap,
   IconWrap,
   UserWrap,
@@ -33,8 +33,8 @@ const Board = ({ board }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [people, setPeople] = useState(1);
 
-  const tags = board.tag.split(',');
-  const now = new Date(board.when);
+  // const tags = board.tag.split(',');
+  const now = new Date(board.mealTime);
   const month = now.getMonth() + 1;
   const day = now.getDate();
   const hour = now.getHours();
@@ -70,23 +70,29 @@ const Board = ({ board }) => {
       });
   };
 
+  console.log('boards', board.mealTime);
+
   Board.propTypes = {
-    board: PropTypes.object.isRequired,
+    board: PropTypes.array.isRequired,
   };
   return (
     <>
       <BoardWrap>
         <CommentOpenButton onClick={handleOpen}>+</CommentOpenButton>
-        <SexInfomaitonWrap gender={board.who}>{board.who}</SexInfomaitonWrap>
-        <ContentWrap gender={board.who} onClick={handleOpen}>
-          <ContentHeader>{board.food}</ContentHeader>
-          <BoardContentWrap>{board.content}</BoardContentWrap>
+        <SexInfomaitonWrap gender={board.passedGender}>
+          {board.passedGender}
+        </SexInfomaitonWrap>
+        <ContentWrap gender={board.passedGender} onClick={handleOpen}>
+          <ContentHeader>{board.title}</ContentHeader>
+          <BoardContentWrap>{board.body}</BoardContentWrap>
         </ContentWrap>
-        <TagWrap>
+        {/* <TagWrap>
           {tags.map((tag, index) => (
-            <TagBlock key={index}>{tag}</TagBlock>
+            <TagBlock key={index} tag={board.tag}>
+              {tag}
+            </TagBlock>
           ))}
-        </TagWrap>
+        </TagWrap> */}
         <SubmitWrap>
           <IconWrap>
             <BiTimeFive />
@@ -94,7 +100,7 @@ const Board = ({ board }) => {
           </IconWrap>
           <IconWrap>
             <FiUsers />
-            {people}/{board.people}
+            {people}/{board.total}
           </IconWrap>
           <ButtonWrap>
             <StateButton onClick={handlePlusClick}>
@@ -103,7 +109,7 @@ const Board = ({ board }) => {
             <StateButton onClick={handleDelete}>
               <AiFillDelete></AiFillDelete>
             </StateButton>
-            <UserWrap>{board.member}</UserWrap>
+            <UserWrap>{board.nickname}</UserWrap>
           </ButtonWrap>
         </SubmitWrap>
         {commentOpen && (

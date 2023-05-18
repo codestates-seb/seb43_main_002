@@ -4,10 +4,14 @@ import {
   createSelector,
 } from '@reduxjs/toolkit';
 import axios from 'axios';
+import axiosInstance from '../axiosConfig';
+
+// const decoded = jwt_decode(token);
+const BASE_URL = 'http://14.72.7.98:8080';
 
 // 게시물 목록
 export const fetchBoards = createAsyncThunk('boards/fetchBoards', async () => {
-  const response = await axios.get('http://localhost:8080/boards');
+  const response = await axiosInstance.get(`boards`);
   return response.data;
 });
 
@@ -15,10 +19,7 @@ export const fetchBoards = createAsyncThunk('boards/fetchBoards', async () => {
 export const createBoard = createAsyncThunk(
   'boards/createBoard',
   async (postBoard) => {
-    const response = await axios.post(
-      'http://localhost:8080/boards',
-      postBoard
-    );
+    const response = await axiosInstance.post(`/boards`, postBoard);
     return response.data;
   }
 );
@@ -27,10 +28,7 @@ export const createBoard = createAsyncThunk(
 export const updateBoard = createAsyncThunk(
   'boards/updateBoard',
   async ({ boardId, board }) => {
-    const response = await axios.patch(
-      `http://localhost:8080/boards/${boardId}`,
-      board
-    );
+    const response = await axios.patch(`${BASE_URL}/boards/${boardId}`, board);
     return response.data;
   }
 );
@@ -39,7 +37,7 @@ export const updateBoard = createAsyncThunk(
 export const deleteBoard = createAsyncThunk(
   'boards/deleteBoard',
   async (boardId) => {
-    await axios.delete(`http://localhost:8080/boards/${boardId}`);
+    await axios.delete(`${BASE_URL}/boards/${boardId}`);
     return boardId;
   }
 );
@@ -49,7 +47,7 @@ export const addComment = createAsyncThunk(
   'boards/addComment',
   async ({ boardId, comment }) => {
     const response = await axios.post(
-      `http://localhost:8080/boards/${boardId}/comment`,
+      `${BASE_URL}/${boardId}/comment`,
       comment
     );
     return response.data;
@@ -60,7 +58,7 @@ export const updateComment = createAsyncThunk(
   'boards/updateComment',
   async ({ boardId, commentId, content }) => {
     const response = await axios.put(
-      `http://localhost:8080/boards/${boardId}/comment/${commentId}`,
+      `${BASE_URL}/${boardId}/comment/${commentId}`,
       { content }
     );
     return response.data;
@@ -71,9 +69,7 @@ export const updateComment = createAsyncThunk(
 export const deleteComment = createAsyncThunk(
   'boards/deleteComment',
   async ({ boardId, commentId }) => {
-    await axios.delete(
-      `http://localhost:8080/boards/${boardId}/comment/${commentId}`
-    );
+    await axios.delete(`${BASE_URL}/${boardId}/comment/${commentId}`);
     return { boardId, commentId };
   }
 );
@@ -81,7 +77,7 @@ export const deleteComment = createAsyncThunk(
 const boardSlice = createSlice({
   name: 'board',
 
-  initialState: { boards: [], searchTerm: '' },
+  initialState: { boards: [], loading: false, error: null, initialized: false },
   reducers: {
     setSearchTerm: (state, action) => {
       state.searchTerm = action.payload;
@@ -96,8 +92,8 @@ const boardSlice = createSlice({
     builder.addCase(fetchBoards.fulfilled, (state, action) => {
       state.loading = false;
       state.error = null;
-
       state.boards = action.payload;
+      state.initialized = true; // 초기화 완료로 표시
     });
     builder.addCase(fetchBoards.rejected, (state, action) => {
       state.loading = false;

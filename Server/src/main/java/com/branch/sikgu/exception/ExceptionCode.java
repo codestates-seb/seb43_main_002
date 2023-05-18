@@ -19,7 +19,8 @@ public enum ExceptionCode {
     MEMBER_EXISTS("Member already exists"),
     MEMBER_MISMATCHED("Not Matched Member"),
     MEMBER_FORBIDDEN("Member Forbidden"),
-    MEMBER_UNAUTHORIZED("UNAUTHORIZED");
+    MEMBER_UNAUTHORIZED("UNAUTHORIZED"),
+    INVALID_REQUEST("잘못된 요청입니다.");
 
     private final String message;
 

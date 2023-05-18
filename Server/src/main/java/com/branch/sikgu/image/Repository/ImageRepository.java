@@ -19,7 +19,7 @@ public class ImageRepository {
         }
 
         public Long addImage(Image image) {
-            String sql = "INSERT INTO image (name, type, pic_byte) VALUES ( :name, :type, :picByte )";
+            String sql = "INSERT INTO image (name, type) VALUES ( :name, :type)";
             SqlParameterSource parameter = new MapSqlParameterSource("name", image.getName())
                     .addValue("type", image.getType());
 
@@ -39,6 +39,12 @@ public class ImageRepository {
             image.setType(rs.getString("type"));
             return image;
         });
+    }
+
+    public void deleteImage(Long id) {
+        String sql = "DELETE FROM image WHERE id = :id";
+        SqlParameterSource parameter = new MapSqlParameterSource("id", id);
+        namedParameterJdbcTemplate.update(sql, parameter);
     }
 
 }

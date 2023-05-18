@@ -1,19 +1,13 @@
 package com.branch.sikgu.myPage.controller;
 
-import com.branch.sikgu.exception.BusinessLogicException;
-import com.branch.sikgu.exception.ExceptionCode;
 import com.branch.sikgu.image.Service.ImageService;
-import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.myPage.dto.MyPageRequestDto;
 import com.branch.sikgu.myPage.dto.MyPageResponseDto;
-import com.branch.sikgu.myPage.entity.MyPage;
 import com.branch.sikgu.myPage.service.MyPageService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

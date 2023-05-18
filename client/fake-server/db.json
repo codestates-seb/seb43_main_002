@@ -1,0 +1,82 @@
+{
+  "state": [
+    {
+      "id": 1,
+      "title": "신제품 햄버거 털러 롯데리아 가실 분 구해요!!",
+      "date": "2023-01-01",
+      "time": "PM 09:00",
+      "part": "3/8",
+      "state": false
+    },
+    {
+      "id": 2,
+      "title": "맛있는 샌드위치",
+      "date": "2023-01-01",
+      "time": "AM 09:00",
+      "part": "3/3",
+      "state": false
+    },
+    {
+      "id": 3,
+      "title": "따끈따끈한 시장 족발",
+      "date": "2023-01-01",
+      "time": "AM 00:00",
+      "part": "1/2",
+      "state": true
+    }
+  ],
+  "members": [
+    {
+      "id": 1,
+      "img": "https://1319-14-72-7-98.ngrok-free.app/static/4erwerwer.jpeg",
+      "name": "김코딩",
+      "nickname": "먹으면 우는 소",
+      "intro": "지친 하루를 살아가는 직장인",
+      "birth": "2018-12-31",
+      "gender": true,
+      "email": "test@test.com",
+      "password": "#!(#@#!@!#@",
+      "like": 14,
+      "follower": 10,
+      "recently": [
+        {
+          "id": 9,
+          "type": true,
+          "date": "2018-12-31",
+          "title": "당장 먹고 싶은 햄버거를 내놓거라 으악"
+        },
+        {
+          "id": 10,
+          "type": false,
+          "date": "2023-12-31",
+          "title": "동네 모임"
+        }
+      ],
+      "review": [
+        {
+          "id": 2,
+          "name": "지나가던 감튀털이범",
+          "comment": "오늘 너무 재밌었습니다! 최고에요!",
+          "img": ""
+        },
+        {
+          "id": 3,
+          "name": "초콜릿 체고",
+          "comment": "즐거운 하루였습니다!",
+          "img": ""
+        },
+        {
+          "id": 4,
+          "name": "식사를 거르지 않는 개",
+          "comment": "짱 친절하셔요!!",
+          "img": ""
+        }
+      ]
+    },
+    {
+      "name": "테스트",
+      "img": "테스트",
+      "id": 2
+    }
+  ]
+}

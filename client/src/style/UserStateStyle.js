@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const BackGround = styled.div`
   position: absolute;
@@ -23,35 +23,8 @@ export const Mobile = styled.div`
   box-sizing: border-box;
   position: relative;
   width: 400px;
-  height: 850px;
+  height: 792px;
   padding: 20px;
-`;
-
-export const Title = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-
-  > div:first-child {
-    width: 50px;
-    height: 50px;
-    background-image: url('/icon/main-logo.png');
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-
-  > div:nth-child(2) {
-    margin-left: 10px;
-    font-size: 24pt;
-    font-weight: 700;
-    color: white;
-  }
-
-  > div:last-child {
-    margin-left: auto;
-    color: white;
-  }
 `;
 
 export const Posts = styled.div`
@@ -68,6 +41,7 @@ export const Posts = styled.div`
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
+    overflow: hidden;
 
     > .before {
       background-image: linear-gradient(135deg, #ffd571, #ffac36);
@@ -92,40 +66,82 @@ export const Posts = styled.div`
       border-radius: 25px;
       width: 40px;
       height: 40px;
-      background-image: url('/icon/state-check.png');
+      background-image: url('/svg/state-check.svg');
+      background-size: 15px 15px;
       background-repeat: no-repeat;
       background-position: center;
     }
 
     > div:nth-child(2) {
-      flex: 1;
-      max-width: calc(100% - 75px);
+      flex-grow: 1;
+      max-width: calc(100% - 60px);
 
-      ul {
+      > ul {
         list-style: none;
         margin: 0;
         padding: 0 0 0 15px;
 
-        li:first-child {
+        > li:first-child {
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
           font-weight: 700;
           margin-bottom: 2px;
           width: 90%;
+          max-width: 90%;
         }
 
-        li span {
-          font-size: 10pt;
-          color: #c9c9c9;
-          margin-left: 10px;
-        }
+        > li:last-child {
+          display: flex;
+          align-items: center;
 
-        li:last-child span:first-child {
-          margin-right: 40px;
+          > img {
+            width: 20px;
+            height: 15px;
+            margin-right: 2px;
+          }
+
+          > span {
+            font-size: 10pt;
+            color: #c9c9c9;
+            margin-right: 15px;
+          }
         }
       }
     }
+
+    > button {
+      width: 20px;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+
+      img {
+        height: 25px;
+      }
+    }
+
+    .hide {
+      display: none;
+    }
+  }
+`;
+
+const scaleIn = keyframes`
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
+
+const scaleOut = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
   }
 `;
 
@@ -174,11 +190,38 @@ export const PopUp = styled.div`
     color: white;
     border-radius: 50px;
     background-color: #c9c9c9;
+    cursor: pointer;
   }
 
   button:first-child {
     margin-right: 20px;
     background-image: linear-gradient(135deg, #ffd571, #ffac36);
+  }
+
+  .scale-in {
+    animation: ${scaleIn} 0.3s ease-out;
+  }
+
+  .scale-out {
+    animation: ${scaleOut} 0.8s ease-out;
+  }
+`;
+
+const slideIn = keyframes`
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+`;
+
+const slideOut = keyframes`
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(100%);
   }
 `;
 
@@ -228,8 +271,10 @@ export const Modal = styled.div`
       > div:first-child {
         width: 50px;
         height: 50px;
-        border-radius: 25px;
-        background-color: #c9c9c9;
+        background-image: url('/svg/main-logo-2.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
         margin-bottom: 5px;
       }
 
@@ -275,6 +320,13 @@ export const Modal = styled.div`
 
           > button {
             margin-left: auto;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+
+            > img {
+              height: 15px;
+            }
           }
         }
 
@@ -287,18 +339,35 @@ export const Modal = styled.div`
             flex: 1;
             border: none;
             height: 30px;
-            background-color: #d9d9d9;
+            background-color: #e9e9e9;
             border-radius: 5px 0 0 5px;
             padding-left: 5px;
+
+            :focus {
+              border: 2px solid #ffd571;
+              outline: none;
+            }
           }
 
           button {
+            width: 50px;
+            font-weight: 700;
             border: none;
+            color: white;
             border-radius: 0 5px 5px 0;
             background-image: linear-gradient(135deg, #ffd571, #ffac36);
+            cursor: pointer;
           }
         }
       }
     }
+  }
+
+  .slide-in {
+    animation: ${slideIn} 0.3s ease-out;
+  }
+
+  .slide-out {
+    animation: ${slideOut} 0.3s ease-out;
   }
 `;

@@ -20,6 +20,7 @@ const Map = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('맛집');
   const [animation, setAnimation] = useState(false);
+  const [loading, setLoading] = useState(true);
   // 지정된 위치에 마커와 인포윈도우 표시
   const displayMarker = (locPosition, place) => {
     let marker = new window.kakao.maps.Marker({
@@ -81,21 +82,30 @@ const Map = () => {
   };
   // 현재 위치를 업데이트하고 지도의 중심을 현재 위치로
   const updateCurrentLocation = () => {
+    setLoading(true); // 현재 위치 업데이트를 시작하므로 로딩 상태를 true로 설정
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        let lat = position.coords.latitude,
-          lon = position.coords.longitude;
-        let locPosition = new window.kakao.maps.LatLng(lat, lon);
-        mapInstance.current.setCenter(locPosition);
-        clearMarkers();
-        // 현재 위치를 업데이트 한 후에 마지막 선택된 장소를 검색
-        searchAndDisplayPlacesByCategory(selectedCategory);
-      });
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          let lat = position.coords.latitude,
+            lon = position.coords.longitude;
+          let locPosition = new window.kakao.maps.LatLng(lat, lon);
+          mapInstance.current.setCenter(locPosition);
+          clearMarkers();
+          // 현재 위치를 업데이트 한 후에 마지막 선택된 장소를 검색
+          searchAndDisplayPlacesByCategory(selectedCategory);
+          setLoading(false); // 현재 위치 업데이트가 완료되었으므로 로딩 상태를 false로 설정
+        },
+        function (error) {
+          console.error(error);
+          setLoading(false); // 현재 위치 업데이트에 실패했으므로 로딩 상태를 false로 설정
+        }
+      );
     } else {
       // 위치 정보를 사용할 수 없는 경우 기본 위치를 설정하고 해당 위치에 마커를 표시
       let locPosition = new window.kakao.maps.LatLng(37.56779, 126.98051),
         message = '현재 위치 사용 불가';
       displayMarker(locPosition, message);
+      setLoading(false); // 현재 위치 업데이트에 실패했으므로 로딩 상태를 false로 설정
     }
   };
   // 컴포넌트가 마운트될 때 Kakao 지도를 초기화하고 현재 위치를 업데이트
@@ -181,7 +191,11 @@ const Map = () => {
         <Mapbox ref={mapRef} id="map"></Mapbox>
         <CurrentLocationButton
           animate={animation}
-          onClick={updateCurrentLocation}
+          onClick={() => {
+            if (loading) {
+              updateCurrentLocation();
+            }
+          }}
         >
           <img src="/icon/location.svg" alt="현재위치" />
         </CurrentLocationButton>

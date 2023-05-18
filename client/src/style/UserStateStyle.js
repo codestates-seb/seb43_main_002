@@ -25,6 +25,10 @@ export const Mobile = styled.div`
   width: 400px;
   height: 792px;
   padding: 20px;
+  background-image: url(/svg/backlogo.svg);
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: center center;
 `;
 
 export const Posts = styled.div`

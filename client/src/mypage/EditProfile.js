@@ -172,7 +172,6 @@ const EditProfile = () => {
     const handleScroll = () => {
       const position = document.getElementById('mobileContainer').scrollTop;
       setScrollPosition(position);
-      console.log(position);
     };
 
     const mobileContainer = document.getElementById('mobileContainer');

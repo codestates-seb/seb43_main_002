@@ -15,13 +15,13 @@ import java.util.stream.Collectors;
 @Component
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CommentMapper {
-    Comment commentPostDto_to_Comment(CommentDto.Post commentPostDto);
+    Comment commentPostDto_to_Comment(Post commentPostDto);
     Comment commentPatchDto_to_Comment(CommentDto.Patch commentPatchDto);
 
     List<Response> comments_to_CommentResponseDto(List<Comment> comments);
 
-    default CommentDto.Response commentToCommentResponseDto(Comment comment) {
-        CommentDto.Response commentResponseDto;
+    default Response commentToCommentResponseDto(Comment comment) {
+        Response commentResponseDto;
         commentResponseDto = new Response(
         comment.getCommentId(),
         comment.getMember().getMemberId(),
@@ -33,7 +33,7 @@ public interface CommentMapper {
         return commentResponseDto;
     }
 
-    default List<CommentDto.Response> commentToResponseDtoList(List<Comment> comments) {
+    default List<Response> commentToResponseDtoList(List<Comment> comments) {
         return comments.stream()
                 .map(this::commentToCommentResponseDto)
                 .collect(Collectors.toList());

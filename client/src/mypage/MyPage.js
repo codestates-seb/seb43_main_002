@@ -1,10 +1,12 @@
+import Footer from './Footer';
+import Header from './Header';
+import Loding from './Loding';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Mobile,
   BackGround,
   BackYellow,
-  Title,
   Profile,
   NewPosts,
   History,
@@ -16,6 +18,7 @@ const MyPage = () => {
   const navigate = useNavigate();
 
   const [data, setData] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -28,9 +31,11 @@ const MyPage = () => {
       })
       .then((response) => {
         setData(response.data);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setIsLoading(false);
       });
   }, []);
 
@@ -48,100 +53,105 @@ const MyPage = () => {
 
   return (
     <>
-      {data && (
-        <Mobile>
-          <BackGround>
-            <BackYellow />
-          </BackGround>
-          <Title>
-            <div></div>
-            <div>Sik:Gu</div>
-            <button>아이콘</button>
-          </Title>
-          <Profile>
-            <img src={data.img} alt="프로필 이미지" />
-            <div>
-              <ul>
-                <li>
-                  {data.nickname}
-                  <button onClick={handleEidt}>🖊</button>
-                </li>
-                <li>{data.intro}</li>
-                <li>
+      <Mobile>
+        <BackGround>
+          <BackYellow />
+        </BackGround>
+        <Header iconSrc="/svg/header-logout.svg" fnc="logout" />
+        {isLoading ? (
+          <Loding />
+        ) : (
+          data && (
+            <>
+              <Profile>
+                <img src={data.img} alt="프로필 이미지" />
+                <div>
                   <ul>
                     <li>
-                      <img src="/icon/mypage-like.png" alt="식구" />
+                      {data.nickname}
+                      <button onClick={handleEidt}>
+                        <img src="/svg/mypage-edit.svg" alt="수정버튼" />
+                      </button>
                     </li>
+                    <li>{data.intro}</li>
                     <li>
-                      <div>식구</div>
-                      <div>{data.follower}</div>
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <img src="/icon/mypage-follow.PNG" alt="친구" />
-                    </li>
-                    <li>
-                      <div>좋아요</div>
-                      <div>{data.like}</div>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </Profile>
-          <NewPosts>
-            <h3>최근 작성한 게시글</h3>
-            <div className="post">
-              {data.recently.slice(0, 2).map((el, idx) => {
-                const community = '/icon/mypage-community.png';
-                const sikgu = '/icon/mypage-sikgu.png';
-
-                return (
-                  <div key={idx}>
-                    <ul>
-                      <li>
-                        <PostIcon
-                          isType={el.type}
-                          imageA={sikgu}
-                          imageB={community}
-                        />
-                      </li>
-                      <li>{el.date}</li>
-                      <li>{el.title}</li>
-                    </ul>
-                  </div>
-                );
-              })}
-            </div>
-          </NewPosts>
-          <History>
-            <h3>식구랑 먹었던 이력</h3>
-            <div className="post">
-              {data.review.map((el, idx) => {
-                return (
-                  <div key={idx}>
-                    <img src={el.img} alt="프로필 이미지" />
-                    <div>
                       <ul>
-                        <li>{el.name}</li>
-                        <li>{el.comment}</li>
+                        <li>
+                          <img src="/svg/mypage-like.svg" alt="식구" />
+                        </li>
+                        <li>
+                          <div>식구</div>
+                          <div>{data.follower}</div>
+                        </li>
                       </ul>
-                    </div>
-                    <button
-                      onClick={() => {
-                        handleUser(el.id);
-                      }}
-                    >
-                      +
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-          </History>
-        </Mobile>
-      )}
+                      <ul>
+                        <li>
+                          <img src="/svg/mypage-follow.svg" alt="친구" />
+                        </li>
+                        <li>
+                          <div>좋아요</div>
+                          <div>{data.like}</div>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </Profile>
+              <NewPosts>
+                <h3>최근 작성한 게시글</h3>
+                <div className="post">
+                  {data.recently.slice(0, 2).map((el, idx) => {
+                    const community = '/svg/mypage-community.svg';
+                    const sikgu = '/svg/mypage-sikgu.svg';
+
+                    return (
+                      <div key={idx}>
+                        <ul>
+                          <li>
+                            <PostIcon
+                              isType={el.type}
+                              imageA={sikgu}
+                              imageB={community}
+                            />
+                          </li>
+                          <li>{el.date}</li>
+                          <li>{el.title}</li>
+                        </ul>
+                      </div>
+                    );
+                  })}
+                </div>
+              </NewPosts>
+              <History>
+                <h3>식구랑 먹었던 이력</h3>
+                <div className="post">
+                  {data.review.map((el, idx) => {
+                    return (
+                      <div key={idx}>
+                        <img src={el.img} alt="프로필 이미지" />
+                        <div>
+                          <ul>
+                            <li>{el.name}</li>
+                            <li>{el.comment}</li>
+                          </ul>
+                        </div>
+                        <button
+                          onClick={() => {
+                            handleUser(el.id);
+                          }}
+                        >
+                          +
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </History>
+            </>
+          )
+        )}
+      </Mobile>
+      <Footer activeIcon="mypage" />
     </>
   );
 };

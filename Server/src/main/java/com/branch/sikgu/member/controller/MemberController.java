@@ -29,7 +29,7 @@ public class MemberController {
     // 회원가입
     @PostMapping("/signup")
     public ResponseEntity<MemberSignUpResponseDto> signUp(@Validated
-                                                          @RequestBody MemberSignUpRequestDto memberSignUpRequestDto) {
+            @RequestBody MemberSignUpRequestDto memberSignUpRequestDto) {
         MemberSignUpResponseDto memberSignUpResponseDto = memberService.signUp(memberSignUpRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(memberSignUpResponseDto);
     }
@@ -43,6 +43,7 @@ public class MemberController {
         }
         return ResponseEntity.ok(false); // 200 status code
     }
+
     // 닉네임 중복 검사 버튼
     @PostMapping("signup/checkduplicatenickname")
     public ResponseEntity<Boolean> checkNickname(@RequestBody NicknameCheckRequestDto requestDTO) {

@@ -172,13 +172,20 @@ const Signup = () => {
         <BackYellow />
       </BackGround>
       <LogoContainer>
-        <StyledLogo />
+        <StyledLogo
+          onClick={() => {
+            navigate('/');
+          }}
+        />
       </LogoContainer>
       <SignupContainer>
         <SignupForm onSubmit={handleSubmit} noValidate>
           <SignupTitle>Create Account</SignupTitle>
 
-          <EditIcon backgroundImage={mailIcon} />
+          <Text>
+            <EditIcon backgroundImage={mailIcon} />
+            <label htmlFor="nickname">식구로 가입할 이메일을 적어주세요.</label>
+          </Text>
           <Input
             type="email"
             placeholder="식구에서 사용하실 이메일을 입력해주세요."
@@ -193,7 +200,10 @@ const Signup = () => {
           </CheckDuplicateButton>
           {emailError && <Error>{emailError}</Error>}
 
-          <EditIcon backgroundImage={introIcon} />
+          <Text>
+            <EditIcon backgroundImage={introIcon} />
+            <label htmlFor="nickname">식구로 활동할 별명을 만들어주세요.</label>
+          </Text>
           <Input
             type="text"
             placeholder="식구로 활동할 별명을 8글자까지 입력해주세요."
@@ -211,7 +221,12 @@ const Signup = () => {
           {lengthError ? <Error>{lengthError}</Error> : null}
 
           <div className="form-gender">
-            <EditIcon backgroundImage={genderIcon} />
+            <Text>
+              <EditIcon backgroundImage={genderIcon} />
+              <label htmlFor="gender">
+                본인에 성별에 노란불이 들어오게 해주세요.
+              </label>
+            </Text>
             <GenderBox>
               <GenderButton
                 type="button"
@@ -236,16 +251,19 @@ const Signup = () => {
             </GenderBox>
           </div>
 
-          <EditIcon backgroundImage={nameIcon} />
+          <Text>
+            <EditIcon backgroundImage={nameIcon} />
+            <label htmlFor="name">이름을 적어주세요.</label>
+          </Text>
           <Input
             type="text"
-            placeholder="식구가 될 분의 이름을 적어주세요."
+            placeholder="식구의 이름은 무엇인가요?"
             value={name}
             onChange={handleName}
           />
           <Text>
             <EditIcon backgroundImage={pwdIcon} />
-            사용할 비밀번호를 입력해주세요.
+            <label htmlFor="password">사용할 비밀번호를 입력해주세요.</label>
           </Text>
           <Input
             type="password"
@@ -266,7 +284,7 @@ const Signup = () => {
           {passwordError && <Error>{passwordError}</Error>}
           <Text>
             <EditIcon backgroundImage={dateIcon} />
-            생년월일을 입력해주세요.
+            <label htmlFor="birthday">생년월일을 입력해주세요</label>
           </Text>
           <Input type="date" value={birthday} onChange={handleBirthday} />
 

@@ -62,7 +62,7 @@ const Input = styled.input`
   margin: 10px 0;
   padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 20px;
+  border-radius: 10px;
 `;
 
 const Button = styled.button`
@@ -73,6 +73,7 @@ const Button = styled.button`
   color: white;
   border: none;
   border-radius: 20px;
+  pont-size: 12pt;
   cursor: pointer;
 
   &:hover {
@@ -85,6 +86,9 @@ const SignupButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
+  pont-size: 12pt;
+  border-radius: 20px;
+  background-image: linear-gradient(135deg, #ffd571, #ffac36);
 `;
 
 const CheckboxContainer = styled.div`
@@ -94,19 +98,24 @@ const CheckboxContainer = styled.div`
 `;
 
 const CheckDuplicateButton = styled(Button)`
-  width: auto;
-  margin-left: 10px;
+  border: none;
+  width: 100%;
+  padding: 10px;
+  height: 40px;
 `;
 
 const CheckPasswordButton = styled(Button)`
-  width: auto;
-  margin-left: 10px;
+  border: none;
+  width: 100%;
+  padding: 10px;
+  height: 40px;
 `;
 
 const Error = styled.p`
   color: red;
-  font-size: 12px;
+  font-size: 11pt;
   margin-top: 3px;
+  padding: 10px;
 `;
 
 const GenderBox = styled.div`
@@ -140,8 +149,7 @@ const GenderButton = styled.button`
 
 const Text = styled.p`
   display: flex;
-  justify-content: center;
-  align-items: center;
+
   margin: 5px;
   padding: 5px;
 `;
@@ -164,6 +172,7 @@ const StyledLink = styled(Link)`
 const StyledLogo = styled(BackLogo)`
   width: 20%;
   height: auto;
+  cursor: pointer;
 `;
 const LogoContainer = styled.div`
   position: absolute;
@@ -174,6 +183,7 @@ const LogoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  padding: 10px;
   width: 100%;
   height: 77%;
 `;

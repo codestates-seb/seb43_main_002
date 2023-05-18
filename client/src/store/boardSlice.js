@@ -3,11 +3,11 @@ import {
   createAsyncThunk,
   createSelector,
 } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axiosInstance from '../axiosConfig';
 
 // 게시물 목록 가져오기
 export const fetchBoards = createAsyncThunk('boards/fetchBoards', async () => {
-  const response = await axios.get('http://localhost:8080/boards');
+  const response = await axiosInstance.get('http://localhost:8080/boards');
   return response.data;
 }); // 여기서 게시글을 가져와서
 
@@ -15,7 +15,7 @@ export const fetchBoards = createAsyncThunk('boards/fetchBoards', async () => {
 export const updateBoard = createAsyncThunk(
   'boards/updateBoard',
   async ({ boardId, board }) => {
-    const response = await axios.patch(
+    const response = await axiosInstance.patch(
       `http://localhost:8080/boards/${boardId}`,
       board
     );
@@ -27,7 +27,7 @@ export const updateBoard = createAsyncThunk(
 export const deleteBoard = createAsyncThunk(
   'boards/deleteBoard',
   async (boardId) => {
-    await axios.delete(`http://localhost:8080/boards/${boardId}`);
+    await axiosInstance.delete(`http://localhost:8080/boards/${boardId}`);
     return boardId;
   }
 );
@@ -36,7 +36,7 @@ export const deleteBoard = createAsyncThunk(
 export const addComment = createAsyncThunk(
   'boards/addComment',
   async ({ boardId, comment }) => {
-    const response = await axios.post(
+    const response = await axiosInstance.post(
       `http://localhost:8080/boards/${boardId}/comment`,
       comment
     );
@@ -48,7 +48,7 @@ export const addComment = createAsyncThunk(
 export const updateComment = createAsyncThunk(
   'boards/updateComment',
   async ({ boardId, commentId, content }) => {
-    const response = await axios.put(
+    const response = await axiosInstance.put(
       `http://localhost:8080/boards/${boardId}/comment/${commentId}`,
       { content }
     );
@@ -60,7 +60,7 @@ export const updateComment = createAsyncThunk(
 export const deleteComment = createAsyncThunk(
   'boards/deleteComment',
   async ({ boardId, commentId }) => {
-    await axios.delete(
+    await axiosInstance.delete(
       `http://localhost:8080/boards/${boardId}/comment/${commentId}`
     );
     return { boardId, commentId };

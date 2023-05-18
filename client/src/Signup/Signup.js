@@ -132,6 +132,8 @@ const Signup = () => {
       return null;
     } else if (password !== confirmPassword) {
       setPasswordError('비밀번호가 일치하지 않습니다.');
+    } else if (password === confirmPassword) {
+      alert('비밀번호가 일치합니다.');
     }
   };
 

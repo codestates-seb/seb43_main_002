@@ -82,7 +82,7 @@ public class CommentRestDocsTest {
                         .header("Authorization", "Bearer " + "test-token")
         )
                 .andExpect(status().isCreated())
-                .andDo(document("create-comment",
+                .andDo(document("comment/create",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
@@ -109,6 +109,7 @@ public class CommentRestDocsTest {
         CommentDto.Response commentResponseDto =
                 new CommentDto.Response(1L,
                         1L,
+                        "닉네임",
                         "수정된 댓글내용입니다",
                         LocalDateTime.now(),
                         LocalDateTime.now());
@@ -129,7 +130,7 @@ public class CommentRestDocsTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.commentId").value(commentPatchDto.getCommentId()))
-                .andDo(document("update-comment",
+                .andDo(document("comment/update",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
@@ -149,6 +150,7 @@ public class CommentRestDocsTest {
                                 List.of(
                                         fieldWithPath("commentId").type(JsonFieldType.NUMBER).description("댓글 식별자"),
                                         fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("멤버 식별자"),
+                                        fieldWithPath("nickName").type(JsonFieldType.STRING).description("닉네임"),
                                         fieldWithPath("body").type(JsonFieldType.STRING).description("댓글 내용"),
                                         fieldWithPath("createdAt").type(JsonFieldType.STRING).description("작성 시간"),
                                         fieldWithPath("updatedAt").type(JsonFieldType.STRING).description("수정 시간")
@@ -167,11 +169,13 @@ public class CommentRestDocsTest {
         List<CommentDto.Response> comments = Arrays.asList(
                 new CommentDto.Response(1L,
                         1L,
+                        "닉네임1",
                         "댓글내용1입니다",
                         timeX,
                         timeY),
                 new CommentDto.Response(2L,
                         3L,
+                        "닉네임2",
                         "댓글내용2입니다",
                         timeX,
                         timeY)
@@ -192,18 +196,20 @@ public class CommentRestDocsTest {
 
                 .andExpect(jsonPath("$[0].commentId", is(1))) // 첫 번째 게시글의 멤버 id 확인
                 .andExpect(jsonPath("$[0].memberId", is(1)))
+                .andExpect(jsonPath("$[0].nickName", is("닉네임1")))
                 .andExpect(jsonPath("$[0].body", is("댓글내용1입니다"))) // 첫 번째 게시글의 멤버 id 확인
                 .andExpect(jsonPath("$[0].createdAt", is("2023-05-20T13:30:00")))
                 .andExpect(jsonPath("$[0].updatedAt", is("2023-05-21T14:00:00")))
 
                 .andExpect(jsonPath("$[1].commentId", is(2))) // 첫 번째 게시글의 멤버 id 확인
                 .andExpect(jsonPath("$[1].memberId", is(3)))
+                .andExpect(jsonPath("$[1].nickName", is("닉네임2")))
                 .andExpect(jsonPath("$[1].body", is("댓글내용2입니다"))) // 첫 번째 게시글의 멤버 id 확인
                 .andExpect(jsonPath("$[1].createdAt", is("2023-05-20T13:30:00")))
                 .andExpect(jsonPath("$[1].updatedAt", is("2023-05-21T14:00:00")))
 
                 .andDo(print())
-                .andDo(document("get-commentsByBoardId",
+                .andDo(document("comment/getByBoard",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
@@ -213,6 +219,7 @@ public class CommentRestDocsTest {
                                 List.of(
                                         fieldWithPath("[].commentId").type(JsonFieldType.NUMBER).description("댓글 식별자"),
                                         fieldWithPath("[].memberId").type(JsonFieldType.NUMBER).description("멤버 식별자"),
+                                        fieldWithPath("[].nickName").type(JsonFieldType.STRING).description("닉네임"),
                                         fieldWithPath("[].body").type(JsonFieldType.STRING).description("댓글 내용"),
                                         fieldWithPath("[].createdAt").type(JsonFieldType.STRING).description("작성 시간"),
                                         fieldWithPath("[].updatedAt").type(JsonFieldType.STRING).description("수정 시간")
@@ -236,7 +243,7 @@ public class CommentRestDocsTest {
                 )
                 .andExpect(status().isNoContent())
                 .andDo(print())
-                .andDo(document("delete-comment",
+                .andDo(document("comment/delete",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(

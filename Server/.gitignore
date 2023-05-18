@@ -7,7 +7,7 @@ build/
 !**/src/test/**/build/
 src/main/resources/
 **/.DS_Store
-
+.DS_Store
 
 ### STS ###
 .apt_generated

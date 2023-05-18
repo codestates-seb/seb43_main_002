@@ -45,6 +45,7 @@ const Login = () => {
         const token = response.headers.authorization;
         if (token) {
           const decoded = jwt_decode(token);
+
           const user = {
             email: decoded.email,
             nickname: decoded.nickname,

@@ -11,11 +11,12 @@ import java.util.List;
 public class MyPageResponseDto {
     private Long myPageId;
     private String nickname;
-    private String image;
+    private String imagePath;
     private String introduce;
     private Long likes;
     private Long followingCount;
     private List<FollowingDto> followings;
     private Long followerCount;
     private String review;
+    private List<MyPageRecentBoardDto> recentBoard;
 }

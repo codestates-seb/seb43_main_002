@@ -6,12 +6,10 @@ import com.branch.sikgu.exception.ExceptionCode;
 import com.branch.sikgu.exception.HttpStatus;
 import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.member.service.MemberService;
-import com.branch.sikgu.board.dto.BoardPatchDto;
-import com.branch.sikgu.board.dto.BoardPostDto;
-import com.branch.sikgu.board.dto.BoardResponseDto;
 import com.branch.sikgu.board.entity.Board;
 import com.branch.sikgu.board.mapper.BoardMapper;
 import com.branch.sikgu.board.repository.BoardRepository;
+import com.branch.sikgu.board.dto.BoardDto;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.StringUtils;
 
@@ -33,7 +31,7 @@ public class BoardService {
     }
 
     // 게시물 등록
-    public BoardResponseDto.Response createBoard(BoardPostDto.Post postDto, String authentication) {
+    public BoardDto.Response createBoard(BoardDto.Post postDto, String authentication) {
         Member member = memberService.findMember(authentication);
         Board board = boardMapper.toEntity(postDto);
         board.setMember(member);
@@ -43,7 +41,7 @@ public class BoardService {
     }
 
     // 게시물 수정
-    public BoardResponseDto.Response updateBoard(Long boardId, BoardPatchDto.Patch patchDto, String authentication) {
+    public BoardDto.Response updateBoard(Long boardId, BoardDto.Patch patchDto, String authentication) {
         Board board = getBoardById(boardId);
         Member member = memberService.findMember(authentication);
 
@@ -52,14 +50,15 @@ public class BoardService {
             throw new BusinessLogicException(ExceptionCode.INVALID_TOKEN, HttpStatus.NOT_FOUND);
         }
 
-        // 비활성화 된 게시물인지 확인
-        Board existingBoard = boardRepository.findById(boardId).
-                orElseThrow(() -> new BusinessLogicException(ExceptionCode.INACTIVE_BOARD, HttpStatus.NOT_FOUND));
+        // 비활성화된 게시물인지 확인
+        Board existingBoard = boardRepository.findById(boardId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.INACTIVED_BOARD, HttpStatus.NOT_FOUND));
 
         boardMapper.updateEntity(existingBoard, patchDto);
         Board updatedBoard = boardRepository.save(existingBoard);
 
-        return boardMapper.toResponseDto(updatedBoard);
+        BoardDto.Response responseDto = boardMapper.toResponseDto(updatedBoard);
+        return responseDto;
     }
 
     //게시물 삭제
@@ -82,21 +81,20 @@ public class BoardService {
     }
 
     // 전체 게시물 조회
-    public List<BoardResponseDto.Response> getAllBoards() {
+    public List<BoardDto.Response> getAllBoards() {
         List<Board> boards = boardRepository.findAll();
 
         return boardMapper.toResponseDtoList(boards);
     }
 
-    // 해당 멤버의 게시물 조회
-    public List<BoardResponseDto.Response> getBoardsByMember(String authentication) {
-//        validateAuthentication(authentication);
+    // 내 게시물 조회
+    public List<BoardDto.Response> getBoardsByMember(String authentication) {
         Member member = memberService.findMember(authentication);
         List<Board> boards = boardRepository.findByMemberMemberId(member.getMemberId());
         return boardMapper.toResponseDtoList(boards);
     }
 
-    public BoardResponseDto.Response getBoardResponseById(Long boardId) {
+    public BoardDto.Response getBoardResponseById(Long boardId) {
         Board board = getBoardById(boardId);
         return boardMapper.toResponseDto(board);
     }
@@ -118,7 +116,7 @@ public class BoardService {
     // 게시물 가져오기
     public Board getBoardById(Long boardId) {
         return boardRepository.findById(boardId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.DELETED_BOARD, HttpStatus.NO_CONTENT));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.INACTIVED_BOARD, HttpStatus.NO_CONTENT));
     }
 
     // 게시물 ID와 작성한 멤버 ID 확인
@@ -130,7 +128,7 @@ public class BoardService {
     // 삭제된 게시물인지 확인
     private static void checkIfDeleted(Board findBoard) {
         if (findBoard.getBoardStatus().equals(Board.BoardStatus.DELETED_BOARD)) {
-            throw new BusinessLogicException(ExceptionCode.DELETED_BOARD, HttpStatus.NO_CONTENT);
+            throw new BusinessLogicException(ExceptionCode.INACTIVED_BOARD, HttpStatus.NO_CONTENT);
         }
     }
 

@@ -12,11 +12,11 @@ import {
   ModalWhobutton,
   ModalText,
   ModalButtonWrap,
-  ModalButton,
   CancelButton,
-} from './ModalStyles';
+  ModalButton,
+} from '../style/ModalStyles';
 import PropTypes from 'prop-types';
-import Tag from './Tag';
+// import Tag from './Tag';
 // import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -39,9 +39,9 @@ const ModalDay = styled(DatePicker)`
 const EditModal = ({ isOpen, onClose, board }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [editedBoard, setEditedBoard] = useState({
-    food: board.food,
-    people: board.people,
-    content: board.content,
+    title: board.title,
+    total: board.total,
+    body: board.body,
   });
 
   //   console.log(editedBoard.tag);
@@ -50,7 +50,7 @@ const EditModal = ({ isOpen, onClose, board }) => {
     e.preventDefault();
     setEditedBoard((prevBoard) => ({
       ...prevBoard,
-      people: prevBoard.people + 1,
+      total: prevBoard.total + 1,
     }));
   };
   const dispatch = useDispatch();
@@ -62,10 +62,10 @@ const EditModal = ({ isOpen, onClose, board }) => {
 
   const handleDecrement = (e) => {
     e.preventDefault();
-    if (editedBoard.people > 0) {
+    if (editedBoard.total > 0) {
       setEditedBoard((prevBoard) => ({
         ...prevBoard,
-        people: prevBoard.people - 1,
+        total: prevBoard.total - 1,
       }));
     }
   };
@@ -82,7 +82,7 @@ const EditModal = ({ isOpen, onClose, board }) => {
     setStartDate(date);
     setEditedBoard((prevBoard) => ({
       ...prevBoard,
-      when: date,
+      mealTime: date,
     }));
   };
 
@@ -90,15 +90,15 @@ const EditModal = ({ isOpen, onClose, board }) => {
     e.preventDefault();
     let updatedWho = '';
 
-    switch (editedBoard.who) {
-      case '누구나 참여가능':
-        updatedWho = '여성만 참여가능';
+    switch (editedBoard.passedGender) {
+      case 'ANY':
+        updatedWho = 'FEMALE';
         break;
-      case '여성만 참여가능':
-        updatedWho = '남성만 참여가능';
+      case 'FEMALE':
+        updatedWho = 'MALE';
         break;
-      case '남성만 참여가능':
-        updatedWho = '누구나 참여가능';
+      case 'MALE':
+        updatedWho = 'ANY';
         break;
       default:
         break;
@@ -106,22 +106,22 @@ const EditModal = ({ isOpen, onClose, board }) => {
 
     setEditedBoard((prevBoard) => ({
       ...prevBoard,
-      who: updatedWho,
+      passedGender: updatedWho,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
-      editedBoard.food === '' ||
-      editedBoard.people === 0 ||
-      editedBoard.content === ''
+      editedBoard.title === '' ||
+      editedBoard.total === 0 ||
+      editedBoard.body === ''
     ) {
       alert('모든 곳을 입력해주세요.');
       return;
     }
 
-    dispatch(updateBoard({ boardId: board.id, board: editedBoard }))
+    dispatch(updateBoard({ boardId: board.boardId, board: editedBoard }))
       .unwrap()
       .then(() => {
         console.log('게시물이 성공적으로 작성되었습니다.');
@@ -144,25 +144,25 @@ const EditModal = ({ isOpen, onClose, board }) => {
     onClose: PropTypes.func.isRequired,
     board: PropTypes.object.isRequired,
   };
-
+  console.log(editedBoard);
   return (
     <ModalWrap isOpen={isOpen}>
       <ModalContent isOpen={isOpen} onSubmit={handleSubmit}>
         <ModalQurry>같이 먹을 음식은?</ModalQurry>
         <ModalInput
-          name="food"
+          name="title"
           onChange={handleChange}
-          value={editedBoard.food}
+          value={editedBoard.title}
         ></ModalInput>
         <ModalQurry>같이 먹을 인원은?</ModalQurry>
-        <ModalCount name="people" onChange={handleChange}>
+        <ModalCount name="total" onChange={handleChange}>
           <ModalCountbutton onClick={handleDecrement}>-</ModalCountbutton>
-          <span>{editedBoard.people}</span>
+          <span>{editedBoard.total}</span>
           <ModalPlusbutton onClick={handleIncrement}>+</ModalPlusbutton>
         </ModalCount>
         <ModalQurry>언제 먹을까?</ModalQurry>
         <ModalDay
-          name="when"
+          name="mealTime"
           dateFormat="yyyy/MM/dd aa h시"
           selected={startDate}
           locale={ko}
@@ -177,18 +177,18 @@ const EditModal = ({ isOpen, onClose, board }) => {
           <ModalWhobutton onClick={handleWhoChange}>
             <BsArrowLeftShort />
           </ModalWhobutton>
-          <span>{editedBoard.who}</span>
+          <span>{editedBoard.passedGender}</span>
           <ModalWhobutton onClick={handleWhoChange}>
             <BsArrowRightShort />
           </ModalWhobutton>
         </ModalWhoButtonWrap>
         <ModalQurry>추가로 입력할 정보는?</ModalQurry>
         <ModalText
-          name="content"
+          name="body"
           onChange={handleChange}
-          value={editedBoard.content}
+          value={editedBoard.body}
         ></ModalText>
-        <Tag name="tag" onChange={handleChange} value={editedBoard.tag}></Tag>
+        {/* <Tag name="tag" onChange={handleChange} value={editedBoard.tag}></Tag> */}
         <ModalButtonWrap>
           <ModalButton type="submit">수정하기</ModalButton>
           <CancelButton onClick={handleCancel}>취소하기</CancelButton>

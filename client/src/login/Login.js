@@ -10,6 +10,10 @@ import {
   FooterText,
   StyledLink,
   GoogleLogo,
+  LogoContainer,
+  BackGround,
+  StyledLogo,
+  BackYellow,
 } from '../style/LoginStyle';
 
 import { useState } from 'react';
@@ -18,7 +22,6 @@ import { login } from '../store/userSlice';
 // import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import axiosInstance from '../axiosConfig';
-
 const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
@@ -34,7 +37,7 @@ const Login = () => {
 
   const handleLogin = () => {
     axiosInstance
-      .post('/members/login', {
+      .post('members/login', {
         email,
         password,
       })
@@ -42,18 +45,18 @@ const Login = () => {
         const token = response.headers.authorization;
         if (token) {
           const decoded = jwt_decode(token);
+
           const user = {
             email: decoded.email,
-            memberId: decoded.memberId,
-            roles: decoded.roles,
+            nickname: decoded.nickname,
           };
 
           sessionStorage.setItem('user', JSON.stringify(user)); // 세션스토리지에 user정보 저장
           sessionStorage.setItem('jwt', token); // sessionStorage에 토큰 저장
 
           dispatch(login(user));
-          alert('로그인 되었습니다!');
-          navigate('/boards');
+          alert(`${user.nickname}님, 식사는 잡쉈어?`);
+          navigate('/api/boards');
         } else {
           console.log(response.data);
           setAccessError('이메일 또는 비밀번호가 잘못되었습니다.');
@@ -89,41 +92,56 @@ const Login = () => {
   };
 
   return (
-    <LoginContainer>
-      <LoginTitle>Sign in now</LoginTitle>
-      <LoginForm onSubmit={handleSubmit} noValidate>
-        <Input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Error>{validationEmail(email) ? null : emailError}</Error>
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Error>{validationPassword(password) ? null : passwordError}</Error>
-        <Error>{accessError}</Error>
+    <>
+      <BackGround>
+        <BackYellow />
+      </BackGround>
+      <LogoContainer>
+        <StyledLogo />
+      </LogoContainer>
+      <LoginContainer>
+        <LoginTitle>Sign in now</LoginTitle>
+        <LoginForm onSubmit={handleSubmit} noValidate>
+          <Input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Error>{validationEmail(email) ? null : emailError}</Error>
+          <Input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Error>{validationPassword(password) ? null : passwordError}</Error>
+          <Error>{accessError}</Error>
 
-        <LoginButton type="submit">Login</LoginButton>
-        <Error>{fetchError}</Error>
+          <LoginButton
+            type="submit"
+            onClick={() => {
+              console.log('찍히나?');
+            }}
+          >
+            Login
+          </LoginButton>
+          <Error>{fetchError}</Error>
 
-        <GoogleLoginButton
-          type="button"
-          onClick={() => {
-            console.log('이자리가 맞니?');
-          }}
-        >
-          <GoogleLogo />
-          구글로 로그인
-        </GoogleLoginButton>
-      </LoginForm>
-      <FooterText>아직 식구가 아니신가요?</FooterText>
-      <StyledLink to="/signup">지금 바로 여기를 눌러 가입하세요.</StyledLink>
-    </LoginContainer>
+          <GoogleLoginButton
+            type="button"
+            onClick={() => {
+              console.log('이자리가 맞니?');
+            }}
+          >
+            <GoogleLogo />
+            구글로 로그인
+          </GoogleLoginButton>
+        </LoginForm>
+        <FooterText>아직 식구가 아니신가요?</FooterText>
+        <StyledLink to="/signup">지금 바로 여기를 눌러 가입하세요.</StyledLink>
+      </LoginContainer>
+    </>
   );
 };
 

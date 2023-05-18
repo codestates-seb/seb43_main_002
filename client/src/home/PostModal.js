@@ -12,9 +12,9 @@ import {
   ModalWhobutton,
   ModalText,
   ModalButtonWrap,
-  ModalButton,
   CancelButton,
-} from './ModalStyles';
+  ModalButton,
+} from '../style/ModalStyles';
 import PropTypes from 'prop-types';
 // import Tag from './Tag';
 import DatePicker from 'react-datepicker';
@@ -42,13 +42,14 @@ const PostModal = ({ isOpen, onClose }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [postBoard, setPostBoard] = useState({
     title: '',
-    total: 0,
-    mealTime: startDate,
-    passedGender: '누구나 참여가능',
     body: '',
-    // tag: '',
-    // comment: [],
+    total: 0,
+    passedGender: 'ANY',
+    mealTime: startDate,
+    tags: ['ags', 'tags', 'tags1'],
   });
+
+  console.log(postBoard);
 
   const handleIncrement = (e) => {
     e.preventDefault();
@@ -87,22 +88,22 @@ const PostModal = ({ isOpen, onClose }) => {
   const handleWhoChange = (e) => {
     e.preventDefault();
     switch (postBoard.passedGender) {
-      case '누구나 참여가능':
+      case 'ANY':
         setPostBoard((prevBoard) => ({
           ...prevBoard,
-          passedGender: '여성만 참여가능',
+          passedGender: 'FEMALE',
         }));
         break;
-      case '여성만 참여가능':
+      case 'FEMALE':
         setPostBoard((prevBoard) => ({
           ...prevBoard,
-          passedGender: '남성만 참여가능',
+          passedGender: 'MALE',
         }));
         break;
-      case '남성만 참여가능':
+      case 'MALE':
         setPostBoard((prevBoard) => ({
           ...prevBoard,
-          passedGender: '누구나 참여가능',
+          passedGender: 'ANY',
         }));
         break;
       default:
@@ -154,18 +155,18 @@ const PostModal = ({ isOpen, onClose }) => {
         <ModalQurry>같이 먹을 음식은?</ModalQurry>
         <ModalInput
           placeholder="함께하고 싶은 음식을 적어주세요"
-          name="food"
+          name="title"
           onChange={handleChange}
         ></ModalInput>
         <ModalQurry>같이 먹을 인원은?</ModalQurry>
-        <ModalCount name="people" onChange={handleChange}>
+        <ModalCount name="total" onChange={handleChange}>
           <ModalCountbutton onClick={handleDecrement}>-</ModalCountbutton>
           <span>{postBoard.total}</span>
           <ModalPlusbutton onClick={handleIncrement}>+</ModalPlusbutton>
         </ModalCount>
         <ModalQurry>언제 먹을까?</ModalQurry>
         <ModalDay
-          name="when"
+          name="mealTime"
           dateFormat="yyyy/MM/dd aa h시"
           selected={startDate}
           locale={ko}
@@ -188,7 +189,7 @@ const PostModal = ({ isOpen, onClose }) => {
         <ModalQurry>추가로 입력할 정보는?</ModalQurry>
         <ModalText
           placeholder="추가로 입력해야 할 사항들을 적어주세요"
-          name="content"
+          name="body"
           onChange={handleChange}
         ></ModalText>
         {/* <Tag name="tag" onChange={handleChange}></Tag> */}

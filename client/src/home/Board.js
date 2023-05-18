@@ -1,4 +1,4 @@
-import { BoardWrap } from './HomeStyle';
+import { BoardWrap } from '../style/HomeStyle';
 import { useState } from 'react';
 import { BiTimeFive, BiEdit } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
@@ -9,7 +9,6 @@ import EditModal from './EditModal';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { deleteBoard } from '../store/boardSlice';
-
 import {
   SexInfomaitonWrap,
   ContentWrap,
@@ -26,7 +25,7 @@ import {
   CommentInput,
   CommentButton,
   CommentOpenButton,
-} from './BoardStyle';
+} from '../style/BoardStyle';
 
 const Board = ({ board }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,7 +58,7 @@ const Board = ({ board }) => {
   };
 
   const handleDelete = () => {
-    dispatch(deleteBoard(board.id))
+    dispatch(deleteBoard(board.boardId))
       .unwrap()
       .then(() => {
         console.log('게시물이 성공적으로 삭제되었습니다.');

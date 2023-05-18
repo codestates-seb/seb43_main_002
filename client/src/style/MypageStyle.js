@@ -10,7 +10,9 @@ export const BackGround = styled.div`
 `;
 
 export const BackYellow = styled.div`
-  background-color: #ffca61;
+  background-image: linear-gradient(135deg, #ffd571, #ffac36);
+  box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 25px 25px;
   height: 272px;
   top: 0;
   left: 0;
@@ -18,43 +20,21 @@ export const BackYellow = styled.div`
 
 export const Mobile = styled.div`
   position: relative;
+  font-family: 'Noto Sans KR', sans-serif;
   width: 400px;
-  height: 850px;
+  height: 792px;
 
   box-sizing: border-box;
   padding: 20px;
-`;
-
-export const Title = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  > div:first-child {
-    width: 50px;
-    height: 50px;
-    background-color: white;
-  }
-
-  > div:nth-child(2) {
-    margin-left: 10px;
-    font-size: 24pt;
-    font-weight: 700;
-    color: white;
-  }
-
-  > div:last-child {
-    margin-left: auto;
-    color: white;
-  }
+  overflow: hidden;
 `;
 
 export const Profile = styled.div`
   display: flex;
-  margin-top: 20px;
   letter-spacing: -0.05em;
 
-  > div:first-child {
+  > img {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     background-color: #cdeeff;
     box-sizing: border-box;
     border-radius: 10px;
@@ -78,6 +58,17 @@ export const Profile = styled.div`
       > li:first-child {
         font-size: 18pt;
         font-weight: 700;
+
+        > button {
+          border: none;
+          background-color: transparent;
+          opacity: 0.8;
+
+          > img {
+            width: 20px;
+            margin-left: 8px;
+          }
+        }
       }
 
       > li:nth-child(2) {
@@ -99,11 +90,10 @@ export const Profile = styled.div`
           list-style: none;
 
           > li:first-child {
-            width: 30px;
+            width: 32px;
             height: 30px;
             margin-right: 10px;
             border-radius: 50px;
-            background-color: #cdeeff;
           }
 
           > li:last-child > div:first-child {
@@ -129,6 +119,7 @@ export const NewPosts = styled.div`
 
     > div {
       background-color: white;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
       width: 175px;
       padding: 10px;
       border-radius: 10px;
@@ -137,13 +128,6 @@ export const NewPosts = styled.div`
         list-style: none;
         margin: 0;
         padding: 0;
-
-        li:first-child div {
-          background-color: #cdeeff;
-          border-radius: 30px;
-          width: 30px;
-          height: 30px;
-        }
 
         li:nth-child(2) {
           text-align: right;
@@ -155,6 +139,9 @@ export const NewPosts = styled.div`
           margin-top: 3px;
           text-align: right;
           font-weight: 700;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
       }
 
@@ -184,8 +171,9 @@ export const History = styled.div`
     background-color: white;
     box-sizing: border-box;
     border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
 
-    > div:first-child {
+    > img {
       background-color: #cdeeff;
       width: 50px;
       height: 50px;
@@ -226,9 +214,19 @@ export const History = styled.div`
       font-weight: 700;
       cursor: pointer;
 
+      transition: background-color 0.3s ease;
+
       :hover {
         background-color: #ffca61 !important;
       }
     }
   }
+`;
+
+export const PostIcon = styled.div`
+  background-image: ${(props) =>
+    props.isType ? `url("${props.imageA}")` : `url("${props.imageB}")`};
+  width: 35px;
+  height: 30px;
+  background-repeat: no-repeat;
 `;

@@ -1,22 +1,27 @@
 import {
   SignupContainer,
+  BackYellow,
   SignupForm,
   Input,
   SignupTitle,
   SignupButton,
-  CheckboxContainer,
-  GenderCheckbox,
-  CheckboxLabel,
   CheckDuplicateButton,
   CheckPasswordButton,
   Text,
   FooterText,
   StyledLink,
+  StyledLogo,
+  Mobile,
+  GenderButton,
+  GenderBox,
+  BackGround,
+  LogoContainer,
   Error,
 } from '../style/SignupStyle';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { EditIcon } from '../style/EditProfileStyle';
 
 const emailRegex = /^[\w-]+(.[\w-]+)@([\w-]+.)+[a-zA-Z]{2,7}$/;
 const passwordRegex = /^(?=.[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -36,6 +41,13 @@ const Signup = () => {
   const [fetchError, setFetchError] = useState('');
   const [fetchError2, setFetchError2] = useState('');
   const navigate = useNavigate();
+
+  const nameIcon = '/svg/join-name.svg';
+  const introIcon = '/svg/join-intro.svg';
+  const dateIcon = '/svg/join-date.svg';
+  const genderIcon = '/svg/join-gender.svg';
+  const mailIcon = '/svg/join-mail.svg';
+  const pwdIcon = '/svg/join-password.svg';
 
   const validationEmail = (email) => {
     return emailRegex.test(email);
@@ -60,10 +72,6 @@ const Signup = () => {
 
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
-  };
-
-  const handleGender = (e) => {
-    setGender(e.target.value === 'male'); // 수정
   };
 
   const handleBirthday = (e) => {
@@ -127,6 +135,8 @@ const Signup = () => {
       return null;
     } else if (password !== confirmPassword) {
       setPasswordError('비밀번호가 일치하지 않습니다.');
+    } else if (password === confirmPassword) {
+      alert('비밀번호가 일치합니다.');
     }
   };
 
@@ -157,107 +167,134 @@ const Signup = () => {
   };
 
   return (
-    <SignupContainer>
-      <SignupForm onSubmit={handleSubmit} noValidate>
-        <SignupTitle>Create Account</SignupTitle>
-        <Input
-          type="email"
-          placeholder="식구에서 사용하실 이메일을 입력해주세요."
-          value={email}
-          onChange={handleEmailChange}
+    <Mobile>
+      <BackGround>
+        <BackYellow />
+      </BackGround>
+      <LogoContainer>
+        <StyledLogo
+          onClick={() => {
+            navigate('/');
+          }}
         />
-        <CheckDuplicateButton type="button" onClick={handleCheckDuplicateEmail}>
-          이메일 중복확인
-        </CheckDuplicateButton>
-        {emailError && <Error>{emailError}</Error>}
+      </LogoContainer>
+      <SignupContainer>
+        <SignupForm onSubmit={handleSubmit} noValidate>
+          <SignupTitle>Create Account</SignupTitle>
 
-        <Input
-          type="text"
-          placeholder="식구로 활동할 별명을 8글자까지 입력해주세요."
-          value={nickname}
-          onChange={handleNicknameChange}
-        />
-        <CheckDuplicateButton
-          type="button"
-          onClick={handleCheckDuplicateNickname}
-        >
-          활동명 중복확인
-        </CheckDuplicateButton>
-        {/* 활동명에 제한을 두어야할까? */}
-        {nicknameError && <Error>{nicknameError}</Error>}
-        {lengthError ? <Error>{lengthError}</Error> : null}
-        <Text>본인의 성별을 알려주세요.</Text>
-        <CheckboxContainer>
-          <div>
-            <CheckboxLabel>
-              <GenderCheckbox
-                type="radio"
-                id="male"
-                name="gender"
-                value="male"
-                checked={gender === true}
-                onChange={handleGender}
+          <Text>
+            <EditIcon backgroundImage={mailIcon} />
+            <label htmlFor="nickname">식구로 가입할 이메일을 적어주세요.</label>
+          </Text>
+          <Input
+            type="email"
+            placeholder="식구에서 사용하실 이메일을 입력해주세요."
+            value={email}
+            onChange={handleEmailChange}
+          />
+          <CheckDuplicateButton
+            type="button"
+            onClick={handleCheckDuplicateEmail}
+          >
+            이메일 중복확인
+          </CheckDuplicateButton>
+          {emailError && <Error>{emailError}</Error>}
+
+          <Text>
+            <EditIcon backgroundImage={introIcon} />
+            <label htmlFor="nickname">식구로 활동할 별명을 만들어주세요.</label>
+          </Text>
+          <Input
+            type="text"
+            placeholder="식구로 활동할 별명을 8글자까지 입력해주세요."
+            value={nickname}
+            onChange={handleNicknameChange}
+          />
+          <CheckDuplicateButton
+            type="button"
+            onClick={handleCheckDuplicateNickname}
+          >
+            활동명 중복확인
+          </CheckDuplicateButton>
+          {/* 활동명에 제한을 두어야할까? */}
+          {nicknameError && <Error>{nicknameError}</Error>}
+          {lengthError ? <Error>{lengthError}</Error> : null}
+
+          <div className="form-gender">
+            <Text>
+              <EditIcon backgroundImage={genderIcon} />
+              <label htmlFor="gender">
+                본인에 성별에 노란불이 들어오게 해주세요.
+              </label>
+            </Text>
+            <GenderBox>
+              <GenderButton
+                type="button"
+                active={gender}
                 onClick={() => {
-                  console.log('남자임');
+                  console.log('male');
+                  setGender(true);
                 }}
-              />
-              <span></span>{' '}
-              {/* 이 span은 styled-components로 디자인한 체크박스를 대신하는 역할 */}
-              남자
-            </CheckboxLabel>
-          </div>
-          <div>
-            <CheckboxLabel>
-              <GenderCheckbox
-                type="radio"
-                id="female"
-                name="gender"
-                value="female"
-                checked={gender === false}
-                onChange={handleGender}
+              >
+                남성
+              </GenderButton>
+              <GenderButton
+                type="button"
+                active={!gender}
                 onClick={() => {
-                  console.log('여자임');
+                  console.log('female');
+                  setGender(false);
                 }}
-              />
-              <span></span>{' '}
-              {/* 이 span은 styled-components로 디자인한 체크박스를 대신하는 역할 */}
-              여자
-            </CheckboxLabel>
+              >
+                여성
+              </GenderButton>
+            </GenderBox>
           </div>
-        </CheckboxContainer>
-        <Input
-          type="text"
-          placeholder="식구가 될 분의 이름을 적어주세요."
-          value={name}
-          onChange={handleName}
-        />
 
-        <Input
-          type="password"
-          placeholder="숫자, 영문자 포함 8글자 이상이어야 합니다."
-          value={password}
-          onChange={handlePasswordChange}
-        />
+          <Text>
+            <EditIcon backgroundImage={nameIcon} />
+            <label htmlFor="name">이름을 적어주세요.</label>
+          </Text>
+          <Input
+            type="text"
+            placeholder="식구의 이름은 무엇인가요?"
+            value={name}
+            onChange={handleName}
+          />
+          <Text>
+            <EditIcon backgroundImage={pwdIcon} />
+            <label htmlFor="password">사용할 비밀번호를 입력해주세요.</label>
+          </Text>
+          <Input
+            type="password"
+            placeholder="숫자, 영문자 포함 8글자 이상이어야 합니다."
+            value={password}
+            onChange={handlePasswordChange}
+          />
 
-        <Input
-          type="password"
-          placeholder="비밀번호를 한 번 더 입력해주세요."
-          value={confirmPassword}
-          onChange={handleConfirmPasswordChange}
-        />
-        <CheckPasswordButton type="button" onClick={handlePassword}>
-          비밀번호 일치 여부 확인 버튼
-        </CheckPasswordButton>
-        {passwordError && <Error>{passwordError}</Error>}
-        <Text>생년월일을 입력해주세요.</Text>
-        <Input type="date" value={birthday} onChange={handleBirthday} />
+          <Input
+            type="password"
+            placeholder="비밀번호를 한 번 더 입력해주세요."
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+          />
+          <CheckPasswordButton type="button" onClick={handlePassword}>
+            비밀번호 일치 여부 확인 버튼
+          </CheckPasswordButton>
+          {passwordError && <Error>{passwordError}</Error>}
+          <Text>
+            <EditIcon backgroundImage={dateIcon} />
+            <label htmlFor="birthday">생년월일을 입력해주세요</label>
+          </Text>
+          <Input type="date" value={birthday} onChange={handleBirthday} />
 
-        <SignupButton type="submit">회원가입</SignupButton>
-        {fetchError && <Error>{fetchError2}</Error>}
-        <FooterText>이미 식구이신가요?</FooterText>
-        <StyledLink to="/">지금 바로 여기를 눌러 로그인하세요.</StyledLink>
-      </SignupForm>
-    </SignupContainer>
+          <SignupButton type="submit">회원가입</SignupButton>
+          {fetchError && <Error>{fetchError2}</Error>}
+          <FooterText>이미 식구이신가요?</FooterText>
+          <StyledLink to="/">지금 바로 여기를 눌러 로그인하세요.</StyledLink>
+        </SignupForm>
+      </SignupContainer>
+    </Mobile>
   );
 };
 

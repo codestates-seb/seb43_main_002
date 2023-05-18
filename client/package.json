@@ -22,6 +22,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
     "react-scripts": "5.0.1",
+    "react-transition-group": "^4.4.5",
     "styled-components": "^5.3.10",
     "web-vitals": "^2.1.4"
   },
@@ -57,5 +58,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0"
-  }
+  },
+  "proxy": "http://14.72.7.98:8080/"
 }

@@ -1,11 +1,11 @@
 import { BoardWrap } from '../style/HomeStyle';
 import { useState } from 'react';
-import { BiTimeFive } from 'react-icons/bi';
+import { BiTimeFive, BiEdit } from 'react-icons/bi';
+import { AiFillDelete } from 'react-icons/ai';
 import { FiUsers } from 'react-icons/fi';
 import Comment from './Comment';
 import PropTypes from 'prop-types';
 import EditModal from './EditModal';
-// import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { deleteBoard } from '../store/boardSlice';
@@ -31,9 +31,16 @@ const Board = ({ board }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [commentOpen, setCommentOpen] = useState(false);
   const [people, setPeople] = useState(1);
-  // console.log(people);
 
+  const tags = board.tags;
+  const now = new Date(board.mealTime);
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  const hour = now.getHours();
+  const amPm = hour >= 12 ? '오후' : '오전';
+  const formattedDate = `${month}/${day}일 ${amPm} ${hour % 12}시`;
   const dispatch = useDispatch();
+
   const handlePeople = () => {
     setPeople(people + 1);
   };
@@ -50,63 +57,8 @@ const Board = ({ board }) => {
     setIsModalOpen(false);
   };
 
-  Board.propTypes = {
-    board: PropTypes.object.isRequired,
-  };
-  const tags = board.tag.split(',');
-  const now = new Date(board.when);
-  const month = now.getMonth() + 1;
-  const day = now.getDate();
-  const hour = now.getHours();
-  const amPm = hour >= 12 ? '오후' : '오전';
-  const formattedDate = `${month}/${day}일 ${amPm} ${hour % 12}시`;
-  // const date = new Date();
-  // const [addComment, setAddcomment] = useState('');
-  // const handleCommentChange = (e) => {
-  //   setAddcomment(e.target.value);
-  // };
-
-  // const handleComment = (e) => {
-  //   e.preventDefault();
-  //   const newComment = {
-  //     member: {
-  //       displayName: 'zeeeeee',
-  //       avatarLink: '아직미완',
-  //     },
-  //     content: addComment,
-  //     updateDate: date.toISOString(),
-  //     id: board.comment.length + 1,
-  //   };
-  //   const updatedBoard = {
-  //     comment: [...board.comment, newComment],
-  //   };
-  //   axios
-  //     .post(`http://localhost:8080/boards/${board.id}/comment`, updatedBoard)
-  //     .then((res) => {
-  //       console.log('Comment Success');
-  //       setAddcomment('');
-  //     })
-
-  //     .catch((error) => {
-  //       console.error('Comment Error', error);
-  //     });
-  //   console.log(updatedBoard);
-  // };
-
-  // const handleDelete = () => {
-  //   axios
-  //     .delete(`http://localhost:8080/boards/${board.id}`)
-  //     .then(() => {
-  //       console.log('게시물이 성공적으로 삭제되었습니다.');
-  //       navigate(0);
-  //     })
-  //     .catch((error) => {
-  //       console.error('게시물 삭제 중 오류가 발생했습니다.', error);
-  //     });
-  // };
-
   const handleDelete = () => {
-    dispatch(deleteBoard(board.id))
+    dispatch(deleteBoard(board.boardId))
       .unwrap()
       .then(() => {
         console.log('게시물이 성공적으로 삭제되었습니다.');
@@ -117,18 +69,27 @@ const Board = ({ board }) => {
       });
   };
 
+  // console.log('boards', board);
+
+  Board.propTypes = {
+    board: PropTypes.array.isRequired,
+  };
   return (
     <>
       <BoardWrap>
         <CommentOpenButton onClick={handleOpen}>+</CommentOpenButton>
-        <SexInfomaitonWrap>{board.who}</SexInfomaitonWrap>
-        <ContentWrap>
-          <ContentHeader>{board.food}</ContentHeader>
-          <BoardContentWrap>{board.content}</BoardContentWrap>
+        <SexInfomaitonWrap gender={board.passedGender}>
+          {board.passedGender}
+        </SexInfomaitonWrap>
+        <ContentWrap gender={board.passedGender} onClick={handleOpen}>
+          <ContentHeader>{board.title}</ContentHeader>
+          <BoardContentWrap>{board.body}</BoardContentWrap>
         </ContentWrap>
         <TagWrap>
           {tags.map((tag, index) => (
-            <TagBlock key={index}>{tag}</TagBlock>
+            <TagBlock key={index} tag={board.tag}>
+              {tag}
+            </TagBlock>
           ))}
         </TagWrap>
         <SubmitWrap>
@@ -138,12 +99,16 @@ const Board = ({ board }) => {
           </IconWrap>
           <IconWrap>
             <FiUsers />
-            {board.people}
+            {people}/{board.total}
           </IconWrap>
-          <UserWrap>{board.member}</UserWrap>
           <ButtonWrap>
-            <StateButton onClick={handlePlusClick}>수정</StateButton>
-            <StateButton onClick={handleDelete}>삭제</StateButton>
+            <StateButton onClick={handlePlusClick}>
+              <BiEdit></BiEdit>
+            </StateButton>
+            <StateButton onClick={handleDelete}>
+              <AiFillDelete></AiFillDelete>
+            </StateButton>
+            <UserWrap>{board.nickname}</UserWrap>
           </ButtonWrap>
         </SubmitWrap>
         {commentOpen && (
@@ -154,19 +119,13 @@ const Board = ({ board }) => {
                   key={comment.id}
                   board={board}
                   comment={comment}
+                  setPeople={setPeople}
                   handlePeople={handlePeople}
                 />
               ))}
             <CommentInputWrap>
-              <CommentInput
-                // onChange={handleCommentChange}
-                placeholder="댓글 입력"
-              />
-              <CommentButton
-              // onClick={handleComment}
-              >
-                작성
-              </CommentButton>
+              <CommentInput placeholder="깨끗한 문화를 위해 노력해주세요." />
+              <CommentButton>답글</CommentButton>
             </CommentInputWrap>
           </>
         )}

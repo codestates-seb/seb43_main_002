@@ -5,11 +5,11 @@ import {
   LoginTitle,
   Input,
   LoginButton,
-  GoogleLoginButton,
+  // GoogleLoginButton,
   Error,
   FooterText,
   StyledLink,
-  GoogleLogo,
+  // GoogleLogo,
   LogoContainer,
   BackGround,
   StyledLogo,
@@ -45,18 +45,20 @@ const Login = () => {
         const token = response.headers.authorization;
         if (token) {
           const decoded = jwt_decode(token);
+
           const user = {
             email: decoded.email,
-            memberId: decoded.memberId,
-            roles: decoded.roles,
+            nickname: decoded.nickname,
           };
 
           sessionStorage.setItem('user', JSON.stringify(user)); // 세션스토리지에 user정보 저장
           sessionStorage.setItem('jwt', token); // sessionStorage에 토큰 저장
 
           dispatch(login(user));
-          alert('로그인 되었습니다!');
+          alert(`${user.nickname}님, 식사는 잡쉈어?`);
           navigate('/boards');
+        } else if (!token) {
+          navigate('/api/boards');
         } else {
           console.log(response.data);
           setAccessError('이메일 또는 비밀번호가 잘못되었습니다.');
@@ -117,18 +119,18 @@ const Login = () => {
           />
           <Error>{validationPassword(password) ? null : passwordError}</Error>
           <Error>{accessError}</Error>
-
           <LoginButton
             type="submit"
             onClick={() => {
-              console.log('찍히나?');
+              //클릭을 했을 때 아이디와 비밀번호가 다르면 되게하는 기능을 구현하자.
+
+              console.log('This button is made for Login');
             }}
           >
             Login
           </LoginButton>
-          <Error>{fetchError}</Error>
-
-          <GoogleLoginButton
+          <Error>{fetchError}</Error> <Error>{accessError}</Error>
+          {/* <GoogleLoginButton
             type="button"
             onClick={() => {
               console.log('이자리가 맞니?');
@@ -136,7 +138,7 @@ const Login = () => {
           >
             <GoogleLogo />
             구글로 로그인
-          </GoogleLoginButton>
+          </GoogleLoginButton> */}
         </LoginForm>
         <FooterText>아직 식구가 아니신가요?</FooterText>
         <StyledLink to="/signup">지금 바로 여기를 눌러 가입하세요.</StyledLink>

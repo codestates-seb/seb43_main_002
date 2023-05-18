@@ -22,45 +22,15 @@ export const Mobile = styled.div`
   position: relative;
   font-family: 'Noto Sans KR', sans-serif;
   width: 400px;
-  height: 850px;
+  height: 792px;
 
   box-sizing: border-box;
   padding: 20px;
   overflow: hidden;
 `;
 
-export const Title = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  > div:first-child {
-    width: 50px;
-    height: 50px;
-    background-image: url('/icon/main-logo.png');
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-
-  > div:nth-child(2) {
-    margin-left: 10px;
-    font-family: 'Playball' !important;
-    font-size: 24pt;
-    font-weight: 700;
-    color: white;
-  }
-
-  > button {
-    border: none;
-    background-color: red;
-    margin-left: auto;
-    color: white;
-  }
-`;
-
 export const Profile = styled.div`
   display: flex;
-  margin-top: 20px;
   letter-spacing: -0.05em;
 
   > img {
@@ -70,13 +40,14 @@ export const Profile = styled.div`
     border-radius: 10px;
     width: 100px;
     height: 200px;
+    object-fit: cover;
   }
 
   > div:last-child {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 10px;
+    margin-left: 15px;
     flex: 1;
 
     > ul {
@@ -88,11 +59,22 @@ export const Profile = styled.div`
       > li:first-child {
         font-size: 18pt;
         font-weight: 700;
+
+        > button {
+          border: none;
+          background-color: transparent;
+          opacity: 0.8;
+
+          > img {
+            width: 20px;
+            margin-left: 8px;
+          }
+        }
       }
 
       > li:nth-child(2) {
         font-size: 10pt;
-        opacity: 0.8;
+        opacity: 0.9;
       }
 
       > li:last-child {
@@ -101,7 +83,7 @@ export const Profile = styled.div`
 
         > ul {
           display: flex;
-          margin: 10px 0 0 0;
+          margin: 15px 0 0 0;
           padding: 0;
 
           font-size: 10pt;
@@ -157,7 +139,11 @@ export const NewPosts = styled.div`
         li:last-child {
           margin-top: 3px;
           text-align: right;
-          font-weight: 700;
+          font-weight: 600;
+          color: #393939;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
       }
 
@@ -229,6 +215,8 @@ export const History = styled.div`
       font-size: 14pt;
       font-weight: 700;
       cursor: pointer;
+
+      transition: background-color 0.3s ease;
 
       :hover {
         background-color: #ffca61 !important;

@@ -63,6 +63,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         Map<String, Object> claims = new HashMap<>();
         claims.put("memberId", member.getMemberId());  // 식별자도 포함할 수 있다.
         claims.put("email", member.getEmail());
+        claims.put("nickname", member.getNickname());
         claims.put("roles", member.getRoles()); // 다음에 권한 분리가 되면 추가합시다.
 
         String subject = member.getEmail();

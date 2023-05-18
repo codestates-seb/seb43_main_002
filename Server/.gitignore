@@ -1,10 +1,12 @@
 HELP.md
 Server/.gradle
+.gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 src/main/resources/
+
 
 ### STS ###
 .apt_generated

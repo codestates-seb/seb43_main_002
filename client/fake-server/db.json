@@ -78,6 +78,35 @@
       "intro": "왈왈크르르르릉",
       "img": "/profile/6.jpeg",
       "id": 2
+    },
+    {
+      "name": "",
+      "gender": true,
+      "confirmPassword": "",
+      "img": "/profile/4.jpeg",
+      "id": 3
+    },
+    {
+      "name": "으악",
+      "gender": true,
+      "password": "rjwldhkrhwk1",
+      "confirmPassword": "",
+      "img": "/profile/4.jpeg",
+      "id": 4
+    },
+    {
+      "gender": true,
+      "password": "12345678",
+      "confirmPassword": "12345678",
+      "img": "/profile/4.jpeg",
+      "id": 5
+    },
+    {
+      "gender": true,
+      "password": "12345678",
+      "confirmPassword": "12345678",
+      "img": "/profile/4.jpeg",
+      "id": 6
     }
   ]
 }

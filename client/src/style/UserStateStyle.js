@@ -287,17 +287,18 @@ export const Modal = styled.div`
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
       }
 
       > div:last-child {
         > span {
-          font-size: 14pt;
+          font-size: 13pt;
           opacity: 0.6;
         }
 
         > h3 {
-          font-size: 16pt;
+          font-size: 14pt;
+          font-weight: 600;
         }
       }
     }

@@ -44,15 +44,14 @@ export const Mobile = styled.div`
   }
 `;
 
-export const EditForm = styled.form`
-  height: 100%;
+export const ProfileImg = styled.form`
+  height: 150px;
 
   > div:first-child {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 120px;
 
     > div {
       position: relative;
@@ -83,7 +82,7 @@ export const EditForm = styled.form`
       height: 25px;
       border-radius: 25px;
       background-color: white;
-      top: 80px;
+      top: 75px;
       left: 200px;
 
       ::before {
@@ -102,7 +101,9 @@ export const EditForm = styled.form`
       display: none;
     }
   }
+`;
 
+export const EditForm = styled.form`
   > div {
     margin-bottom: 20px;
     position: relative;
@@ -111,10 +112,10 @@ export const EditForm = styled.form`
   > div label {
     display: flex;
     align-items: center;
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 7px;
     font-size: 13pt;
-    color: #292929;
+    color: #393939;
   }
 
   > div > input {
@@ -131,11 +132,7 @@ export const EditForm = styled.form`
     }
   }
 
-  > div:nth-child(5) input {
-    padding-right: 10px;
-  }
-
-  > div:nth-child(6) {
+  > div:nth-child(4) {
     > div {
       display: flex;
 
@@ -159,11 +156,24 @@ export const EditForm = styled.form`
     }
   }
 
-  > div:nth-child(7) input {
+  > div:first-child input {
     color: #c9c9c9;
 
     :focus {
       outline: none;
+    }
+  }
+
+  > div {
+    > button {
+      width: 100%;
+      height: 40px;
+      margin-top: 15px;
+      background-image: linear-gradient(135deg, #d9d9d9, #c9c9c9);
+      color: white;
+      border-radius: 100px;
+      border: none;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
     }
   }
 

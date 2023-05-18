@@ -1,10 +1,22 @@
 import styled from 'styled-components';
 
+export const TitleBox = styled.footer`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  border-radius: 0 0 10px 10px;
+  background-image: ${(props) => props.backgroundImage};
+`;
+
 export const Title = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin: 20px;
+  height: 50px;
 
   > div:first-child {
     width: 50px;
@@ -32,6 +44,10 @@ export const Title = styled.div`
       height: 25px;
     }
   }
+`;
+
+export const Space = styled.footer`
+  margin-top: 70px;
 `;
 
 export const FooterWrap = styled.footer`

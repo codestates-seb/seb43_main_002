@@ -139,7 +139,8 @@ export const NewPosts = styled.div`
         li:last-child {
           margin-top: 3px;
           text-align: right;
-          font-weight: 700;
+          font-weight: 600;
+          color: #393939;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;

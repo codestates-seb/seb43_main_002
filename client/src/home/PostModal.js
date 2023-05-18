@@ -16,7 +16,7 @@ import {
   ModalButton,
 } from '../style/ModalStyles';
 import PropTypes from 'prop-types';
-// import Tag from './Tag';
+import Tag from './Tag';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
@@ -40,16 +40,26 @@ const ModalDay = styled(DatePicker)`
 
 const PostModal = ({ isOpen, onClose }) => {
   const [startDate, setStartDate] = useState(new Date());
+  const [tagList, setTagList] = useState([]);
+
+  // useEffect(() => {
+  //   setPostBoard((prevState) => ({
+  //     ...prevState,
+  //     tags: [...tagList],
+  //   }));
+  // }, [tagList]);
+
   const [postBoard, setPostBoard] = useState({
     title: '',
     body: '',
     total: 0,
     passedGender: 'ANY',
     mealTime: startDate,
-    tags: ['ags', 'tags', 'tags1'],
+    tags: [...tagList],
   });
 
-  console.log(postBoard);
+  const dispatch = useDispatch();
+  // console.log(postBoard);
 
   const handleIncrement = (e) => {
     e.preventDefault();
@@ -71,6 +81,7 @@ const PostModal = ({ isOpen, onClose }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setPostBoard({
       ...postBoard,
       [name]: value,
@@ -111,8 +122,6 @@ const PostModal = ({ isOpen, onClose }) => {
     }
   };
 
-  const dispatch = useDispatch();
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // if (
@@ -145,7 +154,6 @@ const PostModal = ({ isOpen, onClose }) => {
   PostModal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
-    people: PropTypes.string.isRequired,
   };
   // console.log(startDate);
 
@@ -192,7 +200,13 @@ const PostModal = ({ isOpen, onClose }) => {
           name="body"
           onChange={handleChange}
         ></ModalText>
-        {/* <Tag name="tag" onChange={handleChange}></Tag> */}
+        <Tag
+          name="tags"
+          value={postBoard.tags}
+          tagList={tagList}
+          setTagList={setTagList}
+          onChange={handleChange}
+        ></Tag>
         <ModalButtonWrap>
           <ModalButton type="submit">작성하기</ModalButton>
           <CancelButton onClick={handleCancel}>취소하기</CancelButton>

@@ -14,8 +14,8 @@ import {
   ContentWrap,
   ContentHeader,
   BoardContentWrap,
-  // TagWrap,
-  // TagBlock,
+  TagWrap,
+  TagBlock,
   SubmitWrap,
   IconWrap,
   UserWrap,
@@ -32,7 +32,7 @@ const Board = ({ board }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [people, setPeople] = useState(1);
 
-  // const tags = board.tag.split(',');
+  const tags = board.tags;
   const now = new Date(board.mealTime);
   const month = now.getMonth() + 1;
   const day = now.getDate();
@@ -69,7 +69,7 @@ const Board = ({ board }) => {
       });
   };
 
-  console.log('boards', board.mealTime);
+  // console.log('boards', board);
 
   Board.propTypes = {
     board: PropTypes.array.isRequired,
@@ -85,13 +85,13 @@ const Board = ({ board }) => {
           <ContentHeader>{board.title}</ContentHeader>
           <BoardContentWrap>{board.body}</BoardContentWrap>
         </ContentWrap>
-        {/* <TagWrap>
+        <TagWrap>
           {tags.map((tag, index) => (
             <TagBlock key={index} tag={board.tag}>
               {tag}
             </TagBlock>
           ))}
-        </TagWrap> */}
+        </TagWrap>
         <SubmitWrap>
           <IconWrap>
             <BiTimeFive />

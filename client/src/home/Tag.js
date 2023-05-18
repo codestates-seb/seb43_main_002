@@ -68,21 +68,22 @@ const TagInput = styled.input`
   cursor: text;
 `;
 
-const Tag = ({ name, onChange, value, tag }) => {
+const Tag = ({ name, onChange, value, tagList, setTagList }) => {
   Tag.propTypes = {
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.string.isRequired,
-    tag: PropTypes.array.isRequired,
+    tagList: PropTypes.array.isRequired,
+    setTagList: PropTypes.func.isRequired,
   };
+
   const [tagItem, setTagItem] = useState('');
-  const [tagList, setTagList] = useState(value ? value.split(',') : []);
 
   useEffect(() => {
-    setTagList(value ? value.split(',') : []);
-  }, [value]);
+    setTagList(tagList);
+  }, [tagList]);
 
-  console.log(tag);
+  // console.log('tag', tagList);
 
   const onKeyPress = (e) => {
     if (e.target.value.length !== 0 && e.key === 'Enter') {
@@ -108,14 +109,14 @@ const Tag = ({ name, onChange, value, tag }) => {
     updatedTagList.push(tagItem);
     setTagList(updatedTagList);
     setTagItem('');
-    onChange({ target: { name, value: updatedTagList.join(',') } });
+    onChange({ target: { name, value: updatedTagList } });
   };
 
   const deleteTagItem = (e) => {
     const deletedTag = e.target.parentElement.firstChild.innerText;
     const filteredTagList = tagList.filter((tagItem) => tagItem !== deletedTag);
     setTagList(filteredTagList);
-    onChange({ target: { name, value: filteredTagList.join(',') } });
+    onChange({ target: { name, value: filteredTagList } });
   };
 
   return (

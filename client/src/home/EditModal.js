@@ -16,7 +16,7 @@ import {
   ModalButton,
 } from '../style/ModalStyles';
 import PropTypes from 'prop-types';
-// import Tag from './Tag';
+import Tag from './Tag';
 // import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -42,9 +42,12 @@ const EditModal = ({ isOpen, onClose, board }) => {
     title: board.title,
     total: board.total,
     body: board.body,
+    passedGender: board.passedGender,
+    mealTime: board.mealTime,
+    tags: [...board.tags],
   });
 
-  //   console.log(editedBoard.tag);
+  console.log(editedBoard);
 
   const handleIncrement = (e) => {
     e.preventDefault();
@@ -56,7 +59,7 @@ const EditModal = ({ isOpen, onClose, board }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setEditedBoard({ ...board });
+    // setEditedBoard({ ...board });
     setStartDate(new Date());
   }, [board]);
 
@@ -112,14 +115,14 @@ const EditModal = ({ isOpen, onClose, board }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (
-      editedBoard.title === '' ||
-      editedBoard.total === 0 ||
-      editedBoard.body === ''
-    ) {
-      alert('모든 곳을 입력해주세요.');
-      return;
-    }
+    // if (
+    //   editedBoard.title === '' ||
+    //   editedBoard.total === 0 ||
+    //   editedBoard.body === ''
+    // ) {
+    //   alert('모든 곳을 입력해주세요.');
+    //   return;
+    // }
 
     dispatch(updateBoard({ boardId: board.boardId, board: editedBoard }))
       .unwrap()
@@ -144,7 +147,7 @@ const EditModal = ({ isOpen, onClose, board }) => {
     onClose: PropTypes.func.isRequired,
     board: PropTypes.object.isRequired,
   };
-  console.log(editedBoard);
+  // console.log(editedBoard);
   return (
     <ModalWrap isOpen={isOpen}>
       <ModalContent isOpen={isOpen} onSubmit={handleSubmit}>
@@ -188,7 +191,15 @@ const EditModal = ({ isOpen, onClose, board }) => {
           onChange={handleChange}
           value={editedBoard.body}
         ></ModalText>
-        {/* <Tag name="tag" onChange={handleChange} value={editedBoard.tag}></Tag> */}
+        <Tag
+          name="tags"
+          tagList={editedBoard.tags} // tagList prop 추가
+          setTagList={(tagList) =>
+            setEditedBoard((prevBoard) => ({ ...prevBoard, tags: tagList }))
+          }
+          onChange={handleChange}
+          value={editedBoard.tags}
+        ></Tag>
         <ModalButtonWrap>
           <ModalButton type="submit">수정하기</ModalButton>
           <CancelButton onClick={handleCancel}>취소하기</CancelButton>

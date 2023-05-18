@@ -2,8 +2,6 @@ package com.branch.sikgu.member.dto;
 
 import lombok.*;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Getter

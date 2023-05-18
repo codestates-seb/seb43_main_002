@@ -1,6 +1,5 @@
 package com.branch.sikgu.member.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

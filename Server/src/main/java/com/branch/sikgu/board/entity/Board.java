@@ -9,6 +9,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -55,6 +58,7 @@ public class Board {
     @Column(name = "STATUS")
     private BoardStatus boardStatus = BoardStatus.ACTIVE_BOARD;
 
+
     public enum BoardStatus {
         ACTIVE_BOARD("활성화된 게시물"),
         INACTIVE_BOARD("비활성화된 게시물"),
@@ -83,4 +87,16 @@ public class Board {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "BOARD_TAGS",
+            joinColumns = @JoinColumn(name = "board_id"))
+    @Column(name = "tag")
+    @org.hibernate.annotations.OrderBy(clause = "tag asc")
+    @OrderColumn(name = "index")
+    private Set<String> tags = new LinkedHashSet<>();
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
+    }
 }

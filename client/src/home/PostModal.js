@@ -15,11 +15,11 @@ import {
 } from '../style/ModalStyles';
 import PropTypes from 'prop-types';
 import Tag from './Tag';
-import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import styled from 'styled-components';
+import axiosInstance from '../axiosConfig';
 
 const ModalDay = styled(DatePicker)`
   padding: 10px;
@@ -114,8 +114,8 @@ const PostModal = ({ isOpen, onClose, people }) => {
       alert('모든 곳을 입력해주세요.');
       return null;
     }
-    axios
-      .post('http://localhost:8080/boards', postBoard)
+    axiosInstance
+      .post('/boards', postBoard)
       .then(() => {
         console.log('게시물이 성공적으로 작성되었습니다.');
         onClose();

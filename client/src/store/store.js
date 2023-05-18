@@ -7,7 +7,6 @@ const store = configureStore({
   reducer: {
     user: userReducer,
     board: boardReducer,
-    // newUser: signUpReducer,
   },
 });
 

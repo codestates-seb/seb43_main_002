@@ -246,6 +246,7 @@ const Signup = () => {
                   setGender(false);
                 }}
               >
+                {/* null일떄도 false로 인식하니 null일때 상태 추가하기 */}
                 여성
               </GenderButton>
             </GenderBox>

@@ -16,7 +16,6 @@ export const GlobalStyle = createGlobalStyle`
 =======
 >>>>>>> 256db40d7133c061f62f44abc3aec740071b012f
     }
-  }
 `;
 
 export const GlobalWrap = styled.div`

@@ -164,7 +164,10 @@ const UserState = () => {
                 {data.map((el, idx) => {
                   const isDisabled = buttonDisabled[el.id]; // 버튼의 활성화 상태 가져오기
                   return (
-                    <div className="post" key={idx}>
+                    <div
+                      className={el.state ? 'post opacity' : 'post'}
+                      key={idx}
+                    >
                       <div className={el.state ? 'complete' : 'before'}></div>
                       <div>
                         <ul>

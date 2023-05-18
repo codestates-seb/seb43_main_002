@@ -1,15 +1,16 @@
 import styled from 'styled-components';
-const SexInfomaitonWrap = styled.div`
+
+export const SexInfomaitonWrap = styled.div`
   padding: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   font-size: 12px;
   color: ${({ gender }) => {
     switch (gender) {
-      case 'ANY':
+      case '누구나 참여가능':
         return '#FFB44A';
-      case 'FEMALE':
+      case '여성만 참여가능':
         return '#FF5934';
-      case 'MALE':
+      case '남성만 참여가능':
         return '#6495ED';
       default:
         return 'black';
@@ -17,17 +18,17 @@ const SexInfomaitonWrap = styled.div`
   }};
 `;
 
-const ContentWrap = styled.div`
+export const ContentWrap = styled.div`
   margin-top: 10px;
   padding: 0px;
   border-left: 3px solid
     ${({ gender }) => {
       switch (gender) {
-        case 'ANY':
+        case '누구나 참여가능':
           return '#FFB44A';
-        case 'FEMALE':
+        case '여성만 참여가능':
           return '#FF5934';
-        case 'MALE':
+        case '남성만 참여가능':
           return '#6495ED';
         default:
           return 'black';
@@ -36,23 +37,23 @@ const ContentWrap = styled.div`
   cursor: pointer;
 `;
 
-const ContentHeader = styled.h2`
+export const ContentHeader = styled.h2`
   padding: 0px 0px 0px 10px;
   font-size: 16px;
 `;
 
-const BoardContentWrap = styled.div`
+export const BoardContentWrap = styled.div`
   padding: 10px;
   font-size: 12px;
 `;
 
-const TagWrap = styled.div`
+export const TagWrap = styled.div`
   padding: 0px;
   font-size: 12px;
   display: flex;
 `;
 
-const TagBlock = styled.div`
+export const TagBlock = styled.div`
   margin-left: 10px;
   padding: 5px;
   font-size: 10px;
@@ -60,13 +61,13 @@ const TagBlock = styled.div`
   border-radius: 10px;
 `;
 
-const SubmitWrap = styled.div`
+export const SubmitWrap = styled.div`
   margin-top: 10px;
   padding: 0px;
   display: flex;
 `;
 
-const IconWrap = styled.div`
+export const IconWrap = styled.div`
   margin-left: 10px;
   padding: 0px;
   font-size: 10px;
@@ -79,22 +80,24 @@ const IconWrap = styled.div`
   }
 `;
 
-const UserWrap = styled.div`
+export const UserWrap = styled.div`
   padding: 0px;
-  width: 40px;
-  margin-left: auto;
+  width: 30px;
+  height: 30px;
+  margin-left: 15px;
   border: 1px solid black;
   border-radius: 50%;
 `;
 
-const ButtonWrap = styled.span`
+export const ButtonWrap = styled.span`
   padding: 5px;
   margin-left: auto;
   display: flex;
   justify-content: center;
   align-items: end;
 `;
-const StateButton = styled.div`
+
+export const StateButton = styled.div`
   padding: 5px;
   width: 40px;
   height: 10px;
@@ -116,12 +119,12 @@ const StateButton = styled.div`
   }
 `;
 
-const CommentInputWrap = styled.div`
+export const CommentInputWrap = styled.div`
   margin-top: 20px;
   display: flex;
 `;
 
-const CommentInput = styled.input`
+export const CommentInput = styled.input`
   padding: 10px;
   height: 30px;
   border-radius: 20px 0 0 20px;
@@ -131,7 +134,7 @@ const CommentInput = styled.input`
   font-size: 12px;
 `;
 
-const CommentButton = styled.button`
+export const CommentButton = styled.button`
   border-radius: 0 20px 20px 0;
   border: 1px solid rgba(0, 0, 0, 0.5);
   height: 30px;
@@ -150,7 +153,7 @@ const CommentButton = styled.button`
   }
 `;
 
-const CommentOpenButton = styled.button`
+export const CommentOpenButton = styled.button`
   width: 20px;
   height: 20px;
   /* padding: 5px; */
@@ -170,21 +173,3 @@ const CommentOpenButton = styled.button`
   position: absolute;
   cursor: pointer;
 `;
-
-export {
-  SexInfomaitonWrap,
-  ContentWrap,
-  ContentHeader,
-  BoardContentWrap,
-  TagWrap,
-  TagBlock,
-  SubmitWrap,
-  IconWrap,
-  UserWrap,
-  ButtonWrap,
-  StateButton,
-  CommentInputWrap,
-  CommentInput,
-  CommentButton,
-  CommentOpenButton,
-};

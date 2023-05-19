@@ -197,7 +197,7 @@ const Map = () => {
             }
           }}
         >
-          <img src="/icon/location.svg" alt="현재위치" />
+          <img src="/svg/location.svg" alt="현재위치" />
         </CurrentLocationButton>
         <SearchResults animate={animation}>{resultItems}</SearchResults>
       </MapContainer>

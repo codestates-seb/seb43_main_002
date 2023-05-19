@@ -6,7 +6,7 @@ const MapHeader = () => {
     <HeaderBackWrap>
       <HeaderWrap>
         <NavLink to="/boards">
-          <LogoWrap src="/Logo/Logo4.png" />
+          <LogoWrap src="/svg/main-logo-2.svg" />
         </NavLink>
       </HeaderWrap>
     </HeaderBackWrap>

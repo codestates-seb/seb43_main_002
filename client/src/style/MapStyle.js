@@ -1,5 +1,41 @@
 import styled from 'styled-components';
 
+export const Title = styled.div`
+  @import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  > div:first-child {
+    width: 50px;
+    height: 50px;
+    background-image: url('/svg/main-logo.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  > div:nth-child(2) {
+    margin-left: 10px;
+    font-family: 'Fredoka One';
+    font-size: 24pt;
+    font-weight: 700;
+    color: white;
+  }
+
+  > button {
+    border: none;
+    background-color: transparent;
+    margin-left: auto;
+    color: white;
+
+    img {
+      height: 25px;
+    }
+  }
+`;
+
 export const HeaderBackWrap = styled.div`
   padding: 0px;
   display: flex;

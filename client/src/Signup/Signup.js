@@ -63,6 +63,10 @@ const Signup = () => {
     setNickname(e.target.value);
     if (e.target.value.length > 9) {
       setLengthError('8글자까지 입력 가능합니다.');
+      e.preventDefault();
+      setNickname('');
+    } else {
+      setLengthError('');
     }
   };
 
@@ -131,7 +135,6 @@ const Signup = () => {
       setPasswordError(
         '비밀번호는 영문자, 숫자를 포함하여 8자 이상이어야합니다.'
       );
-
       return null;
     } else if (password !== confirmPassword) {
       setPasswordError('비밀번호가 일치하지 않습니다.');
@@ -142,28 +145,37 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    e.stopPropagation();
-    axios
-      .post('api/members/signup', {
-        email,
-        nickname,
-        password,
-        name,
-        birthday,
-        gender,
-      })
-      .then((response) => {
-        if (response.status === 201) {
-          alert('회원가입이 성공적으로 완료되었습니다.');
-          navigate('/');
-        } else {
-          alert('뭔가 문제가 있습니다.');
-        }
-      })
-      .catch((error) => {
-        setFetchError2('인터넷 연결을 확인하세요.2');
-        console.log('연결안됨2;', error);
-      });
+    if (
+      !handleCheckDuplicateNickname ||
+      !handlePassword ||
+      handleCheckDuplicateEmail ||
+      !handleBirthday ||
+      !handleName
+    ) {
+      setFetchError2('각 항목의 중복 확인 및 비밀번호 일치 여부를 확인하세요');
+    } else {
+      axios
+        .post('api/members/signup', {
+          email,
+          nickname,
+          password,
+          name,
+          birthday,
+          gender,
+        })
+        .then((response) => {
+          if (response.status === 201) {
+            alert('회원가입이 성공적으로 완료되었습니다.');
+            navigate('/');
+          } else {
+            alert('뭔가 문제가 있습니다.');
+          }
+        })
+        .catch((error) => {
+          setFetchError2('인터넷 연결을 확인하세요.2');
+          console.log('연결안됨2;', error);
+        });
+    }
   };
 
   return (

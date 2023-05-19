@@ -28,7 +28,7 @@ const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [accessError, setAccessError] = useState('');
+  const [accessError, setAccessError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [fetchError, setFetchError] = useState('');
@@ -37,12 +37,11 @@ const Login = () => {
 
   const handleLogin = () => {
     axiosInstance
-      .post('/members/login', {
+      .post('/api/members/login', {
         email,
         password,
       })
       .then((response) => {
-        console.log(response.headers);
         const token = response.headers.authorization;
         if (token) {
           const decoded = jwt_decode(token);
@@ -62,6 +61,9 @@ const Login = () => {
         } else if (!token) {
           alert('이메일과 비밀번호를 확인하세요');
           navigate('/');
+        } else {
+          console.log(response.data);
+          setAccessError('이메일 또는 비밀번호가 잘못되었습니다.');
         }
       })
       .catch((error) => {
@@ -118,7 +120,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <Error>{validationPassword(password) ? null : passwordError}</Error>
-          {/* <Error>{accessError}</Error> */}
+          <Error>{accessError}</Error>
           <LoginButton
             type="submit"
             onClick={() => {

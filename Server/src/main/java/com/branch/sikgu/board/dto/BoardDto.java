@@ -47,6 +47,9 @@ public class BoardDto {
     @AllArgsConstructor
     @Setter
     public static class Response{
+        private Long memberId;
+        private String nickname;
+        private String imagePath;
         private Long boardId;
         private Long memberId;
         private String nickName;

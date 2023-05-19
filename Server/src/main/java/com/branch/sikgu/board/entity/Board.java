@@ -37,6 +37,9 @@ public class Board {
     @Column
     private int total;
 
+    @Column
+    private int count;
+
     // 생성 일자
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -73,9 +76,9 @@ public class Board {
     }
 
     public enum PassedGender {
-        MALE("남자만"),
-        FEMALE("여자만"),
-        ANY("모두");
+        MALE("남성만 참여가능"),
+        FEMALE("여성만 참여가능"),
+        ANY("누구나 참여가능");
 
         @Getter
         private final String passedGender;

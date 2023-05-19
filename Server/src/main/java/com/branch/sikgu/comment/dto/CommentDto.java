@@ -11,7 +11,8 @@ public class CommentDto {
     public static class Response {
         private long commentId;
         private long memberId;
-        private String nickName;
+        private String nickname;
+        private String imagePath;
         private String body;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;

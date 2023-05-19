@@ -26,6 +26,7 @@ public interface CommentMapper {
         comment.getCommentId(),
         comment.getMember().getMemberId(),
         comment.getMember().getNickname(),
+        comment.getMember().getMyPage().getImagePath(),
         comment.getBody(),
         comment.getCreatedAt(),
         comment.getUpdatedAt()

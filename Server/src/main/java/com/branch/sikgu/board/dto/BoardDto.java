@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class BoardDto {
     @Setter
@@ -20,6 +21,7 @@ public class BoardDto {
         private int total;
         private Board.PassedGender passedGender;
         private LocalDateTime mealTime;
+        private List<String> tags;
     }
 
     @Getter
@@ -38,14 +40,17 @@ public class BoardDto {
         private int total;
         private Board.PassedGender passedGender;
         private LocalDateTime mealTime;
+        private List<String> tags;
     }
 
     @Getter
     @AllArgsConstructor
     @Setter
     public static class Response{
-        private Long memberId;
         private Long boardId;
+        private Long memberId;
+        private String nickName;
+
         private String title;
         private String body;
         private LocalDateTime createdAt;
@@ -54,5 +59,6 @@ public class BoardDto {
         private int total;
         private Board.PassedGender passedGender;
         private LocalDateTime mealTime;
+        private List<String> tags;
     }
 }

@@ -7,7 +7,10 @@ import org.mapstruct.ReportingPolicy;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -17,15 +20,17 @@ public interface BoardMapper {
     // Response
     default BoardDto.Response toResponseDto(Board board) {
         return new BoardDto.Response(
-                board.getMember().getMemberId(),
                 board.getBoardId(),
+                board.getMember().getMemberId(),
+                board.getMember().getNickname(),
                 board.getTitle(),
                 board.getBody(),
                 board.getCreatedAt(),
                 board.getUpdatedAt(),
                 board.getTotal(),
                 board.getPassedGender(),
-                board.getMealTime()
+                board.getMealTime(),
+                new ArrayList<>(board.getTags())
         );
     }
 
@@ -37,6 +42,7 @@ public interface BoardMapper {
         board.setTotal(postDto.getTotal());
         board.setPassedGender(postDto.getPassedGender());
         board.setMealTime(postDto.getMealTime());
+        board.setTags(new LinkedHashSet<>(postDto.getTags()));
         return board;
     }
 
@@ -48,6 +54,7 @@ public interface BoardMapper {
         board.setPassedGender(patchDto.getPassedGender());
         board.setMealTime(patchDto.getMealTime());
         board.setUpdatedAt(LocalDateTime.now());
+        board.setTags(new LinkedHashSet<>(patchDto.getTags()));
     }
 
 

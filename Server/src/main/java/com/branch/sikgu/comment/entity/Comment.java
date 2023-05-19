@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -17,6 +20,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Component
+@EnableJpaAuditing
 public class Comment {
     // 댓글 식별자
     @Id
@@ -59,6 +63,7 @@ public class Comment {
     }
 
     // 엔티티가 영속화되기 전 필드 업데이트
+    @CreatedDate
     @PrePersist
     public void prePersist() {
         LocalDateTime now = LocalDateTime.now();
@@ -67,6 +72,7 @@ public class Comment {
         updatedAt = now;
     }
 
+    @LastModifiedDate
     @PreUpdate
     public void preUpdate() {
         updatedAt = LocalDateTime.now();

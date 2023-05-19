@@ -47,8 +47,10 @@ public class BoardDto {
     @AllArgsConstructor
     @Setter
     public static class Response{
-        private Long memberId;
         private Long boardId;
+        private Long memberId;
+        private String nickName;
+
         private String title;
         private String body;
         private LocalDateTime createdAt;

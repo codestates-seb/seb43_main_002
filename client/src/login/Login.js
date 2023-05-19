@@ -42,6 +42,7 @@ const Login = () => {
         password,
       })
       .then((response) => {
+        console.log(response.headers);
         const token = response.headers.authorization;
         if (token) {
           const decoded = jwt_decode(token);

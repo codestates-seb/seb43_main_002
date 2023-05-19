@@ -146,11 +146,11 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
-      !handleCheckDuplicateNickname ||
-      !handlePassword ||
-      handleCheckDuplicateEmail ||
-      !handleBirthday ||
-      !handleName
+      !handleCheckDuplicateNickname
+      // !handlePassword ||
+      // handleCheckDuplicateEmail ||
+      // !handleBirthday ||
+      // !handleName
     ) {
       setFetchError2('각 항목의 중복 확인 및 비밀번호 일치 여부를 확인하세요');
     } else {

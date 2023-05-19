@@ -64,7 +64,9 @@ public class MyPageService {
                     MyPageRecentBoardDto myPageRecentBoardDto = new MyPageRecentBoardDto();
                     myPageRecentBoardDto.setBoardId(Board.getBoardId());
                     myPageRecentBoardDto.setTitle(Board.getTitle());
-                    myPageRecentBoardDto.setBody(Board.getBody());
+                    myPageRecentBoardDto.setCreatedAt(Board.getCreatedAt());
+                    myPageRecentBoardDto.setType("식구");
+                    myPageRecentBoardDto.setProfileImage(Board.getMember().getMyPage().getImagePath());
                     return myPageRecentBoardDto;
                 })
                 .collect(Collectors.toList());

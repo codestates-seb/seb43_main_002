@@ -6,6 +6,7 @@ import com.branch.sikgu.myPage.dto.MyPageResponseDto;
 import com.branch.sikgu.myPage.service.MyPageService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
-@RequestMapping("/mypages")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "X-AUTH-TOKEN")
+@RequestMapping("/api/mypages")
 @AllArgsConstructor
 public class MyPageController {
 
     private MyPageService myPageService;
-    private final ImageService imageService;
 
     // 마이페이지 조회
     @GetMapping("/{memberId}")
@@ -28,6 +29,7 @@ public class MyPageController {
         return ResponseEntity.ok(myPageResponseDto);
     }
 
+    // 프로필이미지 변경 (마이페이지 수정 내에서)
     @PostMapping("/{myPageId}/image")
     public ResponseEntity<String> uploadImage(
             @PathVariable Long myPageId,
@@ -55,22 +57,22 @@ public class MyPageController {
     }
 
     @PostMapping("/{myPageId}/follow")
-    public ResponseEntity<String> followMyPage(
+    public ResponseEntity<Void> followMyPage(
             @PathVariable("myPageId") Long myPageId,
             Authentication authentication) {
 
         myPageService.followMyPage(myPageId, authentication);
 
-        return ResponseEntity.ok("유저를 팔로우 했습니다.");
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{myPageId}/unfollow")
-    public ResponseEntity<String> unfollowMyPage(
+    public ResponseEntity<Void> unfollowMyPage(
             @PathVariable("myPageId") Long myPageId,
             Authentication authentication) {
 
         myPageService.unfollowMyPage(myPageId, authentication);
 
-        return ResponseEntity.ok("유저를 언팔로우 했습니다.");
+        return ResponseEntity.ok().build();
     }
 }

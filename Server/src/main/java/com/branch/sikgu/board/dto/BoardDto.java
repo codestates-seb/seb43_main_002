@@ -48,6 +48,8 @@ public class BoardDto {
     @Setter
     public static class Response{
         private Long memberId;
+        private String nickname;
+        private String imagePath;
         private Long boardId;
         private String title;
         private String body;

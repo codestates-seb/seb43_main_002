@@ -20,4 +20,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     // 전체 게시물 조회
     List<Board> findAll();
+
+    List<Board> findAllByBoardStatus(Board.BoardStatus boardStatus);
 }

@@ -60,7 +60,8 @@ public class CommentService {
 
 
     // 댓글 조회
-    public List<CommentDto.Response> findComments(long boardId) { // 보드 Id로 보드를 가져옴.....
+    // 댓글 조회
+    public List<Comment> findComments(long boardId) { // 보드 Id로 보드를 가져옴.....
         Board board = boardService.getBoardById(boardId);
 
         return commentRepository.findByBoardId(board.getBoardId());

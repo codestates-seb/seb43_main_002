@@ -1,6 +1,6 @@
 import Header from './Header';
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Error } from '../style/SignupStyle';
 import {
@@ -14,7 +14,8 @@ import {
 import axios from 'axios';
 
 const EditProfile = () => {
-  const { register, handleSubmit, reset } = useForm();
+  const { myId } = useParams();
+  const { handleSubmit, reset } = useForm();
   const navigate = useNavigate();
 
   const [data, setData] = useState();
@@ -23,7 +24,6 @@ const EditProfile = () => {
   const [intro, setIntro] = useState();
   const [birthDay, setBirthDay] = useState();
   const [gender, setGender] = useState();
-  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -37,16 +37,16 @@ const EditProfile = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/members/1')
+      .get(`/api/members/${myId}`)
       .then((response) => {
         setData(response.data);
         setGender(response.data.gender);
-        setProfileImage(response.data.img);
+        setProfileImage(response.data.imagePath);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [myId]);
 
   const profileChange = (e) => {
     if (e.target.files.length > 0) {
@@ -57,7 +57,7 @@ const EditProfile = () => {
       }
 
       axios
-        .post('/members/images/upload', formData, {
+        .post(`/api/members/${myId}/image`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -72,24 +72,19 @@ const EditProfile = () => {
   };
 
   const onSubmit = () => {
-    console.log('우선 성공 하는지');
-
-    // 일단 post 요청 보냄(원래라면 put이나 patch사용)
     axios
-      .post('http://localhost:3001/members', {
+      .patch(`/api/members/${myId}`, {
         name,
         nickname,
-        intro,
+        introduce: intro,
         birthDay,
         gender,
-        email,
         password,
-        confirmPassword,
         img: profileImage,
       })
       .then((response) => {
         reset();
-        navigate('/mypage');
+        navigate(-1);
       })
       .catch((error) => {
         console.log(error);
@@ -204,6 +199,7 @@ const EditProfile = () => {
             iconSrc="/svg/header-back.svg"
             fnc="back"
             scrollPosition={scrollPosition}
+            scrollNumber={60}
           />
           <ProfileImg>
             <div>
@@ -229,21 +225,7 @@ const EditProfile = () => {
                 <EditIcon backgroundImage={mailIcon} />
                 이메일
               </label>
-              <input
-                id="email"
-                defaultValue={data.email}
-                {...register('email', {
-                  required: true,
-                  pattern: {
-                    value: '^[w-]+(.[w-]+)*@([w-]+.)+[a-zA-Z]{2,7}$',
-                    message: '이메일 유효성 검사, 관련 내용 받아야 함.',
-                  },
-                })}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-                readOnly
-              />
+              <input id="email" defaultValue={data.email} readOnly />
             </div>
             <div className="form-nickname">
               <label htmlFor="nickname">

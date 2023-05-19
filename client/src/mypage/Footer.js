@@ -5,7 +5,7 @@ import {
   FooterCicleWrap,
   MainIcon,
 } from '../style/NewHeaderFooterStyle';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import PostModal from '../home/PostModal'; // 모달 컴포넌트 임포트
 
@@ -18,8 +18,10 @@ const Footer = ({ activeIcon }) => {
   const [mypageHovered, setMypageHovered] = useState(activeIcon === 'mypage');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const closeModal = () => {
-    // 메인으로 이동하는 네비게이터 넣기
+    navigate('/boards');
     setIsModalOpen(false);
   };
 

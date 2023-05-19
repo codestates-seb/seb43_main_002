@@ -31,6 +31,10 @@ function App() {
     return isAuthenticated ? <Outlet /> : <Navigate to="/" />;
   };
 
+  // const myPageId = localStorage.getItem('myPageId');
+
+  // console.log(myPageId);
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -47,7 +51,7 @@ function App() {
           <Route path="/map" element={<PrivateRoute />}>
             <Route index element={<Map />} />
           </Route>
-          {/* <Route path="/mypage" element={<PrivateRoute />}>
+          <Route path="/mypage" element={<PrivateRoute />}>
             <Route index element={<MyPage />} />
           </Route>
           <Route path="/editprofile" element={<PrivateRoute />}>
@@ -55,13 +59,12 @@ function App() {
           </Route>
           <Route path="/state" element={<PrivateRoute />}>
             <Route index element={<UserState />} />
-          </Route> */}
+          </Route>
+          <Route path="/mypage/:userId" element={<UserPage />}>
+            <Route index element={<UserState />} />
+          </Route>
           {/* <Route path="/main" element={<Main />} /> */}
           <Route path="/boards" element={<Main />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/editprofile" element={<EditProfile />} />
-          <Route path="/state" element={<UserState />} />
-          <Route path="/members/:userId" element={<UserPage />} />
         </Routes>
       </GlobalWrap>
     </>

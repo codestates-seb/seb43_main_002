@@ -26,7 +26,24 @@ export const Mobile = styled.div`
 
   box-sizing: border-box;
   padding: 20px;
-  overflow: hidden;
+  overflow-y: auto;
+
+  /* 스크롤바 */
+  ::-webkit-scrollbar {
+    display: none;
+    width: 8px; /* 스크롤바 너비 */
+  }
+
+  /* 스크롤바 thumb */
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 */
+    border-radius: 4px; /* 스크롤바 모서리 반경 */
+  }
+
+  /* 스크롤바 track */
+  ::-webkit-scrollbar-track {
+    background-color: transparent; /* 스크롤바 트랙 색상 */
+  }
 `;
 
 export const Profile = styled.div`
@@ -117,6 +134,7 @@ export const NewPosts = styled.div`
 
   .post {
     display: flex;
+    color: #393939;
 
     > div {
       background-color: white;
@@ -163,63 +181,66 @@ export const History = styled.div`
     margin: 20px 0 10px 0;
   }
 
-  .post > div {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+  .post {
+    > div {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      color: #393939;
 
-    width: 360px;
-    padding: 10px;
-    background-color: white;
-    box-sizing: border-box;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+      width: 360px;
+      padding: 10px;
+      background-color: white;
+      box-sizing: border-box;
+      border-radius: 10px;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
 
-    > img {
-      background-color: #cdeeff;
-      width: 50px;
-      height: 50px;
-      border-radius: 50px;
-    }
+      > img {
+        background-color: #cdeeff;
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+      }
 
-    > div:nth-child(2) {
-      flex: 1;
+      > div:nth-child(2) {
+        flex: 1;
 
-      ul {
-        list-style: none;
-        margin: 0 0 0 10px;
-        padding: 0;
+        ul {
+          list-style: none;
+          margin: 0 0 0 10px;
+          padding: 0;
 
-        li:first-child {
-          font-weight: 700;
-        }
+          li:first-child {
+            font-weight: 700;
+          }
 
-        li:last-child {
-          font-size: 10pt;
-          opacity: 0.7;
+          li:last-child {
+            font-size: 10pt;
+            opacity: 0.7;
+          }
         }
       }
-    }
 
-    > button:last-child {
-      width: 30px;
-      height: 30px;
-      border-radius: 30px;
-      background-color: #c9c9c9;
-      color: white;
-      border: none;
+      > button:last-child {
+        width: 30px;
+        height: 30px;
+        border-radius: 30px;
+        background-color: #c9c9c9;
+        color: white;
+        border: none;
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 14pt;
-      font-weight: 700;
-      cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14pt;
+        font-weight: 700;
+        cursor: pointer;
 
-      transition: background-color 0.3s ease;
+        transition: background-color 0.3s ease;
 
-      :hover {
-        background-color: #ffca61 !important;
+        :hover {
+          background-color: #ffca61 !important;
+        }
       }
     }
   }
@@ -227,7 +248,9 @@ export const History = styled.div`
 
 export const PostIcon = styled.div`
   background-image: ${(props) =>
-    props.isType ? `url("${props.imageA}")` : `url("${props.imageB}")`};
+    props.isType === '식구'
+      ? `url("${props.imageA}")`
+      : `url("${props.imageB}")`};
   width: 35px;
   height: 30px;
   background-repeat: no-repeat;

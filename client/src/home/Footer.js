@@ -23,7 +23,7 @@ const Footer = () => {
     <>
       <FooterWrap>
         <FooterIcon>
-          <NavLink to="/boards">
+          <NavLink to="/api/boards">
             <GrHomeRounded />
           </NavLink>
           <NavLink to="/map">

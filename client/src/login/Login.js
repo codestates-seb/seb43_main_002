@@ -37,7 +37,7 @@ const Login = () => {
 
   const handleLogin = () => {
     axiosInstance
-      .post('/api/members/login', {
+      .post('/members/login', {
         email,
         password,
       })

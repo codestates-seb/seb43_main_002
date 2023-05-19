@@ -19,6 +19,7 @@ const Footer = ({ activeIcon }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigate = useNavigate();
+  const myPageId = JSON.parse(sessionStorage.getItem('user')).memberId;
 
   const closeModal = () => {
     navigate('/boards');
@@ -99,7 +100,7 @@ const Footer = ({ activeIcon }) => {
             />
           </NavLink>
           <NavLink
-            to="/mypage"
+            to={`/mypage/${myPageId}`}
             onMouseEnter={() => setMypageHovered(true)}
             onMouseLeave={() => {
               if (activeIcon !== 'mypage') {

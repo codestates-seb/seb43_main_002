@@ -7,10 +7,12 @@ import {
   ModalInput,
   ModalCount,
   ModalCountbutton,
+  ModalPlusbutton,
   ModalWhoButtonWrap,
   ModalWhobutton,
   ModalText,
   ModalButtonWrap,
+  CancelButton,
   ModalButton,
 } from '../style/ModalStyles';
 import PropTypes from 'prop-types';
@@ -22,6 +24,7 @@ import { ko } from 'date-fns/esm/locale';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { updateBoard } from '../store/boardSlice';
+import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs';
 
 const ModalDay = styled(DatePicker)`
   padding: 10px;
@@ -36,33 +39,36 @@ const ModalDay = styled(DatePicker)`
 const EditModal = ({ isOpen, onClose, board }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [editedBoard, setEditedBoard] = useState({
-    food: board.food,
-    people: board.people,
-    content: board.content,
+    title: board.title,
+    total: board.total,
+    body: board.body,
+    passedGender: board.passedGender,
+    mealTime: board.mealTime,
+    tags: [...board.tags],
   });
 
-  //   console.log(editedBoard.tag);
+  console.log(editedBoard);
 
   const handleIncrement = (e) => {
     e.preventDefault();
     setEditedBoard((prevBoard) => ({
       ...prevBoard,
-      people: prevBoard.people + 1,
+      total: prevBoard.total + 1,
     }));
   };
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setEditedBoard({ ...board });
+    // setEditedBoard({ ...board });
     setStartDate(new Date());
   }, [board]);
 
   const handleDecrement = (e) => {
     e.preventDefault();
-    if (editedBoard.people > 0) {
+    if (editedBoard.total > 0) {
       setEditedBoard((prevBoard) => ({
         ...prevBoard,
-        people: prevBoard.people - 1,
+        total: prevBoard.total - 1,
       }));
     }
   };
@@ -79,7 +85,7 @@ const EditModal = ({ isOpen, onClose, board }) => {
     setStartDate(date);
     setEditedBoard((prevBoard) => ({
       ...prevBoard,
-      when: date,
+      mealTime: date,
     }));
   };
 
@@ -87,15 +93,15 @@ const EditModal = ({ isOpen, onClose, board }) => {
     e.preventDefault();
     let updatedWho = '';
 
-    switch (editedBoard.who) {
-      case '아무나':
-        updatedWho = '여자만';
+    switch (editedBoard.passedGender) {
+      case 'ANY':
+        updatedWho = 'FEMALE';
         break;
-      case '여자만':
-        updatedWho = '남자만';
+      case 'FEMALE':
+        updatedWho = 'MALE';
         break;
-      case '남자만':
-        updatedWho = '아무나';
+      case 'MALE':
+        updatedWho = 'ANY';
         break;
       default:
         break;
@@ -103,22 +109,22 @@ const EditModal = ({ isOpen, onClose, board }) => {
 
     setEditedBoard((prevBoard) => ({
       ...prevBoard,
-      who: updatedWho,
+      passedGender: updatedWho,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (
-      editedBoard.food === '' ||
-      editedBoard.people === 0 ||
-      editedBoard.content === ''
-    ) {
-      alert('모든 곳을 입력해주세요.');
-      return;
-    }
+    // if (
+    //   editedBoard.title === '' ||
+    //   editedBoard.total === 0 ||
+    //   editedBoard.body === ''
+    // ) {
+    //   alert('모든 곳을 입력해주세요.');
+    //   return;
+    // }
 
-    dispatch(updateBoard({ boardId: board.id, board: editedBoard }))
+    dispatch(updateBoard({ boardId: board.boardId, board: editedBoard }))
       .unwrap()
       .then(() => {
         console.log('게시물이 성공적으로 작성되었습니다.');
@@ -141,25 +147,25 @@ const EditModal = ({ isOpen, onClose, board }) => {
     onClose: PropTypes.func.isRequired,
     board: PropTypes.object.isRequired,
   };
-
+  // console.log(editedBoard);
   return (
     <ModalWrap isOpen={isOpen}>
-      <ModalContent onSubmit={handleSubmit}>
+      <ModalContent isOpen={isOpen} onSubmit={handleSubmit}>
         <ModalQurry>같이 먹을 음식은?</ModalQurry>
         <ModalInput
-          name="food"
+          name="title"
           onChange={handleChange}
-          value={editedBoard.food}
+          value={editedBoard.title}
         ></ModalInput>
         <ModalQurry>같이 먹을 인원은?</ModalQurry>
-        <ModalCount name="people" onChange={handleChange}>
+        <ModalCount name="total" onChange={handleChange}>
           <ModalCountbutton onClick={handleDecrement}>-</ModalCountbutton>
-          <span>{editedBoard.people}</span>
-          <ModalCountbutton onClick={handleIncrement}>+</ModalCountbutton>
+          <span>{editedBoard.total}</span>
+          <ModalPlusbutton onClick={handleIncrement}>+</ModalPlusbutton>
         </ModalCount>
         <ModalQurry>언제 먹을까?</ModalQurry>
         <ModalDay
-          name="when"
+          name="mealTime"
           dateFormat="yyyy/MM/dd aa h시"
           selected={startDate}
           locale={ko}
@@ -171,20 +177,32 @@ const EditModal = ({ isOpen, onClose, board }) => {
         />
         <ModalQurry>누구랑 먹을까?</ModalQurry>
         <ModalWhoButtonWrap>
-          <ModalWhobutton onClick={handleWhoChange}></ModalWhobutton>
-          <span>{editedBoard.who}</span>
-          <ModalWhobutton onClick={handleWhoChange}></ModalWhobutton>
+          <ModalWhobutton onClick={handleWhoChange}>
+            <BsArrowLeftShort />
+          </ModalWhobutton>
+          <span>{editedBoard.passedGender}</span>
+          <ModalWhobutton onClick={handleWhoChange}>
+            <BsArrowRightShort />
+          </ModalWhobutton>
         </ModalWhoButtonWrap>
         <ModalQurry>추가로 입력할 정보는?</ModalQurry>
         <ModalText
-          name="content"
+          name="body"
           onChange={handleChange}
-          value={editedBoard.content}
+          value={editedBoard.body}
         ></ModalText>
-        <Tag name="tag" onChange={handleChange} value={editedBoard.tag}></Tag>
+        <Tag
+          name="tags"
+          tagList={editedBoard.tags} // tagList prop 추가
+          setTagList={(tagList) =>
+            setEditedBoard((prevBoard) => ({ ...prevBoard, tags: tagList }))
+          }
+          onChange={handleChange}
+          value={editedBoard.tags}
+        ></Tag>
         <ModalButtonWrap>
           <ModalButton type="submit">수정하기</ModalButton>
-          <ModalButton onClick={handleCancel}>취소하기</ModalButton>
+          <CancelButton onClick={handleCancel}>취소하기</CancelButton>
         </ModalButtonWrap>
       </ModalContent>
     </ModalWrap>

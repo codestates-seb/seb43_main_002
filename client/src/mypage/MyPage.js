@@ -40,7 +40,7 @@ const MyPage = () => {
   }, [myId]);
 
   function handleEidt() {
-    navigate('/editprofile');
+    navigate(`/editprofile${myId}`);
   }
 
   function handleUser(userId) {

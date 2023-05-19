@@ -88,7 +88,7 @@ const Signup = () => {
       return null;
     } else {
       axios
-        .post('members/signup/checkduplicateemail', {
+        .post('api/members/signup/checkduplicateemail', {
           email,
         })
         .then((response) => {
@@ -109,7 +109,7 @@ const Signup = () => {
 
   const handleCheckDuplicateNickname = () => {
     axios
-      .post('members/signup/checkduplicatenickname', {
+      .post('api/members/signup/checkduplicatenickname', {
         nickname,
       })
       .then((response) => {
@@ -144,7 +144,7 @@ const Signup = () => {
     e.preventDefault();
     e.stopPropagation();
     axios
-      .post('/members/signup', {
+      .post('api/members/signup', {
         email,
         nickname,
         password,
@@ -230,7 +230,7 @@ const Signup = () => {
             <GenderBox>
               <GenderButton
                 type="button"
-                active={gender}
+                active={gender === true}
                 onClick={() => {
                   console.log('male');
                   setGender(true);
@@ -240,12 +240,13 @@ const Signup = () => {
               </GenderButton>
               <GenderButton
                 type="button"
-                active={!gender}
+                active={gender === false}
                 onClick={() => {
                   console.log('female');
                   setGender(false);
                 }}
               >
+                {/* null일떄도 false로 인식하니 null일때 상태 추가하기 => 간단하게 끝남*/}
                 여성
               </GenderButton>
             </GenderBox>
@@ -290,7 +291,9 @@ const Signup = () => {
 
           <SignupButton type="submit">회원가입</SignupButton>
           {fetchError && <Error>{fetchError2}</Error>}
+
           <FooterText>이미 식구이신가요?</FooterText>
+
           <StyledLink to="/">지금 바로 여기를 눌러 로그인하세요.</StyledLink>
         </SignupForm>
       </SignupContainer>

@@ -1,5 +1,6 @@
 package com.branch.sikgu.comment.dto;
 
+import com.branch.sikgu.comment.entity.Comment;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -12,9 +13,11 @@ public class CommentDto {
         private long commentId;
         private long memberId;
         private String nickName;
+        private String imagePath;
         private String body;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
+        private Comment.SelectionStatus selectionStatus;
     }
 
     @Getter

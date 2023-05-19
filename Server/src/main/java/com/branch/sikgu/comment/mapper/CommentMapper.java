@@ -23,12 +23,14 @@ public interface CommentMapper {
     default Response commentToCommentResponseDto(Comment comment) {
         Response commentResponseDto;
         commentResponseDto = new Response(
-        comment.getCommentId(),
-        comment.getMember().getMemberId(),
-        comment.getMember().getNickname(),
-        comment.getBody(),
-        comment.getCreatedAt(),
-        comment.getUpdatedAt()
+                comment.getCommentId(),
+                comment.getMember().getMemberId(),
+                comment.getMember().getNickname(),
+                comment.getMember().getMyPage().getImagePath(),
+                comment.getBody(),
+                comment.getCreatedAt(),
+                comment.getUpdatedAt(),
+                comment.getSelectionStatus()
         );
 
         return commentResponseDto;

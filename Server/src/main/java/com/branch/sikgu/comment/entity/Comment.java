@@ -39,6 +39,10 @@ public class Comment {
     @Column(name = "UPDATED_AT")
     LocalDateTime updatedAt;
 
+    // 채택 여부
+    @Enumerated(EnumType.STRING)
+    private SelectionStatus selectionStatus = SelectionStatus.BEFORE_SELECTION;
+
     // 댓글 상태
     @Enumerated(EnumType.STRING)
     private CommentStatus commentStatus = CommentStatus.ACTIVE_COMMENT;
@@ -60,6 +64,16 @@ public class Comment {
 
         @Getter
         private final String commentStatus;
+    }
+
+    @AllArgsConstructor
+    public enum SelectionStatus {
+        BEFORE_SELECTION("채택 전 신청"),
+        SELECTION("채택된 신청"),
+        NOT_SELECTION("거절된 신청");
+
+        @Getter
+        private final String selectionStatus;
     }
 
     // 엔티티가 영속화되기 전 필드 업데이트

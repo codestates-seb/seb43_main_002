@@ -13,6 +13,7 @@ public enum ExceptionCode {
     // Comment
     COMMENT_NOT_FOUND("해당 댓글을 찾을 수 없습니다."),
     DELETED_COMMENT("삭제된 댓글입니다."),
+    CAN_NOT_WRITE("본인의 게시물에는 댓글을 작성할 수 없습니다."),
 
     //Member & Auth Exception
     MEMBER_NOT_FOUND("Member not found"),
@@ -20,7 +21,9 @@ public enum ExceptionCode {
     MEMBER_MISMATCHED("Not Matched Member"),
     MEMBER_FORBIDDEN("Member Forbidden"),
     MEMBER_UNAUTHORIZED("UNAUTHORIZED"),
-    INVALID_REQUEST("잘못된 요청입니다.");
+    INVALID_REQUEST("잘못된 요청입니다."),
+
+    ;
 
     private final String message;
 

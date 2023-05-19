@@ -54,14 +54,12 @@ public class CommentController {
 
     // 댓글 조회
     @GetMapping("{board-id}/comments")
-    public ResponseEntity getComment(@PathVariable("board-id") @Positive long boardId
-//                                     @PathVariable("comment-id") @Positive long commentId
-    ){
-        List<CommentDto.Response> comments = commentService.findComments(boardId);
+    public ResponseEntity getComment(@PathVariable("board-id") @Positive long boardId){
+        List<Comment> comments = commentService.findComments(boardId);
 
-//        List<CommentDto.Response> responses = commentMapper.comments_to_CommentResponseDto(comments);
+        List<CommentDto.Response> responses = commentMapper.comments_to_CommentResponseDto(comments);
 
-        return new ResponseEntity<>(comments, HttpStatus.OK);
+        return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
     // 댓글 삭제

@@ -1,17 +1,25 @@
+import { logout } from '../store/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { Title, TitleBox, Space } from '../style/NewHeaderFooterStyle';
+import { useDispatch } from 'react-redux';
 
 // eslint-disable-next-line react/prop-types
-const Header = ({ iconSrc, fnc, scrollPosition }) => {
+const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
   const backgroundImage =
-    scrollPosition >= 60 ? 'linear-gradient(135deg, #ffd571, #ffac36)' : 'none';
+    scrollPosition >= scrollNumber
+      ? 'linear-gradient(135deg, #ffd571, #ffac36)'
+      : 'none';
 
   const navigate = useNavigate();
-  // props로 받아와서 네비게이터도 구현해야 한다.
+  const dispatch = useDispatch();
 
   function handleClick() {
     if (fnc === 'logout') {
-      console.log('로그아웃 됨');
+      sessionStorage.removeItem('user');
+      sessionStorage.removeItem('jwt');
+      alert('로그아웃 되었습니다.');
+      dispatch(logout());
+      navigate('/');
     } else if (fnc === 'back') {
       navigate(-1);
     }

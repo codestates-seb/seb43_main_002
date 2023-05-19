@@ -42,6 +42,9 @@ const Login = () => {
         password,
       })
       .then((response) => {
+        console.log(response.headers);
+        console.log(response.headers.authorization);
+
         const token = response.headers.authorization;
         if (token) {
           const decoded = jwt_decode(token);
@@ -58,9 +61,6 @@ const Login = () => {
           dispatch(login(user));
           alert(`${user.nickname}님, 식사는 잡쉈어?`);
           navigate('/boards');
-        } else if (!token) {
-          alert('이메일과 비밀번호를 확인하세요');
-          navigate('/');
         } else {
           console.log(response.data);
           setAccessError('이메일 또는 비밀번호가 잘못되었습니다.');
@@ -131,7 +131,7 @@ const Login = () => {
           >
             Login
           </LoginButton>
-          <Error>{fetchError}</Error> <Error>{accessError}</Error>
+          <Error>{fetchError}</Error>
           {/* <GoogleLoginButton
             type="button"
             onClick={() => {

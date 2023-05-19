@@ -37,7 +37,7 @@ const Login = () => {
 
   const handleLogin = () => {
     axiosInstance
-      .post('members/login', {
+      .post('/api/members/login', {
         email,
         password,
       })
@@ -49,6 +49,7 @@ const Login = () => {
           const user = {
             email: decoded.email,
             nickname: decoded.nickname,
+            memberId: decoded.memberId,
           };
 
           sessionStorage.setItem('user', JSON.stringify(user)); // 세션스토리지에 user정보 저장
@@ -58,7 +59,8 @@ const Login = () => {
           alert(`${user.nickname}님, 식사는 잡쉈어?`);
           navigate('/boards');
         } else if (!token) {
-          navigate('/api/boards');
+          alert('이메일과 비밀번호를 확인하세요');
+          navigate('/');
         } else {
           console.log(response.data);
           setAccessError('이메일 또는 비밀번호가 잘못되었습니다.');

@@ -131,7 +131,6 @@ const Signup = () => {
       setPasswordError(
         '비밀번호는 영문자, 숫자를 포함하여 8자 이상이어야합니다.'
       );
-
       return null;
     } else if (password !== confirmPassword) {
       setPasswordError('비밀번호가 일치하지 않습니다.');

@@ -92,8 +92,7 @@ public class Board {
     private Member member;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "BOARD_TAGS",
-            joinColumns = @JoinColumn(name = "board_id"))
+    @CollectionTable(name = "BOARD_TAGS", joinColumns = @JoinColumn(name = "board_id"))
     @Column(name = "tag")
     @org.hibernate.annotations.OrderBy(clause = "tag asc")
     @OrderColumn(name = "index")

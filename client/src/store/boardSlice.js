@@ -3,20 +3,33 @@ import {
   createAsyncThunk,
   createSelector,
 } from '@reduxjs/toolkit';
-import axios from 'axios';
+// import axios from 'axios';
+import axiosInstance from '../axiosConfig';
+
+// const decoded = jwt_decode(token);
+const BASE_URL = 'http://14.72.7.98:8080';
 
 // 게시물 목록 가져오기
 export const fetchBoards = createAsyncThunk('boards/fetchBoards', async () => {
-  const response = await axios.get('http://localhost:8080/boards');
+  const response = await axiosInstance.get('/api/boards');
   return response.data;
-}); // 여기서 게시글을 가져와서
+});
+
+// 게시물 추가
+export const createBoard = createAsyncThunk(
+  'boards/createBoard',
+  async (postBoard) => {
+    const response = await axiosInstance.post('/api/boards', postBoard);
+    return response.data;
+  }
+);
 
 // 게시물 수정
 export const updateBoard = createAsyncThunk(
   'boards/updateBoard',
   async ({ boardId, board }) => {
-    const response = await axios.patch(
-      `http://localhost:8080/boards/${boardId}`,
+    const response = await axiosInstance.patch(
+      `/members/boards/${boardId}`,
       board
     );
     return response.data;
@@ -27,7 +40,7 @@ export const updateBoard = createAsyncThunk(
 export const deleteBoard = createAsyncThunk(
   'boards/deleteBoard',
   async (boardId) => {
-    await axios.delete(`http://localhost:8080/boards/${boardId}`);
+    await axiosInstance.delete(`/api/boards/${boardId}`);
     return boardId;
   }
 );
@@ -36,8 +49,8 @@ export const deleteBoard = createAsyncThunk(
 export const addComment = createAsyncThunk(
   'boards/addComment',
   async ({ boardId, comment }) => {
-    const response = await axios.post(
-      `http://localhost:8080/boards/${boardId}/comment`,
+    const response = await axiosInstance.post(
+      `${BASE_URL}/${boardId}/comment`,
       comment
     );
     return { boardId, comment: response.data };
@@ -48,8 +61,8 @@ export const addComment = createAsyncThunk(
 export const updateComment = createAsyncThunk(
   'boards/updateComment',
   async ({ boardId, commentId, content }) => {
-    const response = await axios.put(
-      `http://localhost:8080/boards/${boardId}/comment/${commentId}`,
+    const response = await axiosInstance.put(
+      `${BASE_URL}/${boardId}/comment/${commentId}`,
       { content }
     );
     return response.data;
@@ -60,9 +73,7 @@ export const updateComment = createAsyncThunk(
 export const deleteComment = createAsyncThunk(
   'boards/deleteComment',
   async ({ boardId, commentId }) => {
-    await axios.delete(
-      `http://localhost:8080/boards/${boardId}/comment/${commentId}`
-    );
+    await axiosInstance.delete(`${BASE_URL}/${boardId}/comment/${commentId}`);
     return { boardId, commentId };
   }
 );
@@ -179,14 +190,22 @@ export const selectFilteredBoards = createSelector(
   (boards, searchTerm) => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     return boards.filter((board) => {
-      const { food, content, who, tag, comment } = board;
-      const comments = comment.map((c) => c.content.toLowerCase());
+      const {
+        title,
+        body,
+        total,
+        // tag,
+        // , comment
+      } = board;
+      // const comments = comment.map((c) => c.content.toLowerCase());
       return (
-        food.toLowerCase().includes(lowerCaseSearchTerm) ||
-        content.toLowerCase().includes(lowerCaseSearchTerm) ||
-        who.toLowerCase().includes(lowerCaseSearchTerm) ||
-        tag.toLowerCase().includes(lowerCaseSearchTerm) ||
-        comments.some((c) => c.includes(lowerCaseSearchTerm))
+        title.toLowerCase().includes(lowerCaseSearchTerm) ||
+        body.toLowerCase().includes(lowerCaseSearchTerm) ||
+        total.toLowerCase().includes(lowerCaseSearchTerm)
+        // ||
+        // tag.toLowerCase().includes(lowerCaseSearchTerm)
+        // ||
+        // comments.some((c) => c.includes(lowerCaseSearchTerm))
       );
     });
   }

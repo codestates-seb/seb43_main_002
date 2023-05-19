@@ -19,7 +19,7 @@ export const HeaderBackWrap = styled.div`
   border-bottom-left-radius: 15%;
   border-bottom-right-radius: 15%;
   position: absolute;
-  background-image: radial-gradient(#ffd571, #ffac36);
+  background-image: linear-gradient(135deg, #ffd571, #ffac36);
 `;
 
 export const HeaderWrap = styled.header`
@@ -53,8 +53,6 @@ export const LogoutButton = styled.button`
   }
 `;
 
-// export const
-
 export const SearchWrap = styled.div`
   padding: 0px;
   margin-right: 10px;
@@ -74,7 +72,7 @@ export const SearchWrap = styled.div`
 export const DayWrap = styled.div`
   padding: 0px;
   margin-top: 70px;
-  z-index: 2;
+  z-index: 1;
   /* border: 1px solid black; */
   background-color: transparent;
   display: flex;
@@ -117,7 +115,7 @@ export const WeekWrap = styled.div`
 export const DayNumberWrap = styled.div`
   margin-top: 10px;
   width: 60%;
-  height: 100%;
+  /* height: 100%; */
   padding: 0px;
   /* border-bottom: 1px solid white; */
   position: relative;
@@ -162,7 +160,7 @@ export const BoardsWrap = styled.div`
 
 export const BoardWrap = styled.article`
   margin-top: 10px;
-  padding: 20px;
+  padding: 10px;
   width: 100%;
   /* border: 1px solid black; */
   border-radius: 10px;
@@ -204,6 +202,7 @@ export const FooterIcon = styled.div`
   a:hover {
     color: #ffb44a;
   }
+
   .active svg {
     fill: #ffb44a !important;
     color: #ffb44a !important;
@@ -231,11 +230,11 @@ export const FooterCicleWrap = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-40%, -110%);
+  cursor: pointer;
   svg {
     color: #ffb44a;
     padding: 0px;
     font-size: 25px;
   }
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
 `;

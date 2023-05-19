@@ -48,7 +48,7 @@ const Days = () => {
 
   // useSelector에서 selectFilteredBoards를 사용하여 검색 결과를 가져옵니다.
   const filteredBoards = useSelector(selectFilteredBoards).filter((board) => {
-    const boardDate = new Date(board.when).getDate();
+    const boardDate = new Date(board.mealTime).getDate();
     return boardDate === selectedDateIndex;
   });
 

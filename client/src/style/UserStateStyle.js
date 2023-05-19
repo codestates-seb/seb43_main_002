@@ -25,11 +25,22 @@ export const Mobile = styled.div`
   width: 400px;
   height: 792px;
   padding: 20px;
+  background-image: url(/svg/backlogo.svg);
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: center center;
 `;
 
 export const Posts = styled.div`
   position: relative;
   letter-spacing: -0.05em;
+
+  > .opacity {
+    > div:nth-child(2) > ul > li:first-child {
+      color: #898989 !important;
+      text-decoration: line-through;
+    }
+  }
 
   > .post {
     background-color: white;
@@ -85,6 +96,7 @@ export const Posts = styled.div`
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
+          color: #393939;
           font-weight: 700;
           margin-bottom: 2px;
           width: 90%;
@@ -118,6 +130,10 @@ export const Posts = styled.div`
 
       img {
         height: 25px;
+      }
+
+      :disabled {
+        cursor: auto;
       }
     }
 
@@ -153,6 +169,7 @@ export const PopUp = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 2;
 
   display: flex;
   justify-content: center;
@@ -172,12 +189,13 @@ export const PopUp = styled.div`
       padding: 0;
 
       li h3 {
-        font-size: 14pt;
+        font-size: 16pt;
         margin-bottom: 5px;
       }
 
       li:nth-child(2) {
-        color: #c9c9c9;
+        color: #393939;
+        opacity: 0.6;
       }
     }
   }
@@ -234,6 +252,7 @@ export const Modal = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 2;
 
   display: flex;
   justify-content: center;
@@ -244,11 +263,9 @@ export const Modal = styled.div`
     width: 100%;
     height: auto;
     min-height: 280px;
+    max-height: 600px;
     border-radius: 15px 15px 0 0;
-    padding: 30px 20px 40px 20px;
     letter-spacing: -0.05em;
-
-    overflow-y: auto;
 
     /* 스크롤바 */
     ::-webkit-scrollbar {
@@ -268,6 +285,8 @@ export const Modal = styled.div`
     }
 
     > div:first-child {
+      padding: 20px 20px 0 20px;
+
       > div:first-child {
         width: 50px;
         height: 50px;
@@ -275,88 +294,124 @@ export const Modal = styled.div`
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
       }
 
       > div:last-child {
-        font-size: 14pt;
+        > span {
+          font-size: 13pt;
+          opacity: 0.6;
+        }
+
+        > h3 {
+          font-size: 14pt;
+          font-weight: 600;
+        }
       }
     }
 
-    > .post {
-      background-color: white;
-      border-radius: 10px;
-      margin-top: 30px;
-      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    > div:last-child {
+      overflow-y: auto;
+      height: 445px;
+      margin-top: 20px;
+      padding: 0px 20px;
 
-      > div:first-child {
-        position: relative;
-        padding: 15px 20px 20px 20px;
+      /* 스크롤바 */
+      ::-webkit-scrollbar {
+        display: none;
+        width: 8px; /* 스크롤바 너비 */
+      }
 
-        > img {
-          position: absolute;
-          left: 20px;
-          top: -10px;
+      /* 스크롤바 thumb */
+      ::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 */
+        border-radius: 4px; /* 스크롤바 모서리 반경 */
+      }
 
-          width: 55px;
-          height: 55px;
-          border-radius: 50px;
-          background-color: #ffca61;
-        }
+      /* 스크롤바 track */
+      ::-webkit-scrollbar-track {
+        background-color: transparent; /* 스크롤바 트랙 색상 */
+      }
 
-        > div:nth-child(2) {
-          display: flex;
-          margin-left: 65px;
+      > .post:first-child {
+        margin-top: 20px;
+      }
 
-          > div:first-child {
-            div:first-child {
+      > .post {
+        background-color: white;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+
+        > div:first-child {
+          position: relative;
+          padding: 15px 20px 20px 20px;
+
+          > img {
+            position: absolute;
+            left: 20px;
+            top: -10px;
+
+            width: 55px;
+            height: 55px;
+            border-radius: 50px;
+            background-color: #ffca61;
+          }
+
+          > div:nth-child(2) {
+            display: flex;
+            margin-left: 65px;
+
+            > div:first-child {
+              div:first-child {
+                font-weight: 700;
+              }
+              div:last-child {
+                color: #c9c9c9;
+                font-size: 10pt;
+              }
+            }
+
+            > button {
+              margin-left: auto;
+              background-color: transparent;
+              border: none;
+              cursor: pointer;
+
+              > img {
+                height: 15px;
+              }
+            }
+          }
+
+          > div:last-child {
+            margin-top: 12px;
+            width: 100%;
+            display: flex;
+
+            input {
+              flex: 1;
+              border: none;
+              height: 30px;
+              background-color: #e9e9e9;
+              border-radius: 5px 0 0 5px;
+              padding-left: 5px;
+
+              :focus {
+                border: 2px solid #ffd571;
+                outline: none;
+              }
+            }
+
+            button {
+              width: 50px;
               font-weight: 700;
+              border: none;
+              color: white;
+              border-radius: 0 5px 5px 0;
+              background-image: linear-gradient(135deg, #ffd571, #ffac36);
+              cursor: pointer;
             }
-            div:last-child {
-              color: #c9c9c9;
-              font-size: 10pt;
-            }
-          }
-
-          > button {
-            margin-left: auto;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-
-            > img {
-              height: 15px;
-            }
-          }
-        }
-
-        > div:last-child {
-          margin-top: 12px;
-          width: 100%;
-          display: flex;
-
-          input {
-            flex: 1;
-            border: none;
-            height: 30px;
-            background-color: #e9e9e9;
-            border-radius: 5px 0 0 5px;
-            padding-left: 5px;
-
-            :focus {
-              border: 2px solid #ffd571;
-              outline: none;
-            }
-          }
-
-          button {
-            width: 50px;
-            font-weight: 700;
-            border: none;
-            color: white;
-            border-radius: 0 5px 5px 0;
-            background-image: linear-gradient(135deg, #ffd571, #ffac36);
-            cursor: pointer;
           }
         }
       }

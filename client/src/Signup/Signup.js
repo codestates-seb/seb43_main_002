@@ -5,9 +5,6 @@ import {
   Input,
   SignupTitle,
   SignupButton,
-  CheckboxContainer,
-  GenderCheckbox,
-  CheckboxLabel,
   CheckDuplicateButton,
   CheckPasswordButton,
   Text,
@@ -15,6 +12,8 @@ import {
   StyledLink,
   StyledLogo,
   Mobile,
+  GenderButton,
+  GenderBox,
   BackGround,
   LogoContainer,
   Error,
@@ -22,6 +21,7 @@ import {
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { EditIcon } from '../style/EditProfileStyle';
 
 const emailRegex = /^[\w-]+(.[\w-]+)@([\w-]+.)+[a-zA-Z]{2,7}$/;
 const passwordRegex = /^(?=.[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -42,6 +42,13 @@ const Signup = () => {
   const [fetchError2, setFetchError2] = useState('');
   const navigate = useNavigate();
 
+  const nameIcon = '/svg/join-name.svg';
+  const introIcon = '/svg/join-intro.svg';
+  const dateIcon = '/svg/join-date.svg';
+  const genderIcon = '/svg/join-gender.svg';
+  const mailIcon = '/svg/join-mail.svg';
+  const pwdIcon = '/svg/join-password.svg';
+
   const validationEmail = (email) => {
     return emailRegex.test(email);
   };
@@ -56,6 +63,10 @@ const Signup = () => {
     setNickname(e.target.value);
     if (e.target.value.length > 9) {
       setLengthError('8글자까지 입력 가능합니다.');
+      e.preventDefault();
+      setNickname('');
+    } else {
+      setLengthError('');
     }
   };
 
@@ -65,10 +76,6 @@ const Signup = () => {
 
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
-  };
-
-  const handleGender = (e) => {
-    setGender(e.target.value === 'male'); // 수정
   };
 
   const handleBirthday = (e) => {
@@ -85,7 +92,7 @@ const Signup = () => {
       return null;
     } else {
       axios
-        .post('members/signup/checkduplicateemail', {
+        .post('api/members/signup/checkduplicateemail', {
           email,
         })
         .then((response) => {
@@ -106,7 +113,7 @@ const Signup = () => {
 
   const handleCheckDuplicateNickname = () => {
     axios
-      .post('members/signup/checkduplicatenickname', {
+      .post('api/members/signup/checkduplicatenickname', {
         nickname,
       })
       .then((response) => {
@@ -128,37 +135,47 @@ const Signup = () => {
       setPasswordError(
         '비밀번호는 영문자, 숫자를 포함하여 8자 이상이어야합니다.'
       );
-
       return null;
     } else if (password !== confirmPassword) {
       setPasswordError('비밀번호가 일치하지 않습니다.');
+    } else if (password === confirmPassword) {
+      alert('비밀번호가 일치합니다.');
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    e.stopPropagation();
-    axios
-      .post('/members/signup', {
-        email,
-        nickname,
-        password,
-        name,
-        birthday,
-        gender,
-      })
-      .then((response) => {
-        if (response.status === 201) {
-          alert('회원가입이 성공적으로 완료되었습니다.');
-          navigate('/');
-        } else {
-          alert('뭔가 문제가 있습니다.');
-        }
-      })
-      .catch((error) => {
-        setFetchError2('인터넷 연결을 확인하세요.2');
-        console.log('연결안됨2;', error);
-      });
+    if (
+      !handleCheckDuplicateNickname ||
+      !handlePassword ||
+      handleCheckDuplicateEmail ||
+      !handleBirthday ||
+      !handleName
+    ) {
+      setFetchError2('각 항목의 중복 확인 및 비밀번호 일치 여부를 확인하세요');
+    } else {
+      axios
+        .post('api/members/signup', {
+          email,
+          nickname,
+          password,
+          name,
+          birthday,
+          gender,
+        })
+        .then((response) => {
+          if (response.status === 201) {
+            alert('회원가입이 성공적으로 완료되었습니다.');
+            navigate('/');
+          } else {
+            alert('뭔가 문제가 있습니다.');
+          }
+        })
+        .catch((error) => {
+          setFetchError2('인터넷 연결을 확인하세요.2');
+          console.log('연결안됨2;', error);
+        });
+    }
   };
 
   return (
@@ -167,11 +184,20 @@ const Signup = () => {
         <BackYellow />
       </BackGround>
       <LogoContainer>
-        <StyledLogo />
+        <StyledLogo
+          onClick={() => {
+            navigate('/');
+          }}
+        />
       </LogoContainer>
       <SignupContainer>
         <SignupForm onSubmit={handleSubmit} noValidate>
           <SignupTitle>Create Account</SignupTitle>
+
+          <Text>
+            <EditIcon backgroundImage={mailIcon} />
+            <label htmlFor="nickname">식구로 가입할 이메일을 적어주세요.</label>
+          </Text>
           <Input
             type="email"
             placeholder="식구에서 사용하실 이메일을 입력해주세요."
@@ -186,6 +212,10 @@ const Signup = () => {
           </CheckDuplicateButton>
           {emailError && <Error>{emailError}</Error>}
 
+          <Text>
+            <EditIcon backgroundImage={introIcon} />
+            <label htmlFor="nickname">식구로 활동할 별명을 만들어주세요.</label>
+          </Text>
           <Input
             type="text"
             placeholder="식구로 활동할 별명을 8글자까지 입력해주세요."
@@ -201,52 +231,53 @@ const Signup = () => {
           {/* 활동명에 제한을 두어야할까? */}
           {nicknameError && <Error>{nicknameError}</Error>}
           {lengthError ? <Error>{lengthError}</Error> : null}
-          <Text>본인의 성별을 알려주세요.</Text>
-          <CheckboxContainer>
-            <div>
-              <CheckboxLabel>
-                <GenderCheckbox
-                  type="radio"
-                  id="male"
-                  name="gender"
-                  value="male"
-                  checked={gender === true}
-                  onChange={handleGender}
-                  onClick={() => {
-                    console.log('남자임');
-                  }}
-                />
-                <span></span>{' '}
-                {/* 이 span은 styled-components로 디자인한 체크박스를 대신하는 역할 */}
-                남자
-              </CheckboxLabel>
-            </div>
-            <div>
-              <CheckboxLabel>
-                <GenderCheckbox
-                  type="radio"
-                  id="female"
-                  name="gender"
-                  value="female"
-                  checked={gender === false}
-                  onChange={handleGender}
-                  onClick={() => {
-                    console.log('여자임');
-                  }}
-                />
-                <span></span>{' '}
-                {/* 이 span은 styled-components로 디자인한 체크박스를 대신하는 역할 */}
-                여자
-              </CheckboxLabel>
-            </div>
-          </CheckboxContainer>
+
+          <div className="form-gender">
+            <Text>
+              <EditIcon backgroundImage={genderIcon} />
+              <label htmlFor="gender">
+                본인에 성별에 노란불이 들어오게 해주세요.
+              </label>
+            </Text>
+            <GenderBox>
+              <GenderButton
+                type="button"
+                active={gender === true}
+                onClick={() => {
+                  console.log('male');
+                  setGender(true);
+                }}
+              >
+                남성
+              </GenderButton>
+              <GenderButton
+                type="button"
+                active={gender === false}
+                onClick={() => {
+                  console.log('female');
+                  setGender(false);
+                }}
+              >
+                {/* null일떄도 false로 인식하니 null일때 상태 추가하기 => 간단하게 끝남*/}
+                여성
+              </GenderButton>
+            </GenderBox>
+          </div>
+
+          <Text>
+            <EditIcon backgroundImage={nameIcon} />
+            <label htmlFor="name">이름을 적어주세요.</label>
+          </Text>
           <Input
             type="text"
-            placeholder="식구가 될 분의 이름을 적어주세요."
+            placeholder="식구의 이름은 무엇인가요?"
             value={name}
             onChange={handleName}
           />
-
+          <Text>
+            <EditIcon backgroundImage={pwdIcon} />
+            <label htmlFor="password">사용할 비밀번호를 입력해주세요.</label>
+          </Text>
           <Input
             type="password"
             placeholder="숫자, 영문자 포함 8글자 이상이어야 합니다."
@@ -264,12 +295,17 @@ const Signup = () => {
             비밀번호 일치 여부 확인 버튼
           </CheckPasswordButton>
           {passwordError && <Error>{passwordError}</Error>}
-          <Text>생년월일을 입력해주세요.</Text>
+          <Text>
+            <EditIcon backgroundImage={dateIcon} />
+            <label htmlFor="birthday">생년월일을 입력해주세요</label>
+          </Text>
           <Input type="date" value={birthday} onChange={handleBirthday} />
 
           <SignupButton type="submit">회원가입</SignupButton>
           {fetchError && <Error>{fetchError2}</Error>}
+
           <FooterText>이미 식구이신가요?</FooterText>
+
           <StyledLink to="/">지금 바로 여기를 눌러 로그인하세요.</StyledLink>
         </SignupForm>
       </SignupContainer>

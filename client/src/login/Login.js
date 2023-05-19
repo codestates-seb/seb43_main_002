@@ -43,6 +43,9 @@ const Login = () => {
       })
       .then((response) => {
         const token = response.headers.authorization;
+
+        // eslint-disable-next-line no-debugger
+        debugger;
         if (token) {
           const decoded = jwt_decode(token);
 

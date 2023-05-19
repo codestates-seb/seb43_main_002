@@ -19,9 +19,9 @@ import {
   Error,
 } from '../style/SignupStyle';
 import { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { EditIcon } from '../style/EditProfileStyle';
+import axiosInstance from '../axiosConfig';
 
 const emailRegex = /^[\w-]+(.[\w-]+)@([\w-]+.)+[a-zA-Z]{2,7}$/;
 const passwordRegex = /^(?=.[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -31,6 +31,7 @@ const Signup = () => {
   const [nickname, setNickname] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  // 비밀번호 상태관리 및 과도한 state 남발로 인한 과도한 리렌더링 해결하기
   const [birthday, setBirthday] = useState('');
   const [gender, setGender] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -91,7 +92,7 @@ const Signup = () => {
       setEmailError('올바른 이메일 형식이 아닙니다.');
       return null;
     } else {
-      axios
+      axiosInstance
         .post('api/members/signup/checkduplicateemail', {
           email,
         })
@@ -112,7 +113,7 @@ const Signup = () => {
   };
 
   const handleCheckDuplicateNickname = () => {
-    axios
+    axiosInstance
       .post('api/members/signup/checkduplicatenickname', {
         nickname,
       })
@@ -154,7 +155,7 @@ const Signup = () => {
     ) {
       setFetchError2('각 항목의 중복 확인 및 비밀번호 일치 여부를 확인하세요');
     } else {
-      axios
+      axiosInstance
         .post('api/members/signup', {
           email,
           nickname,

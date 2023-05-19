@@ -1,28 +1,90 @@
+/*eslint-disable */
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {
-  WholeBox,
-  TagBox,
-  TagItem,
-  Text,
-  TagCloseButton,
-  TagInput,
-} from '../style/TagStyle';
+import styled from 'styled-components';
 
-const Tag = ({ name, onChange, value }) => {
+const WholeBox = styled.div`
+  margin-top: 15px;
+`;
+
+const TagBox = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 50px;
+  margin: 10px;
+  width: 340px;
+  padding: 0 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: white;
+  border: none;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  &:focus-within {
+    border-color: white;
+  }
+  /* justify-content: flex-end; */
+`;
+
+const TagItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-right: 7px;
+  padding: 5px;
+  background-color: #ffddac;
+  border-radius: 15px;
+  color: black;
+  font-size: 13px;
+`;
+
+const Text = styled.span``;
+
+const TagCloseButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 10px;
+  width: 15px;
+  height: 15px;
+  margin-left: 5px;
+  background-color: #ffac36;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  cursor: pointer;
+`;
+
+const TagInput = styled.input`
+  display: inline-flex;
+  width: 310px;
+  height: 40px;
+  max-width: 310px;
+  min-width: 150px;
+  background: white;
+  border: none;
+  outline: none;
+  cursor: text;
+`;
+
+const Tag = ({ name, onChange, value, tagList, setTagList }) => {
   Tag.propTypes = {
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.string.isRequired,
+    tagList: PropTypes.array.isRequired,
+    setTagList: PropTypes.func.isRequired,
   };
+
   const [tagItem, setTagItem] = useState('');
-  const [tagList, setTagList] = useState(value ? value.split(',') : []);
 
   useEffect(() => {
-    setTagList(value ? value.split(',') : []);
-  }, [value]);
+    setTagList(tagList);
+  }, [tagList]);
 
-  // console.log(tagList);
+  // console.log('tag', tagList);
 
   const onKeyPress = (e) => {
     if (e.target.value.length !== 0 && e.key === 'Enter') {
@@ -48,14 +110,14 @@ const Tag = ({ name, onChange, value }) => {
     updatedTagList.push(tagItem);
     setTagList(updatedTagList);
     setTagItem('');
-    onChange({ target: { name, value: updatedTagList.join(',') } });
+    onChange({ target: { name, value: updatedTagList } });
   };
 
   const deleteTagItem = (e) => {
     const deletedTag = e.target.parentElement.firstChild.innerText;
     const filteredTagList = tagList.filter((tagItem) => tagItem !== deletedTag);
     setTagList(filteredTagList);
-    onChange({ target: { name, value: filteredTagList.join(',') } });
+    onChange({ target: { name, value: filteredTagList } });
   };
 
   return (
@@ -63,7 +125,7 @@ const Tag = ({ name, onChange, value }) => {
       <TagBox>
         <TagInput
           type="text"
-          placeholder="Press enter to add tags"
+          placeholder="태그를 입력하시고 Enter를 눌러주세요"
           onChange={(e) => setTagItem(e.target.value)}
           // onChange={handleTagChange}
           value={tagItem}

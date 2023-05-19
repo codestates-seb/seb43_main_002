@@ -79,6 +79,7 @@ const Button = styled.button`
 const LoginButton = styled(Button)`
   text-decoration: none;
   display: flex;
+  margin-top: 10px;
   justify-content: center;
   align-items: center;
 

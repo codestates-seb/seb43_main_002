@@ -28,7 +28,7 @@
   "members": [
     {
       "id": 1,
-      "img": "https://1319-14-72-7-98.ngrok-free.app/static/4erwerwer.jpeg",
+      "img": "/profile/4.jpeg",
       "name": "김코딩",
       "nickname": "먹으면 우는 소",
       "intro": "지친 하루를 살아가는 직장인",
@@ -57,26 +57,56 @@
           "id": 2,
           "name": "지나가던 감튀털이범",
           "comment": "오늘 너무 재밌었습니다! 최고에요!",
-          "img": ""
+          "img": "/profile/2.jpeg"
         },
         {
           "id": 3,
           "name": "초콜릿 체고",
           "comment": "즐거운 하루였습니다!",
-          "img": ""
+          "img": "/profile/1.jpeg"
         },
         {
           "id": 4,
           "name": "식사를 거르지 않는 개",
           "comment": "짱 친절하셔요!!",
-          "img": ""
+          "img": "/profile/3.jpeg"
         }
       ]
     },
     {
-      "name": "테스트",
-      "img": "테스트",
+      "nickname": "맛있으면 짖는 개",
+      "intro": "왈왈크르르르릉",
+      "img": "/profile/6.jpeg",
       "id": 2
+    },
+    {
+      "name": "",
+      "gender": true,
+      "confirmPassword": "",
+      "img": "/profile/4.jpeg",
+      "id": 3
+    },
+    {
+      "name": "으악",
+      "gender": true,
+      "password": "rjwldhkrhwk1",
+      "confirmPassword": "",
+      "img": "/profile/4.jpeg",
+      "id": 4
+    },
+    {
+      "gender": true,
+      "password": "12345678",
+      "confirmPassword": "12345678",
+      "img": "/profile/4.jpeg",
+      "id": 5
+    },
+    {
+      "gender": true,
+      "password": "12345678",
+      "confirmPassword": "12345678",
+      "img": "/profile/4.jpeg",
+      "id": 6
     }
   ]
 }

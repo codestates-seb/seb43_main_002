@@ -5,11 +5,11 @@ import {
   LoginTitle,
   Input,
   LoginButton,
-  GoogleLoginButton,
+  // GoogleLoginButton,
   Error,
   FooterText,
   StyledLink,
-  GoogleLogo,
+  // GoogleLogo,
   LogoContainer,
   BackGround,
   StyledLogo,
@@ -37,7 +37,7 @@ const Login = () => {
 
   const handleLogin = () => {
     axiosInstance
-      .post('members/login', {
+      .post('/api/members/login', {
         email,
         password,
       })
@@ -49,6 +49,7 @@ const Login = () => {
           const user = {
             email: decoded.email,
             nickname: decoded.nickname,
+            memberId: decoded.memberId,
           };
 
           sessionStorage.setItem('user', JSON.stringify(user)); // 세션스토리지에 user정보 저장
@@ -57,6 +58,9 @@ const Login = () => {
           dispatch(login(user));
           alert(`${user.nickname}님, 식사는 잡쉈어?`);
           navigate('/boards');
+        } else if (!token) {
+          alert('이메일과 비밀번호를 확인하세요');
+          navigate('/');
         } else {
           console.log(response.data);
           setAccessError('이메일 또는 비밀번호가 잘못되었습니다.');
@@ -117,18 +121,18 @@ const Login = () => {
           />
           <Error>{validationPassword(password) ? null : passwordError}</Error>
           <Error>{accessError}</Error>
-
           <LoginButton
             type="submit"
             onClick={() => {
-              console.log('찍히나?');
+              //클릭을 했을 때 아이디와 비밀번호가 다르면 되게하는 기능을 구현하자.
+
+              console.log('This button is made for Login');
             }}
           >
             Login
           </LoginButton>
-          <Error>{fetchError}</Error>
-
-          <GoogleLoginButton
+          <Error>{fetchError}</Error> <Error>{accessError}</Error>
+          {/* <GoogleLoginButton
             type="button"
             onClick={() => {
               console.log('이자리가 맞니?');
@@ -136,7 +140,7 @@ const Login = () => {
           >
             <GoogleLogo />
             구글로 로그인
-          </GoogleLoginButton>
+          </GoogleLoginButton> */}
         </LoginForm>
         <FooterText>아직 식구가 아니신가요?</FooterText>
         <StyledLink to="/signup">지금 바로 여기를 눌러 가입하세요.</StyledLink>

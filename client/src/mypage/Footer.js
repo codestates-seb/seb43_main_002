@@ -24,11 +24,11 @@ const Footer = ({ activeIcon }) => {
   };
 
   const handleMouseEnter = () => {
-    setCicleHovered(true);
+    setCicleHovered(false);
   };
 
   const handleMouseLeave = () => {
-    setCicleHovered(false);
+    setCicleHovered(true);
   };
 
   const handlePlusClick = () => {

@@ -65,9 +65,8 @@ public class CommentService {
         return commentRepository.save(findComment);
     }
 
-
     // 댓글 조회
-    public List<Comment> findComments(long boardId) { // 보드 Id로 댓글 가져옴.....
+    public List<Comment> findComments(long boardId) { // 보드 Id로 comment를 가져옴.....
         Board board = boardService.getBoardById(boardId);
 
         return commentRepository.findByBoardId(board.getBoardId());

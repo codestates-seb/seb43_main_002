@@ -10,6 +10,7 @@ import com.branch.sikgu.board.entity.Board;
 import com.branch.sikgu.board.mapper.BoardMapper;
 import com.branch.sikgu.board.repository.BoardRepository;
 import com.branch.sikgu.board.dto.BoardDto;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.StringUtils;
 
@@ -31,8 +32,8 @@ public class BoardService {
     }
 
     // 게시물 등록
-    public BoardDto.Response createBoard(BoardDto.Post postDto, String authentication) {
-        Member member = memberService.findMember(authentication);
+    public BoardDto.Response createBoard(BoardDto.Post postDto, Authentication authentication) {
+        Member member = memberService.findVerifiedMember(memberService.getCurrentMemberId(authentication));
         Board board = boardMapper.toEntity(postDto);
         board.setMember(member);
         Board savedBoard = boardRepository.save(board);
@@ -82,7 +83,7 @@ public class BoardService {
 
     // 전체 게시물 조회
     public List<BoardDto.Response> getAllBoards() {
-        List<Board> boards = boardRepository.findAll();
+        List<Board> boards = boardRepository.findAllByBoardStatus(Board.BoardStatus.ACTIVE_BOARD);
 
         return boardMapper.toResponseDtoList(boards);
     }

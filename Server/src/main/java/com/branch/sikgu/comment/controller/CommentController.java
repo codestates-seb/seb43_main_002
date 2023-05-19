@@ -19,7 +19,8 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "X-AUTH-TOKEN")
 @RestController
 @Validated
-@RequestMapping("/boards")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "X-AUTH-TOKEN")
+@RequestMapping("/api/boards")
 @AllArgsConstructor
 @Slf4j
 public class CommentController {
@@ -52,6 +53,7 @@ public class CommentController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // 댓글 조회
     // 댓글 조회
     @GetMapping("{board-id}/comments")
     public ResponseEntity getComment(@PathVariable("board-id") @Positive long boardId){

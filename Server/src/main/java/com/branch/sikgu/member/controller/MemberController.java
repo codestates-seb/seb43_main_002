@@ -17,7 +17,8 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(path = "/members")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "X-AUTH-TOKEN")
+@RequestMapping(path = "/api/members")
 @AllArgsConstructor
 public class MemberController {
     private MemberService memberService;

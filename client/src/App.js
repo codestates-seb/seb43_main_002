@@ -43,7 +43,9 @@ function App() {
           {/* <Route path="/" element={<Login />} /> */}
           <Route
             path="/"
-            element={isAuthenticated ? <Navigate to="/boards" /> : <Login />}
+            element={
+              isAuthenticated ? <Navigate to="/api/boards" /> : <Login />
+            }
           />
           {/* <Route path="/boards" element={<PrivateRoute />}>
             <Route index element={<Main />} />
@@ -61,7 +63,7 @@ function App() {
             <Route index element={<UserState />} />
           </Route> */}
           {/* <Route path="/main" element={<Main />} /> */}
-          <Route path="/boards" element={<Main />} />
+          <Route path="api/boards" element={<Main />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/editprofile" element={<EditProfile />} />
           <Route path="/state" element={<UserState />} />

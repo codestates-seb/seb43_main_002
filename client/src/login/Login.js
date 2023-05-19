@@ -57,7 +57,7 @@ const Login = () => {
 
           dispatch(login(user));
           alert(`${user.nickname}님, 식사는 잡쉈어?`);
-          navigate('/boards');
+          navigate('api/boards');
         } else if (!token) {
           alert('이메일과 비밀번호를 확인하세요');
           navigate('/');
@@ -131,7 +131,7 @@ const Login = () => {
           >
             Login
           </LoginButton>
-          <Error>{fetchError}</Error> <Error>{accessError}</Error>
+          <Error>{fetchError}</Error>
           {/* <GoogleLoginButton
             type="button"
             onClick={() => {

@@ -45,7 +45,7 @@ padding: 20px;
 `;
 
 const LoginTitle = styled.h1`
-  font-size: 30px;
+  font-size: 30pt;
   color: orange;
   text-align: center;
   padding-bottom: 10px;
@@ -57,27 +57,29 @@ const Input = styled.input`
   margin: 10px 0;
   padding: 12px;
   border: none;
-  border-radius: 25px;
+  border-radius: 12px;
 `;
 
 const Button = styled.button`
   width: 100%;
   padding: 12px;
-  background-color: #ffc257;
   margin-bottom: 10px;
+  border-radius: 50px;
+  background-color: #ffc257;
   color: white;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   border: none;
-  border-radius: 25px;
   cursor: pointer;
 
   &:hover {
-    background-color: #f5b94a;
+    background-image: linear-gradient(135deg, #ffd571, #ffac36);
   }
 `;
 
 const LoginButton = styled(Button)`
   text-decoration: none;
   display: flex;
+  margin-top: 10px;
   justify-content: center;
   align-items: center;
 
@@ -101,7 +103,7 @@ const ForgotPasswordButton = styled(Button)`
 
 const Error = styled.p`
   color: red;
-  font-size: 12px;
+  font-size: 11pt;
   margin-top: 3px;
 `;
 
@@ -140,6 +142,7 @@ const LogoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  padding: 10px;
   width: 100%;
   height: 77%;
 `;

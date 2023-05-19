@@ -34,6 +34,13 @@ public class CommentService {
 
     // 댓글 작성
     public Comment createComment(Comment comment, long boardId, String authentication) {
+        // 본인의 게시물에는 식사 신청을 할 수 없는 로직 (필요에 따라 사용)
+//        Comment findComment = findVerificationComment(comment.getCommentId());
+//        Member findMember = findComment.getMember();
+//        if (findMember.getMemberId().equals(memberService.findMember(authentication).getMemberId())) {
+//            throw new BusinessLogicException(ExceptionCode.CAN_NOT_WRITE, HttpStatus.FORBIDDEN);
+//        }
+
         Member member = memberService.findMember(authentication);
         Board board = boardService.getBoardById(boardId);
 
@@ -58,10 +65,8 @@ public class CommentService {
         return commentRepository.save(findComment);
     }
 
-
     // 댓글 조회
-    // 댓글 조회
-    public List<Comment> findComments(long boardId) { // 보드 Id로 보드를 가져옴.....
+    public List<Comment> findComments(long boardId) { // 보드 Id로 comment를 가져옴.....
         Board board = boardService.getBoardById(boardId);
 
         return commentRepository.findByBoardId(board.getBoardId());

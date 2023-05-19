@@ -26,6 +26,7 @@ public interface BoardMapper {
                 board.getBoardId(),
                 board.getMember().getMemberId(),
                 board.getMember().getNickname(),
+                board.getMember().getMyPage().getImagePath(),
                 board.getTitle(),
                 board.getBody(),
                 board.getCreatedAt(),

@@ -1,7 +1,7 @@
 import axios from 'axios';
 // axios.defaults.withCredentials = true;
 const axiosInstance = axios.create({
-  baseURL: 'http://14.72.7.98:8080/',
+  baseURL: 'http://localhost:3000/',
   headers: {
     'Content-Type': 'application/json',
     // Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,

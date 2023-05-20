@@ -18,7 +18,7 @@ import {
   LogoContainer,
   Error,
 } from '../style/SignupStyle';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EditIcon } from '../style/EditProfileStyle';
 import axiosInstance from '../axiosConfig';
@@ -28,6 +28,9 @@ const passwordRegex = /^(?=.[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 const Signup = () => {
   const [email, setEmail] = useState('');
+  // 이메일을 상태관리 하지 않고 인풋 창에 입력한 값만 중복확인을 할 수 있지 않을까?
+  // 상태관리는 필수인 것 같은데...
+  //
   const [nickname, setNickname] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -50,15 +53,20 @@ const Signup = () => {
   const mailIcon = '/svg/join-mail.svg';
   const pwdIcon = '/svg/join-password.svg';
 
-  const validationEmail = (email) => {
+  const validationEmail = useCallback((email) => {
     return emailRegex.test(email);
-  };
+  }, []);
+
   const validationPassword = (password) => {
     return passwordRegex.test(password);
   };
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const handleEmailChange = useCallback(
+    (e) => {
+      setEmail(e.target.value);
+      console.log(1);
+    },
+    [email]
+  );
 
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);

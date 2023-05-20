@@ -1,6 +1,8 @@
 package com.branch.sikgu.board.service;
 
 import com.branch.sikgu.auth.jwt.JwtTokenizer;
+import com.branch.sikgu.comment.entity.Comment;
+import com.branch.sikgu.comment.repository.CommentRepository;
 import com.branch.sikgu.exception.BusinessLogicException;
 import com.branch.sikgu.exception.ExceptionCode;
 import com.branch.sikgu.exception.HttpStatus;
@@ -23,12 +25,14 @@ public class BoardService {
     private final BoardMapper boardMapper;
     private final JwtTokenizer jwtTokenizer;
     private final MemberService memberService;
+    private final CommentRepository commentRepository;
 
-    public BoardService(BoardRepository boardRepository, BoardMapper boardMapper, JwtTokenizer jwtTokenizer, MemberService memberService) {
+    public BoardService(BoardRepository boardRepository, BoardMapper boardMapper, JwtTokenizer jwtTokenizer, MemberService memberService, CommentRepository commentRepository) {
         this.boardRepository = boardRepository;
         this.boardMapper = boardMapper;
         this.jwtTokenizer = jwtTokenizer;
         this.memberService = memberService;
+        this.commentRepository = commentRepository;
     }
 
     // 게시물 등록
@@ -120,6 +124,42 @@ public class BoardService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.INACTIVED_BOARD, HttpStatus.NO_CONTENT));
     }
 
+    public void selectCommentAndIncreaseCurrentCount(Long boardId, Long commentId, Authentication authentication) {
+        Board board = boardRepository.findById(boardId).orElseThrow(() -> new BusinessLogicException(ExceptionCode.BOARD_NOT_FOUND, HttpStatus.NOT_FOUND));
+        if (board.getBoardStatus() != Board.BoardStatus.ACTIVE_BOARD) {
+            throw new BusinessLogicException(ExceptionCode.INACTIVED_BOARD, HttpStatus.BAD_REQUEST);
+        }
+        // 작성자와 인증된 사용자의 아이디를 비교하여 일치하는지 검증합니다.
+        Long memberId = memberService.getCurrentMemberId(authentication);
+        if (!board.getMember().getMemberId().equals(memberId)) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED, HttpStatus.FORBIDDEN);
+        }
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND, HttpStatus.NOT_FOUND));
+        if (comment.getCommentStatus() != Comment.CommentStatus.ACTIVE_COMMENT) {
+            throw new BusinessLogicException(ExceptionCode.DELETED_COMMENT, HttpStatus.BAD_REQUEST);
+        }
+        if (!comment.getBoard().equals(board)) {
+            throw new BusinessLogicException(ExceptionCode.INVALID_REQUEST, HttpStatus.BAD_REQUEST);
+        }
+        if (comment.getSelectionStatus() == Comment.SelectionStatus.SELECTION) {
+            throw new BusinessLogicException(ExceptionCode.ALREADY_SELECTED_COMMENT, HttpStatus.BAD_REQUEST);
+        }
+
+        // 선택된 코멘트의 상태를 변경합니다.
+        comment.setSelectionStatus(Comment.SelectionStatus.SELECTION);
+
+        // 보드의 현재 인원수를 1 증가시킵니다.
+        if (board.getCount() < board.getTotal()) {
+            board.setCount(board.getCount() + 1);
+        } else {
+            throw new BusinessLogicException(ExceptionCode.MAX_CAPACITY_REACHED, HttpStatus.FORBIDDEN);
+        }
+
+        // 변경된 상태를 저장합니다.
+        commentRepository.save(comment);
+        boardRepository.save(board);
+    }
+
     // 게시물 ID와 작성한 멤버 ID 확인
     private Board getBoardByIdAndMember(Long boardId, Long memberId) {
         return boardRepository.findByBoardIdAndMemberMemberId(boardId, memberId)
@@ -137,5 +177,19 @@ public class BoardService {
         if (memberId != answerMemberId) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_MISMATCHED, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    // 모집 완료 버튼
+    public void completeBoard(Long boardId, Authentication authentication) {
+        Long memberId = memberService.getCurrentMemberId(authentication);
+        Board board = boardRepository.findByBoardId(boardId);
+        checkIfDeleted(board);
+        if (!board.getMember().getMemberId().equals(memberId)) {
+            throw new BusinessLogicException(ExceptionCode.INVALID_REQUEST, HttpStatus.FORBIDDEN);
+        }
+        board.setBoardStatus(Board.BoardStatus.INACTIVE_BOARD);
+        // TODO 모집완료 후 해당 보드의 작성자와 선택된 코멘트들의 작성자들을 History 객체로 생성 후 저장해야한다.
+
+        boardRepository.save(board);
     }
 }

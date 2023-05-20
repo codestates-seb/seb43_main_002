@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Component
-@EnableJpaAuditing
+//@EnableJpaAuditing
 public class History {
 
     // 식사이력 식별자

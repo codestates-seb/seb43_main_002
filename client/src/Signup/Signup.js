@@ -60,13 +60,11 @@ const Signup = () => {
   const validationPassword = (password) => {
     return passwordRegex.test(password);
   };
-  const handleEmailChange = useCallback(
-    (e) => {
-      setEmail(e.target.value);
-      console.log(1);
-    },
-    [email]
-  );
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    console.log(1);
+  };
 
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
@@ -202,7 +200,6 @@ const Signup = () => {
       <SignupContainer>
         <SignupForm onSubmit={handleSubmit} noValidate>
           <SignupTitle>Create Account</SignupTitle>
-
           <Text>
             <EditIcon backgroundImage={mailIcon} />
             <label htmlFor="nickname">식구로 가입할 이메일을 적어주세요.</label>

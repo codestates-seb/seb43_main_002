@@ -19,7 +19,6 @@ import {
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../store/userSlice';
-// import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import axiosInstance from '../axiosConfig';
 const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
@@ -44,8 +43,6 @@ const Login = () => {
       .then((response) => {
         const token = response.headers.authorization;
 
-        // eslint-disable-next-line no-debugger
-        debugger;
         if (token) {
           const decoded = jwt_decode(token);
 
@@ -83,6 +80,11 @@ const Login = () => {
     return passwordRegex.test(password);
   };
 
+  const X = (e) => {
+    console.log(1);
+    setPassword(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validationEmail(email)) {
@@ -113,14 +115,14 @@ const Login = () => {
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.currentTarget.value)}
           />
           <Error>{validationEmail(email) ? null : emailError}</Error>
           <Input
             type="password"
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={X}
           />
           <Error>{validationPassword(password) ? null : passwordError}</Error>
           <Error>{accessError}</Error>

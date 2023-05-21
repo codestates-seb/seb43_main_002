@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import {
   SignupContainer,
   BackYellow,
@@ -22,7 +23,6 @@ import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EditIcon } from '../style/EditProfileStyle';
 import axiosInstance from '../axiosConfig';
-
 const emailRegex = /^[\w-]+(.[\w-]+)@([\w-]+.)+[a-zA-Z]{2,7}$/;
 const passwordRegex = /^(?=.[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
@@ -37,7 +37,7 @@ const NewSignup = () => {
     birthday: '',
   });
 
-  const [errrors, setErrors] = useState({
+  const [errors, setErrors] = useState({
     emailError: '',
     nicknameError: '',
     passwordError: '',
@@ -53,12 +53,13 @@ const NewSignup = () => {
   const mailIcon = '/svg/join-mail.svg';
   const pwdIcon = '/svg/join-password.svg';
 
-  const handleInputchange = useCallback((e) => {
+  const handleInputChange = useCallback((e) => {
+    console.log(1);
     setValues((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
-    if (e.target.name === nickname && e.target.value.length > 9) {
+    if (e.target.name === 'nickname' && e.target.value.length > 9) {
       setErrors((prev) => ({
         ...prev,
         lengthError: '8글자까지 입력이 가능합니다.',
@@ -71,15 +72,17 @@ const NewSignup = () => {
     }
   }, []);
 
+  // 이메일 입력 중복 검사
   const handleCheckDuplicateEmail = useCallback(() => {
     if (!emailRegex.test(values.email)) {
       setErrors((prev) => ({
         ...prev,
-        emaillError: '올바른 이메일 형식이 아닙니다.',
+        emailError: '올바른 이메일 형식이 아닙니다.',
       }));
       return null;
     }
-    // 이메일 유효성 테스트 끝, 이제 할일은 로그인 중복여부 검사.
+
+    // 로그인 중복여부 검사.
     axiosInstance
       .post('api/members/signup/checkduplicateemail', {
         email: values.email,
@@ -127,7 +130,199 @@ const NewSignup = () => {
         console.log('활동명 중복 검사 서버랑 통신 실패', error);
       });
   }, [values.nickname]);
-  // 비밀번호 입력 로직
 
-  return;
+  // 비밀번호 입력 로직
+  const handlePassword = useCallback(() => {
+    console.log('비밀번호 일치 여부 버튼 클릭');
+    if (!passwordRegex.test(values.password)) {
+      setErrors((prev) => ({
+        ...prev,
+        passwordError: '비밀번호는 영문, 숫자 포함 8글자 이상이어야합니다.',
+      }));
+      return null;
+    } else if (values.password !== values.confirmPassword) {
+      setErrors((prev) => ({
+        ...prev,
+        passwordError: '비밀번호가 일치하지 않습니다.',
+      }));
+    } else if ((values.password, values.confirmPassword)) {
+      alert('비밀번호가 일치합니다.');
+    }
+  }, [values.password, values.confirmPassword]);
+
+  // 회원가입 버튼 동작
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (!handleCheckDuplicateNickname) {
+        setErrors((prev) => ({
+          ...prev,
+          fetchError: '각 항목의 중복 확인 및 비밀번호 일치 여부를 확인하세요',
+        }));
+      } else {
+        axiosInstance
+          .post('api/members/signup', values)
+          .then((response) => {
+            if (response.status === 201) {
+              alert('회원가입이 성공적으로 완료되었습니다.');
+              navigate('/');
+            } else {
+              alert('뭔가 문제가 있습니다.');
+            }
+          })
+          .catch((error) => {
+            setErrors((prev) => ({
+              ...prev,
+              fetchError: '인터넷 연결을 확인하세요.',
+            }));
+            console.log('연결안됨2;', error);
+          });
+      }
+    },
+    [values, handleCheckDuplicateNickname, navigate]
+  );
+
+  return (
+    <Mobile>
+      <BackGround>
+        <BackYellow />
+      </BackGround>
+      <LogoContainer>
+        <StyledLogo
+          onClick={() => {
+            navigate('/');
+          }}
+        />
+      </LogoContainer>
+      <SignupContainer>
+        <SignupForm onSubmit={handleSubmit} noValidate>
+          <SignupTitle>Create Account</SignupTitle>
+
+          <Text>
+            <EditIcon backgroundImage={mailIcon} />
+            <label htmlFor="nickname">식구로 가입할 이메일을 적어주세요.</label>
+          </Text>
+          <Input
+            type="email"
+            placeholder="식구에서 사용하실 이메일을 입력해주세요."
+            name="email"
+            value={values.email}
+            onChange={handleInputChange}
+          />
+          <CheckDuplicateButton
+            type="button"
+            onClick={handleCheckDuplicateEmail}
+          >
+            이메일 중복확인
+          </CheckDuplicateButton>
+          {errors.emailError && <Error>{errors.emailError}</Error>}
+
+          <Text>
+            <EditIcon backgroundImage={introIcon} />
+            <label htmlFor="nickname">식구로 활동할 별명을 만들어주세요.</label>
+          </Text>
+          <Input
+            type="text"
+            name="nickname"
+            placeholder="식구로 활동할 별명을 8글자까지 입력해주세요."
+            value={values.nickname}
+            onChange={handleInputChange}
+          />
+          <CheckDuplicateButton
+            type="button"
+            onClick={handleCheckDuplicateNickname}
+          >
+            활동명 중복확인
+          </CheckDuplicateButton>
+          {errors.nicknameError && <Error>{errors.nicknameError}</Error>}
+          {errors.lengthError ? <Error>{errors.lengthError}</Error> : null}
+
+          <div className="form-gender">
+            <Text>
+              <EditIcon backgroundImage={genderIcon} />
+              <label htmlFor="gender">
+                본인에 성별에 노란불이 들어오게 해주세요.
+              </label>
+            </Text>
+            <GenderBox>
+              <GenderButton
+                type="button"
+                active={values.gender === true}
+                onClick={() => {
+                  console.log('male');
+                  setValues((prev) => ({ ...prev, gender: true }));
+                }}
+              >
+                남성
+              </GenderButton>
+              <GenderButton
+                type="button"
+                active={values.gender === false}
+                onClick={() => {
+                  console.log('female');
+                  setValues((prev) => ({ ...prev, gender: false }));
+                }}
+              >
+                여성
+              </GenderButton>
+            </GenderBox>
+          </div>
+
+          <Text>
+            <EditIcon backgroundImage={nameIcon} />
+            <label htmlFor="name">이름을 적어주세요.</label>
+          </Text>
+          <Input
+            type="text"
+            name="name"
+            placeholder="식구의 이름은 무엇인가요?"
+            value={values.name}
+            onChange={handleInputChange}
+          />
+          <Text>
+            <EditIcon backgroundImage={pwdIcon} />
+            <label htmlFor="password">사용할 비밀번호를 입력해주세요.</label>
+          </Text>
+          <Input
+            type="password"
+            name="password"
+            placeholder="숫자, 영문자 포함 8글자 이상이어야 합니다."
+            value={values.password}
+            onChange={handleInputChange}
+          />
+
+          <Input
+            type="password"
+            name="confirmPassword"
+            placeholder="비밀번호를 한 번 더 입력해주세요."
+            value={values.confirmPassword}
+            onChange={handleInputChange}
+          />
+          <CheckPasswordButton type="button" onClick={handlePassword}>
+            비밀번호 일치 여부 확인 버튼
+          </CheckPasswordButton>
+          {errors.passwordError && <Error>{errors.passwordError}</Error>}
+          <Text>
+            <EditIcon backgroundImage={dateIcon} />
+            <label htmlFor="birthday">생년월일을 입력해주세요</label>
+          </Text>
+          <Input
+            type="date"
+            name="birthday"
+            value={errors.birthday}
+            onChange={handleInputChange}
+          />
+
+          <SignupButton type="submit">회원가입</SignupButton>
+          {errors.fetchError && <Error>{errors.fetchError2}</Error>}
+
+          <FooterText>이미 식구이신가요?</FooterText>
+
+          <StyledLink to="/">지금 바로 여기를 눌러 로그인하세요.</StyledLink>
+        </SignupForm>
+      </SignupContainer>
+    </Mobile>
+  );
 };
+
+export default NewSignup;

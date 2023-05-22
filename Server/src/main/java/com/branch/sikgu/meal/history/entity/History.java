@@ -2,6 +2,7 @@ package com.branch.sikgu.meal.history.entity;
 
 import com.branch.sikgu.board.entity.Board;
 import com.branch.sikgu.member.entity.Member;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

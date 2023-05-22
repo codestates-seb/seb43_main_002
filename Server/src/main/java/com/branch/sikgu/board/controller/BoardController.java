@@ -16,7 +16,6 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "X-AUTH-TOKEN")
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "X-AUTH-TOKEN")
 @RequestMapping("/api/boards")
 @Validated
 @AllArgsConstructor

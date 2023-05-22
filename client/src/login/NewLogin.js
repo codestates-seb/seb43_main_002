@@ -159,7 +159,8 @@ const NewLogin = function NewLogin() {
             placeholder="Password"
             name="password"
             value={values.password}
-            onChange={handlePasswordChange}
+            onChange={inputChangeHanlder}
+            onBlur={handlePasswordChange}
           />
           {passwordRegex.test(values.password) ||
           values.password === '' ? null : (

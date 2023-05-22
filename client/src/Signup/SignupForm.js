@@ -1,3 +1,5 @@
+/* eslint-disable no-debugger */
+/* eslint-disable prettier/prettier */
 import {
   SignupContainer,
   BackYellow,
@@ -30,8 +32,9 @@ const passwordRegex = /^(?=.[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 const validateEmail = (email) => {
   if (!emailRegex.test(email)) {
     return '올바른 이메일 형식이 아닙니다.';
+  } else {
+    return '';
   }
-  return '';
 };
 
 // 비밀번호 유효성 검사
@@ -45,7 +48,8 @@ const validatePassword = (password, confirmPassword) => {
   return '';
 };
 
-const useCheckDuplicate = (url, value, successMessage, errorMessage) => {
+// 이메일, 닉네임 중복 Hook;
+const useCheckDuplicate = (url, value, successMessage, nullMessage, errorMessage) => {
   const [isChecked, setIsChecked] = useState(false);
   const [error, setError] = useState('');
 
@@ -58,7 +62,9 @@ const useCheckDuplicate = (url, value, successMessage, errorMessage) => {
         if (!response.data) {
           alert(successMessage);
           setIsChecked(true);
-        } else {
+        } else if(response.data === null){
+          alert(nullMessage);
+        }else{
           alert(errorMessage);
         }
       })
@@ -93,6 +99,7 @@ const NewSignupForm = () => {
     'api/members/signup/checkduplicateemail',
     values.email,
     '사용 가능한 이메일입니다.',
+    '이메일을 확인하세요',
     '이미 사용중인 메일입니다.'
   );
   const [isNicknameChecked, checkDuplicateNickname, nicknameError] =
@@ -148,6 +155,7 @@ const NewSignupForm = () => {
     } else if (!isEmailChecked) {
       alert('이메일 중복확인을 해주세요.');
     } else if (!isNicknameChecked) {
+      console.log('닉네임이 비어있음.');
       alert('활동명 중복확인을 해주세요.');
     } else {
       axiosInstance
@@ -166,6 +174,8 @@ const NewSignupForm = () => {
         });
     }
   };
+
+// debugger
 
   return (
     <Mobile>
@@ -209,7 +219,7 @@ const NewSignupForm = () => {
             placeholder="식구로 활동할 별명을 8글자까지 입력해주세요."
             value={values.nickname}
             onChange={inputChangeHanlder}
-            onClick={() => {
+            onFocus={() => {
               setErrors('');
             }}
           />
@@ -217,8 +227,7 @@ const NewSignupForm = () => {
             활동명 중복확인
           </CheckDuplicateButton>
           {nicknameError && <Error>{errors.nicknameError}</Error>}
-          {errors.lengthError ? <Error>{errors.lengthError}</Error> : null}
-
+          {errors.lengthError && <Error>{errors.lengthError}</Error>}
           <div className="form-gender">
             <Text>
               <EditIcon backgroundImage={genderIcon} />
@@ -260,9 +269,6 @@ const NewSignupForm = () => {
             placeholder="식구의 이름은 무엇인가요?"
             value={values.name}
             onChange={inputChangeHanlder}
-            onClick={() => {
-              setErrors('');
-            }}
           />
           <Text>
             <EditIcon backgroundImage={pwdIcon} />
@@ -274,7 +280,7 @@ const NewSignupForm = () => {
             placeholder="숫자, 영문자 포함 8글자 이상이어야 합니다."
             value={values.password}
             onChange={inputChangeHanlder}
-            onClick={() => {
+            onFocus={() => {
               setErrors('');
             }}
           />
@@ -285,7 +291,7 @@ const NewSignupForm = () => {
             placeholder="비밀번호를 한 번 더 입력해주세요."
             value={values.confirmPassword}
             onChange={inputChangeHanlder}
-            onClick={() => {
+            onFocus={() => {
               setErrors('');
             }}
           />

@@ -27,7 +27,10 @@ public enum ExceptionCode {
     INVALID_REQUEST("잘못된 요청입니다."),
 
     // History
-    DUPLICATE_REVIEW("이미 리뷰를 남겼습니다.");
+    DUPLICATE_REVIEW("이미 리뷰를 남겼습니다."),
+
+    // Review
+    CAN_NOT_REVIEW_MYSELF("자신에게는 리뷰를 남길 수 없습니다.");
 
 
 

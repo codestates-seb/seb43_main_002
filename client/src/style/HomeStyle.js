@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const MainWrap = styled.div`
   padding: 0px;
@@ -192,6 +192,12 @@ export const BoardWrap = styled.article`
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
+  ${({ isRecruitmentComplete }) =>
+    isRecruitmentComplete &&
+    css`
+      background-color: gray;
+      opacity: 0.9;
+    `}
 `;
 
 export const FooterWrap = styled.footer`

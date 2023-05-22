@@ -193,6 +193,45 @@ const CommentOpenButton = styled.button`
   cursor: pointer;
 `;
 
+const CompleteButton = styled.button`
+  padding: 10px;
+  width: 200px;
+  height: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  display: ${(isRecruitmentComplete) =>
+    isRecruitmentComplete ? 'block' : 'none'};
+  ${(isRecruitmentComplete) =>
+    isRecruitmentComplete &&
+    css`
+      padding: 1.3em 3em;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      font-weight: 500;
+      color: #000;
+      background-color: #fff;
+      border: none;
+      border-radius: 45px;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease 0s;
+      cursor: pointer;
+      outline: none;
+      :hover {
+        background-color: #ffb44a;
+        box-shadow: 0px 15px 20px rgba(255, 180, 74, 0.4);
+        color: #fff;
+        transform: translate(-50%, -53%) translateY(-7px);
+      }
+      :active {
+        transform: translate(-50%, -53%) translateY(-1px);
+      }
+    `}
+`;
+
 export {
   SexInfomaitonWrap,
   ContentWrap,
@@ -210,4 +249,5 @@ export {
   CommentInput,
   CommentButton,
   CommentOpenButton,
+  CompleteButton,
 };

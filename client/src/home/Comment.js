@@ -142,14 +142,22 @@ const Comment = ({ comment, handlePeople, board }) => {
 
   const isAuthor = userInfo && comment.memberId === userInfo.memberId;
 
+  const Boarduser = userInfo && board.memberId === userInfo.memberId;
+
+  console.log(Boarduser);
+
   return (
     <>
       {!!comment.body && (
         <CommentsWrap>
           <ProfiletWrap>
             <CommentProfileWrap>{comment.imageId}</CommentProfileWrap>
-            <AcceptButton onClick={handleSelect}>수락</AcceptButton>
-            <RefuseButton>거절</RefuseButton>
+            {Boarduser && (
+              <>
+                <AcceptButton onClick={handleSelect}>수락</AcceptButton>
+                <RefuseButton>거절</RefuseButton>
+              </>
+            )}
           </ProfiletWrap>
           <ContentWrap>
             <CommentStateWrap>

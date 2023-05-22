@@ -27,6 +27,7 @@ import {
   CommentInput,
   CommentButton,
   CommentOpenButton,
+  CompleteButton,
 } from '../style/BoardStyle';
 import axiosInstance from '../axiosConfig';
 
@@ -36,8 +37,8 @@ const Board = ({ board }) => {
   const [postComment, setPostComment] = useState({
     body: '',
   });
-  // const [people, setPeople] = useState(false);
   const [isBoard, setIsBoard] = useState(null);
+  const [complete, setComplete] = useState(false);
 
   const tags = board.tags;
   const now = new Date(board.mealTime);
@@ -49,9 +50,7 @@ const Board = ({ board }) => {
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.comment.comments);
   const userInfo = useSelector((state) => state.user.userInfo);
-  // const JsonInfo = JSON.parse(userInfo);
 
-  // console.log('보드:', isBoard);
   const navigate = useNavigate();
   const handleOpen = () => {
     setCommentOpen(!commentOpen);
@@ -62,22 +61,6 @@ const Board = ({ board }) => {
   };
 
   useEffect(() => {
-    // const fetchData = () => {
-    //   if (commentOpen === true) {
-    //     const res = dispatch(fetchComments(board.boardId));
-    //     if (res && res.payload) {
-    //       setIsBoard(res.payload);
-    //       console.log('comments:', res.payload);
-    //     }
-    //     console.log('opencomment:', res);
-    //     console.log('truecons');
-    //   } else {
-    //     console.log('안됨');
-    //   }
-    // };
-    // console.log('페치데이타');
-    // fetchData();
-
     if (commentOpen === true) {
       dispatch(fetchComments(board.boardId)).then((res) =>
         setIsBoard(res.payload)
@@ -94,9 +77,8 @@ const Board = ({ board }) => {
     const value = e.target.value;
     setPostComment({ ...postComment, body: value });
   };
-  console.log(userInfo);
+
   const handlePeople = (selectedComment) => {
-    // const token = userInfo.
     axiosInstance
       .patch(
         `/api/boards/${board.boardId}/comments/${selectedComment.commentId}/select`
@@ -128,9 +110,7 @@ const Board = ({ board }) => {
         console.error('게시물 삭제 중 오류가 발생했습니다.', error);
       });
   };
-  // console.log('보드:', isBoard);
-  // console.log('boards', board);
-  console.log('comment', comments);
+  // console.log('comment', comments);
 
   const isAuthor = userInfo && board.memberId === userInfo.memberId;
 
@@ -139,14 +119,37 @@ const Board = ({ board }) => {
     FEMALE: '여성만 참여가능',
     MALE: '남성만 참여가능',
   };
+  // count 랑 total이랑 같으면 ?
+  const isRecruitmentComplete = board.count === board.total;
+  // post 로 리퀘스트헤더 토큰
+  // board 비활성화
+  // /api/boards/{:boardId}/complete
+  const handleComplete = () => {
+    const headers = sessionStorage.getItem('jwt');
+    axiosInstance
+      .post(`/api/boards/${board.boardId}/complete`, headers)
+      .then(() => {
+        setComplete(true);
+        navigate(0);
+      });
+  };
+
+  console.log('보드:', board.boardId);
+  console.log('boards', board);
+  console.log('complete', isRecruitmentComplete);
+  console.log(complete);
+  // console.log(handleComplete);
 
   Board.propTypes = {
     board: PropTypes.array.isRequired,
   };
   return (
     <>
-      <BoardWrap>
+      <BoardWrap isRecruitmentComplete={isRecruitmentComplete}>
         <CommentOpenButton onClick={handleOpen}>+</CommentOpenButton>
+        <CompleteButton isRecruitmentComplete={true} onClick={handleComplete}>
+          모집완료
+        </CompleteButton>
         <SexInfomaitonWrap gender={board.passedGender}>
           {genderMapping[board.passedGender]}
         </SexInfomaitonWrap>

@@ -1,12 +1,15 @@
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { GlobalStyle, GlobalWrap } from './style/GlobalStyle';
-import Login from './login/Login';
+// import Login from './login/Login';
+import NewLogin from './login/NewLogin';
 import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import Main from './home/Main';
 import { useEffect, useState } from 'react';
 import { login } from './store/userSlice';
-import Signup from './Signup/Signup';
+// import Signup from './Signup/Signup';
+// import NewSignup from './Signup/NewSignUp';
+import NewSignupForm from './Signup/SignupForm';
 import Map from './map/Map';
 import MyPage from './mypage/MyPage';
 import EditProfile from './mypage/EditProfile';
@@ -43,14 +46,9 @@ function App() {
       <GlobalStyle />
       <GlobalWrap>
         <Routes>
-          <Route path="/signup" element={<Signup />} />
-          {/* <Route path="/" element={<Login />} /> */}
-          <Route
-            path="/"
-            element={
-              isAuthenticated ? <Navigate to="/api/boards" /> : <Login />
-            }
-          />
+          <Route path="/signup" element={<NewSignupForm />} />
+          <Route path="/" element={<NewLogin />} />
+          {/* <Route path="/" element={<NewLogin />} /> */}
           {/* <Route path="/boards" element={<PrivateRoute />}>
             <Route index element={<Main />} />
           </Route> */}

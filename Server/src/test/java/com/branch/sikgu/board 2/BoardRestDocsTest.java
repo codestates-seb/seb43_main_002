@@ -1,10 +1,9 @@
 package com.branch.sikgu.board;
 
-import com.branch.sikgu.board.controller.BoardController;
-import com.branch.sikgu.board.dto.BoardDto;
-import com.branch.sikgu.board.entity.Board;
-import com.branch.sikgu.board.service.BoardService;
-import com.branch.sikgu.tag.entity.Tag;
+import com.branch.sikgu.meal.board.controller.BoardController;
+import com.branch.sikgu.meal.board.dto.BoardDto;
+import com.branch.sikgu.meal.board.entity.Board;
+import com.branch.sikgu.meal.board.service.BoardService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;

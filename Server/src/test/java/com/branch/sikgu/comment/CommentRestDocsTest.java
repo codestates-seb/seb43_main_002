@@ -1,11 +1,10 @@
 package com.branch.sikgu.comment;
 
-import com.branch.sikgu.board.dto.BoardDto;
-import com.branch.sikgu.comment.controller.CommentController;
-import com.branch.sikgu.comment.dto.CommentDto;
-import com.branch.sikgu.comment.entity.Comment;
-import com.branch.sikgu.comment.mapper.CommentMapper;
-import com.branch.sikgu.comment.service.CommentService;
+import com.branch.sikgu.meal.comment.controller.CommentController;
+import com.branch.sikgu.meal.comment.dto.CommentDto;
+import com.branch.sikgu.meal.comment.entity.Comment;
+import com.branch.sikgu.meal.comment.mapper.CommentMapper;
+import com.branch.sikgu.meal.comment.service.CommentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
@@ -31,7 +30,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;

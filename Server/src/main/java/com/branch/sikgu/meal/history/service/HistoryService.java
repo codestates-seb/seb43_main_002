@@ -1,9 +1,9 @@
 package com.branch.sikgu.meal.history.service;
 
-import com.branch.sikgu.board.entity.Board;
-import com.branch.sikgu.board.repository.BoardRepository;
-import com.branch.sikgu.comment.entity.Comment;
-import com.branch.sikgu.comment.repository.CommentRepository;
+import com.branch.sikgu.meal.board.entity.Board;
+import com.branch.sikgu.meal.board.repository.BoardRepository;
+import com.branch.sikgu.meal.comment.entity.Comment;
+import com.branch.sikgu.meal.comment.repository.CommentRepository;
 import com.branch.sikgu.meal.history.dto.HistoryDto;
 import com.branch.sikgu.meal.history.entity.History;
 import com.branch.sikgu.meal.history.repository.HistoryRepository;

@@ -1,6 +1,6 @@
 package com.branch.sikgu.myPage.entity;
 
-import com.branch.sikgu.board.entity.Board;
+import com.branch.sikgu.meal.board.entity.Board;
 import com.branch.sikgu.image.Entity.Image;
 import com.branch.sikgu.member.entity.Member;
 

@@ -1,12 +1,9 @@
-package com.branch.sikgu.comment.service;
+package com.branch.sikgu.meal.comment.service;
 
-import com.branch.sikgu.auth.jwt.JwtTokenizer;
-import com.branch.sikgu.board.entity.Board;
-import com.branch.sikgu.board.service.BoardService;
-import com.branch.sikgu.comment.dto.CommentDto;
-import com.branch.sikgu.comment.entity.Comment;
-import com.branch.sikgu.comment.mapper.CommentMapper;
-import com.branch.sikgu.comment.repository.CommentRepository;
+import com.branch.sikgu.meal.board.entity.Board;
+import com.branch.sikgu.meal.board.service.BoardService;
+import com.branch.sikgu.meal.comment.entity.Comment;
+import com.branch.sikgu.meal.comment.repository.CommentRepository;
 import com.branch.sikgu.exception.BusinessLogicException;
 import com.branch.sikgu.exception.ExceptionCode;
 import com.branch.sikgu.exception.HttpStatus;
@@ -14,7 +11,6 @@ import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.member.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

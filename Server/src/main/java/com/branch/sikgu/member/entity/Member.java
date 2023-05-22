@@ -1,6 +1,6 @@
     package com.branch.sikgu.member.entity;
 
-    import com.branch.sikgu.board.entity.Board;
+    import com.branch.sikgu.meal.board.entity.Board;
     import com.branch.sikgu.myPage.entity.MyPage;
     import lombok.Getter;
     import lombok.Setter;

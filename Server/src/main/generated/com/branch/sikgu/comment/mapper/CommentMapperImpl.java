@@ -1,15 +1,17 @@
 package com.branch.sikgu.comment.mapper;
 
-import com.branch.sikgu.comment.dto.CommentDto;
-import com.branch.sikgu.comment.entity.Comment;
+import com.branch.sikgu.meal.comment.dto.CommentDto;
+import com.branch.sikgu.meal.comment.entity.Comment;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
+
+import com.branch.sikgu.meal.comment.mapper.CommentMapper;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-05-20T17:18:19+0900",
+    date = "2023-05-22T16:09:58+0900",
     comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component

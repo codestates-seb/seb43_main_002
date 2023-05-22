@@ -1,7 +1,7 @@
-package com.branch.sikgu.board.mapper;
+package com.branch.sikgu.meal.board.mapper;
 
-import com.branch.sikgu.board.dto.BoardDto;
-import com.branch.sikgu.board.entity.Board;
+import com.branch.sikgu.meal.board.dto.BoardDto;
+import com.branch.sikgu.meal.board.entity.Board;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component

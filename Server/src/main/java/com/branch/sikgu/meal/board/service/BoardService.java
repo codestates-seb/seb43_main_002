@@ -1,8 +1,9 @@
-package com.branch.sikgu.board.service;
+package com.branch.sikgu.meal.board.service;
 
 import com.branch.sikgu.auth.jwt.JwtTokenizer;
-import com.branch.sikgu.comment.entity.Comment;
-import com.branch.sikgu.comment.repository.CommentRepository;
+import com.branch.sikgu.meal.board.repository.BoardRepository;
+import com.branch.sikgu.meal.comment.entity.Comment;
+import com.branch.sikgu.meal.comment.repository.CommentRepository;
 import com.branch.sikgu.exception.BusinessLogicException;
 import com.branch.sikgu.exception.ExceptionCode;
 import com.branch.sikgu.exception.HttpStatus;
@@ -10,10 +11,9 @@ import com.branch.sikgu.meal.history.entity.History;
 import com.branch.sikgu.meal.history.repository.HistoryRepository;
 import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.member.service.MemberService;
-import com.branch.sikgu.board.entity.Board;
-import com.branch.sikgu.board.mapper.BoardMapper;
-import com.branch.sikgu.board.repository.BoardRepository;
-import com.branch.sikgu.board.dto.BoardDto;
+import com.branch.sikgu.meal.board.entity.Board;
+import com.branch.sikgu.meal.board.mapper.BoardMapper;
+import com.branch.sikgu.meal.board.dto.BoardDto;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.StringUtils;

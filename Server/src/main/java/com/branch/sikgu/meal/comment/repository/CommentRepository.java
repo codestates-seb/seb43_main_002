@@ -1,12 +1,10 @@
-package com.branch.sikgu.comment.repository;
+package com.branch.sikgu.meal.comment.repository;
 
-import com.branch.sikgu.comment.dto.CommentDto;
-import com.branch.sikgu.comment.entity.Comment;
+import com.branch.sikgu.meal.comment.entity.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     // 해당 게시물에서 댓글 가져오기

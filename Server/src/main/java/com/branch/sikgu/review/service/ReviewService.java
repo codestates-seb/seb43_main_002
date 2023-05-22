@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -34,11 +35,11 @@ public class ReviewService {
 
         // 현재 요청을 보낸 사용자 정보 가져오기
         Member currentUser = memberService.findVerifiedMember(memberService.getCurrentMemberId(authentication));
-
         Member targetMember = memberService. findVerifiedMember(memberId);
 
+
         // 1, 2 검증
-        isReviewExistsForUser(historyId, memberId);
+        isReviewExistsForUser(historyId, memberId, authentication);
         validateCurrentUserIsMember(history, currentUser);
 
         // History에 리뷰와 좋아요 추가
@@ -56,16 +57,26 @@ public class ReviewService {
     }
 
     // 1. 히스토리가 존재하는지 확인하고 이미 리뷰를 남긴 타겟멤버인지 확인
-    public void isReviewExistsForUser(Long historyId, Long targetMemberId) {
+    public void isReviewExistsForUser(Long historyId, Long targetMemberId, Authentication authentication) {
         // 히스토리가 존재하는지 확인
         History history = historyRepository.findById(historyId)
                 .orElseThrow(() -> new EntityNotFoundException("History not found with id: " + historyId));
         // 특정 멤버가 해당 History 내의 동일한 멤버에게 이미 리뷰를 남겼는지 확인 (이미 작성했다면 true)
-        if (history.getReviews()
-                .stream()
-                .anyMatch(review -> review.getReviewer().getMemberId().equals(targetMemberId)))
-        {
+//        if (history.getReviews()
+//                .stream()
+//                .anyMatch(review -> review.getReviewer().getMemberId().equals(targetMemberId)))
+//        {
+//            throw new BusinessLogicException(ExceptionCode.DUPLICATE_REVIEW, HttpStatus.BAD_REQUEST);
+//        }
+        if (history.getReviews().stream()
+                .filter(review -> review.getReviewer().getMemberId().equals(memberService.getCurrentMemberId(authentication)))
+                .anyMatch(review -> review.getTargetMember().getMemberId().equals(targetMemberId))) {
             throw new BusinessLogicException(ExceptionCode.DUPLICATE_REVIEW, HttpStatus.BAD_REQUEST);
+        }
+        // 본인에게는 리뷰할 수 없는 로직
+        if (targetMemberId.equals(memberService.getCurrentMemberId(authentication)))
+        {
+            throw new BusinessLogicException(ExceptionCode.CAN_NOT_REVIEW_MYSELF, HttpStatus.BAD_REQUEST);
         }
     }
 

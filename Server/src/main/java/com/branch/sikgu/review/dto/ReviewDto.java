@@ -10,7 +10,7 @@ public class ReviewDto {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Post{
+    public static class Post {
         private Long historyId;
         private String reviewContent;
         private boolean liked;

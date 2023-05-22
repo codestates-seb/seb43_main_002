@@ -1,5 +1,3 @@
-/* eslint-disable no-debugger */
-/* eslint-disable prettier/prettier */
 import {
   SignupContainer,
   BackYellow,
@@ -37,6 +35,16 @@ const validateEmail = (email) => {
   }
 };
 
+const validateNickname = (nickname) => {
+  if (!nickname) {
+    return '별명을 입력하세요.';
+  }
+  if (nickname.length < 2 || nickname.length > 10) {
+    return '별명은 2자 이상 10자 이하로 입력해주세요.';
+  }
+  return null;
+};
+
 // 비밀번호 유효성 검사
 const validatePassword = (password, confirmPassword) => {
   if (!passwordRegex.test(password)) {
@@ -49,22 +57,32 @@ const validatePassword = (password, confirmPassword) => {
 };
 
 // 이메일, 닉네임 중복 Hook;
-const useCheckDuplicate = (url, value, successMessage, nullMessage, errorMessage) => {
+const useCheckDuplicate = (
+  url,
+  value,
+  successMessage,
+  errorMessage,
+  validate
+) => {
   const [isChecked, setIsChecked] = useState(false);
   const [error, setError] = useState('');
 
   const checkDuplicate = useCallback(() => {
-    setError(validateEmail(value));
-    if (error) return;
+    // validateFunc이 제공 => 아래 함수 실행, 없다면 건너뛰고 axios;
+    if (validate) {
+      const validationError = validate(value);
+      if (validationError) {
+        setError(validationError);
+        return;
+      }
+    }
     axiosInstance
-      .post(url, { email: value })
+      .post(url, { email: value, nickname: value })
       .then((response) => {
         if (!response.data) {
           alert(successMessage);
           setIsChecked(true);
-        } else if(response.data === null){
-          alert(nullMessage);
-        }else{
+        } else {
           alert(errorMessage);
         }
       })
@@ -73,7 +91,7 @@ const useCheckDuplicate = (url, value, successMessage, nullMessage, errorMessage
       });
   }, [value]);
 
-  return [isChecked, checkDuplicate, error];
+  return [isChecked, checkDuplicate, error, setError];
 };
 
 const NewSignupForm = () => {
@@ -95,20 +113,32 @@ const NewSignupForm = () => {
   const navigate = useNavigate();
 
   // 이메일 체크 로직과 비밀번호 체크 로직 제대로 테스트 해볼것.
-  const [isEmailChecked, checkDuplicateEmail, emailError] = useCheckDuplicate(
-    'api/members/signup/checkduplicateemail',
-    values.email,
-    '사용 가능한 이메일입니다.',
-    '이메일을 확인하세요',
-    '이미 사용중인 메일입니다.'
-  );
-  const [isNicknameChecked, checkDuplicateNickname, nicknameError] =
+  const [isEmailChecked, checkDuplicateEmail, emailError, setEmailError] =
     useCheckDuplicate(
-      'api/members/signup/checkduplicatenickname',
-      values.nickname,
-      '사용 가능한 활동명입니다.',
-      '이미 사용중인 활동명입니다.'
+      'api/members/signup/checkduplicateemail',
+      values.email,
+      '사용 가능한 이메일입니다.',
+      '이미 사용중인 메일입니다.',
+      validateEmail
     );
+  const [
+    isNicknameChecked,
+    checkDuplicateNickname,
+    nicknameError,
+    setNicknameError,
+  ] = useCheckDuplicate(
+    'api/members/signup/checkduplicatenickname',
+    values.nickname,
+    '사용 가능한 활동명입니다.',
+    '이미 사용중인 활동명입니다.',
+    validateNickname
+  );
+
+  const clearError = useCallback((field) => {
+    setErrors((prev) => ({ ...prev, [field]: '' }));
+    if (field === 'email') setEmailError('');
+    if (field === 'nickname') setNicknameError('');
+  }, []);
 
   const nameIcon = '/svg/join-name.svg';
   const introIcon = '/svg/join-intro.svg';
@@ -124,7 +154,7 @@ const NewSignupForm = () => {
   const handlePassword = () => {
     const error = validatePassword(values.password, values.confirmPassword);
     if (!error) {
-      alert('둘이 똑같음');
+      alert('비밀 번호가 일치합니다.');
     } else {
       setErrors((prev) => ({ ...prev, lengthError: error }));
     }
@@ -163,7 +193,7 @@ const NewSignupForm = () => {
         .then((response) => {
           if (response.status === 201) {
             alert('회원가입이 완료되었습니다.');
-            navigate('/login');
+            navigate('/');
           }
         })
         .catch((error) => {
@@ -174,8 +204,6 @@ const NewSignupForm = () => {
         });
     }
   };
-
-// debugger
 
   return (
     <Mobile>
@@ -203,6 +231,9 @@ const NewSignupForm = () => {
             name="email"
             value={values.email}
             onChange={inputChangeHanlder}
+            onFocus={() => {
+              clearError('email');
+            }}
           />
           <CheckDuplicateButton type="button" onClick={checkDuplicateEmail}>
             이메일 중복확인
@@ -216,18 +247,17 @@ const NewSignupForm = () => {
           <Input
             type="text"
             name="nickname"
-            placeholder="식구로 활동할 별명을 8글자까지 입력해주세요."
+            placeholder="식구의 별명을 10자이내로 입력해주세요."
             value={values.nickname}
             onChange={inputChangeHanlder}
             onFocus={() => {
-              setErrors('');
+              clearError('nickname');
             }}
           />
           <CheckDuplicateButton type="button" onClick={checkDuplicateNickname}>
             활동명 중복확인
           </CheckDuplicateButton>
-          {nicknameError && <Error>{errors.nicknameError}</Error>}
-          {errors.lengthError && <Error>{errors.lengthError}</Error>}
+          {nicknameError && <Error>{nicknameError}</Error>}
           <div className="form-gender">
             <Text>
               <EditIcon backgroundImage={genderIcon} />

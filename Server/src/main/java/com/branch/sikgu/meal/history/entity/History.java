@@ -26,8 +26,12 @@ public class History {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long historyId;
 
-    @OneToOne
-    @JoinColumn(nullable = false)
+//    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "board_id", nullable = false)
+//    private Board board;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id", nullable = false)
     private Board board;
 
     @ManyToMany
@@ -37,4 +41,5 @@ public class History {
             inverseJoinColumns = @JoinColumn(name = "MEMBER_ID")
     )
     private List<Member> members;
+
 }

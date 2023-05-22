@@ -1,6 +1,8 @@
 package com.branch.sikgu.board.entity;
 
+import com.branch.sikgu.meal.history.entity.History;
 import com.branch.sikgu.member.entity.Member;
+import com.branch.sikgu.myPage.entity.MyPage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +19,6 @@ import java.util.Set;
 @Setter
 @Table(name = "BOARD")
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
 public class Board {
     // 게시물 ID
@@ -97,6 +98,15 @@ public class Board {
     @org.hibernate.annotations.OrderBy(clause = "tag asc")
     @OrderColumn(name = "index")
     private Set<String> tags = new LinkedHashSet<>();
+
+    // Board 엔티티
+    @OneToOne(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private History history;
+
+    public Board() {
+        this.history = new History();
+        this.history.setBoard(this);
+    }
 
     public void setTags(Set<String> tags) {
         this.tags = tags;

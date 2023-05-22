@@ -29,6 +29,7 @@ public interface BoardMapper {
                 board.getCreatedAt(),
                 board.getUpdatedAt(),
                 board.getTotal(),
+                board.getCount(),
                 board.getPassedGender(),
                 board.getMealTime(),
                 new ArrayList<>(board.getTags())

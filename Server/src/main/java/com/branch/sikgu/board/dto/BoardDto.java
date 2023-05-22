@@ -58,6 +58,7 @@ public class BoardDto {
         private LocalDateTime updatedAt;
 
         private int total;
+        private int count;
         private Board.PassedGender passedGender;
         private LocalDateTime mealTime;
         private List<String> tags;

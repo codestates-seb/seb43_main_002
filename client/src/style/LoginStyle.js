@@ -107,6 +107,12 @@ const Error = styled.p`
   margin-top: 3px;
 `;
 
+const Message = styled.p`
+  color: blue;
+  font-size: 11pt;
+  margin-top: 3px;
+`;
+
 const FooterText = styled.p`
   display: flex;
   justify-content: center;
@@ -166,6 +172,7 @@ export {
   LoginButton,
   ForgotPasswordButton,
   Error,
+  Message,
   FooterText,
   StyledLink,
   GoogleLoginButton,

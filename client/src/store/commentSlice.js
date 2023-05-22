@@ -7,24 +7,24 @@ import {
 import axiosInstance from '../axiosConfig';
 
 // 댓글 목록 가져오기
-// export const fetchComments = createAsyncThunk(
-//   'boards/fetchComments',
-//   async (boardId) => {
-//     const response = await axiosInstance.get(`/api/boards/${boardId}/comments`);
-//     return response.data;
-//   }
-// );
 export const fetchComments = createAsyncThunk(
   'boards/fetchComments',
-  (boardId) => {
-    return axiosInstance
-      .get(`/api/comments/${boardId}`)
-      .then((response) => response.data)
-      .catch((error) => {
-        throw new Error('데이터 가져오기 실패');
-      });
+  async (boardId) => {
+    const response = await axiosInstance.get(`/api/boards/${boardId}/comments`);
+    return response.data;
   }
 );
+// export const fetchComments = createAsyncThunk(
+//   'boards/fetchComments',
+//   (boardId) => {
+//     return axiosInstance
+//       .get(`/api/comments/${boardId}`)
+//       .then((response) => response.data)
+//       .catch((error) => {
+//         throw new Error('데이터 가져오기 실패');
+//       });
+//   }
+// );
 
 // 댓글 추가
 export const addComment = createAsyncThunk(

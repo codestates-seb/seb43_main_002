@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import EditModal from './EditModal';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteBoard, updateBoard } from '../store/boardSlice';
+import { deleteBoard } from '../store/boardSlice';
 import { addComment, fetchComments } from '../store/commentSlice';
 import {
   SexInfomaitonWrap,
@@ -28,6 +28,7 @@ import {
   CommentButton,
   CommentOpenButton,
 } from '../style/BoardStyle';
+import axiosInstance from '../axiosConfig';
 
 const Board = ({ board }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -68,9 +69,13 @@ const Board = ({ board }) => {
     //       setIsBoard(res.payload);
     //       console.log('comments:', res.payload);
     //     }
+    //     console.log('opencomment:', res);
+    //     console.log('truecons');
+    //   } else {
+    //     console.log('안됨');
     //   }
     // };
-
+    // console.log('페치데이타');
     // fetchData();
 
     if (commentOpen === true) {
@@ -89,15 +94,15 @@ const Board = ({ board }) => {
     const value = e.target.value;
     setPostComment({ ...postComment, body: value });
   };
-
-  const handlePeople = (e) => {
-    e.preventDefault();
-    dispatch(updateBoard({ boardId: board.boardId, count: true }))
-      .unwrap()
-      .then(() => {
-        console.log('수락 됨');
-        navigate(0);
-      });
+  console.log(userInfo);
+  const handlePeople = (selectedComment) => {
+    // const token = userInfo.
+    axiosInstance
+      .patch(
+        `/api/boards/${board.boardId}/comments/${selectedComment.commentId}/select`
+      )
+      .then((res) => res.data);
+    navigate(0);
   };
 
   const handlePostComment = (e) => {
@@ -124,10 +129,16 @@ const Board = ({ board }) => {
       });
   };
   // console.log('보드:', isBoard);
-
   // console.log('boards', board);
-  // console.log(comments);
+  console.log('comment', comments);
+
   const isAuthor = userInfo && board.memberId === userInfo.memberId;
+
+  const genderMapping = {
+    ANY: '누구나 참여가능',
+    FEMALE: '여성만 참여가능',
+    MALE: '남성만 참여가능',
+  };
 
   Board.propTypes = {
     board: PropTypes.array.isRequired,
@@ -137,7 +148,7 @@ const Board = ({ board }) => {
       <BoardWrap>
         <CommentOpenButton onClick={handleOpen}>+</CommentOpenButton>
         <SexInfomaitonWrap gender={board.passedGender}>
-          {board.passedGender}
+          {genderMapping[board.passedGender]}
         </SexInfomaitonWrap>
         <ContentWrap gender={board.passedGender} onClick={handleOpen}>
           <ContentHeader>{board.title}</ContentHeader>

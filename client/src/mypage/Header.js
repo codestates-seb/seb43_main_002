@@ -9,7 +9,7 @@ const Header = ({ iconSrc, fnc }) => {
   const navigate = useNavigate();
 
   // props로 받아와서 네비게이터도 구현해야 한다.
-  const [onSearch, setOnSerach] = useState(false);
+  const [onSearch, setOnSerach] = useState(true);
   const [searchValue, setSearchValue] = useState('');
   const dispatch = useDispatch();
 
@@ -19,8 +19,8 @@ const Header = ({ iconSrc, fnc }) => {
     } else if (fnc === 'back') {
       navigate(-1);
     } else if (fnc === 'search') {
-      console.log('검색');
-      setOnSerach(true);
+      // console.log('검색');
+      setOnSerach(false);
     }
   }
   const handleSearch = (e) => {

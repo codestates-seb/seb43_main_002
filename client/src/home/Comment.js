@@ -111,6 +111,10 @@ const Comment = ({ comment, handlePeople, board }) => {
     setEditing(true);
   };
 
+  const handleSelect = () => {
+    handlePeople(comment);
+  };
+
   const handleCancelEdit = () => {
     setEditing(false);
     setContent(comment.body);
@@ -143,8 +147,8 @@ const Comment = ({ comment, handlePeople, board }) => {
       {!!comment.body && (
         <CommentsWrap>
           <ProfiletWrap>
-            <CommentProfileWrap>{comment.imagepath}</CommentProfileWrap>
-            <AcceptButton onClick={handlePeople}>수락</AcceptButton>
+            <CommentProfileWrap>{comment.imageId}</CommentProfileWrap>
+            <AcceptButton onClick={handleSelect}>수락</AcceptButton>
             <RefuseButton>거절</RefuseButton>
           </ProfiletWrap>
           <ContentWrap>

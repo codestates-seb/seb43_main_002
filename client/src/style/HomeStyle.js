@@ -108,6 +108,9 @@ export const DayWrap = styled.div`
   /* border: 1px solid black; */
   background-color: transparent;
   display: flex;
+  /* overflow: auto; */
+  flex-direction: row;
+  white-space: nowrap;
 `;
 
 export const SelectedDay = styled.div`
@@ -133,7 +136,7 @@ export const SlideContainer = styled.div`
 `;
 
 export const SlideItem = styled.div`
-  flex: 0 0 360px;
+  flex: 0 0 50px;
 `;
 
 export const WeekWrap = styled.div`

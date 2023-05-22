@@ -6,6 +6,8 @@ import com.branch.sikgu.comment.repository.CommentRepository;
 import com.branch.sikgu.exception.BusinessLogicException;
 import com.branch.sikgu.exception.ExceptionCode;
 import com.branch.sikgu.exception.HttpStatus;
+import com.branch.sikgu.meal.history.entity.History;
+import com.branch.sikgu.meal.history.repository.HistoryRepository;
 import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.member.service.MemberService;
 import com.branch.sikgu.board.entity.Board;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BoardService {
@@ -26,13 +29,15 @@ public class BoardService {
     private final JwtTokenizer jwtTokenizer;
     private final MemberService memberService;
     private final CommentRepository commentRepository;
+    private final HistoryRepository historyRepository;
 
-    public BoardService(BoardRepository boardRepository, BoardMapper boardMapper, JwtTokenizer jwtTokenizer, MemberService memberService, CommentRepository commentRepository) {
+    public BoardService(BoardRepository boardRepository, BoardMapper boardMapper, JwtTokenizer jwtTokenizer, MemberService memberService, CommentRepository commentRepository, HistoryRepository historyRepository) {
         this.boardRepository = boardRepository;
         this.boardMapper = boardMapper;
         this.jwtTokenizer = jwtTokenizer;
         this.memberService = memberService;
         this.commentRepository = commentRepository;
+        this.historyRepository = historyRepository;
     }
 
     // 게시물 등록
@@ -189,6 +194,22 @@ public class BoardService {
         }
         board.setBoardStatus(Board.BoardStatus.INACTIVE_BOARD);
         // TODO 모집완료 후 해당 보드의 작성자와 선택된 코멘트들의 작성자들을 History 객체로 생성 후 저장해야한다.
+
+        // History 가져오기 또는 생성하기
+        History history = board.getHistory();
+        if (history == null) {
+            history = new History();
+        }
+        history.setBoard(board);
+
+        List<Member> members = commentRepository.findByBoardId(board.getBoardId())
+                .stream()
+                .filter(comment -> comment.getSelectionStatus() == Comment.SelectionStatus.SELECTION)
+                .map(Comment::getMember)
+                .collect(Collectors.toList());
+
+        history.setMembers(members);
+        board.setHistory(history);
 
         boardRepository.save(board);
     }

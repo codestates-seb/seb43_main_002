@@ -51,7 +51,7 @@ public class HistoryService {
                     HistoryDto.Response historyResponseDto = new HistoryDto.Response(
                             history.getHistoryId(),
                             history.getBoard(),
-                            memberMapper.membersToMemberResponseDtos(history.getMembers()));
+                            history.getMembers());
                     // 필요한 정보를 historyResponseDto에 설정
                     return historyResponseDto;
                 })

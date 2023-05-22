@@ -37,11 +37,12 @@ const Login = () => {
 
   const handleLogin = () => {
     axiosInstance
-      .post('members/login', {
+      .post('api/members/login', {
         email,
         password,
       })
       .then((response) => {
+        // eslint-disable-next-line no-debugger
         const token = response.headers.authorization;
         if (token) {
           const decoded = jwt_decode(token);
@@ -49,6 +50,7 @@ const Login = () => {
           const user = {
             email: decoded.email,
             nickname: decoded.nickname,
+            memberId: decoded.memberId,
           };
 
           sessionStorage.setItem('user', JSON.stringify(user)); // 세션스토리지에 user정보 저장

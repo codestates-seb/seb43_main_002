@@ -88,7 +88,7 @@ const Signup = () => {
       return null;
     } else {
       axios
-        .post('members/signup/checkduplicateemail', {
+        .post('/api/members/signup/checkduplicateemail', {
           email,
         })
         .then((response) => {
@@ -109,7 +109,7 @@ const Signup = () => {
 
   const handleCheckDuplicateNickname = () => {
     axios
-      .post('members/signup/checkduplicatenickname', {
+      .post('/api/members/signup/checkduplicatenickname', {
         nickname,
       })
       .then((response) => {
@@ -144,7 +144,7 @@ const Signup = () => {
     e.preventDefault();
     e.stopPropagation();
     axios
-      .post('/members/signup', {
+      .post('/api/members/signup', {
         email,
         nickname,
         password,

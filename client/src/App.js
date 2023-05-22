@@ -20,13 +20,17 @@ function App() {
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem('user');
+    const JsonUser = JSON.parse(storedUser);
+    // Json.parse 사용 하여 이름맞추기
+    // null 일 때 고민해보기
+    // eslint-disable-next-line no-debugger
+    // debugger;
     const storedToken = sessionStorage.getItem('jwt');
-    if (storedUser && storedToken) {
-      dispatch(login(storedUser));
+    if (JsonUser && storedToken) {
+      dispatch(login(JsonUser));
     }
     setLoading(false);
   }, [dispatch]);
-
   const PrivateRoute = () => {
     return isAuthenticated ? <Outlet /> : <Navigate to="/" />;
   };
@@ -34,6 +38,7 @@ function App() {
   if (loading) {
     return <p>Loading...</p>;
   }
+
   return (
     <>
       <GlobalStyle />

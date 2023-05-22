@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 const SexInfomaitonWrap = styled.div`
   padding: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
@@ -81,8 +81,20 @@ const IconWrap = styled.div`
 
 const UserWrap = styled.div`
   padding: 0px;
-  width: 40px;
+  height: 40px;
+  font-size: 12px;
+  font-weight: bold;
   margin-left: auto;
+  border-radius: 50%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+`;
+
+const UserImg = styled.div`
+  padding: 0px;
+  width: 40px;
+  margin-left: 20px;
   border: 1px solid black;
   border-radius: 50%;
 `;
@@ -108,10 +120,20 @@ const StateButton = styled.div`
   cursor: pointer;
   svg {
     color: #ffddac;
+    ${(props) =>
+      props.isDelete &&
+      css`
+        color: rgba(0, 0, 0, 0.15);
+      `}
   }
   &:hover {
     svg {
       color: #ffb44a;
+      ${(props) =>
+        props.isDelete &&
+        css`
+          color: #cc3333;
+        `}
     }
   }
 `;
@@ -181,6 +203,7 @@ export {
   SubmitWrap,
   IconWrap,
   UserWrap,
+  UserImg,
   ButtonWrap,
   StateButton,
   CommentInputWrap,

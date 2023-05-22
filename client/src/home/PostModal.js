@@ -138,6 +138,7 @@ const PostModal = ({ isOpen, onClose }) => {
       .then(() => {
         console.log('게시물이 성공적으로 작성되었습니다.');
         onClose();
+        alert(`식사매너 지켜주실 거죠??`);
         navigate(0);
       })
       .catch((error) => {

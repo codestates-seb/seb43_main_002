@@ -57,4 +57,6 @@ public class MyPage {
         this.image.setMyPage(this);
     }
 
+    private Long likeCount;
+
 }

@@ -7,6 +7,7 @@ import com.branch.sikgu.member.mapper.MemberMapper;
 import com.branch.sikgu.member.repository.MemberRepository;
 import com.branch.sikgu.member.service.MemberService;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -40,19 +41,19 @@ public class MemberController {
     public ResponseEntity<Boolean> checkEmail(@RequestBody EmailCheckRequestDto requestDTO) {
         boolean isDuplicateEmail = memberService.checkDuplicateEmail(requestDTO.getEmail());
         if (isDuplicateEmail) {
-            return ResponseEntity.ok(true); // 409 status code
+            return ResponseEntity.ok(true);
         }
-        return ResponseEntity.ok(false); // 200 status code
+        return ResponseEntity.ok(false);
     }
 
     // 닉네임 중복 검사 버튼
     @PostMapping("signup/checkduplicatenickname")
-    public ResponseEntity<Boolean> checkNickname(@RequestBody NicknameCheckRequestDto requestDTO) {
+    public ResponseEntity<?> checkNickname(@RequestBody NicknameCheckRequestDto requestDTO) {
         boolean isDuplicateNickname = memberService.checkDuplicateNickname(requestDTO.getNickname());
         if (isDuplicateNickname) {
-            return ResponseEntity.ok(true); // 409 status code
+            return ResponseEntity.ok(true);
         }
-        return ResponseEntity.ok(false); // 200 status code
+        return ResponseEntity.ok(false);
     }
 
     // 회원정보조회 (로그인된 사용자 본인의 정보만 조회할 수 있게 수정)

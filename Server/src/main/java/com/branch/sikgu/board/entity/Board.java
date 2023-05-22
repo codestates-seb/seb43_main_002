@@ -38,7 +38,7 @@ public class Board {
     private int total;
 
     @Column
-    private int count;
+    private int count = 1;
 
     // 생성 일자
     @Column(name = "created_at")

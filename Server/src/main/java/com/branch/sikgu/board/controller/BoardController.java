@@ -74,4 +74,23 @@ public class BoardController {
         BoardDto.Response responseDto = boardService.getBoardResponseById(boardId);
         return ResponseEntity.ok(responseDto);
     }
+
+    // 참가 신청 수락 버튼
+    @PatchMapping("/{boardId}/comments/{commentId}/select")
+    public ResponseEntity<String> selectCommentAndIncreaseCurrentCount(
+            @PathVariable Long boardId,
+            @PathVariable Long commentId, Authentication authentication
+    ) {
+        boardService.selectCommentAndIncreaseCurrentCount(boardId, commentId, authentication);
+        return ResponseEntity.ok("참가 신청 수락!");
+    }
+
+    // 참가 모집 완료 버튼
+    @PatchMapping("/{boardId}/complete")
+    public ResponseEntity<String> completeBoard(
+            @PathVariable Long boardId,
+            Authentication authentication) {
+        boardService.completeBoard(boardId, authentication);
+        return ResponseEntity.ok("모집 완료");
+    }
 }

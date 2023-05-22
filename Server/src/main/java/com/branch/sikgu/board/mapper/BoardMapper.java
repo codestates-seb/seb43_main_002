@@ -22,7 +22,7 @@ public interface BoardMapper {
         return new BoardDto.Response(
                 board.getMember().getMemberId(),
                 board.getMember().getNickname(),
-                board.getMember().getMyPage().getImagePath(),
+                board.getMember().getMyPage().getImage().getImageId(),
                 board.getBoardId(),
                 board.getTitle(),
                 board.getBody(),

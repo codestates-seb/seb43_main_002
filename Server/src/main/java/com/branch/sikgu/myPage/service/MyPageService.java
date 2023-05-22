@@ -5,6 +5,7 @@ import com.branch.sikgu.exception.BusinessLogicException;
 import com.branch.sikgu.exception.ExceptionCode;
 import com.branch.sikgu.exception.HttpStatus;
 import com.branch.sikgu.image.Entity.Image;
+import com.branch.sikgu.image.Repository.ImageRepository;
 import com.branch.sikgu.image.Service.ImageService;
 import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.member.repository.MemberRepository;
@@ -21,17 +22,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionSynchronization;
-import org.springframework.transaction.support.TransactionSynchronizationAdapter;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,6 +47,7 @@ public class MyPageService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final ImageService imageService;
+    private final ImageRepository imageRepository;
 
     // 마이페이지 조회
     public MyPageResponseDto getMyPage(Long memberId) {
@@ -53,6 +57,10 @@ public class MyPageService {
         // Member의 nickname을 가져와서 MyPageResponseDto에 설정
         String nickname = myPage.getMember().getNickname();
         myPageResponseDto.setNickname(nickname);
+        myPageResponseDto.setBirthday(myPage.getMember().getBirthday());
+        myPageResponseDto.setName(myPage.getMember().getName());
+        myPageResponseDto.setGender(myPage.getMember().getGender());
+        myPageResponseDto.setEmail(myPage.getMember().getEmail());
 
         // 최근 작성한 게시물 2개를 가져와서 MyPageResponseDto에 설정
         List<Board> recentBoards = myPage.getRecentPost();
@@ -64,9 +72,8 @@ public class MyPageService {
                     MyPageRecentBoardDto myPageRecentBoardDto = new MyPageRecentBoardDto();
                     myPageRecentBoardDto.setBoardId(Board.getBoardId());
                     myPageRecentBoardDto.setTitle(Board.getTitle());
-                    myPageRecentBoardDto.setCreatedAt(Board.getCreatedAt());
+                    myPageRecentBoardDto.setCreatedAt((Board.getCreatedAt().toLocalDate()));
                     myPageRecentBoardDto.setType("식구");
-                    myPageRecentBoardDto.setProfileImage(Board.getMember().getMyPage().getImagePath());
                     return myPageRecentBoardDto;
                 })
                 .collect(Collectors.toList());
@@ -94,6 +101,7 @@ public class MyPageService {
             throw new BusinessLogicException(ExceptionCode.MEMBER_FORBIDDEN, HttpStatus.FORBIDDEN);
         }
         // 이미지 업로드 처리
+
         String imagePath = "C:\\Users\\SYJ\\Desktop\\seb43_main_002\\Server\\src\\main\\resources\\static\\images";
         Image image = new Image(file.getOriginalFilename(), file.getContentType());
         Long fileId = imageService.addImage(image);
@@ -108,7 +116,7 @@ public class MyPageService {
     }
 
     // 마이페이지 수정
-    public MyPageResponseDto updateMyPage(Long memberId, MyPageRequestDto myPageRequestDto, Authentication authentication) {
+    public void updateMyPage(Long memberId, MyPageRequestDto myPageRequestDto, Authentication authentication, MultipartFile file) throws IOException {
         // 현재 인증된 회원의 정보를 가져옴
         Member currentMember = memberService.findVerifiedMember(memberService.getCurrentMemberId(authentication));
 
@@ -118,9 +126,28 @@ public class MyPageService {
 
             Optional.ofNullable(myPageRequestDto.getIntroduce())
                     .ifPresent(myPage::setIntroduce);
-            Optional.ofNullable(myPageRequestDto.getImagePath())
-                    .ifPresent(myPage::setImagePath);
 
+            Optional.ofNullable(file)
+                    .ifPresent(updatedFile -> {
+                        String imagePath = "C:\\Users\\SYJ\\Desktop\\seb43_main_002\\Server\\src\\main\\resources\\static\\images";
+                        Image image = myPage.getImage();
+                        String imageName = image.getName();
+
+                        String newFileName = generateUniqueFileName(updatedFile.getOriginalFilename());
+
+                        image.setName(image.getImageId() + newFileName);
+                        image.setOriginalFileName(updatedFile.getOriginalFilename());
+                        image.setType(updatedFile.getContentType());
+
+                        String filePath = Paths.get(imagePath, image.getImageId() + newFileName).toString();
+                        File f = new File(filePath);
+                        try {
+                            updatedFile.transferTo(f);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        deletePreviousFile(imagePath, imageName);
+                    });
 
             Optional.ofNullable(myPageRequestDto.getNickname())
                     .ifPresent(nickname -> {
@@ -138,12 +165,37 @@ public class MyPageService {
             Optional.ofNullable(myPageRequestDto.getGender())
                     .ifPresent(currentMember::setGender);
 
-            MyPage updatedMyPage = myPageRepository.save(myPage);
+            myPageRepository.save(myPage);
             memberRepository.save(currentMember);
-            return myPageMapper.MyPageToMyPageResponseDto(updatedMyPage);
         } else {
             // 권한이 없는 경우 예외처리
             throw new BusinessLogicException(ExceptionCode.MEMBER_FORBIDDEN, HttpStatus.FORBIDDEN);
+        }
+    }
+
+    public void downloadImage(Long myPageId, HttpServletResponse response) {
+        BufferedInputStream bin = null;
+        try {
+            response.setContentType("image/jpeg");
+            Image image = imageRepository.findImageByMyPageId(myPageId);
+
+            File file = new File("C:\\Users\\SYJ\\Desktop\\seb43_main_002\\Server\\src\\main\\resources\\static\\images\\" + image.getName());
+            bin = new BufferedInputStream(new FileInputStream(file));
+
+            byte[] dataBytes = new byte[8192];
+            int nread = 0;
+            while ((nread = bin.read(dataBytes)) != -1) {
+                response.getOutputStream().write(dataBytes, 0, nread);
+            }
+            response.getOutputStream().flush();
+        } catch (Exception e) {
+            // 예외 처리 로직 추가
+        } finally {
+            try {
+                if (bin != null) bin.close();
+            } catch (Exception e) {
+                // 예외 처리 로직 추가
+            }
         }
     }
 
@@ -191,4 +243,39 @@ public class MyPageService {
         myPage.setFollowerCount(myPage.getFollowerCount() - 1);
         myPageRepository.save(myPage);
     }
+
+    private void deletePreviousFile(String imagePath, String previousImageName) {
+        if (previousImageName != null) {
+            String previousFilePath = Paths.get(imagePath, previousImageName).toString();
+            File previousFile = new File(previousFilePath);
+            if (previousFile.exists()) {
+                if (previousFile.delete()) {
+                    // 파일 삭제 성공
+                } else {
+                    // 파일 삭제 실패
+                    throw new RuntimeException("이전 파일 삭제 실패!: " + previousFilePath);
+                }
+            }
+        }
+    }
+
+    // 고유한 파일명 생성 메서드
+    private String generateUniqueFileName(String originalFilename) {
+        // 고유한 식별자 생성 로직을 구현하여 파일명 충돌을 방지
+        // 예시로 현재 시간과 랜덤한 문자열을 조합하여 파일명을 생성
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        String randomString = UUID.randomUUID().toString().substring(0, 8);
+        String extension = getExtension(originalFilename);
+        return timestamp + "_" + randomString + extension;
+    }
+
+    // 파일 확장자 추출 메서드
+    private String getExtension(String filename) {
+        int dotIndex = filename.lastIndexOf(".");
+        if (dotIndex > 0 && dotIndex < filename.length() - 1) {
+            return filename.substring(dotIndex);
+        }
+        return "";
+    }
+
 }

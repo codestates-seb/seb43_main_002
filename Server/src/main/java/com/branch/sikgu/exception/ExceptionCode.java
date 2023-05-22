@@ -9,6 +9,8 @@ public enum ExceptionCode {
     // Post
     BOARD_NOT_FOUND("해당 포스트를 찾을 수 없습니다."),
     INACTIVED_BOARD("비활성화 된 게시물입니다."),
+    MAX_CAPACITY_REACHED("인원이 모두 찼습니다."),
+
 
     // Comment
     COMMENT_NOT_FOUND("해당 댓글을 찾을 수 없습니다."),
@@ -23,7 +25,7 @@ public enum ExceptionCode {
     MEMBER_UNAUTHORIZED("UNAUTHORIZED"),
     INVALID_REQUEST("잘못된 요청입니다."),
 
-    ;
+    ALREADY_SELECTED_COMMENT("이미 수락된 요청입니다.");
 
     private final String message;
 

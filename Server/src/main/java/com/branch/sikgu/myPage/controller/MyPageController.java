@@ -1,16 +1,27 @@
 package com.branch.sikgu.myPage.controller;
 
+import com.branch.sikgu.image.Entity.Image;
+import com.branch.sikgu.image.Repository.ImageRepository;
 import com.branch.sikgu.image.Service.ImageService;
 import com.branch.sikgu.myPage.dto.MyPageRequestDto;
 import com.branch.sikgu.myPage.dto.MyPageResponseDto;
 import com.branch.sikgu.myPage.service.MyPageService;
 import lombok.AllArgsConstructor;
+import org.apache.commons.io.IOUtils;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 
 @RestController
@@ -20,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class MyPageController {
 
     private MyPageService myPageService;
+    private ImageRepository imageRepository;
 
     // 마이페이지 조회
     @GetMapping("/{memberId}")
@@ -29,31 +41,26 @@ public class MyPageController {
         return ResponseEntity.ok(myPageResponseDto);
     }
 
-    // 프로필이미지 변경 (마이페이지 수정 내에서)
-    @PostMapping("/{myPageId}/image")
-    public ResponseEntity<String> uploadImage(
-            @PathVariable Long myPageId,
-            @RequestPart("file") MultipartFile file,
-            Authentication authentication) {
-        try {
-            // 이미지 업로드 및 마이페이지 이미지 경로 업데이트
-            String imagePath = myPageService.uploadMyPageImage(myPageId, file, authentication);
-            // 업로드된 이미지 경로를 클라이언트에 반환
-            return ResponseEntity.ok(imagePath);
-        } catch (Exception e) {
-            // 업로드 실패 시 예외 처리
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이미지 업로드에 실패했습니다.");
-        }
+    @GetMapping("/{myPageId}/image")
+    public void downloadImage(@PathVariable Long myPageId, HttpServletResponse response) {
+        myPageService.downloadImage(myPageId, response);
     }
 
     // 마이페이지 수정
     @PatchMapping("/{memberId}")
-    public ResponseEntity<MyPageResponseDto> updateMyPage(
+    public ResponseEntity<Void> updateMyPage(
             @PathVariable Long memberId,
-            @RequestBody MyPageRequestDto myPageRequestDto,
-            Authentication authentication) {
-            MyPageResponseDto myPageResponseDto = myPageService.updateMyPage(memberId, myPageRequestDto, authentication);
-            return ResponseEntity.ok(myPageResponseDto);
+            @RequestPart("myPageRequestDto") MyPageRequestDto myPageRequestDto,
+            @RequestPart("file") MultipartFile file,
+            Authentication authentication) throws IOException {
+            myPageService.updateMyPage(memberId, myPageRequestDto, authentication, file);
+            return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        System.out.println("@@@");
+        return "hello";
     }
 
     @PostMapping("/{myPageId}/follow")

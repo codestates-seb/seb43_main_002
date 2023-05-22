@@ -2,10 +2,8 @@ package com.branch.sikgu.meal.history.dto;
 
 import com.branch.sikgu.meal.board.entity.Board;
 import com.branch.sikgu.member.entity.Member;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.branch.sikgu.myPage.entity.MyPage;
+import lombok.*;
 
 import java.util.List;
 

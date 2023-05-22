@@ -1,6 +1,6 @@
-package com.branch.sikgu.board.repository;
+package com.branch.sikgu.meal.board.repository;
 
-import com.branch.sikgu.board.entity.Board;
+import com.branch.sikgu.meal.board.entity.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
-package com.branch.sikgu.comment.entity;
+package com.branch.sikgu.meal.comment.entity;
 
-import com.branch.sikgu.board.entity.Board;
+import com.branch.sikgu.meal.board.entity.Board;
 import com.branch.sikgu.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

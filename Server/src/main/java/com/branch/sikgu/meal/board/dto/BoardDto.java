@@ -1,6 +1,6 @@
-package com.branch.sikgu.board.dto;
+package com.branch.sikgu.meal.board.dto;
 
-import com.branch.sikgu.board.entity.Board;
+import com.branch.sikgu.meal.board.entity.Board;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;

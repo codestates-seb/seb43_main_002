@@ -34,7 +34,7 @@ public class Review {
     private String content;
 
     @Column(name = "liked")
-    private boolean liked;
+    private boolean liked = false;
 
     // 추가적인 필드들...
 }

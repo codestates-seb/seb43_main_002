@@ -1,6 +1,6 @@
-package com.branch.sikgu.comment.dto;
+package com.branch.sikgu.meal.comment.dto;
 
-import com.branch.sikgu.comment.entity.Comment;
+import com.branch.sikgu.meal.comment.entity.Comment;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;

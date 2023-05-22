@@ -1,7 +1,7 @@
-package com.branch.sikgu.board.controller;
+package com.branch.sikgu.meal.board.controller;
 
-import com.branch.sikgu.board.service.BoardService;
-import com.branch.sikgu.board.dto.BoardDto;
+import com.branch.sikgu.meal.board.service.BoardService;
+import com.branch.sikgu.meal.board.dto.BoardDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

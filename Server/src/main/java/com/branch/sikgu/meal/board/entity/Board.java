@@ -1,4 +1,4 @@
-package com.branch.sikgu.board.entity;
+package com.branch.sikgu.meal.board.entity;
 
 import com.branch.sikgu.meal.history.entity.History;
 import com.branch.sikgu.member.entity.Member;

@@ -1,6 +1,6 @@
 package com.branch.sikgu.myPage.service;
 
-import com.branch.sikgu.board.entity.Board;
+import com.branch.sikgu.meal.board.entity.Board;
 import com.branch.sikgu.exception.BusinessLogicException;
 import com.branch.sikgu.exception.ExceptionCode;
 import com.branch.sikgu.exception.HttpStatus;
@@ -30,7 +30,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;

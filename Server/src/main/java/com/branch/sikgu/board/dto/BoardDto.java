@@ -51,9 +51,6 @@ public class BoardDto {
         private String nickname;
         private String imagePath;
         private Long boardId;
-        private Long memberId;
-        private String nickName;
-        private String imagePath;
 
         private String title;
         private String body;

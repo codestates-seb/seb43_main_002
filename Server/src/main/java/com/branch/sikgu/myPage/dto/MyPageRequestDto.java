@@ -14,5 +14,4 @@ public class MyPageRequestDto {
     private LocalDate birthday;
     private Boolean gender;
     private String password;
-    private String imagePath;
 }

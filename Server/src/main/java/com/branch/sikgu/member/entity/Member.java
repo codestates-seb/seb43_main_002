@@ -35,7 +35,7 @@
         @Column(name = "status", nullable = false)
         private MemberStatus status = MemberStatus.MEMBER_ACTIVE;
         @Column(name = "created_at", nullable = false)
-        private LocalDateTime createdAt;
+        private LocalDateTime createdAt = LocalDateTime.now();
         @Column(name = "updated_at")
         private LocalDateTime updatedAt;
         @OneToOne(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

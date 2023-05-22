@@ -49,7 +49,7 @@ public class BoardDto {
     public static class Response{
         private Long memberId;
         private String nickname;
-        private String imagePath;
+        private Long imageId;
         private Long boardId;
 
         private String title;

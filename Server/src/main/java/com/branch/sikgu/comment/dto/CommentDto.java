@@ -13,7 +13,7 @@ public class CommentDto {
         private long commentId;
         private long memberId;
         private String nickName;
-        private String imagePath;
+        private Long imageId;
         private String body;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;

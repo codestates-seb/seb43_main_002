@@ -42,9 +42,13 @@ export const deleteBoard = createAsyncThunk(
 // 댓글 목록 가져오기
 export const fetchComments = createAsyncThunk(
   'boards/fetchComments',
-  async (boardId) => {
-    const response = await axiosInstance.get(`/api/boards/${boardId}/comments`);
-    return response.data;
+  (boardId) => {
+    return axiosInstance
+      .get(`/api/comments/${boardId}`)
+      .then((response) => response.data)
+      .catch((error) => {
+        throw new Error('데이터 가져오기 실패');
+      });
   }
 );
 
@@ -121,22 +125,12 @@ export const selectFilteredBoards = createSelector(
   (boards, searchTerm) => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     return boards.filter((board) => {
-      const {
-        title,
-        body,
-        total,
-        // tag,
-        // , comment
-      } = board;
-      // const comments = comment.map((c) => c.content.toLowerCase());
+      const { title, body, total, tag } = board;
       return (
         title.toLowerCase().includes(lowerCaseSearchTerm) ||
         body.toLowerCase().includes(lowerCaseSearchTerm) ||
-        total.toLowerCase().includes(lowerCaseSearchTerm)
-        // ||
-        // tag.toLowerCase().includes(lowerCaseSearchTerm)
-        // ||
-        // comments.some((c) => c.includes(lowerCaseSearchTerm))
+        total.toLowerCase().includes(lowerCaseSearchTerm) ||
+        tag.toLowerCase().includes(lowerCaseSearchTerm)
       );
     });
   }

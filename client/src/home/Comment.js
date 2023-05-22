@@ -104,8 +104,8 @@ const Comment = ({ comment, handlePeople, board }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log(board.boardId);
-  console.log(comment);
+  // console.log(board);
+  // console.log(comment);
 
   const handleEdit = () => {
     setEditing(true);

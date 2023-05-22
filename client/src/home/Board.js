@@ -36,7 +36,7 @@ const Board = ({ board }) => {
     body: '',
   });
   // const [people, setPeople] = useState(false);
-  // const [isBoard,SetIsBoard] = useState([board])
+  const [isBoard, setIsBoard] = useState(null);
 
   const tags = board.tags;
   const now = new Date(board.mealTime);
@@ -50,8 +50,7 @@ const Board = ({ board }) => {
   const userInfo = useSelector((state) => state.user.userInfo);
   // const JsonInfo = JSON.parse(userInfo);
 
-  // console.log('보드:', userInfo.memberId);
-
+  // console.log('보드:', isBoard);
   const navigate = useNavigate();
   const handleOpen = () => {
     setCommentOpen(!commentOpen);
@@ -62,8 +61,22 @@ const Board = ({ board }) => {
   };
 
   useEffect(() => {
+    // const fetchData = () => {
+    //   if (commentOpen === true) {
+    //     const res = dispatch(fetchComments(board.boardId));
+    //     if (res && res.payload) {
+    //       setIsBoard(res.payload);
+    //       console.log('comments:', res.payload);
+    //     }
+    //   }
+    // };
+
+    // fetchData();
+
     if (commentOpen === true) {
-      dispatch(fetchComments(board.boardId));
+      dispatch(fetchComments(board.boardId)).then((res) =>
+        setIsBoard(res.payload)
+      );
     }
   }, [commentOpen, dispatch, board.boardId]);
 
@@ -94,6 +107,8 @@ const Board = ({ board }) => {
       .then(() => {
         console.log('댓글이 성공적으로 등록되었습니다.');
         alert(`식사매너 지켜주실 거죠??`);
+        setIsBoard([...isBoard, postComment]);
+        setPostComment({ body: '' });
         navigate(0);
       });
   };
@@ -108,6 +123,7 @@ const Board = ({ board }) => {
         console.error('게시물 삭제 중 오류가 발생했습니다.', error);
       });
   };
+  // console.log('보드:', isBoard);
 
   // console.log('boards', board);
   // console.log(comments);
@@ -161,7 +177,8 @@ const Board = ({ board }) => {
         {commentOpen && (
           <>
             {comments &&
-              comments.map((comment) => (
+              isBoard !== null &&
+              isBoard.map((comment) => (
                 <Comment
                   key={comment.commentId}
                   board={board}

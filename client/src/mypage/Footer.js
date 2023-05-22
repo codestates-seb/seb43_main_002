@@ -40,7 +40,7 @@ const Footer = ({ activeIcon }) => {
       <FooterWrap>
         <FooterIcon>
           <NavLink
-            to="/boards"
+            to="/api/boards"
             onMouseEnter={() => setHomeHovered(true)}
             onMouseLeave={() => {
               if (activeIcon !== 'boards') {

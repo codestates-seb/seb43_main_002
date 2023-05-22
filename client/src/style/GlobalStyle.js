@@ -9,14 +9,9 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-size: 12pt;
     padding: 0;
-<<<<<<< HEAD
-    /* overflow-y: auto; */
-    &::-webkit-scrollbar {
-      display: none;
-=======
->>>>>>> 256db40d7133c061f62f44abc3aec740071b012f
+    font-family: 'Noto Sans KR', sans-serif;
     }
-  }
+
 `;
 
 export const GlobalWrap = styled.div`

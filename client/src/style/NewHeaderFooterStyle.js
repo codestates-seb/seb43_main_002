@@ -29,6 +29,7 @@ export const Title = styled.div`
     background-color: transparent;
     margin-left: auto;
     color: white;
+    cursor: pointer;
 
     img {
       height: 25px;

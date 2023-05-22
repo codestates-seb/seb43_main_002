@@ -45,6 +45,13 @@ const NewLogin = memo(function NewLogin() {
       ...prev,
       [e.target.name]: e.target.value,
     }));
+
+    if (!emailRegex.test(values.email)) {
+      setMsgs((prev) => ({
+        ...prev,
+        emailError: '올바른 이메일 형식이 아닙니다.',
+      }));
+    }
   }, []);
 
   const handlePasswordChange = useCallback(
@@ -88,15 +95,12 @@ const NewLogin = memo(function NewLogin() {
             alert(`${user.nickname}님, 식사는 잡쉈어?`);
             navigate('api/boards');
           } else if (!token) {
-            alert('이메일과 비밀번호가 맞게 작성됐는지 확인하세요.');
+            alert('인증정보를 받아오지 못했습니다.');
             navigate('/');
           }
         })
         .catch((error) => {
-          setMsgs((prev) => ({
-            ...prev,
-            fetchError: '연결이 잘못되었습니다.',
-          }));
+          alert('이메일과 비밀번호가 맞게 작성됐는지 확인하세요.');
           console.error('로그인 에러:', error);
         });
     },
@@ -121,9 +125,7 @@ const NewLogin = memo(function NewLogin() {
             value={values.email}
             onChange={handleEmailChange}
           />
-          {emailRegex.test(values.email) ? (
-            <Error>{msgs.emailMsg}</Error>
-          ) : (
+          {emailRegex.test(values.email) || values.email === '' ? null : (
             <Error>{msgs.emailError}</Error>
           )}
           <Input
@@ -133,6 +135,10 @@ const NewLogin = memo(function NewLogin() {
             value={values.password}
             onChange={handlePasswordChange}
           />
+          {passwordRegex.test(values.password) ||
+          values.password === '' ? null : (
+            <Error>{msgs.emailError}</Error>
+          )}
           <LoginButton type="submit">Login</LoginButton>
           <Error>{msgs.accessError}</Error>
         </LoginForm>

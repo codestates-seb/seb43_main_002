@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import {
   SignupContainer,
   BackYellow,
@@ -19,14 +18,59 @@ import {
   LogoContainer,
   Error,
 } from '../style/SignupStyle';
-import { useCallback, useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EditIcon } from '../style/EditProfileStyle';
 import axiosInstance from '../axiosConfig';
+
 const emailRegex = /^[\w-]+(.[\w-]+)@([\w-]+.)+[a-zA-Z]{2,7}$/;
 const passwordRegex = /^(?=.[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-const NewSignup = () => {
+// 이메일 유효성 검사
+const validateEmail = (email) => {
+  if (!emailRegex.test(email)) {
+    return '올바른 이메일 형식이 아닙니다.';
+  }
+  return '';
+};
+
+// 비밀번호 유효성 검사
+const validatePassword = (password, confirmPassword) => {
+  if (!passwordRegex.test(password)) {
+    return '비밀번호는 영문, 숫자 포함 8글자 이상이어야합니다.';
+  }
+  if (password !== confirmPassword) {
+    return '비밀번호가 일치하지 않습니다.';
+  }
+  return '';
+};
+
+const useCheckDuplicate = (url, value, successMessage, errorMessage) => {
+  const [isChecked, setIsChecked] = useState(false);
+  const [error, setError] = useState('');
+
+  const checkDuplicate = useCallback(() => {
+    setError(validateEmail(value));
+    if (error) return;
+    axiosInstance
+      .post(url, { email: value })
+      .then((response) => {
+        if (!response.data) {
+          alert(successMessage);
+          setIsChecked(true);
+        } else {
+          alert(errorMessage);
+        }
+      })
+      .catch((error) => {
+        setError('인터넷 연결을 확인하세요.');
+      });
+  }, [value]);
+
+  return [isChecked, checkDuplicate, error];
+};
+
+const NewSignupForm = () => {
   const [values, setValues] = useState({
     email: '',
     nickname: '',
@@ -38,17 +82,26 @@ const NewSignup = () => {
   });
 
   const [errors, setErrors] = useState({
-    emailError: '',
-    nicknameError: '',
-    passwordError: '',
     fetchError: '',
     lengthError: '',
   });
 
-  const [isEmailChecked, setEmailChecked] = useState(false);
-  const [isNicknameChecked, setNicknameChecked] = useState(false);
-
   const navigate = useNavigate();
+
+  // 이메일 체크 로직과 비밀번호 체크 로직 제대로 테스트 해볼것.
+  const [isEmailChecked, checkDuplicateEmail, emailError] = useCheckDuplicate(
+    'api/members/signup/checkduplicateemail',
+    values.email,
+    '사용 가능한 이메일입니다.',
+    '이미 사용중인 메일입니다.'
+  );
+  const [isNicknameChecked, checkDuplicateNickname, nicknameError] =
+    useCheckDuplicate(
+      'api/members/signup/checkduplicatenickname',
+      values.nickname,
+      '사용 가능한 활동명입니다.',
+      '이미 사용중인 활동명입니다.'
+    );
 
   const nameIcon = '/svg/join-name.svg';
   const introIcon = '/svg/join-intro.svg';
@@ -58,141 +111,62 @@ const NewSignup = () => {
   const pwdIcon = '/svg/join-password.svg';
 
   const inputChangeHanlder = (e) => {
-    setValues((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleInputChange = (e) => {
-    console.log(1);
-    setValues((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-    if (e.target.name === 'nickname' && e.target.value.length > 9) {
-      setErrors((prev) => ({
-        ...prev,
-        lengthError: '8글자까지 입력이 가능합니다.',
-      }));
-    } else {
-      setErrors((prev) => ({
-        ...prev,
-        lengthError: '',
-      }));
-    }
-  };
-
-  // 이메일 입력 중복 검사
-  const handleCheckDuplicateEmail = useCallback(() => {
-    if (!emailRegex.test(values.email)) {
-      setErrors((prev) => ({
-        ...prev,
-        emailError: '올바른 이메일 형식이 아닙니다.',
-      }));
-    }
-
-    // 로그인 중복여부 검사.
-    axiosInstance
-      .post('api/members/signup/checkduplicateemail', {
-        email: values.email,
-      })
-      .then((response) => {
-        if (response.data === false) {
-          alert('사용 가능한 이메일입니다.');
-          setEmailChecked(true);
-          console.log('사용 가능한 이메일');
-        } else if (response.data === true) {
-          alert('이미 사용중인 메일입니다.');
-        }
-      })
-      .catch((error) => {
-        setErrors((prev) => ({
-          ...prev,
-          fetchError: '인터넷 연결을 확인하세요.',
-        }));
-        console.log('로그인 중복 검사 서버랑 통신 실패', error);
-      });
-  }, [values.email]);
-
-  // 이메일 검증 파트 끝 이제 이메일 유효성 검사, 이메일 중복 검사는 위 로직에서 전부 돌 것이다.
-  // 이제 닉네임 파트를 작성해보자. 아마도 이메일과 크게 다르지 않을 것 같음
-  const handleCheckDuplicateNickname = useCallback(() => {
-    // 닉네임 중복여부 검사.
-    axiosInstance
-      .post('api/members/signup/checkduplicatenickname', {
-        email: values.nickname,
-      })
-      .then((response) => {
-        if (response.data === false) {
-          alert('사용 가능한 활동명입니다.');
-          setNicknameChecked(true);
-          console.log('사용 가능한 활동명');
-        } else if (response.data === true) {
-          alert('이미 사용중인 활동명입니다.');
-          console.log('사용 못하는 활동명');
-        }
-      })
-      .catch((error) => {
-        setErrors((prev) => ({
-          ...prev,
-          fetchError: '인터넷 연결을 확인하세요.',
-        }));
-        console.log('활동명 중복 검사 서버랑 통신 실패', error);
-      });
-  }, [values.nickname]);
-
-  // 비밀번호 입력 로직
   const handlePassword = () => {
-    console.log('비밀번호 일치 여부 버튼 클릭');
-    if (!passwordRegex.test(values.password)) {
-      setErrors((prev) => ({
-        ...prev,
-        passwordError: '비밀번호는 영문, 숫자 포함 8글자 이상이어야합니다.',
-      }));
-      return null;
-    } else if (values.password !== values.confirmPassword) {
-      setErrors((prev) => ({
-        ...prev,
-        passwordError: '비밀번호가 일치하지 않습니다.',
-      }));
-    } else if ((values.password, values.confirmPassword)) {
-      alert('비밀번호가 일치합니다.');
+    const error = validatePassword(values.password, values.confirmPassword);
+    if (!error) {
+      alert('둘이 똑같음');
+    } else {
+      setErrors((prev) => ({ ...prev, lengthError: error }));
     }
   };
 
-  // 회원가입 버튼 동작
   const handleSubmit = (e) => {
     e.preventDefault();
-    const allChecked =
-      !isEmailChecked ||
-      !isNicknameChecked ||
-      Object.values(values).some((v) => !v);
-    if (allChecked) {
-      setErrors((prev) => ({
-        ...prev,
-        fetchError: '각 항목의 중복 확인 및 비밀번호 일치 여부를 확인하세요',
-      }));
+    const {
+      email,
+      nickname,
+      name,
+      password,
+      confirmPassword,
+      gender,
+      birthday,
+    } = values;
+
+    if (
+      !email ||
+      !nickname ||
+      !name ||
+      !password ||
+      !confirmPassword ||
+      !gender ||
+      !birthday
+    ) {
+      alert('모든 정보를 입력해주세요.');
+    } else if (!isEmailChecked) {
+      alert('이메일 중복확인을 해주세요.');
+    } else if (!isNicknameChecked) {
+      alert('활동명 중복확인을 해주세요.');
     } else {
       axiosInstance
         .post('api/members/signup', values)
         .then((response) => {
           if (response.status === 201) {
-            alert('회원가입이 성공적으로 완료되었습니다.');
-            navigate('/');
-          } else {
-            alert('뭔가 문제가 있습니다.');
+            alert('회원가입이 완료되었습니다.');
+            navigate('/login');
           }
         })
         .catch((error) => {
           setErrors((prev) => ({
             ...prev,
-            fetchError: '인터넷 연결을 확인하세요.',
+            fetchError: '회원가입에 실패하였습니다.',
           }));
-          console.log('연결안됨2;', error);
         });
     }
   };
+
   return (
     <Mobile>
       <BackGround>
@@ -219,15 +193,11 @@ const NewSignup = () => {
             name="email"
             value={values.email}
             onChange={inputChangeHanlder}
-            onBlur={handleInputChange}
           />
-          <CheckDuplicateButton
-            type="button"
-            onClick={handleCheckDuplicateEmail}
-          >
+          <CheckDuplicateButton type="button" onClick={checkDuplicateEmail}>
             이메일 중복확인
           </CheckDuplicateButton>
-          {errors.emailError ? <Error>{errors.emailError}</Error> : null}
+          {emailError && <Error>{emailError}</Error>}
 
           <Text>
             <EditIcon backgroundImage={introIcon} />
@@ -238,16 +208,15 @@ const NewSignup = () => {
             name="nickname"
             placeholder="식구로 활동할 별명을 8글자까지 입력해주세요."
             value={values.nickname}
-            onBlur={handleInputChange}
             onChange={inputChangeHanlder}
+            onClick={() => {
+              setErrors('');
+            }}
           />
-          <CheckDuplicateButton
-            type="button"
-            onClick={handleCheckDuplicateNickname}
-          >
+          <CheckDuplicateButton type="button" onClick={checkDuplicateNickname}>
             활동명 중복확인
           </CheckDuplicateButton>
-          {errors.nicknameError ? <Error>{errors.nicknameError}</Error> : null}
+          {nicknameError && <Error>{errors.nicknameError}</Error>}
           {errors.lengthError ? <Error>{errors.lengthError}</Error> : null}
 
           <div className="form-gender">
@@ -291,7 +260,9 @@ const NewSignup = () => {
             placeholder="식구의 이름은 무엇인가요?"
             value={values.name}
             onChange={inputChangeHanlder}
-            onBlur={handleInputChange}
+            onClick={() => {
+              setErrors('');
+            }}
           />
           <Text>
             <EditIcon backgroundImage={pwdIcon} />
@@ -302,7 +273,10 @@ const NewSignup = () => {
             name="password"
             placeholder="숫자, 영문자 포함 8글자 이상이어야 합니다."
             value={values.password}
-            onChange={handleInputChange}
+            onChange={inputChangeHanlder}
+            onClick={() => {
+              setErrors('');
+            }}
           />
 
           <Input
@@ -310,12 +284,15 @@ const NewSignup = () => {
             name="confirmPassword"
             placeholder="비밀번호를 한 번 더 입력해주세요."
             value={values.confirmPassword}
-            onChange={handleInputChange}
+            onChange={inputChangeHanlder}
+            onClick={() => {
+              setErrors('');
+            }}
           />
           <CheckPasswordButton type="button" onClick={handlePassword}>
             비밀번호 일치 여부 확인 버튼
           </CheckPasswordButton>
-          {errors.passwordError && <Error>{errors.passwordError}</Error>}
+          {errors.lengthError && <Error>{errors.lengthError}</Error>}
           <Text>
             <EditIcon backgroundImage={dateIcon} />
             <label htmlFor="birthday">생년월일을 입력해주세요</label>
@@ -324,7 +301,7 @@ const NewSignup = () => {
             type="date"
             name="birthday"
             value={values.birthday}
-            onChange={handleInputChange}
+            onChange={inputChangeHanlder}
           />
 
           <SignupButton type="submit">회원가입</SignupButton>
@@ -338,5 +315,4 @@ const NewSignup = () => {
     </Mobile>
   );
 };
-
-export default NewSignup;
+export default NewSignupForm;

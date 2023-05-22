@@ -209,6 +209,7 @@ const Signup = () => {
             placeholder="식구에서 사용하실 이메일을 입력해주세요."
             value={email}
             onChange={handleEmailChange}
+            // 가: ㄱ => 가
           />
           <CheckDuplicateButton
             type="button"

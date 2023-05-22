@@ -207,6 +207,7 @@ public class BoardService {
                 .filter(comment -> comment.getSelectionStatus() == Comment.SelectionStatus.SELECTION)
                 .map(Comment::getMember)
                 .collect(Collectors.toList());
+        members.add(board.getMember()); // 작성자 추가
 
         history.setMembers(members);
         board.setHistory(history);

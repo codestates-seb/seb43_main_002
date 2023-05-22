@@ -86,7 +86,7 @@ public class BoardController {
     }
 
     // 참가 모집 완료 버튼
-    @PatchMapping("/{boardId}/complete")
+    @PostMapping("/{boardId}/complete")
     public ResponseEntity<String> completeBoard(
             @PathVariable Long boardId,
             Authentication authentication) {

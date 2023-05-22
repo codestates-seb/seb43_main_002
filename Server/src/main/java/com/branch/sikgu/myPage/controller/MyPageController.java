@@ -1,26 +1,16 @@
 package com.branch.sikgu.myPage.controller;
 
-import com.branch.sikgu.image.Entity.Image;
 import com.branch.sikgu.image.Repository.ImageRepository;
-import com.branch.sikgu.image.Service.ImageService;
 import com.branch.sikgu.myPage.dto.MyPageRequestDto;
 import com.branch.sikgu.myPage.dto.MyPageResponseDto;
 import com.branch.sikgu.myPage.service.MyPageService;
 import lombok.AllArgsConstructor;
-import org.apache.commons.io.IOUtils;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 
@@ -36,8 +26,8 @@ public class MyPageController {
     // 마이페이지 조회
     @GetMapping("/{memberId}")
     public ResponseEntity<MyPageResponseDto> showMyPage(
-            @PathVariable Long memberId) {
-        MyPageResponseDto myPageResponseDto = myPageService.getMyPage(memberId);
+            @PathVariable Long memberId, Authentication authentication) {
+        MyPageResponseDto myPageResponseDto = myPageService.getMyPage(memberId, authentication);
         return ResponseEntity.ok(myPageResponseDto);
     }
 

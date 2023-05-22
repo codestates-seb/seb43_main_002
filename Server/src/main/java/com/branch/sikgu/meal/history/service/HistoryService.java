@@ -4,17 +4,15 @@ import com.branch.sikgu.board.entity.Board;
 import com.branch.sikgu.board.repository.BoardRepository;
 import com.branch.sikgu.comment.entity.Comment;
 import com.branch.sikgu.comment.repository.CommentRepository;
-import com.branch.sikgu.exception.BusinessLogicException;
-import com.branch.sikgu.exception.ExceptionCode;
-import com.branch.sikgu.exception.HttpStatus;
 import com.branch.sikgu.meal.history.dto.HistoryDto;
 import com.branch.sikgu.meal.history.entity.History;
 import com.branch.sikgu.meal.history.repository.HistoryRepository;
-import com.branch.sikgu.member.dto.MemberResponseDto;
 import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.member.mapper.MemberMapper;
+import com.branch.sikgu.member.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -32,6 +30,7 @@ public class HistoryService {
     private final BoardRepository boardRepository;
     private final HistoryRepository historyRepository;
     private final MemberMapper memberMapper;
+    private final MemberService memberService;
 
     // 스케줄의 정해진 인원수가 모두 차거나, 스케줄의 식사시간이 지난 경우 해당 History 를 확정하는 서비스
     public History createHistory(long boardId) {
@@ -41,7 +40,8 @@ public class HistoryService {
     }
 
     // 멤버가 참여한 History를 조회하는 서비스
-    public List<HistoryDto.Response> getMyHistory(Long memberId) {
+    public List<HistoryDto.Response> getMyHistory(Authentication authentication) {
+        Long memberId = memberService.getCurrentMemberId(authentication);
         List<History> myHistories = historyRepository.findByMemberId(memberId);
 
         List<HistoryDto.Response> historyList = myHistories
@@ -98,4 +98,48 @@ public class HistoryService {
 
         return history;
     }
+
+//    public void addReviewAndLikeToMember(Long historyId, ReviewLikeRequestDto requestDto, Authentication authentication) {
+//        // History 조회
+//        History history = historyRepository.findById(historyId)
+//                .orElseThrow(() -> new EntityNotFoundException("History not found with id: " + historyId));
+//
+//        // 현재 요청을 보낸 사용자 정보 가져오기
+//        Member currentUser = memberService.findVerifiedMember(memberService.getCurrentMemberId(authentication));
+//
+//        // 현재 사용자가 이미 리뷰를 남겼는지 확인
+//        if (isReviewExistsForUser(historyId, currentUser.getMemberId())) {
+//            throw new BusinessLogicException(ExceptionCode.DUPLICATE_REVIEW, HttpStatus.BAD_REQUEST);
+//        }
+//
+//        // History에 리뷰와 좋아요 추가
+//        validateCurrentUserIsMember(history, currentUser);
+//
+//        Review review = new Review();
+//            review.setContent(requestDto.getReviewContent());
+//            review.setLiked(requestDto.isLiked());
+//            review.setReviewer(currentUser);
+//            review.setHistory(history);
+//
+//        history.getReviews().add(review);
+//
+//        // History 저장
+//        historyRepository.save(history);
+//    }
+//
+//    public boolean isReviewExistsForUser(Long historyId, Long memberId) {
+//        History history = historyRepository.findById(historyId)
+//                .orElseThrow(() -> new EntityNotFoundException("History not found with id: " + historyId));
+//
+//        return history.getReviews().stream()
+//                .anyMatch(review -> review.getReviewer().getMemberId().equals(memberId));
+//    }
+//
+//    // 식사에 참여한 멤버인지 확인
+//    public void validateCurrentUserIsMember(History history, Member currentUser) {
+//        List<Member> members = history.getMembers();
+//        if (!members.contains(currentUser)) {
+//            throw new AccessDeniedException("Current user is not a member of the history");
+//        }
+//    }
 }

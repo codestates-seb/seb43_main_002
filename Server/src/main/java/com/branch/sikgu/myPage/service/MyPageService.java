@@ -50,9 +50,13 @@ public class MyPageService {
     private final ImageRepository imageRepository;
 
     // 마이페이지 조회
-    public MyPageResponseDto getMyPage(Long memberId) {
+    public MyPageResponseDto getMyPage(Long memberId, Authentication authentication) {
         MyPage myPage = myPageRepository.findByMember_MemberId(memberId);
         MyPageResponseDto myPageResponseDto = myPageMapper.MyPageToMyPageResponseDto(myPage);
+
+        Long currentMemberId = memberService.getCurrentMemberId(authentication);
+        boolean isCurrentUserFollowing = isFollowingUser(currentMemberId, memberId);
+        myPageResponseDto.setFollowingCurrentUser(isCurrentUserFollowing);
 
         // Member의 nickname을 가져와서 MyPageResponseDto에 설정
         String nickname = myPage.getMember().getNickname();
@@ -278,4 +282,21 @@ public class MyPageService {
         return "";
     }
 
+    public boolean isFollowingUser(Long currentMemberId, Long memberId) {
+        // Retrieve the current user's MyPage entity
+        MyPage currentUserMyPage = myPageRepository.findByMember_MemberId(currentMemberId);
+        if (currentUserMyPage == null) {
+            // Handle the case if the current user does not have a MyPage
+            throw new RuntimeException("MyPage not found for the current user");
+        }
+
+        // Check if the currentUserMyPage's followings contain the specified memberId
+        List<MyPage> followings = currentUserMyPage.getFollowings();
+        for (MyPage following : followings) {
+            if (following.getMyPageId().equals(memberId)) {
+                return true; // The current user is following the specified member
+            }
+        }
+        return false; // The current user is not following the specified member
+    }
 }

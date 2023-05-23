@@ -35,7 +35,7 @@ const Map = () => {
     let message = `
     <div style="
     width: 200px;
-    height: 70px;
+    height: 80px;
     border-radius: 10px;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
     padding: 5px;

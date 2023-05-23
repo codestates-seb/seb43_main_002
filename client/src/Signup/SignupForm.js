@@ -89,7 +89,7 @@ const useCheckDuplicate = (
       .catch((error) => {
         setError('인터넷 연결을 확인하세요.');
       });
-  }, [value]);
+  }, [errorMessage, successMessage, url, validate, value]);
 
   return [isChecked, checkDuplicate, error, setError];
 };
@@ -186,7 +186,7 @@ const NewSignupForm = () => {
       alert('이메일 중복확인을 해주세요.');
     } else if (!isNicknameChecked) {
       console.log('닉네임이 비어있음.');
-      alert('활동명 중복확인을 해주세요.');
+      alert('별명 중복확인을 해주세요.');
     } else {
       axiosInstance
         .post('api/members/signup', values)

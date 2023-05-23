@@ -62,6 +62,8 @@ const Input = styled.input`
   margin: 10px 0;
   padding: 12px;
   border: 1px solid #ccc;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+
   border-radius: 10px;
 `;
 
@@ -73,7 +75,8 @@ const Button = styled.button`
   color: white;
   border: none;
   border-radius: 20px;
-  pont-size: 12pt;
+  font-size: 12pt;
+
   cursor: pointer;
 
   &:hover {
@@ -86,9 +89,15 @@ const SignupButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
-  pont-size: 12pt;
+  font-size: 12pt;
   border-radius: 20px;
   background-image: linear-gradient(135deg, #ffd571, #ffac36);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background-color: #f5b94a;
+    box-shadow: 0px 10 px 20px rgba(255, 180, 74, 0.4);
+  }
 `;
 
 const CheckboxContainer = styled.div`
@@ -127,7 +136,6 @@ align-items : center;
 
 const GenderButton = styled.button`
   margin: 10px 0;
-  padding: 12px;
   border: none;
   width: 100%;
   height: 40px;

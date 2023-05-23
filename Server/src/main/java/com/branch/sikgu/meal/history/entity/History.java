@@ -33,7 +33,7 @@ public class History {
 
     @ManyToMany
     @JoinTable(
-            name = "HISTORY_ATTENDEES",
+            name = "MEAL_ATTENDEE",
             joinColumns = @JoinColumn(name = "HISTORY_ID"),
             inverseJoinColumns = @JoinColumn(name = "MEMBER_ID")
     )

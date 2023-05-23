@@ -18,6 +18,7 @@
     public class Member {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "MEMBER_ID")
         private Long memberId;
         @Column(name = "name", nullable = false)
         private String name;
@@ -38,6 +39,7 @@
         private LocalDateTime createdAt = LocalDateTime.now();
         @Column(name = "updated_at")
         private LocalDateTime updatedAt;
+
         @OneToOne(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
         @JoinColumn(name = "MEMBER_PROFILE_ID")
         private MyPage myPage;

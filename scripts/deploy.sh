@@ -1,15 +1,21 @@
 #!/bin/bash
 # 빌드 파일의 이름이 콘텐츠와 다르다면 다음 줄의 .jar 파일 이름을 수정하시기 바랍니다.
-BUILD_JAR=$(ls /home/ubuntu/seb43_main_002/Server/build/libs/seb43_main_002-0.0.1-SNAPSHOT.war)
+BUILD_JAR=$(ls /home/ubuntu/seb43_main_002/build/libs/sikgu-deploy-0.0.1-SNAPSHOT.jar)
 JAR_NAME=$(basename $BUILD_JAR)
 
 echo "> 현재 시간: $(date)" >> /home/ubuntu/seb43_main_002/deploy.log
-
 echo "> build 파일명: $JAR_NAME" >> /home/ubuntu/seb43_main_002/deploy.log
 
 echo "> build 파일 복사" >> /home/ubuntu/seb43_main_002/deploy.log
 DEPLOY_PATH=/home/ubuntu/seb43_main_002/
 cp $BUILD_JAR $DEPLOY_PATH
+
+echo "> 실행 권한 확인 및 추가" >> /home/ubuntu/seb43_main_002/deploy.log
+SCRIPT_PATH="/home/ubuntu/seb43_main_002/scripts/deploy.sh"
+if [[ ! -x "$SCRIPT_PATH" ]]; then
+  echo "Adding execute permission to $SCRIPT_PATH"
+  chmod +x "$SCRIPT_PATH"
+fi
 
 echo "> 현재 실행중인 애플리케이션 pid 확인" >> /home/ubuntu/seb43_main_002/deploy.log
 CURRENT_PID=$(pgrep -f $JAR_NAME)
@@ -22,7 +28,6 @@ else
   sudo kill -9 $CURRENT_PID
   sleep 5
 fi
-
 
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
 echo "> DEPLOY_JAR 배포"    >> /home/ubuntu/seb43_main_002/deploy.log

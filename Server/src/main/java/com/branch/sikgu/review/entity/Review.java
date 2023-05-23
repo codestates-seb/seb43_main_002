@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "MEAL_ATTNEDEE_REVIEW")
@@ -36,6 +37,9 @@ public class Review {
 
     @Column(name = "liked")
     private boolean liked = false;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     // 추가적인 필드들...
 }

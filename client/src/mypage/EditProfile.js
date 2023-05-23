@@ -1,5 +1,6 @@
 import Header from './Header';
-import { useState, useEffect } from 'react';
+import Loading from './Loading';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Error } from '../style/SignupStyle';
@@ -33,9 +34,13 @@ const EditProfile = () => {
   const [nicknameError, setNicknameError] = useState('');
 
   const imageUrl = `/api/mypages/${userId}/image`;
+
   const [profileImage, setProfileImage] = useState();
   const [image, setImage] = useState();
+
+  const [isLoading, setIsLoading] = useState(true);
   const accessToken = sessionStorage.getItem('jwt');
+  const mobileContainerRef = useRef(null);
 
   useEffect(() => {
     axiosInstance
@@ -44,11 +49,13 @@ const EditProfile = () => {
         setData(response.data);
         setGender(response.data.gender);
         setProfileImage(imageUrl);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setIsLoading(false);
       });
-  }, [userId]);
+  }, [imageUrl, userId]);
 
   // 파일 업로드 기능 (서버에 X, 화면에 랜더링만)
   function readURL(e) {
@@ -178,13 +185,14 @@ const EditProfile = () => {
 
   const [scrollPosition, setScrollPosition] = useState(0);
 
+  // 스크롤에 따른 이벤트
   useEffect(() => {
     const handleScroll = () => {
-      const position = document.getElementById('mobileContainer').scrollTop;
+      const position = mobileContainerRef.current.scrollTop;
       setScrollPosition(position);
     };
 
-    const mobileContainer = document.getElementById('mobileContainer');
+    const mobileContainer = mobileContainerRef.current;
     if (mobileContainer) {
       mobileContainer.addEventListener('scroll', handleScroll);
     }
@@ -194,7 +202,7 @@ const EditProfile = () => {
         mobileContainer.removeEventListener('scroll', handleScroll);
       }
     };
-  }, [data]);
+  }, []);
 
   const nameIcon = '/svg/join-name.svg';
   const introIcon = '/svg/join-intro.svg';
@@ -205,153 +213,164 @@ const EditProfile = () => {
 
   return (
     <>
-      {data && (
-        <Mobile id="mobileContainer">
-          <BackGround>
-            <BackYellow />
-          </BackGround>
-          <Header
-            iconSrc="/svg/header-back.svg"
-            fnc="back"
-            scrollPosition={scrollPosition}
-            scrollNumber={60}
-          />
-          <ProfileImg>
-            <div>
-              <div>
-                <img src={profileImage} alt="프로필 사진" />
-                <div></div>
-              </div>
-              <label htmlFor="file">
-                <div></div>
-              </label>
-              <input
-                type="file"
-                id="file"
-                accept="image/*"
-                onChange={readURL}
-              />
-            </div>
-          </ProfileImg>
-          <EditForm onSubmit={handleSubmit(onSubmit)}>
-            <div className="form-email">
-              <label htmlFor="email">
-                <EditIcon backgroundImage={mailIcon} />
-                이메일
-              </label>
-              <input id="email" defaultValue={data.email} readOnly />
-            </div>
-            <div className="form-nickname">
-              <label htmlFor="nickname">
-                <EditIcon backgroundImage={nameIcon} />
-                활동명
-              </label>
-              <input
-                id="nickname"
-                defaultValue={data.nickname}
-                onChange={handleNickname}
-              />
-              <button type="button" onClick={handleCheckDuplicateNickname}>
-                활동명 중복확인
-              </button>
-              {nicknameError && <Error>{nicknameError}</Error>}
-            </div>
-            <div className="form-intro">
-              <label htmlFor="intro">
-                <EditIcon backgroundImage={introIcon} />
-                자기소개
-              </label>
-              <input
-                id="intro"
-                defaultValue={data.introduce}
-                onChange={handleIntro}
-              />
-              {introLengthError && <Error>{introLengthError}</Error>}
-            </div>
-            <div className="form-gender">
-              <label htmlFor="gender">
-                <EditIcon backgroundImage={genderIcon} />
-                성별
-              </label>
-              <div>
-                <button
-                  type="button"
-                  className={gender ? '' : 'active'}
-                  onClick={() => {
-                    setGender(false);
-                  }}
-                >
-                  여성
-                </button>
-                <button
-                  type="button"
-                  className={gender ? 'active' : ''}
-                  onClick={() => {
-                    setGender(true);
-                  }}
-                >
-                  남성
-                </button>
-              </div>
-            </div>
-            <div className="form-name">
-              <label htmlFor="name">
-                <EditIcon backgroundImage={nameIcon} />
-                이름
-              </label>
-              <input id="name" defaultValue={data.name} onChange={handleName} />
-              {nameError && <Error>{nameError}</Error>}
-            </div>
-            <div className="form-pwd">
-              <label htmlFor="pwd">
-                <EditIcon backgroundImage={pwdIcon} />
-                비밀번호
-              </label>
-              <input
-                id="pwd"
-                type="password"
-                placeholder="숫자, 영문자 포함 8글자 이상이어야 합니다."
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-            </div>
-            <div className="form-pwd-check">
-              <label htmlFor="pwd-check">
-                <EditIcon backgroundImage={pwdIcon} />
-                비밀번호 확인
-              </label>
-              <input
-                id="pwd-check"
-                type="password"
-                placeholder="비밀번호를 한 번 더 입력해주세요."
-                onChange={(e) => {
-                  setConfirmPassword(e.target.value);
-                }}
-              />
-              <button type="button" onClick={handlePassword}>
-                비밀번호 일치 여부 확인
-              </button>
-              {passwordError && <Error>{passwordError}</Error>}
-            </div>
-            <div className="form-birth">
-              <label htmlFor="birth">
-                <EditIcon backgroundImage={dateIcon} />
-                생년월일
-              </label>
-              <input
-                id="birth"
-                type="date"
-                defaultValue={data.birthday}
-                onChange={(e) => {
-                  setBirthDay(e.target.value);
-                }}
-              />
-            </div>
-            <button type="submit">수정 완료</button>
-          </EditForm>
-        </Mobile>
-      )}
+      <Mobile ref={mobileContainerRef} id="mobileContainer">
+        <BackGround>
+          <BackYellow />
+        </BackGround>
+        <Header
+          iconSrc="/svg/header-back.svg"
+          fnc="back"
+          scrollPosition={scrollPosition}
+          scrollNumber={60}
+        />
+        {isLoading ? (
+          <Loading />
+        ) : (
+          data && (
+            <>
+              {' '}
+              <ProfileImg>
+                <div>
+                  <div>
+                    <img src={profileImage} alt="프로필 사진" />
+                    <div></div>
+                  </div>
+                  <label htmlFor="file">
+                    <div></div>
+                  </label>
+                  <input
+                    type="file"
+                    id="file"
+                    accept="image/*"
+                    onChange={readURL}
+                  />
+                </div>
+              </ProfileImg>
+              <EditForm onSubmit={handleSubmit(onSubmit)}>
+                <div className="form-email">
+                  <label htmlFor="email">
+                    <EditIcon backgroundImage={mailIcon} />
+                    이메일
+                  </label>
+                  <input id="email" defaultValue={data.email} readOnly />
+                </div>
+                <div className="form-nickname">
+                  <label htmlFor="nickname">
+                    <EditIcon backgroundImage={nameIcon} />
+                    활동명
+                  </label>
+                  <input
+                    id="nickname"
+                    defaultValue={data.nickname}
+                    onChange={handleNickname}
+                  />
+                  <button type="button" onClick={handleCheckDuplicateNickname}>
+                    활동명 중복확인
+                  </button>
+                  {nicknameError && <Error>{nicknameError}</Error>}
+                </div>
+                <div className="form-intro">
+                  <label htmlFor="intro">
+                    <EditIcon backgroundImage={introIcon} />
+                    자기소개
+                  </label>
+                  <input
+                    id="intro"
+                    defaultValue={data.introduce}
+                    onChange={handleIntro}
+                  />
+                  {introLengthError && <Error>{introLengthError}</Error>}
+                </div>
+                <div className="form-gender">
+                  <label htmlFor="gender">
+                    <EditIcon backgroundImage={genderIcon} />
+                    성별
+                  </label>
+                  <div>
+                    <button
+                      type="button"
+                      className={gender ? '' : 'active'}
+                      onClick={() => {
+                        setGender(false);
+                      }}
+                    >
+                      여성
+                    </button>
+                    <button
+                      type="button"
+                      className={gender ? 'active' : ''}
+                      onClick={() => {
+                        setGender(true);
+                      }}
+                    >
+                      남성
+                    </button>
+                  </div>
+                </div>
+                <div className="form-name">
+                  <label htmlFor="name">
+                    <EditIcon backgroundImage={nameIcon} />
+                    이름
+                  </label>
+                  <input
+                    id="name"
+                    defaultValue={data.name}
+                    onChange={handleName}
+                  />
+                  {nameError && <Error>{nameError}</Error>}
+                </div>
+                <div className="form-pwd">
+                  <label htmlFor="pwd">
+                    <EditIcon backgroundImage={pwdIcon} />
+                    비밀번호
+                  </label>
+                  <input
+                    id="pwd"
+                    type="password"
+                    placeholder="숫자, 영문자 포함 8글자 이상이어야 합니다."
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="form-pwd-check">
+                  <label htmlFor="pwd-check">
+                    <EditIcon backgroundImage={pwdIcon} />
+                    비밀번호 확인
+                  </label>
+                  <input
+                    id="pwd-check"
+                    type="password"
+                    placeholder="비밀번호를 한 번 더 입력해주세요."
+                    onChange={(e) => {
+                      setConfirmPassword(e.target.value);
+                    }}
+                  />
+                  <button type="button" onClick={handlePassword}>
+                    비밀번호 일치 여부 확인
+                  </button>
+                  {passwordError && <Error>{passwordError}</Error>}
+                </div>
+                <div className="form-birth">
+                  <label htmlFor="birth">
+                    <EditIcon backgroundImage={dateIcon} />
+                    생년월일
+                  </label>
+                  <input
+                    id="birth"
+                    type="date"
+                    defaultValue={data.birthday}
+                    onChange={(e) => {
+                      setBirthDay(e.target.value);
+                    }}
+                  />
+                </div>
+                <button type="submit">수정 완료</button>
+              </EditForm>
+            </>
+          )
+        )}
+      </Mobile>
     </>
   );
 };

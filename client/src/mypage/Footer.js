@@ -5,20 +5,19 @@ import {
   FooterCicleWrap,
   MainIcon,
 } from '../style/NewHeaderFooterStyle';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import PostModal from '../home/PostModal'; // 모달 컴포넌트 임포트
 
 // eslint-disable-next-line react/prop-types
 const Footer = ({ activeIcon }) => {
-  const [homeHovered, setHomeHovered] = useState(activeIcon === 'home');
+  const [homeHovered, setHomeHovered] = useState(activeIcon === 'board');
   const [mapHovered, setMapHovered] = useState(activeIcon === 'map');
   const [cicleHovered, setCicleHovered] = useState(true);
   const [stateHovered, setStateHovered] = useState(activeIcon === 'state');
   const [mypageHovered, setMypageHovered] = useState(activeIcon === 'mypage');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const navigate = useNavigate();
   const myPageId = JSON.parse(sessionStorage.getItem('user')).memberId;
 
   const closeModal = () => {
@@ -34,7 +33,6 @@ const Footer = ({ activeIcon }) => {
   };
 
   const handlePlusClick = () => {
-    navigate('/boards');
     setIsModalOpen(true);
   };
 

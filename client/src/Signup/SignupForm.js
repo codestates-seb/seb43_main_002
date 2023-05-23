@@ -236,7 +236,7 @@ const NewSignupForm = () => {
             }}
           />
           <CheckDuplicateButton type="button" onClick={checkDuplicateEmail}>
-            이메일 중복확인
+            이 버튼을 눌러 이메일 중복 확인하기!
           </CheckDuplicateButton>
           {emailError && <Error>{emailError}</Error>}
 
@@ -255,14 +255,14 @@ const NewSignupForm = () => {
             }}
           />
           <CheckDuplicateButton type="button" onClick={checkDuplicateNickname}>
-            활동명 중복확인
+            이 버튼을 눌러 별명 중복 확인하기!
           </CheckDuplicateButton>
           {nicknameError && <Error>{nicknameError}</Error>}
           <div className="form-gender">
             <Text>
               <EditIcon backgroundImage={genderIcon} />
               <label htmlFor="gender">
-                본인에 성별을 노란색으로 바꿔주세요.
+                본인의 성별을 노란색으로 바꿔주세요.
               </label>
             </Text>
             <GenderBox>
@@ -326,7 +326,7 @@ const NewSignupForm = () => {
             }}
           />
           <CheckPasswordButton type="button" onClick={handlePassword}>
-            비밀번호 일치 여부 확인 버튼
+            이 버튼을 눌러 비밀번호 일치여부 확인하기!
           </CheckPasswordButton>
           {errors.lengthError && <Error>{errors.lengthError}</Error>}
           <Text>

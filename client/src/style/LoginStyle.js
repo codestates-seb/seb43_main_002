@@ -57,6 +57,7 @@ const Input = styled.input`
   margin: 10px 0;
   padding: 12px;
   border: none;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
 `;
 
@@ -73,6 +74,7 @@ const Button = styled.button`
 
   &:hover {
     background-image: linear-gradient(135deg, #ffd571, #ffac36);
+    box-shadow: 0px 7px 20px rgba(255, 180, 74, 0.4);
   }
 `;
 

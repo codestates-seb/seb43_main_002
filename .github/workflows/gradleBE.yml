@@ -36,11 +36,12 @@ jobs:
             ${{ runner.os }}-gradle-
             
       - name: Add execute permission to Gradle wrapper
-        run: chmod +x ./Server/gradlew
+        run: chmod +x ./gradlew
+        working-directory: ./Server/
         
       - name: Build with Gradle
-        run: ./Server/gradlew build
         working-directory: ./Server/
+        run: ./gradlew build
         
       - name: Make zip file
         run: zip -r ./sikgu-deploy.zip .
@@ -58,7 +59,3 @@ jobs:
 
       - name: Copy application.yml
         run: cp Server/src/main/resources/application.yml build/directory
-        
-      - name: Build Backend
-        working-directory: ./Server/
-        run: ./gradlew build

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { MainWrap } from '../style/HomeStyle';
-import MapHeader from './MapHeader';
-import Footer from '../home/Footer';
+import Header from '../mypage/Header';
+import Footer from '../mypage/Footer';
 import {
   Mapbox,
   MapContainer,
@@ -202,7 +202,7 @@ const Map = () => {
 
   return (
     <MainWrap>
-      <MapHeader />
+      <Header iconSrc="/svg/header-logout.svg" fnc="logout" scrollNumber={10} />
       <MapContainer>
         <ButtonContainer animate={animation}>{categoryButtons}</ButtonContainer>
         <Mapbox ref={mapRef} id="map"></Mapbox>
@@ -223,7 +223,7 @@ const Map = () => {
           {resultItems}
         </SearchResults>
       </MapContainer>
-      <Footer />
+      <Footer activeIcon="map" />
     </MainWrap>
   );
 };

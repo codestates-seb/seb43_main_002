@@ -1,66 +1,5 @@
 import styled from 'styled-components';
 
-export const Title = styled.div`
-  @import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-
-  > div:first-child {
-    width: 50px;
-    height: 50px;
-    background-image: url('/svg/main-logo.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-
-  > div:nth-child(2) {
-    margin-left: 10px;
-    font-family: 'Fredoka One';
-    font-size: 24pt;
-    font-weight: 700;
-    color: white;
-  }
-
-  > button {
-    border: none;
-    background-color: transparent;
-    margin-left: auto;
-    color: white;
-
-    img {
-      height: 25px;
-    }
-  }
-`;
-
-export const HeaderBackWrap = styled.div`
-  padding: 0px;
-  display: flex;
-  height: 10%;
-  width: 100%;
-  border-bottom-left-radius: 21px;
-  border-bottom-right-radius: 21px;
-  position: absolute;
-  background-image: radial-gradient(#ffd571, #ffac36);
-  z-index: 100;
-`;
-
-export const HeaderWrap = styled.header`
-  padding: 0px;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const LogoWrap = styled.img`
-  padding-left: 30px;
-`;
-
 export const MapContainer = styled.div`
   position: relative;
   display: flex;
@@ -68,7 +7,7 @@ export const MapContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
   top: 8%;
-  height: 80%;
+  height: 100%;
   width: 100%;
   overflow: hidden;
   z-index: 10;

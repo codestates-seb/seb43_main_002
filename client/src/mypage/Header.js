@@ -1,12 +1,10 @@
 import { logout } from '../store/userSlice';
 import { useNavigate } from 'react-router-dom';
-
 import { useState } from 'react';
 import { Title } from '../style/NewHeaderFooterStyle';
 import { SearchSpan } from '../style/HomeStyle';
 import { useDispatch } from 'react-redux';
 import { setSearchTerm } from '../store/boardSlice';
-// eslint-disable-next-line react/prop-types
 const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
   const backgroundImage =
     scrollPosition >= scrollNumber
@@ -63,7 +61,6 @@ const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
         </>
       )}
     </Title>
-
   );
 };
 

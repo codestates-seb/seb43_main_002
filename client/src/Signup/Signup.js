@@ -98,6 +98,7 @@ const Signup = () => {
       setEmailError('올바른 이메일 형식이 아닙니다.');
       return null;
     } else {
+
       axiosInstance
         .post('api/members/signup/checkduplicateemail', {
           email,
@@ -119,8 +120,10 @@ const Signup = () => {
   };
 
   const handleCheckDuplicateNickname = () => {
+
     axiosInstance
       .post('api/members/signup/checkduplicatenickname', {
+
         nickname,
       })
       .then((response) => {

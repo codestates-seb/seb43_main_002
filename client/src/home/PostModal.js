@@ -39,6 +39,9 @@ const ModalDay = styled(DatePicker)`
 `;
 
 const PostModal = ({ isOpen, onClose }) => {
+  // const now = new Date()
+  // const options = { timeZone: 'Asia/Seoul'};
+  // const koreaTime = now.toLocaleString('en-US', options)
   const [startDate, setStartDate] = useState(new Date());
   const [tagList, setTagList] = useState([]);
 
@@ -52,7 +55,7 @@ const PostModal = ({ isOpen, onClose }) => {
   const [postBoard, setPostBoard] = useState({
     title: '',
     body: '',
-    total: 0,
+    total: 2,
     passedGender: 'ANY',
     mealTime: startDate,
     tags: [...tagList],
@@ -89,10 +92,13 @@ const PostModal = ({ isOpen, onClose }) => {
   };
 
   const handleDateChange = (date) => {
+    const offset = date.getTimezoneOffset() * 60000; // 시간 오프셋(분 단위)을 밀리초로 변환
+    const adjustedDate = new Date(date.getTime() - offset); // 시간 오프셋을 적용한 새로운 날짜 생성
+
     setStartDate(date);
     setPostBoard((prevBoard) => ({
       ...prevBoard,
-      mealTime: date,
+      mealTime: adjustedDate.toISOString(), // 서버로 전송할 ISO 8601 형식의 날짜 문자열로 변환
     }));
   };
 
@@ -132,7 +138,6 @@ const PostModal = ({ isOpen, onClose }) => {
     //   alert('모든 곳을 입력해주세요.');
     //   return;
     // }
-
     dispatch(createBoard(postBoard))
       .unwrap()
       .then(() => {
@@ -144,6 +149,8 @@ const PostModal = ({ isOpen, onClose }) => {
       .catch((error) => {
         console.error('게시물 작성 중 오류가 발생했습니다.', error);
       });
+    // eslint-disable-next-line no-debugger
+    // debugger;
   };
 
   const navigate = useNavigate();
@@ -156,7 +163,8 @@ const PostModal = ({ isOpen, onClose }) => {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
   };
-  // console.log(startDate);
+
+  // console.log(postBoard.mealTime);
 
   return (
     <ModalWrap isOpen={isOpen}>

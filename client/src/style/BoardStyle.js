@@ -202,7 +202,7 @@ const CompleteButton = styled.button`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999;
-  display: ${(isRecruitmentComplete) =>
+  display: ${({ isRecruitmentComplete }) =>
     isRecruitmentComplete ? 'block' : 'none'};
   ${(isRecruitmentComplete) =>
     isRecruitmentComplete &&

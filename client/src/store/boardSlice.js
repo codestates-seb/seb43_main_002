@@ -39,52 +39,6 @@ export const deleteBoard = createAsyncThunk(
   }
 );
 
-// 댓글 목록 가져오기
-export const fetchComments = createAsyncThunk(
-  'boards/fetchComments',
-  (boardId) => {
-    return axiosInstance
-      .get(`/api/comments/${boardId}`)
-      .then((response) => response.data)
-      .catch((error) => {
-        throw new Error('데이터 가져오기 실패');
-      });
-  }
-);
-
-// // 댓글 추가
-// export const addComment = createAsyncThunk(
-//   'boards/addComment',
-//   async ({ boardId, comment }) => {
-//     const response = await axiosInstance.post(
-//       `/api/boards/${boardId}/comments`,
-//       comment
-//     );
-//     return { boardId, comment: response.data };
-//   }
-// );
-
-// // 댓글 수정
-// export const updateComment = createAsyncThunk(
-//   'boards/updateComment',
-//   async ({ boardId, commentId, content }) => {
-//     const response = await axiosInstance.put(
-//       `${BASE_URL}/${boardId}/comments/${commentId}`,
-//       { content }
-//     );
-//     return response.data;
-//   }
-// );
-
-// // 댓글 삭제
-// export const deleteComment = createAsyncThunk(
-//   'boards/deleteComment',
-//   async ({ boardId, commentId }) => {
-//     await axiosInstance.delete(`${BASE_URL}/${boardId}/comments/${commentId}`);
-//     return { boardId, commentId };
-//   }
-// );
-
 // 게시물 필터링 기능
 const boardSlice = createSlice({
   name: 'board',
@@ -125,12 +79,12 @@ export const selectFilteredBoards = createSelector(
   (boards, searchTerm) => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     return boards.filter((board) => {
-      const { title, body, total, tag } = board;
+      const { title, body, tag } = board;
+      const validTag = tag ? tag : ''; // tag가 정의되지 않은 경우 빈 문자열로 설정
       return (
         title.toLowerCase().includes(lowerCaseSearchTerm) ||
         body.toLowerCase().includes(lowerCaseSearchTerm) ||
-        total.toLowerCase().includes(lowerCaseSearchTerm) ||
-        tag.toLowerCase().includes(lowerCaseSearchTerm)
+        validTag.toLowerCase().includes(lowerCaseSearchTerm) // 수정된 부분
       );
     });
   }

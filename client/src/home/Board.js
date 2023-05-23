@@ -38,7 +38,6 @@ const Board = ({ board }) => {
     body: '',
   });
   const [isBoard, setIsBoard] = useState(null);
-  const [complete, setComplete] = useState(false);
 
   const tags = board.tags;
   const now = new Date(board.mealTime);
@@ -50,6 +49,7 @@ const Board = ({ board }) => {
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.comment.comments);
   const userInfo = useSelector((state) => state.user.userInfo);
+  // const profile = useSelector((state) => state.profile.profile);
 
   const navigate = useNavigate();
   const handleOpen = () => {
@@ -129,16 +129,14 @@ const Board = ({ board }) => {
     axiosInstance
       .post(`/api/boards/${board.boardId}/complete`, headers)
       .then(() => {
-        setComplete(true);
         navigate(0);
       });
   };
 
-  console.log('보드:', board.boardId);
-  console.log('boards', board);
-  console.log('complete', isRecruitmentComplete);
-  console.log(complete);
-  // console.log(handleComplete);
+  // console.log('보드:', board.boardId);
+  // console.log('boards', board.mealTime);
+  // console.log('complete', isRecruitmentComplete);
+  // console.log('profile:', profile);
 
   Board.propTypes = {
     board: PropTypes.array.isRequired,
@@ -147,7 +145,10 @@ const Board = ({ board }) => {
     <>
       <BoardWrap isRecruitmentComplete={isRecruitmentComplete}>
         <CommentOpenButton onClick={handleOpen}>+</CommentOpenButton>
-        <CompleteButton isRecruitmentComplete={true} onClick={handleComplete}>
+        <CompleteButton
+          isRecruitmentComplete={isRecruitmentComplete}
+          onClick={handleComplete}
+        >
           모집완료
         </CompleteButton>
         <SexInfomaitonWrap gender={board.passedGender}>

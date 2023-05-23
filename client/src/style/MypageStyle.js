@@ -22,7 +22,7 @@ export const Mobile = styled.div`
   position: relative;
   font-family: 'Noto Sans KR', sans-serif;
   width: 400px;
-  height: 792.5px;
+  height: 100%;
 
   box-sizing: border-box;
   padding: 20px;

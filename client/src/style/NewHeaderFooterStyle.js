@@ -15,7 +15,7 @@ export const Title = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 20px;
+  margin-bottom: 20px;
   height: 50px;
 
   > div:first-child {

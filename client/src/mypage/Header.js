@@ -1,8 +1,11 @@
 import { logout } from '../store/userSlice';
 import { useNavigate } from 'react-router-dom';
-import { Title, TitleBox, Space } from '../style/NewHeaderFooterStyle';
-import { useDispatch } from 'react-redux';
 
+import { useState } from 'react';
+import { Title } from '../style/NewHeaderFooterStyle';
+import { SearchSpan } from '../style/HomeStyle';
+import { useDispatch } from 'react-redux';
+import { setSearchTerm } from '../store/boardSlice';
 // eslint-disable-next-line react/prop-types
 const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
   const backgroundImage =
@@ -11,6 +14,11 @@ const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
       : 'none';
 
   const navigate = useNavigate();
+
+  // props로 받아와서 네비게이터도 구현해야 한다.
+  const [onSearch, setOnSerach] = useState(true);
+  const [searchValue, setSearchValue] = useState('');
+
   const dispatch = useDispatch();
 
   function handleClick() {
@@ -22,22 +30,40 @@ const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
       navigate('/');
     } else if (fnc === 'back') {
       navigate(-1);
+    } else if (fnc === 'search') {
+      // console.log('검색');
+      setOnSerach(false);
     }
   }
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value);
+    dispatch(setSearchTerm(e.target.value));
+  };
 
   return (
-    <>
-      <TitleBox backgroundImage={backgroundImage}>
-        <Title>
-          <div></div>
+    <Title>
+      <div></div>
+      {onSearch ? (
+        <>
           <div>Sik:Gu</div>
           <button onClick={handleClick}>
             <img src={iconSrc} alt="아이콘" />
           </button>
-        </Title>
-      </TitleBox>
-      <Space />
-    </>
+        </>
+      ) : (
+        <>
+          <SearchSpan
+            value={searchValue}
+            placeholder="Search..."
+            onChange={handleSearch}
+          ></SearchSpan>
+          <button onClick={handleClick}>
+            <img src={iconSrc} alt="아이콘" />
+          </button>
+        </>
+      )}
+    </Title>
+
   );
 };
 

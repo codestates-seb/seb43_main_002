@@ -1,5 +1,5 @@
-/*eslint-disable */
-import { useState, useEffect } from 'react';
+
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -69,20 +69,19 @@ const TagInput = styled.input`
   cursor: text;
 `;
 
-const Tag = ({ name, onChange, value, tagList, setTagList }) => {
+const Tag = ({ name, onChange, tagList, setTagList }) => {
   Tag.propTypes = {
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    value: PropTypes.string.isRequired,
     tagList: PropTypes.array.isRequired,
     setTagList: PropTypes.func.isRequired,
   };
 
   const [tagItem, setTagItem] = useState('');
 
-  useEffect(() => {
-    setTagList(tagList);
-  }, [tagList]);
+  // useEffect(() => {
+  //   setTagList(tagList);
+  // }, [tagList]);
 
   // console.log('tag', tagList);
 

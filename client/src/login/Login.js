@@ -41,6 +41,7 @@ const Login = () => {
         password,
       })
       .then((response) => {
+        // eslint-disable-next-line no-debugger
         const token = response.headers.authorization;
 
         if (token) {

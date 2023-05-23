@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteComment, updateComment } from '../store/boardSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteComment, updateComment } from '../store/commentSlice';
 import { BiEdit } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
-import { StateButton } from './BoardStyle';
+import { StateButton } from '../style/BoardStyle';
+import { useNavigate } from 'react-router-dom';
 
 const CommentsWrap = styled.div`
   margin-top: 10px;
@@ -33,7 +34,14 @@ const ProfiletWrap = styled.div`
 `;
 
 const CommentNameWrap = styled.h2`
+  width: auto;
+  height: 30px;
   padding: 0px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 `;
 
 const CommentContentWrap = styled.div`
@@ -83,64 +91,94 @@ const RefuseButton = styled.button`
   }
 `;
 
-const Comment = ({ board, comment, handlePeople }) => {
+const Comment = ({ comment, handlePeople, board }) => {
   Comment.propTypes = {
-    board: PropTypes.object.isRequired,
     comment: PropTypes.object.isRequired,
     handlePeople: PropTypes.string.isRequired,
+    board: PropTypes.object.isRequired,
   };
+  const userInfo = useSelector((state) => state.user.userInfo);
 
   const [editing, setEditing] = useState(false);
-  const [content, setContent] = useState(comment.content);
+  const [content, setContent] = useState(comment.body);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // console.log(board);
+  // console.log(comment);
 
   const handleEdit = () => {
     setEditing(true);
   };
 
+  const handleSelect = () => {
+    handlePeople(comment);
+  };
+
   const handleCancelEdit = () => {
     setEditing(false);
-    setContent(comment.content);
+    setContent(comment.body);
   };
 
   const handleSave = () => {
     dispatch(
-      updateComment({ boardId: board.id, commentId: comment.id, content })
+      updateComment({
+        commentId: comment.commentId,
+        content,
+      })
     );
     setEditing(false);
+    navigate(0);
   };
 
   const handleDelete = () => {
-    dispatch(deleteComment({ boardId: board.id, commentId: comment.id }));
+    dispatch(
+      deleteComment({
+        commentId: comment.commentId,
+      })
+    );
+    navigate(0);
   };
+
+  const isAuthor = userInfo && comment.memberId === userInfo.memberId;
+
+  const Boarduser = userInfo && board.memberId === userInfo.memberId;
+
+  console.log(Boarduser);
 
   return (
     <>
-      {!!comment.content && (
+      {!!comment.body && (
         <CommentsWrap>
           <ProfiletWrap>
-            <CommentProfileWrap>
-              {comment.member?.avatarLink}
-            </CommentProfileWrap>
-            <AcceptButton onClick={handlePeople}>수락</AcceptButton>
-            <RefuseButton>거절</RefuseButton>
+            <CommentProfileWrap>{comment.imageId}</CommentProfileWrap>
+            {Boarduser && (
+              <>
+                <AcceptButton onClick={handleSelect}>수락</AcceptButton>
+                <RefuseButton>거절</RefuseButton>
+              </>
+            )}
           </ProfiletWrap>
           <ContentWrap>
             <CommentStateWrap>
-              <CommentNameWrap>{comment.member?.displayName}</CommentNameWrap>
-              <StateButton onClick={handleEdit}>
-                <BiEdit />
-              </StateButton>
-              <StateButton onClick={handleDelete}>
-                <AiFillDelete />
-              </StateButton>
+              <CommentNameWrap>{comment.nickName}</CommentNameWrap>
+              {isAuthor && (
+                <>
+                  <StateButton onClick={handleEdit}>
+                    <BiEdit />
+                  </StateButton>
+                  <StateButton isDelete={true} onClick={handleDelete}>
+                    <AiFillDelete />
+                  </StateButton>
+                </>
+              )}
             </CommentStateWrap>
             {editing ? (
               <>
-                <textarea
+                <input
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                ></textarea>
+                ></input>
                 <div>
                   <button onClick={handleSave}>저장</button>
                   <button onClick={handleCancelEdit}>취소</button>
@@ -148,7 +186,7 @@ const Comment = ({ board, comment, handlePeople }) => {
               </>
             ) : (
               <>
-                <CommentContentWrap>{comment.content}</CommentContentWrap>
+                <CommentContentWrap>{comment.body}</CommentContentWrap>
               </>
             )}
           </ContentWrap>

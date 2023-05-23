@@ -47,7 +47,7 @@ const EditModal = ({ isOpen, onClose, board }) => {
     tags: [...board.tags],
   });
 
-  console.log(editedBoard);
+  // console.log(editedBoard);
 
   const handleIncrement = (e) => {
     e.preventDefault();
@@ -59,7 +59,7 @@ const EditModal = ({ isOpen, onClose, board }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // setEditedBoard({ ...board });
+    setEditedBoard({ ...board });
     setStartDate(new Date());
   }, [board]);
 

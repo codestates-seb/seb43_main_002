@@ -31,7 +31,7 @@ public class MyPage {
     // 팔로잉 관계 설정
     @ManyToMany
     @JoinTable(
-            name = "following",
+            name = "member_following",
             joinColumns = @JoinColumn(name = "follower_id"),
             inverseJoinColumns = @JoinColumn(name = "following_id")
     )

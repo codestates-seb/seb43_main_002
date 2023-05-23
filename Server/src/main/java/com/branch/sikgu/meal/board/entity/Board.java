@@ -94,14 +94,14 @@ public class Board {
     private Member member;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "SCHEDULE_TAG", joinColumns = @JoinColumn(name = "SCHEDULE_ID"))
+    @CollectionTable(name = "MEAL_SCHEDULE_TAG", joinColumns = @JoinColumn(name = "SCHEDULE_ID"))
     @Column(name = "tag")
     @org.hibernate.annotations.OrderBy(clause = "tag asc")
     @OrderColumn(name = "index")
     private Set<String> tags = new LinkedHashSet<>();
 
     // Board 엔티티
-    @OneToOne(mappedBy = "SCHEDULE", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private History history;
 
     public Board() {

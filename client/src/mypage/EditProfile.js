@@ -1,8 +1,9 @@
 import Header from './Header';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Error } from '../style/SignupStyle';
+import axiosInstance from '../axiosConfig';
 import {
   Mobile,
   BackGround,
@@ -11,7 +12,6 @@ import {
   EditIcon,
   ProfileImg,
 } from '../style/EditProfileStyle';
-import axiosInstance from '../axiosConfig';
 
 const EditProfile = () => {
   const { userId } = useParams();
@@ -35,7 +35,6 @@ const EditProfile = () => {
   const imageUrl = `/api/mypages/${userId}/image`;
   const [profileImage, setProfileImage] = useState();
   const [image, setImage] = useState();
-  const profileImgFileInput = useRef(null);
   const accessToken = sessionStorage.getItem('jwt');
 
   useEffect(() => {
@@ -231,7 +230,6 @@ const EditProfile = () => {
                 id="file"
                 accept="image/*"
                 onChange={readURL}
-                ref={profileImgFileInput}
               />
             </div>
           </ProfileImg>

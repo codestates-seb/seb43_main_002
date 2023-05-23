@@ -69,33 +69,50 @@ function App() {
       <GlobalStyle />
       <GlobalWrap>
         <Routes>
+          {/* 누구나 접근 가능한 페이지 */}
           <Route path="/signup" element={<NewSignupForm />} />
           <Route path="/" element={<NewLogin />} />
+
           {/* <Route path="/" element={<NewLogin />} /> */}
           {/* <Route path="/boards" element={<PrivateRoute />}>
             <Route index element={<Main />} />
           </Route> */}
+
+          {/* 회원만 접근이 가능한 페이지 */}
           <Route path="/map" element={<PrivateRoute />}>
             <Route index element={<Map />} />
           </Route>
+
           <Route path="/mypage/:userId" element={<PrivateRoute />}>
             <Route index element={<MyPage />} />
           </Route>
+
           <Route path="/editprofile/:userId" element={<PrivateRoute />}>
             <Route index element={<EditProfile />} />
           </Route>
+
           <Route path="/state" element={<PrivateRoute />}>
             <Route index element={<UserState />} />
           </Route>
-          <Route path="/userpage/:userId" element={<UserPage />}>
-            <Route index element={<UserState />} />
+
+          <Route path="/userpage/:userId" element={<PrivateRoute />}>
+            <Route index element={<UserPage />} />
           </Route>
+
+          <Route path="api/boards" element={<PrivateRoute />}>
+            <Route index element={<Main />} />
+          </Route>
+
+          {/* <Route path="api/boards" element={<PrivateRoute />}>
+            <Route index element={<UserState />} />
+          </Route> 넌 누구니..... */}
+
           {/* <Route path="/main" element={<Main />} /> */}
-          <Route path="api/boards" element={<Main />} />
+          {/* <Route path="api/boards" element={<Main />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/editprofile" element={<EditProfile />} />
           <Route path="/state" element={<UserState />} />
-          <Route path="/members/:userId" element={<UserPage />} />
+          <Route path="/members/:userId" element={<UserPage />} /> */}
         </Routes>
       </GlobalWrap>
     </>

@@ -194,7 +194,7 @@ const Map = () => {
           <iframe
             title="Expanded Result"
             src={`https://place.map.kakao.com/m/${result.id}`}
-            style={{ width: '100%', height: '400px', border: 'none' }}
+            style={{ width: '100%', height: '10%', border: 'none' }}
           />
         )}
       </ResultItem>
@@ -222,7 +222,7 @@ const Map = () => {
         </CurrentLocationButton>
         <SearchResults
           animate={animation}
-          style={{ height: expandedResult !== null ? '500px' : '200px' }} // 확장된 결과가 있으면 높이를 500px로, 그렇지 않으면 200px로 변경
+          style={{ height: expandedResult !== null ? '45%' : '30%' }} // 확장된 결과가 있으면 높이를 500px로, 그렇지 않으면 200px로 변경
         >
           {resultItems}
         </SearchResults>

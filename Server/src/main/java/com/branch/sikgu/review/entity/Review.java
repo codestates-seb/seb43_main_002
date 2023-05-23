@@ -16,6 +16,7 @@ import javax.persistence.*;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "REVIEW_ID")
     private Long reviewId;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -15,6 +15,12 @@ import java.util.stream.Collectors;
 @Component
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface BoardMapper {
+    default BoardDto.BoardMemberResponse toBoardMemberResponseDto(Board board) {
+        return new BoardDto.BoardMemberResponse(
+                board.getBoardId(),
+                board.getTitle()
+        );
+    }
 
     // Response
     default BoardDto.Response toResponseDto(Board board) {

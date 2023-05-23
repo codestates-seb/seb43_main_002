@@ -14,11 +14,12 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "image")
+@Table(name = "MEMBER_PROFILE_IMAGE")
 public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "IMAGE_ID")
     private Long imageId;
 
     @Column(name = "original_file_name", nullable = true)
@@ -37,6 +38,6 @@ public class Image {
     }
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "my_page_id")
+    @JoinColumn(name = "MEMBER_PROFILE_ID")
     private MyPage myPage;
 }

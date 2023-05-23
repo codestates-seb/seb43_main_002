@@ -1,6 +1,8 @@
 package com.branch.sikgu.meal.history.dto;
 
+import com.branch.sikgu.meal.board.dto.BoardDto;
 import com.branch.sikgu.meal.board.entity.Board;
+import com.branch.sikgu.member.dto.MemberResponseDto;
 import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.myPage.entity.MyPage;
 import lombok.*;
@@ -13,8 +15,8 @@ public class HistoryDto {
     @AllArgsConstructor
     public static class Response {
         private Long historyId;
-        private Board board;
-        private List<Member> members;
+        private BoardDto.BoardMemberResponse board;
+        private List<MemberResponseDto.HistoryMemberResponse> members;
     }
 
     @Getter
@@ -23,6 +25,6 @@ public class HistoryDto {
     @NoArgsConstructor
     public static class Post {
         private Long boardId;
-        private List<Member> members;
+        private List<MemberResponseDto> members;
     }
 }

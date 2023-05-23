@@ -1,7 +1,7 @@
 import axios from 'axios';
 // axios.defaults.withCredentials = true;
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/',
+  baseURL: process.env.REACT_APP_API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
     // Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
-  const token = sessionStorage.getItem('jwt');
+  const token = sessionStorage.getItem(process.env.REACT_APP_JWT_TOKEN_NAME);
   if (token) {
     // config.headers['Authorization'] = `Bearer ${token}`
     config.headers['Authorization'] = token;

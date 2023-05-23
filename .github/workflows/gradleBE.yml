@@ -42,8 +42,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
             
-      - name: Add permission
-        run: chmod +x gradlew
+      - name: Add execute permission to Gradle wrapper
+        run: chmod +x ./gradlew
         working-directory: ./Server/
         
       - name: Build with Gradle

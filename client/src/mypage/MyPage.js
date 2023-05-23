@@ -153,21 +153,24 @@ const MyPage = () => {
               </NewPosts>
               <History>
                 <h3>식구랑 먹었던 이력</h3>
-                <div className={data.review ? 'post' : ''}>
-                  {data.review ? (
-                    data.review.map((el, idx) => {
+                <div className={data.review ? '' : 'post'}>
+                  {data.recentReview ? (
+                    data.recentReview.slice(0, 4).map((el, idx) => {
                       return (
                         <div key={idx}>
-                          <img src={el.img} alt="프로필 이미지" />
+                          <img
+                            src={`/api/mypages/${el.reviewerId}/image`}
+                            alt="프로필 이미지"
+                          />
                           <div>
                             <ul>
-                              <li>{el.name}</li>
-                              <li>{el.comment}</li>
+                              <li>{el.reviewerNickName}</li>
+                              <li>{el.reviewContent}</li>
                             </ul>
                           </div>
                           <button
                             onClick={() => {
-                              handleUser(el.id);
+                              handleUser(el.reviewerId);
                             }}
                           >
                             +

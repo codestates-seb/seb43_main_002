@@ -3,14 +3,13 @@ import { useNavigate } from 'react-router-dom';
 
 import { useState } from 'react';
 import { Title } from '../style/NewHeaderFooterStyle';
-import { SearchSpan } from '../style/HomeStyle';
+import { SearchSpan, RefreshButton } from '../style/HomeStyle';
 import { useDispatch } from 'react-redux';
 import { setSearchTerm } from '../store/boardSlice';
 // eslint-disable-next-line react/prop-types
 const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
   const navigate = useNavigate();
 
-  // props로 받아와서 네비게이터도 구현해야 한다.
   const [onSearch, setOnSerach] = useState(true);
   const [searchValue, setSearchValue] = useState('');
 
@@ -33,9 +32,20 @@ const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
       }
     }
   }
+
+  const SearchPost = () => {
+    dispatch(setSearchTerm(searchValue));
+    setSearchValue('');
+    setOnSerach(true); // 검색 후에는 onSearch 값을 false로 변경
+  };
+
+  const handleRefresh = () => {
+    dispatch(setSearchTerm(''));
+    setOnSerach(true);
+  };
+
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
-    dispatch(setSearchTerm(e.target.value));
   };
 
   return (
@@ -55,7 +65,12 @@ const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
             placeholder="Search..."
             onChange={handleSearch}
           ></SearchSpan>
-          <button onClick={handleClick}>
+          <RefreshButton
+            src="/svg/header-refresh.svg"
+            alt="수정버튼"
+            onClick={handleRefresh}
+          ></RefreshButton>
+          <button onClick={SearchPost}>
             <img src={iconSrc} alt="아이콘" />
           </button>
         </>

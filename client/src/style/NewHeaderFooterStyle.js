@@ -107,7 +107,8 @@ export const FooterCicleWrap = styled.div`
       font-size: 18px;
       font-weight: bold;
       color: white;
-      left: 6.5px;
+      top: -1.5px;
+      left: 7px;
     }
   }
 `;

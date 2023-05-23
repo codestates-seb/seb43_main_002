@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { MainWrap } from '../style/HomeStyle';
 import MapHeader from './MapHeader';
-import Footer from '../home/Footer';
+import Footer from '../mypage/Footer';
 import {
   Mapbox,
   MapContainer,

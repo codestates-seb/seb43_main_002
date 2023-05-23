@@ -39,6 +39,8 @@ export const SearchSpan = styled.input`
   width: 73%;
   border: 1px solid black;
   border-radius: 10px;
+  border: none;
+  background-color: #ffddac;
 `;
 
 export const HeaderBackWrap = styled.div`
@@ -111,6 +113,7 @@ export const DayWrap = styled.div`
   /* overflow: auto; */
   flex-direction: row;
   white-space: nowrap;
+  justify-content: space-around;
 `;
 
 export const SelectedDay = styled.div`
@@ -265,4 +268,12 @@ export const FooterCicleWrap = styled.div`
     font-size: 25px;
   }
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+`;
+
+export const RefreshButton = styled.img`
+  position: absolute;
+  margin-left: 300px;
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
 `;

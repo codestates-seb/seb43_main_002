@@ -89,8 +89,6 @@ const Days = () => {
     return boardDate === selectedDateIndex;
   });
 
-  console.log(today);
-
   return (
     <>
       {/* <input

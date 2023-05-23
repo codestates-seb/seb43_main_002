@@ -14,7 +14,7 @@ on:
     branches: [ "dev" ]
 
 permissions:
-  contents: read
+  contents: write-all
 
 env:
   S3_BUCKET_NAME: sikgu-s3-bucket
@@ -49,8 +49,8 @@ jobs:
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
           arguments: build
+          gradle-executable: ./gradlew
 
-      
       - name: Make zip file
         run: zip -r ./sikgu-deploy.zip .
         shell: bash

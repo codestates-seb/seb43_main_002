@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { MainWrap } from '../style/HomeStyle';
+// import MapHeader from './MapHeader';
 import Header from '../mypage/Header';
 import Footer from '../mypage/Footer';
 import {
@@ -10,6 +10,7 @@ import {
   CurrentLocationButton,
   SearchResults,
   ResultItem,
+  MainWrap,
 } from '../style/MapStyle';
 import { BackYellow, BackGround } from '../style/MypageStyle';
 
@@ -168,6 +169,7 @@ const Map = () => {
       onClick={() => searchAndDisplayPlacesByCategory(category)}
       key={category}
     >
+      <img src="/svg/userpage-like.svg" alt="아이콘" />
       {category}
     </CategoryButton>
   ));
@@ -202,33 +204,32 @@ const Map = () => {
   });
 
   return (
-    <MainWrap>
-      <BackGround>
-        <BackYellow></BackYellow>
-      </BackGround>
-      <Header iconSrc="/svg/header-logout.svg" fnc="logout" scrollNumber={10} />
-      <MapContainer>
-        <ButtonContainer animate={animation}>{categoryButtons}</ButtonContainer>
-        <Mapbox ref={mapRef} id="map"></Mapbox>
-        <CurrentLocationButton
-          animate={animation}
-          onClick={() => {
-            if (!loading) {
-              updateCurrentLocation();
-            }
-          }}
-        >
-          <img src="/svg/location.svg" alt="현재위치" />
-        </CurrentLocationButton>
-        <SearchResults
-          animate={animation}
-          style={{ height: expandedResult !== null ? '500px' : '200px' }} // 확장된 결과가 있으면 높이를 500px로, 그렇지 않으면 200px로 변경
-        >
-          {resultItems}
-        </SearchResults>
-      </MapContainer>
+    <>
+      <MainWrap>
+        <div>
+          <Header
+            iconSrc="/svg/header-logout.svg"
+            fnc="logout"
+            scrollNumber={10}
+          />
+          여기에 현재위치를 받아와서 표시해줬으면 좋겠음
+        </div>
+        <MapContainer>
+          <ButtonContainer animate={animation}>
+            {categoryButtons}
+          </ButtonContainer>
+          <Mapbox ref={mapRef} id="map"></Mapbox>
+          <CurrentLocationButton
+            animate={animation}
+            onClick={updateCurrentLocation}
+          >
+            <img src="/icon/location.svg" alt="현재위치" />
+          </CurrentLocationButton>
+          <SearchResults animate={animation}>{resultItems}</SearchResults>
+        </MapContainer>
+      </MainWrap>
       <Footer activeIcon="map" />
-    </MainWrap>
+    </>
   );
 };
 

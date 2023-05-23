@@ -1,6 +1,5 @@
 import { logout } from '../store/userSlice';
 import { useNavigate } from 'react-router-dom';
-
 import { useState } from 'react';
 import { Title } from '../style/NewHeaderFooterStyle';
 import { SearchSpan, RefreshButton } from '../style/HomeStyle';
@@ -8,6 +7,12 @@ import { useDispatch } from 'react-redux';
 import { setSearchTerm } from '../store/boardSlice';
 // eslint-disable-next-line react/prop-types
 const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
+  // eslint-disable-next-line no-unused-vars
+  const backgroundImage =
+    scrollPosition >= scrollNumber
+      ? 'linear-gradient(135deg, #ffd571, #ffac36)'
+      : 'none';
+
   const navigate = useNavigate();
 
   const [onSearch, setOnSerach] = useState(true);
@@ -25,11 +30,8 @@ const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
     } else if (fnc === 'back') {
       navigate(-1);
     } else if (fnc === 'search') {
-      if (onSearch) {
-        setOnSerach(false);
-      } else {
-        setOnSerach(true);
-      }
+      // console.log('검색');
+      setOnSerach(false);
     }
   }
 

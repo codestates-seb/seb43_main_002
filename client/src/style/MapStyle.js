@@ -1,48 +1,23 @@
 import styled from 'styled-components';
 
-export const HeaderBackWrap = styled.div`
-  padding: 0px;
-  display: flex;
-  height: 10%;
-  width: 100%;
-  border-bottom-left-radius: 21px;
-  border-bottom-right-radius: 21px;
-  position: absolute;
-  background-image: radial-gradient(#ffd571, #ffac36);
-  z-index: 100;
-`;
-
-export const HeaderWrap = styled.header`
-  padding: 0px;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const LogoWrap = styled.img`
-  padding-left: 30px;
-`;
-
 export const MapContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  top: 8%;
-  height: 80%;
+  top: 0%;
+  height: 85%;
   width: 100%;
   overflow: hidden;
-  z-index: 10;
+  z-index: 1;
 `;
 
 export const Mapbox = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
-  z-index: 10;
+  z-index: 1;
 `;
 
 export const ButtonWrap = styled.div`
@@ -118,6 +93,7 @@ export const SearchResults = styled.div`
   width: 100%;
   height: 200px;
   overflow-y: auto;
+  overflow: auto;
   background: rgba(255, 250, 237, 0.8);
   border-top: 1px solid #ddd;
   z-index: 20;
@@ -139,7 +115,9 @@ export const ResultItem = styled.div`
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   &:hover {
-    background: #eee;
+    /* expanded가 true일 때 hover 스타일을 비활성화 */
+    background-color: ${(props) =>
+      props.expanded ? 'initial' : 'hover color'};
   }
   z-index: 20;
 `;

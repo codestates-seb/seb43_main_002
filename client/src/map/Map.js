@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { MainWrap } from '../style/HomeStyle';
-import MapHeader from './MapHeader';
+import Header from '../mypage/Header';
 import Footer from '../mypage/Footer';
 import {
   Mapbox,
@@ -11,6 +11,7 @@ import {
   SearchResults,
   ResultItem,
 } from '../style/MapStyle';
+import { BackYellow, BackGround } from '../style/MypageStyle';
 
 const Map = () => {
   // Map 컴포넌트의 상태 및 참조를 초기화
@@ -20,16 +21,21 @@ const Map = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('맛집');
   const [animation, setAnimation] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [selectedResult, setSelectedResult] = useState(null);
+  const [expandedResult, setExpandedResult] = useState(null);
+
   // 지정된 위치에 마커와 인포윈도우 표시
-  const displayMarker = (locPosition, place) => {
+  const displayMarker = (locPosition, place, index) => {
     let marker = new window.kakao.maps.Marker({
       map: mapInstance.current,
       position: locPosition,
     });
+    marker.index = index;
     let message = `
     <div style="
     width: 200px;
-    height: 70px;
+    height: 80px;
     border-radius: 10px;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
     padding: 5px;
@@ -81,21 +87,30 @@ const Map = () => {
   };
   // 현재 위치를 업데이트하고 지도의 중심을 현재 위치로
   const updateCurrentLocation = () => {
+    setLoading(true); // 현재 위치 업데이트를 시작하므로 로딩 상태를 true로 설정
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        let lat = position.coords.latitude,
-          lon = position.coords.longitude;
-        let locPosition = new window.kakao.maps.LatLng(lat, lon);
-        mapInstance.current.setCenter(locPosition);
-        clearMarkers();
-        // 현재 위치를 업데이트 한 후에 마지막 선택된 장소를 검색
-        searchAndDisplayPlacesByCategory(selectedCategory);
-      });
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          let lat = position.coords.latitude,
+            lon = position.coords.longitude;
+          let locPosition = new window.kakao.maps.LatLng(lat, lon);
+          mapInstance.current.setCenter(locPosition);
+          clearMarkers();
+          // 현재 위치를 업데이트 한 후에 마지막 선택된 장소를 검색
+          searchAndDisplayPlacesByCategory(selectedCategory);
+          setLoading(false); // 현재 위치 업데이트가 완료되었으므로 로딩 상태를 false로 설정
+        },
+        function (error) {
+          console.error(error);
+          setLoading(false); // 현재 위치 업데이트에 실패했으므로 로딩 상태를 false로 설정
+        }
+      );
     } else {
       // 위치 정보를 사용할 수 없는 경우 기본 위치를 설정하고 해당 위치에 마커를 표시
       let locPosition = new window.kakao.maps.LatLng(37.56779, 126.98051),
         message = '현재 위치 사용 불가';
       displayMarker(locPosition, message);
+      setLoading(false); // 현재 위치 업데이트에 실패했으므로 로딩 상태를 false로 설정
     }
   };
   // 컴포넌트가 마운트될 때 Kakao 지도를 초기화하고 현재 위치를 업데이트
@@ -133,6 +148,7 @@ const Map = () => {
       window.kakao.maps.event.addListener(marker, 'click', function () {
         markers.forEach((m) => m.infowindow.close());
         marker.infowindow.open(mapInstance.current, marker);
+        setSelectedResult(marker.index);
       });
     });
   }, [markers]);
@@ -161,33 +177,57 @@ const Map = () => {
     return (
       <ResultItem
         key={result.id}
+        style={selectedResult === index ? { backgroundColor: '#eee' } : {}}
         onClick={(e) => {
           markers.forEach((marker) => marker.infowindow.close());
           markers[index].infowindow.open(mapInstance.current, markers[index]);
+          setSelectedResult(index);
           e.stopPropagation();
           mapInstance.current.panTo(locPosition);
+          if (selectedResult === index) {
+            setExpandedResult((prev) => (prev === index ? null : index));
+          }
         }}
       >
-        {result.place_name}
+        {result.place_name}{' '}
+        {expandedResult === index && ( // 선택된 항목이면 추가 정보를 표시
+          <iframe
+            title="Expanded Result"
+            src={`https://place.map.kakao.com/m/${result.id}`}
+            style={{ width: '100%', height: '400px', border: 'none' }}
+          />
+        )}
       </ResultItem>
     );
   });
 
   return (
     <MainWrap>
-      <MapHeader />
+      <BackGround>
+        <BackYellow></BackYellow>
+      </BackGround>
+      <Header iconSrc="/svg/header-logout.svg" fnc="logout" scrollNumber={10} />
       <MapContainer>
         <ButtonContainer animate={animation}>{categoryButtons}</ButtonContainer>
         <Mapbox ref={mapRef} id="map"></Mapbox>
         <CurrentLocationButton
           animate={animation}
-          onClick={updateCurrentLocation}
+          onClick={() => {
+            if (!loading) {
+              updateCurrentLocation();
+            }
+          }}
         >
-          <img src="/icon/location.svg" alt="현재위치" />
+          <img src="/svg/location.svg" alt="현재위치" />
         </CurrentLocationButton>
-        <SearchResults animate={animation}>{resultItems}</SearchResults>
+        <SearchResults
+          animate={animation}
+          style={{ height: expandedResult !== null ? '500px' : '200px' }} // 확장된 결과가 있으면 높이를 500px로, 그렇지 않으면 200px로 변경
+        >
+          {resultItems}
+        </SearchResults>
       </MapContainer>
-      <Footer />
+      <Footer activeIcon="map" />
     </MainWrap>
   );
 };

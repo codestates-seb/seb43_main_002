@@ -38,7 +38,7 @@ const passwordRegex = /^(?=.[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 //   return '';
 // };
 
-const NewLogin = function NewLogin() {
+const NewLogin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [values, setValues] = useState({

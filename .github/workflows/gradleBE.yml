@@ -39,9 +39,13 @@ jobs:
         run: chmod +x ./gradlew
         working-directory: ./Server/
         
-      - name: Build with Gradle
+#       - name: Build with Gradle
+#         working-directory: ./Server/
+#         run: ./gradlew build
+
+      - name: Build with Gradle (without tests)
+        run: ./gradlew build -x test
         working-directory: ./Server/
-        run: ./gradlew build
         
       - name: Make zip file
         run: zip -r ./sikgu-deploy.zip .
@@ -59,6 +63,3 @@ jobs:
 
       - name: Copy application.yml
         run: cp Server/src/main/resources/application.yml build/directory
-
-      - name: Build with Gradle (without tests)
-        run: ./gradlew build -x test

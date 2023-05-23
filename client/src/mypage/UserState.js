@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import Footer from './Footer';
 import Header from './Header';
-import Loding from './Loding';
+import Loding from './Loading';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../axiosConfig';
 import {
   Mobile,
   BackGround,
@@ -28,9 +28,9 @@ const UserState = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [buttonDisabled, setButtonDisabled] = useState([]);
 
+  // 유저가 참가한 식사 목록을 가져오고, 그 식사에 참여한 유저의 목록도 같이 불러옴.
   useEffect(() => {
-    axios
-      // 로그인 된 유저의 id를 어떻게 가져와야 할지.. API 문서가 있어야 알 거 같음.
+    axiosInstance
       .get('http://localhost:3001/state')
       .then((response) => {
         setData(response.data);
@@ -41,13 +41,8 @@ const UserState = () => {
         setIsLoading(false);
       });
 
-    axios
-      .get('http://localhost:3001/members', {
-        headers: {
-          'Content-Type': `application/json`,
-          'ngrok-skip-browser-warning': '69420',
-        },
-      })
+    axiosInstance
+      .get('http://localhost:3001/members')
       .then((response) => {
         setUser(response.data);
         setIsLoading(false);
@@ -58,6 +53,7 @@ const UserState = () => {
       });
   }, []);
 
+  // 리뷰 작성하는 로직, 사람이 여러명일 수 있기에 맵으로 돌린 이전 리뷰들과 함께 객체 상태로 리뷰를 저장하도록 했다.
   const handleReviewChange = (userId, e) => {
     const newReview = e.target.value;
     setUserReviews((prevReviews) => ({
@@ -66,30 +62,28 @@ const UserState = () => {
     }));
   };
 
+  // 리뷰 post 요청 보내는 곳. userId로 사람을 식별해서 객체 중 같은 아이디를 가진 리뷰를 유저 아이디쪽으로 보내도록 함.
   const handleReviewSubmit = (userId) => {
-    // 현재 빈 값으로 둔 name이랑 img는 로그인 된 유저 정보를 받아와야 한다.
-    // 이 부분은 얘기를 해보는 게 좋겠음!
-
     const comment = userReviews[userId];
-    axios
+
+    axiosInstance
       .post(`/members/all`, {
-        name: `테스트`,
-        img: `테스트`,
+        name: `이부분에는`,
+        img: `로그인한 사용자 정보를 담는 거임!`,
         comment,
       })
       .then((response) => {
         setData(response.data);
-        console.log('성공');
       })
       .catch((error) => {
         console.log(error);
-        console.log('실패');
       });
   };
 
+  // 좋아요 구현한 부분
   const handleLike = (userId) => {
-    // PUT 메소드로 해당 유저의 like 값을 1 증가시키는 요청을 보내기
-    axios
+    // patch 메소드로 해당 유저의 like 값을 1 증가시키는 요청을 보내기
+    axiosInstance
       .patch(`/${userId}`, {
         //user.id와 같은 값을 가진 데이터를 찾아서 like를 업데이트 시켜준다.
         like: user.find((el) => el.id === userId).like + 1,
@@ -106,6 +100,7 @@ const UserState = () => {
       });
   };
 
+  // 팝업이랑 모달 관리하는 부분
   function handleOpen() {
     setModalEffect(false);
 

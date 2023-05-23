@@ -1,6 +1,6 @@
 import Footer from './Footer';
 import Header from './Header';
-import Loding from './Loding';
+import Loading from './Loading';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
@@ -11,49 +11,91 @@ import {
   NewPosts,
   History,
   PostIcon,
+  NotFound,
 } from '../style/MypageStyle';
-import axios from 'axios';
+import axiosInstance from '../axiosConfig';
 
 const UserPage = () => {
-  const { userId } = useParams();
   const navigate = useNavigate();
+  const { userId } = useParams();
+  // const location = useLocation();
+  // const { from } = location.state;
 
   const [data, setData] = useState();
-  const [like, setLike] = useState(0);
-  const [isLiked, setIsLiked] = useState(false);
+  const [follow, setFollow] = useState();
+  const [isFollower, setIsFollower] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const accessToken = sessionStorage.getItem('jwt');
+  const imageUrl = `/api/mypages/${userId}/image`;
 
   useEffect(() => {
-    axios
-      // 로그인 된 유저의 id를 어떻게 가져와야 할지.. API 문서가 있어야 알 거 같음.
-      .get(`/api/members/${userId}`, {
-        headers: {
-          'Content-Type': `application/json`,
-          'ngrok-skip-browser-warning': '69420',
-        },
-      })
+    // const header = {
+    //   headers: {
+    //     'Content-Type': `application/json`,
+    //     Authorization: `${accessToken}`,
+    //   },
+    // };
+
+    axiosInstance
+      .get(`/api/mypages/${userId}`)
       .then((response) => {
+        setIsFollower(response.data.followingCurrentUser);
         setData(response.data);
-        setLike(response.data.like);
         setIsLoading(false);
+        setFollow(response.data.followerCount);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [userId]);
 
-  function handleUser(userId) {
-    navigate(`/api/members/${userId}`);
+  function handleUser(user) {
+    navigate(`/userpage/${user}`);
   }
 
-  // 로그인 한 유저의 정보와 mypage 유저의 정보가 일치하는 조건문이 필요함.
-  // 이 부분은 아무래도 얘기를 좀 더 해봐야할 거 같다.
-  function handleLike() {
-    setIsLiked(true);
-
-    let copy = like;
-    copy += 1;
-    setLike(copy);
+  // 팔로우 기능 구현
+  function handleFollow() {
+    if (!isFollower) {
+      setIsFollower(true);
+      axiosInstance
+        .post(
+          `/api/mypages/${userId}/follow`,
+          {},
+          {
+            headers: {
+              Authorization: `${accessToken}`,
+            },
+          }
+        )
+        .then((response) => {
+          let copy = follow;
+          copy += 1;
+          setFollow(copy);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      setIsFollower(false);
+      axiosInstance
+        .post(
+          `/api/mypages/${userId}/unfollow`,
+          {},
+          {
+            headers: {
+              Authorization: `${accessToken}`,
+            },
+          }
+        )
+        .then((response) => {
+          let copy = follow;
+          copy -= 1;
+          setFollow(copy);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   return (
@@ -64,18 +106,25 @@ const UserPage = () => {
         </BackGround>
         <Header iconSrc="/svg/header-logout.svg" fnc="logout" />
         {isLoading ? (
-          <Loding />
+          <Loading />
         ) : (
           data && (
             <>
               <Profile>
-                <img src={data.img} alt="프로필 이미지" />
+                <img src={imageUrl} alt="프로필 이미지" />
                 <div>
                   <ul>
                     <li>
                       {data.nickname}
-                      <button onClick={handleLike} disabled={isLiked}>
-                        <img src="/svg/mypage-like.svg" alt="좋아요버튼" />
+                      <button onClick={handleFollow}>
+                        <img
+                          src={
+                            isFollower
+                              ? '/svg/mypage-followhandle-2.svg'
+                              : '/svg/mypage-followhandle.svg'
+                          }
+                          alt="좋아요버튼"
+                        />
                       </button>
                     </li>
                     <li>{data.intro}</li>
@@ -86,7 +135,7 @@ const UserPage = () => {
                         </li>
                         <li>
                           <div>식구</div>
-                          <div>{data.follower}</div>
+                          <div>{follow}</div>
                         </li>
                       </ul>
                       <ul>
@@ -95,7 +144,7 @@ const UserPage = () => {
                         </li>
                         <li>
                           <div>좋아요</div>
-                          <div>{data.like}</div>
+                          <div>{data.likes}</div>
                         </li>
                       </ul>
                     </li>
@@ -104,52 +153,64 @@ const UserPage = () => {
               </Profile>
               <NewPosts>
                 <h3>최근 작성한 게시글</h3>
-                <div className="post">
-                  {data.recently.slice(0, 2).map((el, idx) => {
-                    const community = '/svg/mypage-community.svg';
-                    const sikgu = '/svg/mypage-sikgu.svg';
+                <div className={data.recentBoard.length === 0 ? '' : 'post'}>
+                  {data.recentBoard.length !== 0 ? (
+                    data.recentBoard.slice(0, 2).map((el, idx) => {
+                      const community = '/svg/mypage-community.svg';
+                      const sikgu = '/svg/mypage-sikgu.svg';
 
-                    return (
-                      <div key={idx}>
-                        <ul>
-                          <li>
-                            <PostIcon
-                              isType={el.type}
-                              imageA={sikgu}
-                              imageB={community}
-                            />
-                          </li>
-                          <li>{el.date}</li>
-                          <li>{el.title}</li>
-                        </ul>
-                      </div>
-                    );
-                  })}
+                      return (
+                        <div key={idx}>
+                          <ul>
+                            <li>
+                              <PostIcon
+                                isType={el.type}
+                                imageA={sikgu}
+                                imageB={community}
+                              />
+                            </li>
+                            <li>{el.createdAt}</li>
+                            <li>{el.title}</li>
+                          </ul>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <NotFound>
+                      <div>작성한 게시글이 존재하지 않습니다.</div>
+                    </NotFound>
+                  )}
                 </div>
               </NewPosts>
               <History>
                 <h3>식구랑 먹었던 이력</h3>
-                <div className="post">
-                  {data.review.map((el, idx) => {
-                    return (
-                      <div key={idx}>
-                        <img src={el.img} alt="프로필 이미지" />
-                        <div>
-                          <ul>
-                            <li>{el.name}</li>
-                            <li>{el.comment}</li>
-                          </ul>
+                <div className={data.review ? 'post' : ''}>
+                  {data.review ? (
+                    data.review.map((el, idx) => {
+                      return (
+                        <div key={idx}>
+                          <img src={el.img} alt="프로필 이미지" />
+                          <div>
+                            <ul>
+                              <li>{el.name}</li>
+                              <li>{el.comment}</li>
+                            </ul>
+                          </div>
+                          <button
+                            onClick={() => {
+                              handleUser(el.id);
+                            }}
+                          >
+                            +
+                          </button>
                         </div>
-                        <button
-                          onClick={() => {
-                            handleUser(el.id);
-                          }}
-                        >
-                          +
-                        </button>
-                      </div>
-                    );
-                  })}
+                      );
+                    })
+                  ) : (
+                    <NotFound>
+                      <div>식구랑 먹었던 이력이 존재하지 않습니다.</div>
+                    </NotFound>
+                  )}
                 </div>
               </History>
             </>

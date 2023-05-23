@@ -63,3 +63,10 @@ jobs:
 
 #       - name: Copy application.yml
 #         run: cp Server/src/main/resources/application.yml build/directory
+
+      - name: Code Deploy
+        run: >
+          aws deploy create-deployment --application-name sikgu
+          --deployment-config-name CodeDeployDefault.AllAtOnce
+          --deployment-group-name sikgu-group
+          --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=practice-deploy.zip

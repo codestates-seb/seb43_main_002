@@ -63,7 +63,6 @@ const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
         </>
       )}
     </Title>
-
   );
 };
 

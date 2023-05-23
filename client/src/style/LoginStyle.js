@@ -79,6 +79,7 @@ const Button = styled.button`
 const LoginButton = styled(Button)`
   text-decoration: none;
   display: flex;
+  margin-top: 10px;
   justify-content: center;
   align-items: center;
 
@@ -102,6 +103,12 @@ const ForgotPasswordButton = styled(Button)`
 
 const Error = styled.p`
   color: red;
+  font-size: 11pt;
+  margin-top: 3px;
+`;
+
+const Message = styled.p`
+  color: blue;
   font-size: 11pt;
   margin-top: 3px;
 `;
@@ -165,6 +172,7 @@ export {
   LoginButton,
   ForgotPasswordButton,
   Error,
+  Message,
   FooterText,
   StyledLink,
   GoogleLoginButton,

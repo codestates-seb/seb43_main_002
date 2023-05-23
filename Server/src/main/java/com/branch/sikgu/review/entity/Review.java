@@ -1,0 +1,40 @@
+package com.branch.sikgu.review.entity;
+
+import com.branch.sikgu.meal.history.entity.History;
+import com.branch.sikgu.member.entity.Member;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "REVIEW")
+@Getter
+@Setter
+@NoArgsConstructor
+public class Review {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long reviewId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "history_id")
+    private History history;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reviewer_id")
+    private Member reviewer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "target_member_id")
+    private Member targetMember;
+
+    @Column(name = "content")
+    private String content;
+
+    @Column(name = "liked")
+    private boolean liked = false;
+
+    // 추가적인 필드들...
+}

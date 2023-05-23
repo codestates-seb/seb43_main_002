@@ -26,7 +26,7 @@ const UserPage = () => {
   useEffect(() => {
     axios
       // 로그인 된 유저의 id를 어떻게 가져와야 할지.. API 문서가 있어야 알 거 같음.
-      .get(`/members/${userId}`, {
+      .get(`/api/members/${userId}`, {
         headers: {
           'Content-Type': `application/json`,
           'ngrok-skip-browser-warning': '69420',
@@ -40,10 +40,10 @@ const UserPage = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [userId]);
 
   function handleUser(userId) {
-    navigate(`/members/${userId}`);
+    navigate(`/api/members/${userId}`);
   }
 
   // 로그인 한 유저의 정보와 mypage 유저의 정보가 일치하는 조건문이 필요함.

@@ -1,12 +1,22 @@
 import styled from 'styled-components';
 
-export const Title = styled.div`
-  @import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
+export const TitleBox = styled.footer`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  border-radius: 0 0 10px 10px;
+  background-image: ${(props) => props.backgroundImage};
+`;
 
+export const Title = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin: 20px;
+  height: 50px;
 
   > div:first-child {
     width: 50px;
@@ -35,6 +45,10 @@ export const Title = styled.div`
       height: 25px;
     }
   }
+`;
+
+export const Space = styled.footer`
+  margin-top: 70px;
 `;
 
 export const FooterWrap = styled.footer`
@@ -72,7 +86,7 @@ export const FooterCicleWrap = styled.div`
   position: absolute;
   top: -30%;
   left: 45%;
-  transform: ${({ isHovered }) => (isHovered ? 'scale(1.2)' : 'scale(1)')};
+  transform: ${({ isHovered }) => (isHovered ? 'scale(1)' : 'scale(1.2)')};
   transition: transform 0.5s ease;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -107,13 +121,16 @@ export const MainIcon = styled.div`
 `;
 
 export const LodingDiv = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 
   > img {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
   }
 `;

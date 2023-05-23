@@ -52,7 +52,7 @@ public class SecurityConfiguration {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .logout() // 로그아웃 설정
-                .logoutUrl("/members/logout") // 로그아웃 URL 설정
+                .logoutUrl("/api/members/logout") // 로그아웃 URL 설정
                 .logoutSuccessHandler((httpServletRequest, httpServletResponse, authentication) -> {
                     // JWT 토큰을 삭제합니다.
                     httpServletResponse.setHeader("Authorization", "");
@@ -71,7 +71,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
 //                        .antMatchers(HttpMethod.POST, "/*/members/signup").permitAll()
 //                        .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
-                                .antMatchers("/static/**").permitAll()
+//                                .antMatchers("/static/**").permitAll()
                         .anyRequest().permitAll()
 
                 );
@@ -87,6 +87,7 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("Content-Type"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -100,7 +101,7 @@ public class SecurityConfiguration {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
-            jwtAuthenticationFilter.setFilterProcessesUrl("/members/login");
+            jwtAuthenticationFilter.setFilterProcessesUrl("/api/members/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 

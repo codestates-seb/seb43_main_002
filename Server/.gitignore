@@ -1,12 +1,15 @@
 HELP.md
 Server/.gradle
-.gradle
+.gradle/**
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+application.yml
 src/main/resources/
-
+**/.DS_Store
+.DS_Store
+Server/.gradle/buildOutputCleanup/buildOutputCleanup.lock
 
 ### STS ###
 .apt_generated
@@ -38,3 +41,5 @@ out/
 
 ### VS Code ###
 .vscode/
+
+.DS_Store

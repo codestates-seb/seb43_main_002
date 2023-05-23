@@ -19,7 +19,6 @@ import {
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../store/userSlice';
-// import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import axiosInstance from '../axiosConfig';
 const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
@@ -42,7 +41,9 @@ const Login = () => {
         password,
       })
       .then((response) => {
+        // eslint-disable-next-line no-debugger
         const token = response.headers.authorization;
+
         if (token) {
           const decoded = jwt_decode(token);
 
@@ -57,7 +58,7 @@ const Login = () => {
 
           dispatch(login(user));
           alert(`${user.nickname}님, 식사는 잡쉈어?`);
-          navigate('/boards');
+          navigate('api/boards');
         } else if (!token) {
           alert('이메일과 비밀번호를 확인하세요');
           navigate('/');
@@ -78,6 +79,11 @@ const Login = () => {
 
   const validationPassword = (password) => {
     return passwordRegex.test(password);
+  };
+
+  const X = (e) => {
+    console.log(1);
+    setPassword(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -110,14 +116,14 @@ const Login = () => {
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.currentTarget.value)}
           />
           <Error>{validationEmail(email) ? null : emailError}</Error>
           <Input
             type="password"
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={X}
           />
           <Error>{validationPassword(password) ? null : passwordError}</Error>
           <Error>{accessError}</Error>
@@ -131,7 +137,7 @@ const Login = () => {
           >
             Login
           </LoginButton>
-          <Error>{fetchError}</Error> <Error>{accessError}</Error>
+          <Error>{fetchError}</Error>
           {/* <GoogleLoginButton
             type="button"
             onClick={() => {

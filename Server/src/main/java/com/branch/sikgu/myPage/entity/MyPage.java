@@ -1,6 +1,7 @@
 package com.branch.sikgu.myPage.entity;
 
-import com.branch.sikgu.board.entity.Board;
+import com.branch.sikgu.meal.board.entity.Board;
+import com.branch.sikgu.image.Entity.Image;
 import com.branch.sikgu.member.entity.Member;
 
 import lombok.Getter;
@@ -19,8 +20,6 @@ public class MyPage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "my_page_id")
     private Long myPageId;
-    @Column(name = "image_path")
-    private String imagePath;
     @Column(name = "introduce")
     private String introduce;
     @Column(name = "likes")
@@ -49,5 +48,15 @@ public class MyPage {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id")
+    private Image image;
+    public MyPage() {
+        this.image = new Image();
+        this.image.setMyPage(this);
+    }
+
+    private Long likeCount;
 
 }

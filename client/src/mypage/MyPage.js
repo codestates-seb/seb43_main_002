@@ -2,7 +2,7 @@ import Footer from './Footer';
 import Header from './Header';
 import Loding from './Loding';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Mobile,
   BackGround,
@@ -15,6 +15,7 @@ import {
 import axios from 'axios';
 
 const MyPage = () => {
+  const { myId } = useParams();
   const navigate = useNavigate();
 
   const [data, setData] = useState();
@@ -22,8 +23,7 @@ const MyPage = () => {
 
   useEffect(() => {
     axios
-      // 로그인 된 유저의 id를 어떻게 가져와야 할지.. API 문서가 있어야 알 거 같음.
-      .get('http://localhost:3001/members/1', {
+      .get(`/api/mypage/${myId}`, {
         headers: {
           'Content-Type': `application/json`,
           'ngrok-skip-browser-warning': '69420',
@@ -37,27 +37,49 @@ const MyPage = () => {
         console.log(error);
         setIsLoading(false);
       });
-  }, []);
+  }, [myId]);
 
   function handleEidt() {
-    navigate('/editprofile');
+    navigate(`/editprofile${myId}`);
   }
 
   function handleUser(userId) {
-    // 다른 유저는 연필모양 대신 하트모양이 있고, 누르면 like가 오르게 해야한다.
-    navigate(`/members/${userId}`);
+    // 다른 유저는 연필모양 대신 팔로우 모양이 있고, 누르면 팔로우가 오르게 해야한다. (05/19 기준 팔로우로 바꿈.)
+    navigate(`/api/mypage/${userId}`);
   }
 
-  // 로그인 한 유저의 정보와 mypage 유저의 정보가 일치하는 조건문이 필요함.
-  // 이 부분은 아무래도 얘기를 좀 더 해봐야할 거 같다.
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const position = document.getElementById('mobileContainer').scrollTop;
+      setScrollPosition(position);
+    };
+
+    const mobileContainer = document.getElementById('mobileContainer');
+    if (mobileContainer) {
+      mobileContainer.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (mobileContainer) {
+        mobileContainer.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [data]);
 
   return (
     <>
-      <Mobile>
+      <Mobile id="mobileContainer">
         <BackGround>
           <BackYellow />
         </BackGround>
-        <Header iconSrc="/svg/header-logout.svg" fnc="logout" />
+        <Header
+          iconSrc="/svg/header-logout.svg"
+          fnc="logout"
+          scrollPosition={scrollPosition}
+          scrollNumber={10}
+        />
         {isLoading ? (
           <Loding />
         ) : (
@@ -73,7 +95,7 @@ const MyPage = () => {
                         <img src="/svg/mypage-edit.svg" alt="수정버튼" />
                       </button>
                     </li>
-                    <li>{data.intro}</li>
+                    <li>{data.introduce}</li>
                     <li>
                       <ul>
                         <li>
@@ -81,7 +103,7 @@ const MyPage = () => {
                         </li>
                         <li>
                           <div>식구</div>
-                          <div>{data.follower}</div>
+                          <div>{data.followerCount}</div>
                         </li>
                       </ul>
                       <ul>
@@ -90,7 +112,7 @@ const MyPage = () => {
                         </li>
                         <li>
                           <div>좋아요</div>
-                          <div>{data.like}</div>
+                          <div>{data.likes}</div>
                         </li>
                       </ul>
                     </li>
@@ -100,7 +122,7 @@ const MyPage = () => {
               <NewPosts>
                 <h3>최근 작성한 게시글</h3>
                 <div className="post">
-                  {data.recently.slice(0, 2).map((el, idx) => {
+                  {data.recentBoard.slice(0, 2).map((el, idx) => {
                     const community = '/svg/mypage-community.svg';
                     const sikgu = '/svg/mypage-sikgu.svg';
 
@@ -114,7 +136,7 @@ const MyPage = () => {
                               imageB={community}
                             />
                           </li>
-                          <li>{el.date}</li>
+                          <li>{el.createdAt}</li>
                           <li>{el.title}</li>
                         </ul>
                       </div>

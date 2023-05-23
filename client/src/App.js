@@ -1,12 +1,15 @@
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { GlobalStyle, GlobalWrap } from './style/GlobalStyle';
-import Login from './login/Login';
+// import Login from './login/Login';
+import NewLogin from './login/NewLogin';
 import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import Main from './home/Main';
 import { useEffect, useState } from 'react';
 import { login } from './store/userSlice';
-import Signup from './Signup/Signup';
+// import Signup from './Signup/Signup';
+// import NewSignup from './Signup/NewSignUp';
+import NewSignupForm from './Signup/SignupForm';
 import Map from './map/Map';
 import MyPage from './mypage/MyPage';
 import EditProfile from './mypage/EditProfile';
@@ -20,48 +23,57 @@ function App() {
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem('user');
+    const JsonUser = JSON.parse(storedUser);
+    // Json.parse 사용 하여 이름맞추기
+    // null 일 때 고민해보기
+    // eslint-disable-next-line no-debugger
+    // debugger;
     const storedToken = sessionStorage.getItem('jwt');
-    if (storedUser && storedToken) {
-      dispatch(login(storedUser));
+    if (JsonUser && storedToken) {
+      dispatch(login(JsonUser));
     }
     setLoading(false);
   }, [dispatch]);
-
   const PrivateRoute = () => {
     return isAuthenticated ? <Outlet /> : <Navigate to="/" />;
   };
 
+  // const myPageId = localStorage.getItem('myPageId');
+
+  // console.log(myPageId);
+
   if (loading) {
     return <p>Loading...</p>;
   }
+
   return (
     <>
       <GlobalStyle />
       <GlobalWrap>
         <Routes>
-          <Route path="/signup" element={<Signup />} />
-          {/* <Route path="/" element={<Login />} /> */}
-          <Route
-            path="/"
-            element={isAuthenticated ? <Navigate to="/boards" /> : <Login />}
-          />
+          <Route path="/signup" element={<NewSignupForm />} />
+          <Route path="/" element={<NewLogin />} />
+          {/* <Route path="/" element={<NewLogin />} /> */}
           {/* <Route path="/boards" element={<PrivateRoute />}>
             <Route index element={<Main />} />
           </Route> */}
           <Route path="/map" element={<PrivateRoute />}>
             <Route index element={<Map />} />
           </Route>
-          {/* <Route path="/mypage" element={<PrivateRoute />}>
+          <Route path="/mypage/:userId" element={<PrivateRoute />}>
             <Route index element={<MyPage />} />
           </Route>
-          <Route path="/editprofile" element={<PrivateRoute />}>
+          <Route path="/editprofile/:userId" element={<PrivateRoute />}>
             <Route index element={<EditProfile />} />
           </Route>
           <Route path="/state" element={<PrivateRoute />}>
             <Route index element={<UserState />} />
-          </Route> */}
+          </Route>
+          <Route path="/mypage/:userId" element={<UserPage />}>
+            <Route index element={<UserState />} />
+          </Route>
           {/* <Route path="/main" element={<Main />} /> */}
-          <Route path="/boards" element={<Main />} />
+          <Route path="api/boards" element={<Main />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/editprofile" element={<EditProfile />} />
           <Route path="/state" element={<UserState />} />

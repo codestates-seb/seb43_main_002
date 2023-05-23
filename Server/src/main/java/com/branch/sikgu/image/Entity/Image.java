@@ -1,5 +1,7 @@
 package com.branch.sikgu.image.Entity;
 
+import com.branch.sikgu.member.entity.Member;
+import com.branch.sikgu.myPage.entity.MyPage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,19 +19,24 @@ public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long imageId;
 
-    @Column(name = "name")
+    @Column(name = "original_file_name", nullable = true)
+    private String originalFileName;
+
+    @Column(name = "name", nullable = true)
     private String name;
 
-    @Column(name = "type")
+    @Column(name = "type", nullable = true)
     private String type;
 
-    @Column(name = "image_path")
-    private String imagePath;
-
     public Image(String name, String type) {
-        this.name = name;
+        // 이미지 ID를 포함한 이름 생성
+        this.name = this.imageId + name;
         this.type = type;
     }
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "my_page_id")
+    private MyPage myPage;
 }

@@ -1,13 +1,44 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const MainWrap = styled.div`
   padding: 0px;
   height: 100%;
   width: 100%;
-  display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  > div:nth-child(2) {
+    padding: 20px;
+  }
+  .boards {
+    padding: 0px 20px;
+    width: 100%;
+    height: 591px;
+    overflow-y: scroll;
+
+    ::-webkit-scrollbar {
+      width: 0.5em;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: transparent;
+    }
+  }
+`;
+
+export const SearchSpan = styled.input`
+  display: ${(onSearch) => (onSearch ? 'block' : 'none')};
+  margin: 10px;
+  padding: 0px;
+  height: 10%;
+  width: 73%;
+  border: 1px solid black;
+  border-radius: 10px;
 `;
 
 export const HeaderBackWrap = styled.div`
@@ -20,6 +51,7 @@ export const HeaderBackWrap = styled.div`
   border-bottom-right-radius: 15%;
   position: absolute;
   background-image: linear-gradient(135deg, #ffd571, #ffac36);
+  z-index: -1;
 `;
 
 export const HeaderWrap = styled.header`
@@ -70,12 +102,15 @@ export const SearchWrap = styled.div`
 `;
 
 export const DayWrap = styled.div`
-  padding: 0px;
-  margin-top: 70px;
+  padding: 0px 20px;
+  margin: 15px 0px;
   z-index: 1;
   /* border: 1px solid black; */
   background-color: transparent;
   display: flex;
+  /* overflow: auto; */
+  flex-direction: row;
+  white-space: nowrap;
 `;
 
 export const SelectedDay = styled.div`
@@ -101,7 +136,7 @@ export const SlideContainer = styled.div`
 `;
 
 export const SlideItem = styled.div`
-  flex: 0 0 360px;
+  flex: 0 0 50px;
 `;
 
 export const WeekWrap = styled.div`
@@ -143,19 +178,6 @@ export const BoardsWrap = styled.div`
   position: relative;
   background-color: transparent;
   z-index: 1;
-  overflow-y: scroll;
-
-  ::-webkit-scrollbar {
-    width: 0.5em;
-  }
-
-  ::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: transparent;
-  }
 `;
 
 export const BoardWrap = styled.article`
@@ -170,6 +192,12 @@ export const BoardWrap = styled.article`
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
+  ${({ isRecruitmentComplete }) =>
+    isRecruitmentComplete &&
+    css`
+      background-color: gray;
+      opacity: 0.9;
+    `}
 `;
 
 export const FooterWrap = styled.footer`

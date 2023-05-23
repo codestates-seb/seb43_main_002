@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [onSearch, setOnSerach] = useState(false);
+  const [searchText, setSearchText] = useState('');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,11 +32,15 @@ const Header = () => {
     setOnSerach(!onSearch);
   };
 
-  const onSearchTermChange = (e) => {
-    dispatch(setSearchTerm(e.target.value));
-    console.log('검색어 : ', e.target.value);
+  const SearchPost = (searchText) => {
+    dispatch(setSearchTerm(searchText));
+    setOnSerach(false); // 검색 후에는 onSearch 값을 false로 변경
   };
 
+  const onSearchTermChange = (e) => {
+    setSearchText(e.target.value);
+  };
+  console.log(searchText);
   const SearchSpan = styled.input`
     display: ${() => (onSearch ? 'block' : 'none')};
     margin: 20px;
@@ -60,7 +65,7 @@ const Header = () => {
             <SearchWrap>
               <AiOutlineSearch
                 className="icon"
-                onClick={SearchHandler}
+                onClick={SearchPost}
                 color="white"
               ></AiOutlineSearch>
             </SearchWrap>

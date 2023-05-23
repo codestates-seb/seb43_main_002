@@ -1,14 +1,23 @@
-import { MainWrap } from '../style/HomeStyle';
-import Header from './Header';
-import Footer from './Footer';
+import { MainWrap, HeaderBackWrap } from '../style/HomeStyle';
+
+// import { BackYellow } from '../style/MypageStyle';
+import Header from '../mypage/Header';
+import Footer from '../mypage/Footer';
 import Days from './Days';
 
 const Main = () => {
   return (
     <MainWrap>
-      <Header></Header>
+      <HeaderBackWrap></HeaderBackWrap>
+      <div>
+        <Header
+          iconSrc="/svg/header-search.svg"
+          fnc="search"
+          scrollNumber={10}
+        />
+      </div>
       <Days></Days>
-      <Footer></Footer>
+      <Footer activeIcon="boards" />
     </MainWrap>
   );
 };

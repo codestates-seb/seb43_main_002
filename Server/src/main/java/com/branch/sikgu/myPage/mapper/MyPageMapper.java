@@ -8,6 +8,5 @@ import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface MyPageMapper {
-
     MyPageResponseDto MyPageToMyPageResponseDto(MyPage myPage);
 }

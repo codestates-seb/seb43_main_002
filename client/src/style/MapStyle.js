@@ -154,6 +154,7 @@ export const SearchResults = styled.div`
   width: 100%;
   height: 200px;
   overflow-y: auto;
+  overflow: auto;
   background: rgba(255, 250, 237, 0.8);
   border-top: 1px solid #ddd;
   z-index: 20;
@@ -175,7 +176,9 @@ export const ResultItem = styled.div`
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   &:hover {
-    background: #eee;
+    /* expanded가 true일 때 hover 스타일을 비활성화 */
+    background-color: ${(props) =>
+      props.expanded ? 'initial' : 'hover color'};
   }
   z-index: 20;
 `;

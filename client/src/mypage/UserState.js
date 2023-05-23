@@ -147,13 +147,46 @@ const UserState = () => {
     }));
   }
 
+  // 리뷰어가 많으면 스크롤 이벤트를 발생시켜야 함..
+  function scrollToTop() {
+    const modalContent = document.querySelector('.modal-content');
+    if (modalContent) {
+      modalContent.scrollTo(0, 0);
+    }
+  }
+
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const position = document.getElementById('mobileContainer').scrollTop;
+      setScrollPosition(position);
+    };
+
+    const mobileContainer = document.getElementById('mobileContainer');
+    if (mobileContainer) {
+      mobileContainer.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (mobileContainer) {
+        mobileContainer.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [data]);
+
   return (
     <>
-      <Mobile>
+      <Mobile id="mobileContainer">
         <BackGround>
           <BackYellow />
         </BackGround>
-        <Header iconSrc="/svg/header-logout.svg" fnc="logout" />
+        <Header
+          iconSrc="/svg/header-logout.svg"
+          fnc="logout"
+          scrollPosition={scrollPosition}
+          scrollNumber={10}
+        />
         {isLoading ? (
           <Loding />
         ) : (
@@ -184,6 +217,7 @@ const UserState = () => {
                       </div>
                       <button
                         onClick={() => {
+                          scrollToTop();
                           handlePopup(el.id);
                         }}
                         disabled={isDisabled || el.state}
@@ -237,46 +271,48 @@ const UserState = () => {
                       <h3>식구들을 평가해주세요.</h3>
                     </div>
                   </div>
-                  {user.map((el, idx) => {
-                    return (
-                      <div className="post" key={idx}>
-                        <div>
-                          <img src={el.img} alt="프로필 이미지" />
+                  <div className="modal-content">
+                    {user.map((el, idx) => {
+                      return (
+                        <div className="post" key={idx}>
                           <div>
+                            <img src={el.img} alt="프로필 이미지" />
                             <div>
-                              <div>{el.nickname}</div>
-                              <div>{el.intro}</div>
+                              <div>
+                                <div>{el.nickname}</div>
+                                <div>{el.intro}</div>
+                              </div>
+                              <button
+                                onClick={() => {
+                                  handleLike(el.id);
+                                }}
+                                disabled={likeClicked}
+                              >
+                                <img
+                                  src={
+                                    likeClicked
+                                      ? '/svg/like-2.svg'
+                                      : '/svg/like.svg'
+                                  }
+                                  alt="좋아요"
+                                />
+                              </button>
                             </div>
-                            <button
-                              onClick={() => {
-                                handleLike(el.id);
-                              }}
-                              disabled={likeClicked}
-                            >
-                              <img
-                                src={
-                                  likeClicked
-                                    ? '/svg/like-2.svg'
-                                    : '/svg/like.svg'
-                                }
-                                alt="좋아요"
+                            <div>
+                              <input
+                                placeholder="한 줄 평가를 입력하세요. (최대 20글자)"
+                                onChange={(e) => handleReviewChange(el.id, e)}
+                                maxLength="20"
                               />
-                            </button>
-                          </div>
-                          <div>
-                            <input
-                              placeholder="한 줄 평가를 입력하세요. (최대 20글자)"
-                              onChange={(e) => handleReviewChange(el.id, e)}
-                              maxLength="20"
-                            />
-                            <button onClick={() => handleReviewSubmit(el.id)}>
-                              확인
-                            </button>
+                              <button onClick={() => handleReviewSubmit(el.id)}>
+                                확인
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
               </Modal>
             </>

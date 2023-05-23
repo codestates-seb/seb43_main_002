@@ -1,0 +1,101 @@
+package com.branch.sikgu.meal.history.service;
+
+import com.branch.sikgu.meal.board.entity.Board;
+import com.branch.sikgu.meal.board.repository.BoardRepository;
+import com.branch.sikgu.meal.comment.entity.Comment;
+import com.branch.sikgu.meal.comment.repository.CommentRepository;
+import com.branch.sikgu.meal.history.dto.HistoryDto;
+import com.branch.sikgu.meal.history.entity.History;
+import com.branch.sikgu.meal.history.repository.HistoryRepository;
+import com.branch.sikgu.member.entity.Member;
+import com.branch.sikgu.member.mapper.MemberMapper;
+import com.branch.sikgu.member.service.MemberService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+@Transactional
+@AllArgsConstructor
+@Slf4j
+public class HistoryService {
+    private final CommentRepository commentRepository;
+    private final BoardRepository boardRepository;
+    private final HistoryRepository historyRepository;
+    private final MemberMapper memberMapper;
+    private final MemberService memberService;
+
+    // 스케줄의 정해진 인원수가 모두 차거나, 스케줄의 식사시간이 지난 경우 해당 History 를 확정하는 서비스
+    public History createHistory(long boardId) {
+        History checkedHistory = checkingHistory(boardId);
+
+        return historyRepository.save(checkedHistory);
+    }
+
+    // 멤버가 참여한 History를 조회하는 서비스
+    public List<HistoryDto.Response> getMyHistory(Authentication authentication) {
+        Long memberId = memberService.getCurrentMemberId(authentication);
+        List<History> myHistories = historyRepository.findByMemberId(memberId);
+
+        List<HistoryDto.Response> historyList = myHistories
+                .stream()
+                .map(history -> {
+                    // HistoryResponseDto로 변환하는 로직 작성
+                    HistoryDto.Response historyResponseDto = new HistoryDto.Response(
+                            history.getHistoryId(),
+                            history.getBoard(),
+                            history.getMembers());
+                    // 필요한 정보를 historyResponseDto에 설정
+                    return historyResponseDto;
+                })
+                .collect(Collectors.toList());
+
+        return historyList;
+    }
+
+    // 식사 시간이 지났는지 확인
+    private boolean isMealTimePassed(LocalDateTime mealTime) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        return currentDateTime.isAfter(mealTime);
+    }
+
+    // 채택 확정된 demand 개수 확인 / 식사시간이 지났는지 확인
+    private History checkingHistory(long boardId) {
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
+        Board board = optionalBoard.orElse(null);
+
+        long selectedCount = commentRepository.findByBoardId(board.getBoardId())
+                .stream()
+                .filter(comment -> comment.getSelectionStatus() == Comment.SelectionStatus.SELECTION)
+                .count();
+
+        History history = null;
+        if (selectedCount >= board.getTotal() || isMealTimePassed(board.getMealTime())) {
+            // 시간 로직 추가: 식사 시간이 지났는지 검증
+            if (isMealTimePassed(board.getMealTime())) {
+                throw new RuntimeException("식사 시간이 지났습니다.");
+            }
+            // History 생성 및 저장
+            history = new History();
+
+            List<Member> members = commentRepository.findByBoardId(board.getBoardId())
+                    .stream()
+                    .filter(comment -> comment.getSelectionStatus() == Comment.SelectionStatus.SELECTION)
+                    .map(Comment::getMember)
+                    .collect(Collectors.toList());
+
+//            List<MemberResponseDto> memberResponseDtoList = memberMapper.membersToMemberResponseDtos(members);
+            history.setMembers(members);
+            history.setBoard(board);
+        }
+
+        return history;
+    }
+}

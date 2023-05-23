@@ -21,12 +21,16 @@ const Map = () => {
   const [selectedCategory, setSelectedCategory] = useState('맛집');
   const [animation, setAnimation] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [selectedResult, setSelectedResult] = useState(null);
+  const [expandedResult, setExpandedResult] = useState(null);
+
   // 지정된 위치에 마커와 인포윈도우 표시
-  const displayMarker = (locPosition, place) => {
+  const displayMarker = (locPosition, place, index) => {
     let marker = new window.kakao.maps.Marker({
       map: mapInstance.current,
       position: locPosition,
     });
+    marker.index = index;
     let message = `
     <div style="
     width: 200px;
@@ -143,6 +147,7 @@ const Map = () => {
       window.kakao.maps.event.addListener(marker, 'click', function () {
         markers.forEach((m) => m.infowindow.close());
         marker.infowindow.open(mapInstance.current, marker);
+        setSelectedResult(marker.index);
       });
     });
   }, [markers]);
@@ -171,14 +176,26 @@ const Map = () => {
     return (
       <ResultItem
         key={result.id}
+        style={selectedResult === index ? { backgroundColor: '#eee' } : {}}
         onClick={(e) => {
           markers.forEach((marker) => marker.infowindow.close());
           markers[index].infowindow.open(mapInstance.current, markers[index]);
+          setSelectedResult(index);
           e.stopPropagation();
           mapInstance.current.panTo(locPosition);
+          if (selectedResult === index) {
+            setExpandedResult((prev) => (prev === index ? null : index));
+          }
         }}
       >
-        {result.place_name}
+        {result.place_name}{' '}
+        {expandedResult === index && ( // 선택된 항목이면 추가 정보를 표시
+          <iframe
+            title="Expanded Result"
+            src={`https://place.map.kakao.com/m/${result.id}`}
+            style={{ width: '100%', height: '400px', border: 'none' }}
+          />
+        )}
       </ResultItem>
     );
   });
@@ -199,7 +216,12 @@ const Map = () => {
         >
           <img src="/svg/location.svg" alt="현재위치" />
         </CurrentLocationButton>
-        <SearchResults animate={animation}>{resultItems}</SearchResults>
+        <SearchResults
+          animate={animation}
+          style={{ height: expandedResult !== null ? '500px' : '200px' }} // 확장된 결과가 있으면 높이를 500px로, 그렇지 않으면 200px로 변경
+        >
+          {resultItems}
+        </SearchResults>
       </MapContainer>
       <Footer />
     </MainWrap>

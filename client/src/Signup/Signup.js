@@ -18,19 +18,23 @@ import {
   LogoContainer,
   Error,
 } from '../style/SignupStyle';
-import { useState } from 'react';
-import axios from 'axios';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EditIcon } from '../style/EditProfileStyle';
+import axiosInstance from '../axiosConfig';
 
 const emailRegex = /^[\w-]+(.[\w-]+)@([\w-]+.)+[a-zA-Z]{2,7}$/;
 const passwordRegex = /^(?=.[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 const Signup = () => {
   const [email, setEmail] = useState('');
+  // 이메일을 상태관리 하지 않고 인풋 창에 입력한 값만 중복확인을 할 수 있지 않을까?
+  // 상태관리는 필수인 것 같은데...
+  //
   const [nickname, setNickname] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  // 비밀번호 상태관리 및 과도한 state 남발로 인한 과도한 리렌더링 해결하기
   const [birthday, setBirthday] = useState('');
   const [gender, setGender] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -49,20 +53,27 @@ const Signup = () => {
   const mailIcon = '/svg/join-mail.svg';
   const pwdIcon = '/svg/join-password.svg';
 
-  const validationEmail = (email) => {
+  const validationEmail = useCallback((email) => {
     return emailRegex.test(email);
-  };
+  }, []);
+
   const validationPassword = (password) => {
     return passwordRegex.test(password);
   };
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+    console.log(1);
   };
 
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
     if (e.target.value.length > 9) {
       setLengthError('8글자까지 입력 가능합니다.');
+      e.preventDefault();
+      setNickname('');
+    } else {
+      setLengthError('');
     }
   };
 
@@ -87,8 +98,9 @@ const Signup = () => {
       setEmailError('올바른 이메일 형식이 아닙니다.');
       return null;
     } else {
-      axios
-        .post('members/signup/checkduplicateemail', {
+
+      axiosInstance
+        .post('api/members/signup/checkduplicateemail', {
           email,
         })
         .then((response) => {
@@ -108,8 +120,10 @@ const Signup = () => {
   };
 
   const handleCheckDuplicateNickname = () => {
-    axios
-      .post('members/signup/checkduplicatenickname', {
+
+    axiosInstance
+      .post('api/members/signup/checkduplicatenickname', {
+
         nickname,
       })
       .then((response) => {
@@ -131,7 +145,6 @@ const Signup = () => {
       setPasswordError(
         '비밀번호는 영문자, 숫자를 포함하여 8자 이상이어야합니다.'
       );
-
       return null;
     } else if (password !== confirmPassword) {
       setPasswordError('비밀번호가 일치하지 않습니다.');
@@ -142,28 +155,37 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    e.stopPropagation();
-    axios
-      .post('/members/signup', {
-        email,
-        nickname,
-        password,
-        name,
-        birthday,
-        gender,
-      })
-      .then((response) => {
-        if (response.status === 201) {
-          alert('회원가입이 성공적으로 완료되었습니다.');
-          navigate('/');
-        } else {
-          alert('뭔가 문제가 있습니다.');
-        }
-      })
-      .catch((error) => {
-        setFetchError2('인터넷 연결을 확인하세요.2');
-        console.log('연결안됨2;', error);
-      });
+    if (
+      !handleCheckDuplicateNickname
+      // !handlePassword ||
+      // handleCheckDuplicateEmail ||
+      // !handleBirthday ||
+      // !handleName
+    ) {
+      setFetchError2('각 항목의 중복 확인 및 비밀번호 일치 여부를 확인하세요');
+    } else {
+      axiosInstance
+        .post('api/members/signup', {
+          email,
+          nickname,
+          password,
+          name,
+          birthday,
+          gender,
+        })
+        .then((response) => {
+          if (response.status === 201) {
+            alert('회원가입이 성공적으로 완료되었습니다.');
+            navigate('/');
+          } else {
+            alert('뭔가 문제가 있습니다.');
+          }
+        })
+        .catch((error) => {
+          setFetchError2('인터넷 연결을 확인하세요.2');
+          console.log('연결안됨2;', error);
+        });
+    }
   };
 
   return (
@@ -181,7 +203,6 @@ const Signup = () => {
       <SignupContainer>
         <SignupForm onSubmit={handleSubmit} noValidate>
           <SignupTitle>Create Account</SignupTitle>
-
           <Text>
             <EditIcon backgroundImage={mailIcon} />
             <label htmlFor="nickname">식구로 가입할 이메일을 적어주세요.</label>
@@ -191,6 +212,7 @@ const Signup = () => {
             placeholder="식구에서 사용하실 이메일을 입력해주세요."
             value={email}
             onChange={handleEmailChange}
+            // 가: ㄱ => 가
           />
           <CheckDuplicateButton
             type="button"

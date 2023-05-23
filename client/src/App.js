@@ -69,7 +69,7 @@ function App() {
           <Route path="/state" element={<PrivateRoute />}>
             <Route index element={<UserState />} />
           </Route>
-          <Route path="/mypage/:userId" element={<UserPage />}>
+          <Route path="/userpage/:userId" element={<UserPage />}>
             <Route index element={<UserState />} />
           </Route>
           {/* <Route path="/main" element={<Main />} /> */}

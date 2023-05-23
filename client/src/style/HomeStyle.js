@@ -9,12 +9,13 @@ export const MainWrap = styled.div`
   align-items: center;
 
   > div:nth-child(2) {
-    padding: 20px;
+    padding: 20px 20px 0 20px;
   }
   .boards {
-    padding: 0px 20px;
+    display: flex;
+    justify-content: center;
     width: 100%;
-    height: 591px;
+    height: 617px;
     overflow-y: scroll;
 
     ::-webkit-scrollbar {
@@ -33,12 +34,17 @@ export const MainWrap = styled.div`
 
 export const SearchSpan = styled.input`
   display: ${(onSearch) => (onSearch ? 'block' : 'none')};
-  margin: 10px;
-  padding: 0px;
-  height: 10%;
+  margin-left: 15px;
+  padding: 0px 10px;
+  height: 30px;
   width: 73%;
+  border: none;
+  border-radius: 50px;
+  background-color: rgba(255, 255, 255, 0.5);
   border: 1px solid black;
   border-radius: 10px;
+  border: none;
+  background-color: #ffddac;
 `;
 
 export const HeaderBackWrap = styled.div`
@@ -111,6 +117,7 @@ export const DayWrap = styled.div`
   /* overflow: auto; */
   flex-direction: row;
   white-space: nowrap;
+  justify-content: space-around;
 `;
 
 export const SelectedDay = styled.div`
@@ -133,6 +140,24 @@ export const SlideContainer = styled.div`
   flex-wrap: nowrap;
   width: max-content;
   overflow-x: scroll;
+
+  /* 스크롤바 */
+  ::-webkit-scrollbar {
+    display: block;
+    width: 8px; /* 스크롤바 너비 */
+    height: 3px;
+  }
+
+  /* 스크롤바 thumb */
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 */
+    border-radius: 4px; /* 스크롤바 모서리 반경 */
+  }
+
+  /* 스크롤바 track */
+  ::-webkit-scrollbar-track {
+    background-color: #ffac36; /* 스크롤바 트랙 색상 */
+  }
 `;
 
 export const SlideItem = styled.div`
@@ -192,11 +217,26 @@ export const BoardWrap = styled.article`
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
+`;
+
+export const CompleteBoard = styled.div`
+  position: relative;
+`;
+
+export const CompletedBack = styled.div`
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 10px;
+  display: ${({ isRecruitmentComplete }) =>
+    isRecruitmentComplete ? 'block' : 'none'};
+  padding: 0px;
   ${({ isRecruitmentComplete }) =>
     isRecruitmentComplete &&
     css`
-      background-color: gray;
-      opacity: 0.9;
+      background-color: black;
+      opacity: 0.6;
     `}
 `;
 
@@ -265,4 +305,12 @@ export const FooterCicleWrap = styled.div`
     font-size: 25px;
   }
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+`;
+
+export const RefreshButton = styled.img`
+  position: absolute;
+  margin-left: 300px;
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
 `;

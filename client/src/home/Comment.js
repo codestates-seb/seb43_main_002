@@ -15,11 +15,10 @@ const CommentsWrap = styled.div`
   display: flex;
 `;
 
-const CommentProfileWrap = styled.div`
+const CommentProfileWrap = styled.img`
   padding: 10px;
   height: 40px;
   width: 40px;
-  border: 1px solid black;
   border-radius: 50%;
 `;
 
@@ -143,15 +142,15 @@ const Comment = ({ comment, handlePeople, board }) => {
   const isAuthor = userInfo && comment.memberId === userInfo.memberId;
 
   const Boarduser = userInfo && board.memberId === userInfo.memberId;
-
-  console.log(Boarduser);
+  const imageUrl = `/api/mypages/${comment.memberId}/image`;
+  console.log(comment.memberId);
 
   return (
     <>
       {!!comment.body && (
         <CommentsWrap>
           <ProfiletWrap>
-            <CommentProfileWrap>{comment.imageId}</CommentProfileWrap>
+            <CommentProfileWrap src={imageUrl}></CommentProfileWrap>
             {Boarduser && (
               <>
                 <AcceptButton onClick={handleSelect}>수락</AcceptButton>

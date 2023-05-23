@@ -55,7 +55,7 @@ export const Profile = styled.div`
     background-color: #cdeeff;
     box-sizing: border-box;
     border-radius: 10px;
-    width: 100px;
+    width: 125px;
     height: 200px;
     object-fit: cover;
   }
@@ -254,4 +254,11 @@ export const PostIcon = styled.div`
   width: 35px;
   height: 30px;
   background-repeat: no-repeat;
+`;
+
+export const NotFound = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
 `;

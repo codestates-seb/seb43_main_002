@@ -1,7 +1,7 @@
 import Footer from './Footer';
 import Header from './Header';
-import Loding from './Loding';
-import { useState, useEffect } from 'react';
+import Loading from './Loading';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   Mobile,
@@ -11,24 +11,24 @@ import {
   NewPosts,
   History,
   PostIcon,
+  NotFound,
 } from '../style/MypageStyle';
-import axios from 'axios';
+import axiosInstance from '../axiosConfig';
 
 const MyPage = () => {
-  const { myId } = useParams();
+  const { userId } = useParams();
   const navigate = useNavigate();
+  const imageUrl = `/api/mypages/${userId}/image`;
 
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  const mobileContainerRef = useRef(null);
 
   useEffect(() => {
-    axios
-      .get(`/api/mypage/${myId}`, {
-        headers: {
-          'Content-Type': `application/json`,
-          'ngrok-skip-browser-warning': '69420',
-        },
-      })
+    axiosInstance
+      .get(`/api/mypages/${userId}`)
       .then((response) => {
         setData(response.data);
         setIsLoading(false);
@@ -37,26 +37,27 @@ const MyPage = () => {
         console.log(error);
         setIsLoading(false);
       });
-  }, [myId]);
+  }, [userId]);
 
-  function handleEidt() {
-    navigate(`/editprofile${myId}`);
+  // 수정 페이지로 들어가기
+  function handleEdit() {
+    navigate(`/editprofile/${userId}`);
   }
 
-  function handleUser(userId) {
-    // 다른 유저는 연필모양 대신 팔로우 모양이 있고, 누르면 팔로우가 오르게 해야한다. (05/19 기준 팔로우로 바꿈.)
-    navigate(`/api/mypage/${userId}`);
+  // 다른 유저 페이지로 들어가기
+  function handleUser(user) {
+    // navigate(`/userpage/${user}`, { state: { from: userId } });
+    navigate(`/userpage/${user}`);
   }
 
-  const [scrollPosition, setScrollPosition] = useState(0);
-
+  // 스크롤에 따른 이벤트
   useEffect(() => {
     const handleScroll = () => {
-      const position = document.getElementById('mobileContainer').scrollTop;
+      const position = mobileContainerRef.current.scrollTop;
       setScrollPosition(position);
     };
 
-    const mobileContainer = document.getElementById('mobileContainer');
+    const mobileContainer = mobileContainerRef.current;
     if (mobileContainer) {
       mobileContainer.addEventListener('scroll', handleScroll);
     }
@@ -66,11 +67,11 @@ const MyPage = () => {
         mobileContainer.removeEventListener('scroll', handleScroll);
       }
     };
-  }, [data]);
+  }, []);
 
   return (
     <>
-      <Mobile id="mobileContainer">
+      <Mobile ref={mobileContainerRef} id="mobileContainer">
         <BackGround>
           <BackYellow />
         </BackGround>
@@ -81,21 +82,21 @@ const MyPage = () => {
           scrollNumber={10}
         />
         {isLoading ? (
-          <Loding />
+          <Loading />
         ) : (
           data && (
             <>
               <Profile>
-                <img src={data.img} alt="프로필 이미지" />
+                <img src={imageUrl} alt="프로필 이미지" />
                 <div>
                   <ul>
                     <li>
                       {data.nickname}
-                      <button onClick={handleEidt}>
+                      <button onClick={handleEdit}>
                         <img src="/svg/mypage-edit.svg" alt="수정버튼" />
                       </button>
                     </li>
-                    <li>{data.introduce}</li>
+                    <li>{data.introduce ? data.introduce : null}</li>
                     <li>
                       <ul>
                         <li>
@@ -121,52 +122,64 @@ const MyPage = () => {
               </Profile>
               <NewPosts>
                 <h3>최근 작성한 게시글</h3>
-                <div className="post">
-                  {data.recentBoard.slice(0, 2).map((el, idx) => {
-                    const community = '/svg/mypage-community.svg';
-                    const sikgu = '/svg/mypage-sikgu.svg';
+                <div className={data.recentBoard.length === 0 ? '' : 'post'}>
+                  {data.recentBoard.length !== 0 ? (
+                    data.recentBoard.slice(0, 2).map((el, idx) => {
+                      const community = '/svg/mypage-community.svg';
+                      const sikgu = '/svg/mypage-sikgu.svg';
 
-                    return (
-                      <div key={idx}>
-                        <ul>
-                          <li>
-                            <PostIcon
-                              isType={el.type}
-                              imageA={sikgu}
-                              imageB={community}
-                            />
-                          </li>
-                          <li>{el.createdAt}</li>
-                          <li>{el.title}</li>
-                        </ul>
-                      </div>
-                    );
-                  })}
+                      return (
+                        <div key={idx}>
+                          <ul>
+                            <li>
+                              <PostIcon
+                                isType={el.type}
+                                imageA={sikgu}
+                                imageB={community}
+                              />
+                            </li>
+                            <li>{el.createdAt}</li>
+                            <li>dd{el.title}</li>
+                          </ul>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <NotFound>
+                      <div>작성한 게시글이 존재하지 않습니다.</div>
+                    </NotFound>
+                  )}
                 </div>
               </NewPosts>
               <History>
                 <h3>식구랑 먹었던 이력</h3>
-                <div className="post">
-                  {data.review.map((el, idx) => {
-                    return (
-                      <div key={idx}>
-                        <img src={el.img} alt="프로필 이미지" />
-                        <div>
-                          <ul>
-                            <li>{el.name}</li>
-                            <li>{el.comment}</li>
-                          </ul>
+                <div className={data.review ? 'post' : ''}>
+                  {data.review ? (
+                    data.review.map((el, idx) => {
+                      return (
+                        <div key={idx}>
+                          <img src={el.img} alt="프로필 이미지" />
+                          <div>
+                            <ul>
+                              <li>{el.name}</li>
+                              <li>{el.comment}</li>
+                            </ul>
+                          </div>
+                          <button
+                            onClick={() => {
+                              handleUser(el.id);
+                            }}
+                          >
+                            +
+                          </button>
                         </div>
-                        <button
-                          onClick={() => {
-                            handleUser(el.id);
-                          }}
-                        >
-                          +
-                        </button>
-                      </div>
-                    );
-                  })}
+                      );
+                    })
+                  ) : (
+                    <NotFound>
+                      <div>식구랑 먹었던 이력이 존재하지 않습니다.</div>
+                    </NotFound>
+                  )}
                 </div>
               </History>
             </>

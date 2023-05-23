@@ -22,7 +22,6 @@ const Footer = ({ activeIcon }) => {
   const myPageId = JSON.parse(sessionStorage.getItem('user')).memberId;
 
   const closeModal = () => {
-    navigate('/boards');
     setIsModalOpen(false);
   };
 
@@ -35,6 +34,7 @@ const Footer = ({ activeIcon }) => {
   };
 
   const handlePlusClick = () => {
+    navigate('/boards');
     setIsModalOpen(true);
   };
 

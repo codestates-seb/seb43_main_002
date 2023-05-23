@@ -11,10 +11,10 @@ import {
   EditIcon,
   ProfileImg,
 } from '../style/EditProfileStyle';
-import axios from 'axios';
+import axiosInstance from '../axiosConfig';
 
 const EditProfile = () => {
-  const { myId } = useParams();
+  const { userId } = useParams();
   const { handleSubmit, reset } = useForm();
   const navigate = useNavigate();
 
@@ -32,55 +32,69 @@ const EditProfile = () => {
   const [nameError, setNameError] = useState('');
   const [nicknameError, setNicknameError] = useState('');
 
+  const imageUrl = `/api/mypages/${userId}/image`;
   const [profileImage, setProfileImage] = useState();
+  const [image, setImage] = useState();
   const profileImgFileInput = useRef(null);
+  const accessToken = sessionStorage.getItem('jwt');
 
   useEffect(() => {
-    axios
-      .get(`/api/members/${myId}`)
+    axiosInstance
+      .get(`/api/mypages/${userId}`)
       .then((response) => {
         setData(response.data);
         setGender(response.data.gender);
-        setProfileImage(response.data.imagePath);
+        setProfileImage(imageUrl);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [myId]);
+  }, [userId]);
 
-  const profileChange = (e) => {
-    if (e.target.files.length > 0) {
-      const formData = new FormData();
-      for (let i = 0; i < e.target.files.length; i++) {
-        // formData 객체가 따로 있다. 키 / 값 형태로 서버에 들어간다고 함.
-        formData.append('files', e.target.files[i], e.target.files[i].name);
-      }
-
-      axios
-        .post(`/api/members/${myId}/image`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-        .then((response) => {
-          setProfileImage(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+  // 파일 업로드 기능 (서버에 X, 화면에 랜더링만)
+  function readURL(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setProfileImage(reader.result);
+          setImage(file);
+        }
+      };
+      reader.readAsDataURL(file);
     }
-  };
+    // input 태그의 value를 초기화합니다.
+    e.target.value = null;
+  }
 
+  // sumbit 하면서 이미지 파일과 함께 보내기 위해 formData를 사용하고, 다른 내용을 함께 넣음.
   const onSubmit = () => {
-    axios
-      .patch(`/api/members/${myId}`, {
-        name,
-        nickname,
-        introduce: intro,
-        birthDay,
-        gender,
-        password,
-        img: profileImage,
+    const formData = new FormData();
+
+    const datas = {
+      introduce: intro,
+      nickname,
+      name,
+      birthday: birthDay,
+      gender,
+      password,
+      image: userId,
+    };
+
+    // 다른 데이터들도 폼데이터 쪽에 담는다.
+    formData.append('file', image);
+    formData.append(
+      'myPageRequestDto',
+      new Blob([JSON.stringify(datas)], { type: 'application/json' })
+    );
+
+    axiosInstance
+      .patch(`/api/mypages/${userId}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `${accessToken}`,
+        },
       })
       .then((response) => {
         reset();
@@ -91,9 +105,12 @@ const EditProfile = () => {
       });
   };
 
+  // 아래는 유효성 검증 부분
   const handleCheckDuplicateNickname = () => {
-    axios
-      .post('members/signup/checkduplicatenickname', {
+    const baseUrl = window.location.origin; // 현재 페이지의 기준 URL
+
+    axiosInstance
+      .post(`${baseUrl}/api/members/signup/checkduplicatenickname`, {
         nickname,
       })
       .then((response) => {
@@ -115,7 +132,6 @@ const EditProfile = () => {
   };
 
   const handlePassword = () => {
-    console.log(password.length);
     if (
       !validationPassword(password) ||
       password.length < 8 ||
@@ -214,7 +230,7 @@ const EditProfile = () => {
                 type="file"
                 id="file"
                 accept="image/*"
-                onChange={profileChange}
+                onChange={readURL}
                 ref={profileImgFileInput}
               />
             </div>
@@ -249,7 +265,7 @@ const EditProfile = () => {
               </label>
               <input
                 id="intro"
-                defaultValue={data.intro}
+                defaultValue={data.introduce}
                 onChange={handleIntro}
               />
               {introLengthError && <Error>{introLengthError}</Error>}
@@ -328,7 +344,7 @@ const EditProfile = () => {
               <input
                 id="birth"
                 type="date"
-                defaultValue={data.birth}
+                defaultValue={data.birthday}
                 onChange={(e) => {
                   setBirthDay(e.target.value);
                 }}

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const TitleBox = styled.footer`
   position: fixed;
-  top: 0;
+  top: -1px;
   left: 0;
   width: 100%;
   z-index: 1;
@@ -15,7 +15,7 @@ export const Title = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 20px;
+  margin-bottom: 20px;
   height: 50px;
 
   > div:first-child {

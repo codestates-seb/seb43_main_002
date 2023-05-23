@@ -91,11 +91,10 @@ const UserWrap = styled.div`
   align-items: center;
 `;
 
-const UserImg = styled.div`
+const UserImg = styled.img`
   padding: 0px;
   width: 40px;
   margin-left: 20px;
-  border: 1px solid black;
   border-radius: 50%;
 `;
 

@@ -25,8 +25,11 @@ const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
     } else if (fnc === 'back') {
       navigate(-1);
     } else if (fnc === 'search') {
-      // console.log('검색');
-      setOnSerach(false);
+      if (onSearch) {
+        setOnSerach(false);
+      } else {
+        setOnSerach(true);
+      }
     }
   }
 
@@ -34,6 +37,11 @@ const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
     dispatch(setSearchTerm(searchValue));
     setSearchValue('');
     setOnSerach(true); // 검색 후에는 onSearch 값을 false로 변경
+  };
+
+  const handleRefresh = () => {
+    dispatch(setSearchTerm(''));
+    setOnSerach(true);
   };
 
   const handleSearch = (e) => {
@@ -60,6 +68,7 @@ const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
           <RefreshButton
             src="/svg/header-refresh.svg"
             alt="수정버튼"
+            onClick={handleRefresh}
           ></RefreshButton>
           <button onClick={SearchPost}>
             <img src={iconSrc} alt="아이콘" />

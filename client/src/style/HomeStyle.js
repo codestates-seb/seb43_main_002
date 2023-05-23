@@ -9,12 +9,13 @@ export const MainWrap = styled.div`
   align-items: center;
 
   > div:nth-child(2) {
-    padding: 20px;
+    padding: 20px 20px 0 20px;
   }
   .boards {
-    padding: 0px 20px;
+    display: flex;
+    justify-content: center;
     width: 100%;
-    height: 591px;
+    height: 617px;
     overflow-y: scroll;
 
     ::-webkit-scrollbar {
@@ -33,10 +34,13 @@ export const MainWrap = styled.div`
 
 export const SearchSpan = styled.input`
   display: ${(onSearch) => (onSearch ? 'block' : 'none')};
-  margin: 10px;
-  padding: 0px;
-  height: 10%;
+  margin-left: 15px;
+  padding: 0px 10px;
+  height: 30px;
   width: 73%;
+  border: none;
+  border-radius: 50px;
+  background-color: rgba(255, 255, 255, 0.5);
   border: 1px solid black;
   border-radius: 10px;
   border: none;
@@ -136,6 +140,23 @@ export const SlideContainer = styled.div`
   flex-wrap: nowrap;
   width: max-content;
   overflow-x: scroll;
+
+  /* 스크롤바 */
+  ::-webkit-scrollbar {
+    display: none;
+    width: 8px; /* 스크롤바 너비 */
+  }
+
+  /* 스크롤바 thumb */
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 */
+    border-radius: 4px; /* 스크롤바 모서리 반경 */
+  }
+
+  /* 스크롤바 track */
+  ::-webkit-scrollbar-track {
+    background-color: transparent; /* 스크롤바 트랙 색상 */
+  }
 `;
 
 export const SlideItem = styled.div`

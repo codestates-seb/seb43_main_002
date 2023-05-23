@@ -136,8 +136,10 @@ const Board = ({ board }) => {
   // console.log('보드:', board.boardId);
   // console.log('boards', board.mealTime);
   // console.log('complete', isRecruitmentComplete);
-  // console.log('profile:', profile);
 
+  const imageUrl = `/api/mypages/${board.memberId}/image`;
+
+  console.log('profile:', board);
   Board.propTypes = {
     board: PropTypes.array.isRequired,
   };
@@ -175,7 +177,7 @@ const Board = ({ board }) => {
             {board.count}/{board.total}
           </IconWrap>
           <UserWrap>{board.nickname}</UserWrap>
-          <UserImg>{board.imagePath}</UserImg>
+          <UserImg src={imageUrl}></UserImg>
         </SubmitWrap>
         <ButtonWrap>
           {isAuthor && (

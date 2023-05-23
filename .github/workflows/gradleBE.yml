@@ -69,4 +69,4 @@ jobs:
           aws deploy create-deployment --application-name sikgu
           --deployment-config-name CodeDeployDefault.AllAtOnce
           --deployment-group-name sikgu-group
-          --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=practice-deploy.zip
+          --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=sikgu-deploy.zip

@@ -10,13 +10,12 @@ import com.branch.sikgu.image.Service.ImageService;
 import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.member.repository.MemberRepository;
 import com.branch.sikgu.member.service.MemberService;
-import com.branch.sikgu.myPage.dto.FollowingDto;
-import com.branch.sikgu.myPage.dto.MyPageRecentBoardDto;
-import com.branch.sikgu.myPage.dto.MyPageRequestDto;
-import com.branch.sikgu.myPage.dto.MyPageResponseDto;
+import com.branch.sikgu.myPage.dto.*;
 import com.branch.sikgu.myPage.entity.MyPage;
 import com.branch.sikgu.myPage.mapper.MyPageMapper;
 import com.branch.sikgu.myPage.repository.MyPageRepository;
+import com.branch.sikgu.review.entity.Review;
+import com.branch.sikgu.review.repository.ReviewRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -47,6 +46,7 @@ public class MyPageService {
     private final PasswordEncoder passwordEncoder;
     private final ImageService imageService;
     private final ImageRepository imageRepository;
+    private final ReviewRepository reviewRepository;
 
     // 마이페이지 조회
     public MyPageResponseDto getMyPage(Long memberId, Authentication authentication) {
@@ -90,6 +90,24 @@ public class MyPageService {
                     return followingDto;
                 })
                 .collect(Collectors.toList());
+        // 리뷰 설정
+        List<Review> recentReviews = reviewRepository.findByTargetMember_MemberIdOrderByCreatedAtDesc(myPage.getMyPageId());
+        List<MyPageRecentReviewDto> recentReviewList = recentReviews.stream()
+                .map(review -> {
+                    MyPageRecentReviewDto reviewDto = new MyPageRecentReviewDto();
+                    reviewDto.setReviewerId(review.getReviewer().getMemberId());
+                    reviewDto.setReviewerNickName(review.getReviewer().getNickname());
+                    reviewDto.setLiked(review.isLiked());
+                    reviewDto.setReviewContent(review.getContent());
+                    return reviewDto;
+                })
+                .collect(Collectors.toList());
+        // 리뷰 좋아요 수 카운트
+        Long totalLikes = recentReviews.stream()
+                .filter(Review::isLiked)
+                .count();
+        myPageResponseDto.setLikes(totalLikes);
+        myPageResponseDto.setRecentReview(recentReviewList);
         myPageResponseDto.setFollowings(followingList);
         myPageResponseDto.setFollowingCount(myPage.getFollowingCount());
         return myPageResponseDto;

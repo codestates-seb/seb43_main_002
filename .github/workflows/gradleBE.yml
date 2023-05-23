@@ -31,11 +31,26 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
+          
+#       - name: Cache Gradle packages
+#         uses: actions/cache@v2
+#         with:
+#           path: |
+#             ~/.gradle/caches
+#             ~/.gradle/wrapper
+#           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+#           restore-keys: |
+#             ${{ runner.os }}-gradle-
+            
+      - name: Add execute permission to Gradle wrapper
+        run: chmod +x ./gradlew
+        working-directory: ./Server/
       - name: Build with Gradle
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
           arguments: build
-
+          gradle-executable: ./gradlew
+          
       - name: Make zip file
         run: zip -r ./sikgu-deploy.zip .
         shell: bash
@@ -50,6 +65,9 @@ jobs:
       - name: Upload to S3
         run: aws s3 cp --region ap-northeast-2 ./sikgu-deploy.zip s3://$S3_BUCKET_NAME/sikgu-deploy.zip
 
+      - name: Copy application.yml
+        run: cp Server/src/main/resources/application.yml build/directory
+        
       - name: Build Backend
-        working-directory: ./Server
+        working-directory: ./Server/
         run: ./gradlew build

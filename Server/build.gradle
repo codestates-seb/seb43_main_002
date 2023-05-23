@@ -62,5 +62,5 @@ tasks.named('test') {
 }
 
 test {
-	exclude '**/*test/'
+	exclude '**/test/**/*.java'
 }

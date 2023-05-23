@@ -1,4 +1,4 @@
-import { BoardWrap } from '../style/HomeStyle';
+import { BoardWrap, CompleteBoard, CompletedBack } from '../style/HomeStyle';
 import { useState, useEffect } from 'react';
 import { BiTimeFive, BiEdit } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
@@ -139,80 +139,85 @@ const Board = ({ board }) => {
 
   const imageUrl = `/api/mypages/${board.memberId}/image`;
 
-  console.log('profile:', board);
+  // console.log('profile:', board);
   Board.propTypes = {
     board: PropTypes.array.isRequired,
   };
   return (
     <>
-      <BoardWrap isRecruitmentComplete={isRecruitmentComplete}>
-        <CommentOpenButton onClick={handleOpen}>+</CommentOpenButton>
+      <CompleteBoard isRecruitmentComplete={isRecruitmentComplete}>
+        <CompletedBack
+          isRecruitmentComplete={isRecruitmentComplete}
+        ></CompletedBack>
         <CompleteButton
           isRecruitmentComplete={isRecruitmentComplete}
           onClick={handleComplete}
         >
           모집완료
         </CompleteButton>
-        <SexInfomaitonWrap gender={board.passedGender}>
-          {genderMapping[board.passedGender]}
-        </SexInfomaitonWrap>
-        <ContentWrap gender={board.passedGender} onClick={handleOpen}>
-          <ContentHeader>{board.title}</ContentHeader>
-          <BoardContentWrap>{board.body}</BoardContentWrap>
-        </ContentWrap>
-        <TagWrap>
-          {tags.map((tag, index) => (
-            <TagBlock key={index} tag={board.tag}>
-              {tag}
-            </TagBlock>
-          ))}
-        </TagWrap>
-        <SubmitWrap>
-          <IconWrap>
-            <BiTimeFive />
-            {formattedDate}
-          </IconWrap>
-          <IconWrap>
-            <FiUsers />
-            {board.count}/{board.total}
-          </IconWrap>
-          <UserWrap>{board.nickname}</UserWrap>
-          <UserImg src={imageUrl}></UserImg>
-        </SubmitWrap>
-        <ButtonWrap>
-          {isAuthor && (
+        <BoardWrap>
+          <CommentOpenButton onClick={handleOpen}>+</CommentOpenButton>
+          <SexInfomaitonWrap gender={board.passedGender}>
+            {genderMapping[board.passedGender]}
+          </SexInfomaitonWrap>
+          <ContentWrap gender={board.passedGender} onClick={handleOpen}>
+            <ContentHeader>{board.title}</ContentHeader>
+            <BoardContentWrap>{board.body}</BoardContentWrap>
+          </ContentWrap>
+          <TagWrap>
+            {tags.map((tag, index) => (
+              <TagBlock key={index} tag={board.tag}>
+                {tag}
+              </TagBlock>
+            ))}
+          </TagWrap>
+          <SubmitWrap>
+            <IconWrap>
+              <BiTimeFive />
+              {formattedDate}
+            </IconWrap>
+            <IconWrap>
+              <FiUsers />
+              {board.count}/{board.total}
+            </IconWrap>
+            <UserWrap>{board.nickname}</UserWrap>
+            <UserImg src={imageUrl}></UserImg>
+          </SubmitWrap>
+          <ButtonWrap>
+            {isAuthor && (
+              <>
+                <StateButton onClick={handlePlusClick}>
+                  <BiEdit></BiEdit>
+                </StateButton>
+                <StateButton onClick={handleDelete} isDelete={true}>
+                  <AiFillDelete></AiFillDelete>
+                </StateButton>
+              </>
+            )}
+          </ButtonWrap>
+          {commentOpen && (
             <>
-              <StateButton onClick={handlePlusClick}>
-                <BiEdit></BiEdit>
-              </StateButton>
-              <StateButton onClick={handleDelete} isDelete={true}>
-                <AiFillDelete></AiFillDelete>
-              </StateButton>
+              {comments &&
+                isBoard !== null &&
+                isBoard.map((comment) => (
+                  <Comment
+                    key={comment.commentId}
+                    board={board}
+                    comment={comment}
+                    handlePeople={handlePeople}
+                  />
+                ))}
+              <CommentInputWrap>
+                <CommentInput
+                  onBlur={hanmdleComment}
+                  placeholder="깨끗한 문화를 위해 노력해주세요."
+                />
+                <CommentButton onClick={handlePostComment}>답글</CommentButton>
+              </CommentInputWrap>
             </>
           )}
-        </ButtonWrap>
-        {commentOpen && (
-          <>
-            {comments &&
-              isBoard !== null &&
-              isBoard.map((comment) => (
-                <Comment
-                  key={comment.commentId}
-                  board={board}
-                  comment={comment}
-                  handlePeople={handlePeople}
-                />
-              ))}
-            <CommentInputWrap>
-              <CommentInput
-                onBlur={hanmdleComment}
-                placeholder="깨끗한 문화를 위해 노력해주세요."
-              />
-              <CommentButton onClick={handlePostComment}>답글</CommentButton>
-            </CommentInputWrap>
-          </>
-        )}
-      </BoardWrap>
+        </BoardWrap>
+      </CompleteBoard>
       <EditModal
         isOpen={isModalOpen}
         onClose={closeModal}

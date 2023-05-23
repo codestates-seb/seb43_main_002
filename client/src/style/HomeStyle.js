@@ -143,8 +143,9 @@ export const SlideContainer = styled.div`
 
   /* 스크롤바 */
   ::-webkit-scrollbar {
-    display: none;
+    display: block;
     width: 8px; /* 스크롤바 너비 */
+    height: 3px;
   }
 
   /* 스크롤바 thumb */
@@ -155,7 +156,7 @@ export const SlideContainer = styled.div`
 
   /* 스크롤바 track */
   ::-webkit-scrollbar-track {
-    background-color: transparent; /* 스크롤바 트랙 색상 */
+    background-color: #ffac36; /* 스크롤바 트랙 색상 */
   }
 `;
 
@@ -216,11 +217,26 @@ export const BoardWrap = styled.article`
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
+`;
+
+export const CompleteBoard = styled.div`
+  position: relative;
+`;
+
+export const CompletedBack = styled.div`
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 10px;
+  display: ${({ isRecruitmentComplete }) =>
+    isRecruitmentComplete ? 'block' : 'none'};
+  padding: 0px;
   ${({ isRecruitmentComplete }) =>
     isRecruitmentComplete &&
     css`
-      background-color: gray;
-      opacity: 0.9;
+      background-color: black;
+      opacity: 0.6;
     `}
 `;
 

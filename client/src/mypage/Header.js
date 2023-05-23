@@ -47,7 +47,7 @@ const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
   };
-  console.log(onSearch);
+
   return (
     <Title>
       <div></div>

@@ -89,6 +89,12 @@ const Days = () => {
     return boardDate === selectedDateIndex;
   });
 
+  const sortedBoards = filteredBoards.sort((a, b) => {
+    const mealA = new Date(a.mealTime).getTime();
+    const mealB = new Date(b.mealTime).getTime();
+    return mealA - mealB;
+  });
+
   return (
     <>
       {/* <input
@@ -122,7 +128,7 @@ const Days = () => {
       </DayWrap>
       <div className="boards">
         <BoardsWrap>
-          {filteredBoards.map((board, idx) => (
+          {sortedBoards.map((board, idx) => (
             <Board key={idx} board={board} />
           ))}
         </BoardsWrap>

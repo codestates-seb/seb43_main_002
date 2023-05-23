@@ -1,17 +1,23 @@
-HELP.md
-Server/.gradle
-/gradle/wrapper/
+# Gradle
+Server/.gradle/
+!.gradle/wrapper/
 build/
-!.gradle/wrapper/gradle-wrapper.jar
+.gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+
+# Application Resources
 application.yml
 src/main/resources/
+
+# IDE-specific
 **/.DS_Store
 .DS_Store
+
+# Build Output Cleanup
 Server/.gradle/buildOutputCleanup/buildOutputCleanup.lock
 
-### STS ###
+# STS
 .apt_generated
 .classpath
 .factorypath
@@ -23,7 +29,7 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
-### IntelliJ IDEA ###
+# IntelliJ IDEA
 .idea
 *.iws
 *.iml
@@ -32,14 +38,12 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
+# VS Code
 .vscode/
-
-.DS_Store

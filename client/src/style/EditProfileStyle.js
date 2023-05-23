@@ -44,7 +44,7 @@ export const Mobile = styled.div`
   }
 `;
 
-export const ProfileImg = styled.form`
+export const ProfileImg = styled.div`
   height: 150px;
 
   > div:first-child {
@@ -188,7 +188,7 @@ export const EditForm = styled.form`
   }
 `;
 
-export const EditIcon = styled.form`
+export const EditIcon = styled.div`
   background-image: ${(props) => `url(${props.backgroundImage})`};
   background-repeat: no-repeat;
   background-position: center;

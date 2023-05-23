@@ -6,11 +6,6 @@ import { SearchSpan } from '../style/HomeStyle';
 import { useDispatch } from 'react-redux';
 import { setSearchTerm } from '../store/boardSlice';
 const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
-  const backgroundImage =
-    scrollPosition >= scrollNumber
-      ? 'linear-gradient(135deg, #ffd571, #ffac36)'
-      : 'none';
-
   const navigate = useNavigate();
 
   // props로 받아와서 네비게이터도 구현해야 한다.
@@ -29,8 +24,11 @@ const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
     } else if (fnc === 'back') {
       navigate(-1);
     } else if (fnc === 'search') {
-      // console.log('검색');
-      setOnSerach(false);
+      if (onSearch) {
+        setOnSerach(false);
+      } else {
+        setOnSerach(true);
+      }
     }
   }
   const handleSearch = (e) => {

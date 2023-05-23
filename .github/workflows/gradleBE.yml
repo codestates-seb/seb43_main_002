@@ -45,7 +45,6 @@ jobs:
       - name: Add execute permission to Gradle wrapper
         run: chmod +x ./gradlew
         working-directory: ./Server/
-        
       - name: Build with Gradle
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:

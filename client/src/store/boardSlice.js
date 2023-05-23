@@ -8,7 +8,7 @@ import axiosInstance from '../axiosConfig';
 
 // 게시물 목록 가져오기
 export const fetchBoards = createAsyncThunk('boards/fetchBoards', async () => {
-  const response = await axiosInstance.get(`/api/boards`);
+  const response = await axiosInstance.get('/api/boards');
   return response.data;
 });
 
@@ -16,7 +16,7 @@ export const fetchBoards = createAsyncThunk('boards/fetchBoards', async () => {
 export const createBoard = createAsyncThunk(
   'boards/createBoard',
   async (postBoard) => {
-    const response = await axiosInstance.post(`/api/boards`, postBoard);
+    const response = await axiosInstance.post('/api/boards', postBoard);
     return response.data;
   }
 );
@@ -25,7 +25,10 @@ export const createBoard = createAsyncThunk(
 export const updateBoard = createAsyncThunk(
   'boards/updateBoard',
   async ({ boardId, board }) => {
-    const response = await axiosInstance.patch(`/api/boards/${boardId}`, board);
+    const response = await axiosInstance.patch(
+      `/members/boards/${boardId}`,
+      board
+    );
     return response.data;
   }
 );

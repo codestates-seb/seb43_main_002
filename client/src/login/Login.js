@@ -5,11 +5,11 @@ import {
   LoginTitle,
   Input,
   LoginButton,
-  GoogleLoginButton,
+  // GoogleLoginButton,
   Error,
   FooterText,
   StyledLink,
-  GoogleLogo,
+  // GoogleLogo,
   LogoContainer,
   BackGround,
   StyledLogo,
@@ -19,7 +19,6 @@ import {
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../store/userSlice';
-// import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import axiosInstance from '../axiosConfig';
 const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
@@ -37,13 +36,14 @@ const Login = () => {
 
   const handleLogin = () => {
     axiosInstance
-      .post('api/members/login', {
+      .post('/api/members/login', {
         email,
         password,
       })
       .then((response) => {
         // eslint-disable-next-line no-debugger
         const token = response.headers.authorization;
+
         if (token) {
           const decoded = jwt_decode(token);
 
@@ -58,7 +58,10 @@ const Login = () => {
 
           dispatch(login(user));
           alert(`${user.nickname}님, 식사는 잡쉈어?`);
-          navigate('/api/boards');
+          navigate('api/boards');
+        } else if (!token) {
+          alert('이메일과 비밀번호를 확인하세요');
+          navigate('/');
         } else {
           console.log(response.data);
           setAccessError('이메일 또는 비밀번호가 잘못되었습니다.');
@@ -76,6 +79,11 @@ const Login = () => {
 
   const validationPassword = (password) => {
     return passwordRegex.test(password);
+  };
+
+  const X = (e) => {
+    console.log(1);
+    setPassword(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -108,29 +116,29 @@ const Login = () => {
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.currentTarget.value)}
           />
           <Error>{validationEmail(email) ? null : emailError}</Error>
           <Input
             type="password"
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={X}
           />
           <Error>{validationPassword(password) ? null : passwordError}</Error>
           <Error>{accessError}</Error>
-
           <LoginButton
             type="submit"
             onClick={() => {
-              console.log('찍히나?');
+              //클릭을 했을 때 아이디와 비밀번호가 다르면 되게하는 기능을 구현하자.
+
+              console.log('This button is made for Login');
             }}
           >
             Login
           </LoginButton>
           <Error>{fetchError}</Error>
-
-          <GoogleLoginButton
+          {/* <GoogleLoginButton
             type="button"
             onClick={() => {
               console.log('이자리가 맞니?');
@@ -138,7 +146,7 @@ const Login = () => {
           >
             <GoogleLogo />
             구글로 로그인
-          </GoogleLoginButton>
+          </GoogleLoginButton> */}
         </LoginForm>
         <FooterText>아직 식구가 아니신가요?</FooterText>
         <StyledLink to="/signup">지금 바로 여기를 눌러 가입하세요.</StyledLink>

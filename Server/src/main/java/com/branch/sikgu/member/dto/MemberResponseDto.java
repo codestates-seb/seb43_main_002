@@ -1,6 +1,9 @@
 package com.branch.sikgu.member.dto;
 
+import com.branch.sikgu.image.Entity.Image;
 import com.branch.sikgu.member.entity.Member;
+import com.branch.sikgu.myPage.dto.MyPageResponseDto;
+import com.branch.sikgu.myPage.entity.MyPage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,4 +26,13 @@ public class MemberResponseDto {
     private Member.MemberStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class HistoryMemberResponse{
+        private Long memberId;
+        private String nickName;
+    }
 }

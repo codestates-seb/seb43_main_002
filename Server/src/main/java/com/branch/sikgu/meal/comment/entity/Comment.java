@@ -15,7 +15,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "COMMENT")
+@Table(name = "MEAL_REQUEST")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,6 +25,7 @@ public class Comment {
     // 댓글 식별자
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "REQUEST_ID")
     private Long commentId;
 
     // 댓글 내용

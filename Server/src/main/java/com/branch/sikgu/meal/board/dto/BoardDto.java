@@ -63,4 +63,12 @@ public class BoardDto {
         private LocalDateTime mealTime;
         private List<String> tags;
     }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class BoardMemberResponse {
+        private Long boardId;
+        private String title;
+    }
 }

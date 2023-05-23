@@ -6,18 +6,18 @@ export const MapContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  top: 8%;
-  height: 100%;
+  top: 0%;
+  height: 85%;
   width: 100%;
   overflow: hidden;
-  z-index: 10;
+  z-index: 1;
 `;
 
 export const Mapbox = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
-  z-index: 10;
+  z-index: 1;
 `;
 
 export const ButtonWrap = styled.div`

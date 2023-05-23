@@ -11,6 +11,7 @@ import {
   SearchResults,
   ResultItem,
 } from '../style/MapStyle';
+import { BackYellow, BackGround } from '../style/MypageStyle';
 
 const Map = () => {
   // Map 컴포넌트의 상태 및 참조를 초기화
@@ -202,6 +203,9 @@ const Map = () => {
 
   return (
     <MainWrap>
+      <BackGround>
+        <BackYellow></BackYellow>
+      </BackGround>
       <Header iconSrc="/svg/header-logout.svg" fnc="logout" scrollNumber={10} />
       <MapContainer>
         <ButtonContainer animate={animation}>{categoryButtons}</ButtonContainer>
@@ -209,7 +213,7 @@ const Map = () => {
         <CurrentLocationButton
           animate={animation}
           onClick={() => {
-            if (loading) {
+            if (!loading) {
               updateCurrentLocation();
             }
           }}

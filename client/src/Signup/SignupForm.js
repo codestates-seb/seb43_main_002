@@ -134,11 +134,14 @@ const NewSignupForm = () => {
     validateNickname
   );
 
-  const clearError = useCallback((field) => {
-    setErrors((prev) => ({ ...prev, [field]: '' }));
-    if (field === 'email') setEmailError('');
-    if (field === 'nickname') setNicknameError('');
-  }, []);
+  const clearError = useCallback(
+    (field) => {
+      setErrors((prev) => ({ ...prev, [field]: '' }));
+      if (field === 'email') setEmailError('');
+      if (field === 'nickname') setNicknameError('');
+    },
+    [setEmailError, setNicknameError]
+  );
 
   const nameIcon = '/svg/join-name.svg';
   const introIcon = '/svg/join-intro.svg';

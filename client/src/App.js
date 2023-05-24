@@ -15,9 +15,6 @@ import MyPage from './mypage/MyPage';
 import EditProfile from './mypage/EditProfile';
 import UserState from './mypage/UserState';
 import UserPage from './mypage/UserPage';
-import Loading from './mypage/Loading';
-import Header from './mypage/Header';
-import { BackYellow, BackGround } from './style/MypageStyle';
 
 function App() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -46,22 +43,7 @@ function App() {
   // console.log(myPageId);
 
   if (loading) {
-    return (
-      <>
-        <GlobalStyle />
-        <GlobalWrap>
-          <BackGround>
-            <BackYellow />
-          </BackGround>
-          <Header
-            iconSrc="/svg/header-logout.svg"
-            fnc="logout"
-            scrollNumber={10}
-          />
-          <Loading />
-        </GlobalWrap>
-      </>
-    );
+    return <p>Loading...</p>;
   }
 
   return (

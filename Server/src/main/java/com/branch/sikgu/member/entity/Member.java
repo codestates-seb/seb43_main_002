@@ -68,6 +68,6 @@
 
         // 시큐리티 역할 관리를 위해 추가...
         @ElementCollection(fetch = FetchType.EAGER)
-        private List<String> role = new ArrayList<>();
+        private List<String> roles = new ArrayList<>();
 
     }

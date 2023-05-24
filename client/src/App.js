@@ -90,7 +90,8 @@ function App() {
           </Route> 넌 누구니..... */}
 
           {/* <Route path="/main" element={<Main />} /> */}
-          {/* <Route path="api/boards" element={<Main />} />
+
+          <Route path="/api/boards" element={<Main />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/editprofile" element={<EditProfile />} />
           <Route path="/state" element={<UserState />} />

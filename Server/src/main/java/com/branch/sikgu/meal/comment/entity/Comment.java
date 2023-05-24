@@ -54,7 +54,7 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private Board board;
+    private Board schedule;
 
     // 댓글 상태 ENUM
     @AllArgsConstructor

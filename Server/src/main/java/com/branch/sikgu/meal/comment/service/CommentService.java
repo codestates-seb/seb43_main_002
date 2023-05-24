@@ -41,7 +41,7 @@ public class CommentService {
         Board board = boardService.getBoardById(boardId);
 
         comment.setMember(member);
-        comment.setBoard(board);
+        comment.setSchedule(board);
 
         return commentRepository.save(comment);
     }

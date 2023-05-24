@@ -144,7 +144,7 @@ public class BoardService {
         if (comment.getStatus() != Comment.CommentStatus.ACTIVE_COMMENT) {
             throw new BusinessLogicException(ExceptionCode.DELETED_COMMENT, HttpStatus.BAD_REQUEST);
         }
-        if (!comment.getBoard().equals(board)) {
+        if (!comment.getSchedule().equals(board)) {
             throw new BusinessLogicException(ExceptionCode.INVALID_REQUEST, HttpStatus.BAD_REQUEST);
         }
         if (comment.getSelectionStatus() == Comment.SelectionStatus.SELECTION) {

@@ -40,12 +40,12 @@ public class MemberDetailsService implements UserDetailsService {
             setEmail(member.getEmail());
             setNickname(member.getNickname());
             setPassword(member.getPassword());
-            setRoles(member.getRoles());
+            setRole(member.getRole());
         }
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            return authorityUtils.createAuthorities(this.getRoles());
+            return authorityUtils.createAuthorities(this.getRole());
         }
 
         @Override

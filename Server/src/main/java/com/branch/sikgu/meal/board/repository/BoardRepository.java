@@ -24,7 +24,9 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     // 전체 게시물 조회
     List<Board> findAll();
 
+    // 활성화된 게시물 조회
     List<Board> findAllByBoardStatus(Board.BoardStatus boardStatus);
 
-    List<Board> findAllByBoardStatusAndMealTime(Board.BoardStatus boardStatus, LocalDateTime mealTime);
+    // 현재 시간 이후의 게시물 조회
+    List<Board> findAllByMealTimeAfterAndBoardStatus(LocalDateTime mealTime, Board.BoardStatus boardStatus);
 }

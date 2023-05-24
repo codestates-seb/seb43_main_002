@@ -19,7 +19,7 @@ const SexInfomaitonWrap = styled.div`
 
 const ContentWrap = styled.div`
   margin-top: 10px;
-  padding: 0px;
+  margin-left: 10px;
   border-left: 3px solid
     ${({ gender }) => {
       switch (gender) {
@@ -47,7 +47,7 @@ const BoardContentWrap = styled.div`
 `;
 
 const TagWrap = styled.div`
-  padding: 0px;
+  padding: 10px;
   font-size: 12px;
   display: flex;
 `;

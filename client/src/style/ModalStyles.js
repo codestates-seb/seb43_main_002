@@ -41,6 +41,7 @@ export const ModalContent = styled.form`
   align-items: start;
   animation: ${slideIn} 0.5s;
   transition: bottom 0.5s;
+  z-index: 9999;
 `;
 
 /////////////////////////////////////

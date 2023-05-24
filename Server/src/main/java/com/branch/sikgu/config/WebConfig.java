@@ -21,7 +21,8 @@ public class WebConfig implements WebMvcConfigurer{
                         "http://http://ec2-13-125-236-213.ap-northeast-2.compute.amazonaws.com:8080",
                         "http://localhost:3000",
                         "https://localhost:3000",
-                        "https://127.0.0.1:3000"
+                        "https://127.0.0.1:3000",
+                        "https://sik-gu.com"
                 )
                 .allowedMethods("OPTIONS", "HEAD", "GET", "POST", "PUT", "DELETE");
     }

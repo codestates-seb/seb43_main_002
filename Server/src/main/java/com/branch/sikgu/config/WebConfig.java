@@ -1,6 +1,7 @@
 package com.branch.sikgu.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -12,5 +13,16 @@ public class WebConfig implements WebMvcConfigurer{
 //        addResourceLocations : 실제 시스템의 폴더 위치, 윈도우 시스템의 경우 'file:///경로' 형태로 사용
 
         registry.addResourceHandler("/static/**").addResourceLocations("file:///C:\\Users\\SYJ\\Desktop\\seb43_main_002\\Server\\src\\main\\resources\\static\\");
+    }
+    @Override
+    public void addCorsMappings(CorsRegistry registry){
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:8080",
+                        "http://http://ec2-13-125-236-213.ap-northeast-2.compute.amazonaws.com:8080",
+                        "http://localhost:3000",
+                        "https://localhost:3000",
+                        "https://127.0.0.1:3000"
+                )
+                .allowedMethods("OPTIONS", "HEAD", "GET", "POST", "PUT", "DELETE");
     }
 }

@@ -75,7 +75,7 @@ public class HistoryService {
                     // Create HistoryDto.Response with converted entities
                     HistoryDto.Response historyResponseDto = new HistoryDto.Response(
                             history.getHistoryId(),
-                            history.isOverMealTime(),
+                            history.getHistoryStatus(),
                             boardResponse,
                             memberResponses);
 
@@ -107,7 +107,7 @@ public class HistoryService {
         if (selectedCount >= board.getTotal() || isMealTimePassed(board.getMealTime())) {
             // 시간 로직 추가: 식사 시간이 지났는지 검증
             if (isMealTimePassed(board.getMealTime())) {
-                history.setOverMealTime(true);
+                history.setHistoryStatus(History.HistoryStatus.OVER_MEALTIME);
                 throw new RuntimeException("식사 시간이 지났습니다.");
             }
             // History 생성 및 저장

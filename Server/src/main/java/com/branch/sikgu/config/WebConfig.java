@@ -14,16 +14,4 @@ public class WebConfig implements WebMvcConfigurer{
 
         registry.addResourceHandler("/static/**").addResourceLocations("file:///C:\\Users\\SYJ\\Desktop\\seb43_main_002\\Server\\src\\main\\resources\\static\\");
     }
-    @Override
-    public void addCorsMappings(CorsRegistry registry){
-        registry.addMapping("/**")
-                .allowedOrigins("http://localhost:8080",
-                        "http://http://ec2-13-125-236-213.ap-northeast-2.compute.amazonaws.com:8080",
-                        "http://localhost:3000",
-                        "https://localhost:3000",
-                        "https://127.0.0.1:3000",
-                        "https://sik-gu.com"
-                )
-                .allowedMethods("OPTIONS", "HEAD", "GET", "POST", "PUT", "DELETE");
-    }
 }

@@ -79,7 +79,7 @@ public class MemberController {
         memberService.deleteMember(authentication);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/alllll")
     public ResponseEntity<List<MemberResponseDto>> getAllMembers() {
         List<Member> members = memberService.findAll();
         List<MemberResponseDto> responseDtos = memberMapper.membersToMemberResponseDtos(members);

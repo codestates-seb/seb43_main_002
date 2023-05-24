@@ -18,7 +18,9 @@ public interface BoardMapper {
     default BoardDto.BoardMemberResponse toBoardMemberResponseDto(Board board) {
         return new BoardDto.BoardMemberResponse(
                 board.getBoardId(),
-                board.getTitle()
+                board.getTitle(),
+                board.getMealTime(),
+                board.getTotal()
         );
     }
 

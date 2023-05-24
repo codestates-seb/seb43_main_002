@@ -15,6 +15,7 @@ public class HistoryDto {
     @AllArgsConstructor
     public static class Response {
         private Long historyId;
+        private boolean overMealTime;
         private BoardDto.BoardMemberResponse board;
         private List<MemberResponseDto.HistoryMemberResponse> members;
     }

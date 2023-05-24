@@ -46,7 +46,7 @@ public class Comment {
 
     // 댓글 상태
     @Enumerated(EnumType.STRING)
-    private CommentStatus commentStatus = CommentStatus.ACTIVE_COMMENT;
+    private CommentStatus Status = CommentStatus.ACTIVE_COMMENT;
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -54,7 +54,7 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private Board board;
+    private Board schedule;
 
     // 댓글 상태 ENUM
     @AllArgsConstructor

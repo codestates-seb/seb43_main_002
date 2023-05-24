@@ -35,6 +35,7 @@ public class HistoryService {
     private final MemberMapper memberMapper;
     private final MemberService memberService;
     private final BoardMapper boardMapper;
+    private final History history;
 
     // 스케줄의 정해진 인원수가 모두 차거나, 스케줄의 식사시간이 지난 경우 해당 History 를 확정하는 서비스
     public History createHistory(long boardId) {
@@ -74,6 +75,7 @@ public class HistoryService {
                     // Create HistoryDto.Response with converted entities
                     HistoryDto.Response historyResponseDto = new HistoryDto.Response(
                             history.getHistoryId(),
+                            history.isOverMealTime(),
                             boardResponse,
                             memberResponses);
 
@@ -105,6 +107,7 @@ public class HistoryService {
         if (selectedCount >= board.getTotal() || isMealTimePassed(board.getMealTime())) {
             // 시간 로직 추가: 식사 시간이 지났는지 검증
             if (isMealTimePassed(board.getMealTime())) {
+                history.setOverMealTime(true);
                 throw new RuntimeException("식사 시간이 지났습니다.");
             }
             // History 생성 및 저장

@@ -141,10 +141,10 @@ public class BoardService {
             throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED, HttpStatus.FORBIDDEN);
         }
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND, HttpStatus.NOT_FOUND));
-        if (comment.getCommentStatus() != Comment.CommentStatus.ACTIVE_COMMENT) {
+        if (comment.getStatus() != Comment.CommentStatus.ACTIVE_COMMENT) {
             throw new BusinessLogicException(ExceptionCode.DELETED_COMMENT, HttpStatus.BAD_REQUEST);
         }
-        if (!comment.getBoard().equals(board)) {
+        if (!comment.getSchedule().equals(board)) {
             throw new BusinessLogicException(ExceptionCode.INVALID_REQUEST, HttpStatus.BAD_REQUEST);
         }
         if (comment.getSelectionStatus() == Comment.SelectionStatus.SELECTION) {

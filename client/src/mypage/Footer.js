@@ -11,7 +11,7 @@ import PostModal from '../home/PostModal'; // 모달 컴포넌트 임포트
 
 // eslint-disable-next-line react/prop-types
 const Footer = ({ activeIcon }) => {
-  const [homeHovered, setHomeHovered] = useState(activeIcon === 'board');
+  const [homeHovered, setHomeHovered] = useState(activeIcon === 'boards');
   const [mapHovered, setMapHovered] = useState(activeIcon === 'map');
   const [cicleHovered, setCicleHovered] = useState(true);
   const [stateHovered, setStateHovered] = useState(activeIcon === 'state');

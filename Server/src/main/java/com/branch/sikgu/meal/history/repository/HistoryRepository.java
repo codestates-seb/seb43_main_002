@@ -11,6 +11,6 @@ import java.util.List;
 
 @Repository
 public interface HistoryRepository extends JpaRepository<History, Long> {
-    @Query("SELECT h FROM History h JOIN h.members m WHERE m.memberId = :memberId")
+    @Query("SELECT h FROM History h JOIN h.members m WHERE m.memberId =:memberId")
     List<History> findByMemberId(@Param("memberId") Long memberId);
 }

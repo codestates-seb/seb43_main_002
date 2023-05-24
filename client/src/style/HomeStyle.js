@@ -15,7 +15,7 @@ export const MainWrap = styled.div`
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 617px;
+    height: 637px;
     overflow-y: scroll;
 
     ::-webkit-scrollbar {

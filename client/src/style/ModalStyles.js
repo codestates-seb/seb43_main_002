@@ -19,6 +19,7 @@ export const ModalWrap = styled.div`
   align-items: flex-end;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
   z-index: 999;
   visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};
   opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};

@@ -7,15 +7,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "REVIEW")
+@Table(name = "MEAL_ATTNEDEE_REVIEW")
 @Getter
 @Setter
 @NoArgsConstructor
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "REVIEW_ID")
     private Long reviewId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -35,6 +37,9 @@ public class Review {
 
     @Column(name = "liked")
     private boolean liked = false;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     // 추가적인 필드들...
 }

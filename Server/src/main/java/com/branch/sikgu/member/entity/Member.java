@@ -14,10 +14,11 @@
     @Getter
     @Setter
     @Entity
-    @Table(name = "MEMBERS")
+    @Table(name = "MEMBER")
     public class Member {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "MEMBER_ID")
         private Long memberId;
         @Column(name = "name", nullable = false)
         private String name;
@@ -38,8 +39,9 @@
         private LocalDateTime createdAt = LocalDateTime.now();
         @Column(name = "updated_at")
         private LocalDateTime updatedAt;
+
         @OneToOne(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-        @JoinColumn(name = "my_page_id")
+        @JoinColumn(name = "MEMBER_PROFILE_ID")
         private MyPage myPage;
         public Member() {
             this.myPage = new MyPage();

@@ -21,7 +21,6 @@
 	<img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white" />
   <br>
  	<img src="https://img.shields.io/badge/amazonaws-232F3E?style=flat&logo=amazonaws&logoColor=white" />
-	<img src="https://img.shields.io/badge/amazons3-569A31?style=flat&logo=amazons3&logoColor=white" />
 	<img src="https://img.shields.io/badge/amazonec2-FF9900?style=flat&logo=amazonec2&logoColor=white" />
 </div>
 

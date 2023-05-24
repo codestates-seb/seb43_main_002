@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "HISTORY")
+@Table(name = "MEAL_HISTORY")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,15 +24,16 @@ public class History {
     // 식사이력 식별자
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "HISTORY_ID")
     private Long historyId;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id", nullable = false)
+    @JoinColumn(name = "SCHEDULE_ID", nullable = false)
     private Board board;
 
     @ManyToMany
     @JoinTable(
-            name = "MEAL_HISTORY_MEMBER",
+            name = "MEAL_ATTENDEE",
             joinColumns = @JoinColumn(name = "HISTORY_ID"),
             inverseJoinColumns = @JoinColumn(name = "MEMBER_ID")
     )

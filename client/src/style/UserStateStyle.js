@@ -23,7 +23,7 @@ export const Mobile = styled.div`
   box-sizing: border-box;
   position: relative;
   width: 400px;
-  height: 792px;
+  height: 100%;
   padding: 20px;
   background-image: url(/svg/backlogo.svg);
   background-repeat: no-repeat;

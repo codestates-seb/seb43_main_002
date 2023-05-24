@@ -14,11 +14,11 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "MYPAGES")
+@Table(name = "MEMBER_PROFILE")
 public class MyPage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "my_page_id")
+    @Column(name = "PROFILE_ID")
     private Long myPageId;
     @Column(name = "introduce")
     private String introduce;
@@ -31,7 +31,7 @@ public class MyPage {
     // 팔로잉 관계 설정
     @ManyToMany
     @JoinTable(
-            name = "following",
+            name = "member_following",
             joinColumns = @JoinColumn(name = "follower_id"),
             inverseJoinColumns = @JoinColumn(name = "following_id")
     )
@@ -50,13 +50,11 @@ public class MyPage {
     private Member member;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_id")
+    @JoinColumn(name = "PROFILE_IMAGE_ID")
     private Image image;
     public MyPage() {
         this.image = new Image();
         this.image.setMyPage(this);
     }
-
     private Long likeCount;
-
 }

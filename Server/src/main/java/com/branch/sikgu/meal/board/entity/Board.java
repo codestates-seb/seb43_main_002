@@ -17,13 +17,14 @@ import java.util.Set;
 
 @Getter
 @Setter
-@Table(name = "BOARD")
+@Table(name = "MEAL_SCHEDULE")
 @Entity
 @AllArgsConstructor
 public class Board {
     // 게시물 ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "SCHEDULE_ID")
     private Long boardId;
 
     // 제목
@@ -93,7 +94,7 @@ public class Board {
     private Member member;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "BOARD_TAGS", joinColumns = @JoinColumn(name = "board_id"))
+    @CollectionTable(name = "MEAL_SCHEDULE_TAG", joinColumns = @JoinColumn(name = "SCHEDULE_ID"))
     @Column(name = "tag")
     @org.hibernate.annotations.OrderBy(clause = "tag asc")
     @OrderColumn(name = "index")

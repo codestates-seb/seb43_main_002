@@ -23,6 +23,6 @@ public class MyPageResponseDto {
     private List<FollowingDto> followings;
     private Long followerCount;
     private boolean followingCurrentUser;
-    private String review;
     private List<MyPageRecentBoardDto> recentBoard;
+    private List<MyPageRecentReviewDto> recentReview;
 }

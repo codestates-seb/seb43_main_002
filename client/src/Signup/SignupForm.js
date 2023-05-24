@@ -181,7 +181,7 @@ const NewSignupForm = () => {
       !name ||
       !password ||
       !confirmPassword ||
-      !gender ||
+      gender === null ||
       !birthday
     ) {
       alert('모든 정보를 입력해주세요.');

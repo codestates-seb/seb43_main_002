@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -92,8 +93,8 @@ public class BoardService {
 
     // 전체 게시물 조회
     public List<BoardDto.Response> getAllBoards() {
-        List<Board> boards = boardRepository.findAllByBoardStatus(Board.BoardStatus.ACTIVE_BOARD);
-
+        LocalDateTime currentTime = LocalDateTime.now();
+        List<Board> boards = boardRepository.findAllByMealTimeAfterAndBoardStatus(currentTime, Board.BoardStatus.ACTIVE_BOARD);
         return boardMapper.toResponseDtoList(boards);
     }
 

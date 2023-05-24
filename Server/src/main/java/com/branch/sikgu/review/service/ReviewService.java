@@ -9,6 +9,7 @@ import com.branch.sikgu.member.service.MemberService;
 import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.review.dto.ReviewDto;
 import com.branch.sikgu.review.entity.Review;
+import com.branch.sikgu.review.repository.ReviewRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
@@ -27,6 +28,7 @@ import java.util.Objects;
 public class ReviewService {
         private HistoryRepository historyRepository;
         private MemberService memberService;
+        private ReviewRepository reviewRepository;
 
         public void addReviewAndLikeToMember(Long historyId, Long memberId, ReviewDto.Post requestDto, Authentication authentication) {
         // History 조회
@@ -87,4 +89,6 @@ public class ReviewService {
             throw new AccessDeniedException("Current user is not a member of the history");
         }
     }
+
+
 }

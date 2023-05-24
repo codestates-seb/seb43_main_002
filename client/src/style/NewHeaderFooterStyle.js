@@ -52,14 +52,15 @@ export const Space = styled.footer`
 `;
 
 export const FooterWrap = styled.footer`
+  position: absolute;
+  bottom: 0;
+
   padding-left: 0px;
   padding-top: 0px;
   padding-right: 0px;
   height: 7%;
   width: 100%;
-  z-index: 2;
-  position: absolute;
-  bottom: 0px;
+  z-index: 100;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   background-color: white;
   display: flex;
@@ -107,7 +108,8 @@ export const FooterCicleWrap = styled.div`
       font-size: 18px;
       font-weight: bold;
       color: white;
-      left: 6.5px;
+      top: -1.5px;
+      left: 7px;
     }
   }
 `;

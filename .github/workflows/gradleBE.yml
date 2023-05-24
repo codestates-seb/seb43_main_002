@@ -1,0 +1,74 @@
+name: Java CI with Gradle
+
+on:
+#   push:
+#     branches: [ "dev" ]
+#   pull_request:
+#     branches: [ "dev" ]
+#   on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  S3_BUCKET_NAME: sikgu-s3-bucket
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+            
+      - name: Add execute permission to Gradle wrapper
+        run: chmod +x ./gradlew
+        working-directory: ./Server/
+        
+#       - name: Build with Gradle
+#         working-directory: ./Server/
+#         run: ./gradlew build
+
+      - name: Build with Gradle (without tests)
+        run: ./gradlew build -x test
+        working-directory: ./Server/
+        
+      - name: Make zip file
+        run: zip -r ./sikgu-deploy.zip .
+        shell: bash
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_BE }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_BE }}
+          aws-region: ap-northeast-2
+
+      - name: Upload to S3
+        run: aws s3 cp --region ap-northeast-2 ./sikgu-deploy.zip s3://$S3_BUCKET_NAME/sikgu-deploy.zip
+
+#       - name: Copy application.yml
+#         run: cp Server/src/main/resources/application.yml build/directory
+
+      - name: Code Deploy
+        run: >
+          aws deploy create-deployment --application-name sikgu
+          --deployment-config-name CodeDeployDefault.AllAtOnce
+          --deployment-group-name sikgu-group
+          --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=sikgu-deploy.zip

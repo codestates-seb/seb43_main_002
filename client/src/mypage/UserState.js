@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import Footer from './Footer';
 import Header from './Header';
-import Loding from './Loading';
-import { useState, useEffect } from 'react';
+import Loading from './Loading';
+import { useState, useEffect, useRef } from 'react';
 import axiosInstance from '../axiosConfig';
 import {
   Mobile,
@@ -14,11 +14,13 @@ import {
 } from '../style/UserStateStyle';
 
 const UserState = () => {
+  const [data, setData] = useState([]);
+  const [user, setUser] = useState([]);
+  // 리뷰관련
   const [likeClicked, setLikeClicked] = useState(false);
   const [userReviews, setUserReviews] = useState({});
-  const [data, setData] = useState();
-  const [user, setUser] = useState();
-
+  const [buttonDisabled, setButtonDisabled] = useState([]);
+  // 팝업 모달 관련
   const [isOpen, setIsOpen] = useState(true);
   const [postId, setPostId] = useState();
   const [popup, setPopup] = useState(false);
@@ -26,31 +28,26 @@ const UserState = () => {
   const [modalEffect, setModalEffect] = useState(false);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [buttonDisabled, setButtonDisabled] = useState([]);
+  const mobileContainerRef = useRef(null);
 
   // 유저가 참가한 식사 목록을 가져오고, 그 식사에 참여한 유저의 목록도 같이 불러옴.
   useEffect(() => {
-    axiosInstance
-      .get('http://localhost:3001/state')
-      .then((response) => {
-        setData(response.data);
+    const fetchData = async () => {
+      try {
+        const [responseState, responseMembers] = await Promise.all([
+          axiosInstance.get('http://localhost:3001/state'),
+          axiosInstance.get('http://localhost:3001/members'),
+        ]);
+        setData(responseState.data);
+        setUser(responseMembers.data);
         setIsLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.log(error);
         setIsLoading(false);
-      });
+      }
+    };
 
-    axiosInstance
-      .get('http://localhost:3001/members')
-      .then((response) => {
-        setUser(response.data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setIsLoading(false);
-      });
+    fetchData();
   }, []);
 
   // 리뷰 작성하는 로직, 사람이 여러명일 수 있기에 맵으로 돌린 이전 리뷰들과 함께 객체 상태로 리뷰를 저장하도록 했다.
@@ -68,12 +65,13 @@ const UserState = () => {
 
     axiosInstance
       .post(`/members/all`, {
-        name: `이부분에는`,
-        img: `로그인한 사용자 정보를 담는 거임!`,
+        name: '이부분에는',
+        img: '로그인한 사용자 정보를 담는 거임!',
         comment,
       })
       .then((response) => {
-        setData(response.data);
+        const updatedData = response.data;
+        setData(updatedData);
       })
       .catch((error) => {
         console.log(error);
@@ -81,11 +79,10 @@ const UserState = () => {
   };
 
   // 좋아요 구현한 부분
+  // patch 메소드로 해당 유저의 like 값을 1 증가시키는 요청을 보내기
   const handleLike = (userId) => {
-    // patch 메소드로 해당 유저의 like 값을 1 증가시키는 요청을 보내기
     axiosInstance
       .patch(`/${userId}`, {
-        //user.id와 같은 값을 가진 데이터를 찾아서 like를 업데이트 시켜준다.
         like: user.find((el) => el.id === userId).like + 1,
       })
       .then((response) => {
@@ -154,11 +151,11 @@ const UserState = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const position = document.getElementById('mobileContainer').scrollTop;
+      const position = mobileContainerRef.current.scrollTop;
       setScrollPosition(position);
     };
 
-    const mobileContainer = document.getElementById('mobileContainer');
+    const mobileContainer = mobileContainerRef.current;
     if (mobileContainer) {
       mobileContainer.addEventListener('scroll', handleScroll);
     }
@@ -168,11 +165,11 @@ const UserState = () => {
         mobileContainer.removeEventListener('scroll', handleScroll);
       }
     };
-  }, [data]);
+  }, []);
 
   return (
     <>
-      <Mobile id="mobileContainer">
+      <Mobile ref={mobileContainerRef} id="mobileContainer">
         <BackGround>
           <BackYellow />
         </BackGround>
@@ -183,7 +180,7 @@ const UserState = () => {
           scrollNumber={10}
         />
         {isLoading ? (
-          <Loding />
+          <Loading />
         ) : (
           data &&
           user && (

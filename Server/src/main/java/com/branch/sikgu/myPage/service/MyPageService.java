@@ -150,7 +150,7 @@ public class MyPageService {
 
             Optional.ofNullable(file)
                     .ifPresent(updatedFile -> {
-                        String imagePath = "C:\\Users\\SYJ\\Desktop\\seb43_main_002\\Server\\src\\main\\resources\\static\\images";
+                        String imagePath = "Server/src/main/resources/static/images";
                         Image image = myPage.getImage();
                         String imageName = image.getName();
 
@@ -200,7 +200,8 @@ public class MyPageService {
             response.setContentType("image/jpeg");
             Image image = imageRepository.findImageByMyPageId(myPageId);
 
-            File file = new File("C:\\Users\\SYJ\\Desktop\\seb43_main_002\\Server\\src\\main\\resources\\static\\images\\" + image.getName());
+            String filePath = "Server/src/main/resources/static/images/" + image.getName();
+            File file = new File(filePath);
             bin = new BufferedInputStream(new FileInputStream(file));
 
             byte[] dataBytes = new byte[8192];

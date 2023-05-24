@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "X-AUTH-TOKEN")
+@CrossOrigin(origins = "http://sik-gu.com.s3-website.ap-northeast-2.amazonaws.com")
 @RestController
 @Validated
 @RequestMapping("/api/meal")

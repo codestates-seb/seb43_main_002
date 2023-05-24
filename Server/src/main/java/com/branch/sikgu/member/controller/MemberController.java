@@ -18,7 +18,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "X-AUTH-TOKEN")
+@CrossOrigin(origins = "http://sik-gu.com.s3-website.ap-northeast-2.amazonaws.com")
 @RequestMapping(path = "/api/members")
 @AllArgsConstructor
 public class MemberController {

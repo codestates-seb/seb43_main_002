@@ -47,20 +47,23 @@ function App() {
 
   if (loading) {
     return (
-      <>
-        <GlobalStyle />
-        <GlobalWrap>
-          <BackGround>
-            <BackYellow />
-          </BackGround>
-          <Header
-            iconSrc="/svg/header-logout.svg"
-            fnc="logout"
-            scrollNumber={10}
-          />
-          <Loading />
-        </GlobalWrap>
-      </>
+      (
+        <>
+          <GlobalStyle />
+          <GlobalWrap>
+            <BackGround>
+              <BackYellow />
+            </BackGround>
+            <Header
+              iconSrc="/svg/header-logout.svg"
+              fnc="logout"
+              scrollNumber={10}
+            />
+            <Loading />
+          </GlobalWrap>
+        </>
+      ),
+      1000
     );
   }
 

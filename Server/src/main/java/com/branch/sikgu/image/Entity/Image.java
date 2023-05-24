@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Random;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -40,4 +41,13 @@ public class Image {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "MEMBER_PROFILE_ID")
     private MyPage myPage;
+
+
+    @PrePersist
+    private void generateRandomImageName() {
+        Random random = new Random();
+        int randomNum = random.nextInt(9) + 1; // 1부터 9까지의 숫자 중 랜덤 선택
+        this.name = randomNum + ".jpg";
+    }
+
 }

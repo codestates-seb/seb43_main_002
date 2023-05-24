@@ -4,6 +4,7 @@ import com.branch.sikgu.auth.jwt.JwtTokenizer;
 import com.branch.sikgu.exception.BusinessLogicException;
 import com.branch.sikgu.exception.ExceptionCode;
 import com.branch.sikgu.exception.HttpStatus;
+import com.branch.sikgu.image.Entity.Image;
 import com.branch.sikgu.member.dto.*;
 import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.member.mapper.MemberMapper;
@@ -41,6 +42,7 @@ public class MemberService {
         memberSignUpRequestDto.setPassword(encodedPassword);
 
         Member member = memberMapper.memberSignUpRequestDtoToMember(memberSignUpRequestDto);
+
         memberRepository.save(member);
         return memberMapper.memberToMemberSignUpResponseDto(member);
     }

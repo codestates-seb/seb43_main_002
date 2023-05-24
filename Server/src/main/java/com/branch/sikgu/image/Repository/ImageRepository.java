@@ -33,14 +33,19 @@ public class ImageRepository {
     }
 
     public Image findImageByMyPageId(Long myPageId) {
-        String sql = "SELECT image_id, name, type FROM image WHERE my_page_id = :myPageId";
+        String sql = "SELECT image_id, name, type FROM member_profile_image WHERE member_profile_id = :myPageId";
         SqlParameterSource parameter = new MapSqlParameterSource("myPageId", myPageId);
 
         return namedParameterJdbcTemplate.queryForObject(sql, parameter, (rs, rowNum) -> {
             Image image = new Image();
             image.setImageId(rs.getLong("image_id"));
             image.setName(rs.getString("name"));
-            image.setType(rs.getString("type"));
+            // Check if the type column is NULL
+            if (rs.getObject("type") != null) {
+                image.setType(rs.getString("type"));
+            } else {
+                image.setType(""); // Set an empty string or any default value you prefer
+            }
             return image;
         });
     }

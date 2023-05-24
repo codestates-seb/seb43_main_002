@@ -150,7 +150,7 @@ public class MyPageService {
 
             Optional.ofNullable(file)
                     .ifPresent(updatedFile -> {
-                        String imagePath = "Server/src/main/resources/static/images";
+                        String imagePath = "C:\\Users\\SYJ\\Desktop\\seb43_main_002\\Server\\src\\main\\resources\\static\\images";
                         Image image = myPage.getImage();
                         String imageName = image.getName();
 
@@ -200,8 +200,12 @@ public class MyPageService {
             response.setContentType("image/jpeg");
             Image image = imageRepository.findImageByMyPageId(myPageId);
 
-            String filePath = "Server/src/main/resources/static/images/" + image.getName();
-            File file = new File(filePath);
+            File file;
+            if (image != null && image.getName() != null) {
+                file = new File("C:\\Users\\SYJ\\Desktop\\seb43_main_002\\Server\\src\\main\\resources\\static\\images\\" + image.getName());
+            } else {
+                file = new File("C:\\Users\\SYJ\\Desktop\\seb43_main_002\\Server\\src\\main\\resources\\static\\images\\image.jpg");
+            }
             bin = new BufferedInputStream(new FileInputStream(file));
 
             byte[] dataBytes = new byte[8192];
@@ -220,7 +224,6 @@ public class MyPageService {
             }
         }
     }
-
     public void followMyPage(Long myPageId, Authentication authentication) {
         Long followingId = memberService.getCurrentMemberId(authentication);
         // 팔로우할 마이페이지 (보고있는 마이페이지)

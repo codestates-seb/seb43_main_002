@@ -70,5 +70,7 @@ public class BoardDto {
     public static class BoardMemberResponse {
         private Long boardId;
         private String title;
+        private LocalDateTime mealTime;
+        private int total;
     }
 }

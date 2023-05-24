@@ -42,4 +42,6 @@ public class History {
     @OneToMany(mappedBy = "history", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
+    @Column
+    private boolean overMealTime = false;
 }

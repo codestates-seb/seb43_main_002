@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {  "icons": 
     {
       "src": "Logo1.png",
@@ -8,3 +9,12 @@
 "display": "standalone",
 "theme_color": "#000000",
 "background_color": "#ffffff"}
+=======
+{
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+  }
+  
+>>>>>>> eeab41744dc42b6c32b5e525ced1ed6bde3b35db

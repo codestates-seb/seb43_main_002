@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteComment, updateComment } from '../store/commentSlice';
 import { BiEdit } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
-import { StateButton } from '../style/BoardStyle';
+import { StateButton, SubmitWrap } from '../style/BoardStyle';
 import { useNavigate } from 'react-router-dom';
 
 const CommentsWrap = styled.div`
@@ -90,6 +90,44 @@ const RefuseButton = styled.button`
   }
 `;
 
+const EditComment = styled.input`
+  padding: 10px;
+  height: 30px;
+  width: 250px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0.1);
+  font-size: 13px;
+`;
+
+const EditButton = styled.button`
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  height: 30px;
+  font-size: 12px;
+  padding: 10px;
+  display: flex;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #ffb44a;
+  border: none;
+  &:hover {
+    background-color: #ff9933;
+    color: white;
+  }
+`;
+
+const CancelButton = styled(EditButton)`
+  background-color: lightgrey;
+  &:hover {
+    background-color: grey;
+    color: white;
+  }
+`;
+
 const Comment = ({ comment, handlePeople, board }) => {
   Comment.propTypes = {
     comment: PropTypes.object.isRequired,
@@ -143,7 +181,6 @@ const Comment = ({ comment, handlePeople, board }) => {
 
   const Boarduser = userInfo && board.memberId === userInfo.memberId;
   const imageUrl = `/api/mypages/${comment.memberId}/image`;
-  console.log(comment.memberId);
 
   return (
     <>
@@ -174,14 +211,14 @@ const Comment = ({ comment, handlePeople, board }) => {
             </CommentStateWrap>
             {editing ? (
               <>
-                <input
+                <EditComment
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                ></input>
-                <div>
-                  <button onClick={handleSave}>저장</button>
-                  <button onClick={handleCancelEdit}>취소</button>
-                </div>
+                ></EditComment>
+                <SubmitWrap>
+                  <EditButton onClick={handleSave}>저장</EditButton>
+                  <CancelButton onClick={handleCancelEdit}>취소</CancelButton>
+                </SubmitWrap>
               </>
             ) : (
               <>

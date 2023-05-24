@@ -4,7 +4,9 @@ const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
+    Authorization: `Bearer ${sessionStorage.getItem(
+      process.env.REACT_APP_JWT_TOKEN_NAME
+    )}`,
     // ln7 삭제. bearer null이 여기서 발생
     Accept: 'application/json',
   },

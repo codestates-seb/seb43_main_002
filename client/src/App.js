@@ -15,9 +15,6 @@ import MyPage from './mypage/MyPage';
 import EditProfile from './mypage/EditProfile';
 import UserState from './mypage/UserState';
 import UserPage from './mypage/UserPage';
-import Loading from './mypage/Loading';
-import Header from './mypage/Header';
-import { BackYellow, BackGround } from './style/MypageStyle';
 
 function App() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -31,7 +28,9 @@ function App() {
     // null 일 때 고민해보기
     // eslint-disable-next-line no-debugger
     // debugger;
-    const storedToken = sessionStorage.getItem('jwt');
+    const storedToken = sessionStorage.getItem(
+      process.env.REACT_APP_JWT_TOKEN_NAME
+    );
     if (JsonUser && storedToken) {
       dispatch(login(JsonUser));
     }
@@ -46,25 +45,7 @@ function App() {
   // console.log(myPageId);
 
   if (loading) {
-    return (
-      (
-        <>
-          <GlobalStyle />
-          <GlobalWrap>
-            <BackGround>
-              <BackYellow />
-            </BackGround>
-            <Header
-              iconSrc="/svg/header-logout.svg"
-              fnc="logout"
-              scrollNumber={10}
-            />
-            <Loading />
-          </GlobalWrap>
-        </>
-      ),
-      1000
-    );
+    return <p>Loading...</p>;
   }
 
   return (
@@ -75,47 +56,38 @@ function App() {
           {/* 누구나 접근 가능한 페이지 */}
           <Route path="/signup" element={<NewSignupForm />} />
           <Route path="/" element={<NewLogin />} />
-
           {/* <Route path="/" element={<NewLogin />} /> */}
           {/* <Route path="/boards" element={<PrivateRoute />}>
             <Route index element={<Main />} />
           </Route> */}
-
           {/* 회원만 접근이 가능한 페이지 */}
           <Route path="/map" element={<PrivateRoute />}>
             <Route index element={<Map />} />
           </Route>
-
           <Route path="/mypage/:userId" element={<PrivateRoute />}>
             <Route index element={<MyPage />} />
           </Route>
-
           <Route path="/editprofile/:userId" element={<PrivateRoute />}>
             <Route index element={<EditProfile />} />
           </Route>
-
           <Route path="/state" element={<PrivateRoute />}>
             <Route index element={<UserState />} />
           </Route>
-
           <Route path="/userpage/:userId" element={<PrivateRoute />}>
             <Route index element={<UserPage />} />
           </Route>
-
           <Route path="api/boards" element={<PrivateRoute />}>
             <Route index element={<Main />} />
           </Route>
-
           {/* <Route path="api/boards" element={<PrivateRoute />}>
             <Route index element={<UserState />} />
           </Route> 넌 누구니..... */}
-
           {/* <Route path="/main" element={<Main />} /> */}
-          {/* <Route path="api/boards" element={<Main />} />
+          <Route path="/api/boards" element={<Main />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/editprofile" element={<EditProfile />} />
           <Route path="/state" element={<UserState />} />
-          <Route path="/members/:userId" element={<UserPage />} /> */}
+          <Route path="/members/:userId" element={<UserPage />} />
         </Routes>
       </GlobalWrap>
     </>

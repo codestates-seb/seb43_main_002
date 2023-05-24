@@ -15,8 +15,11 @@ export const MainWrap = styled.div`
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 637px;
+    height: 550px;
+    margin: 0px 5px;
     overflow-y: scroll;
+    z-index: 9999;
+    position: relative;
 
     ::-webkit-scrollbar {
       width: 0.5em;
@@ -132,6 +135,7 @@ export const SelectedDay = styled.div`
   text-align: center;
   color: white;
   cursor: pointer;
+  opacity: ${({ selected }) => (selected ? '1' : '0.7')};
 `;
 
 export const SlideContainer = styled.div`
@@ -140,23 +144,10 @@ export const SlideContainer = styled.div`
   flex-wrap: nowrap;
   width: max-content;
   overflow-x: scroll;
+  padding-bottom: 10px;
 
-  /* 스크롤바 */
   ::-webkit-scrollbar {
-    display: block;
-    width: 8px; /* 스크롤바 너비 */
-    height: 3px;
-  }
-
-  /* 스크롤바 thumb */
-  ::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 */
-    border-radius: 4px; /* 스크롤바 모서리 반경 */
-  }
-
-  /* 스크롤바 track */
-  ::-webkit-scrollbar-track {
-    background-color: #ffac36; /* 스크롤바 트랙 색상 */
+    height: 10px;
   }
 `;
 
@@ -179,7 +170,7 @@ export const DayNumberWrap = styled.div`
   padding: 0px;
   /* border-bottom: 1px solid white; */
   position: relative;
-  border-bottom: ${({ selected }) => (selected ? '2px solid white' : 'none')};
+  border-bottom: ${({ selected }) => selected && '2px solid white'};
 `;
 
 export const ButtonContainer = styled.div`

@@ -1,6 +1,5 @@
 /*eslint-disable */
 import { useEffect, useRef, useState } from 'react';
-// import MapHeader from './MapHeader';
 import Header from '../mypage/Header';
 import Footer from '../mypage/Footer';
 import {
@@ -13,7 +12,6 @@ import {
   ResultItem,
   MainWrap,
 } from '../style/MapStyle';
-import { BackYellow, BackGround } from '../style/MypageStyle';
 
 const Map = () => {
   // Map 컴포넌트의 상태 및 참조를 초기화
@@ -26,6 +24,7 @@ const Map = () => {
   const [loading, setLoading] = useState(true);
   const [selectedResult, setSelectedResult] = useState(null);
   const [expandedResult, setExpandedResult] = useState(null);
+  const [currentAddress, setCurrentAddress] = useState(null);
 
   // 지정된 위치에 마커와 인포윈도우 표시
   const displayMarker = (locPosition, place, index) => {
@@ -46,7 +45,7 @@ const Map = () => {
     white-space: nowrap;
   ">
     <b>${place.place_name}</b>
-    <br/>${place.address_name}
+    <br/>${place.road_address_name || place.address_name}
     ${place.phone ? `<br />${place.phone}` : ''}
   </div>`;
     let infowindow = new window.kakao.maps.InfoWindow({
@@ -100,6 +99,16 @@ const Map = () => {
           clearMarkers();
           // 현재 위치를 업데이트 한 후에 마지막 선택된 장소를 검색
           searchAndDisplayPlacesByCategory(selectedCategory);
+          // 현재 위치를 주소로 변환
+          let geocoder = new window.kakao.maps.services.Geocoder();
+          geocoder.coord2Address(lon, lat, function (result, status) {
+            if (status === window.kakao.maps.services.Status.OK) {
+              setCurrentAddress(
+                result[0].address.road_address_name ||
+                  result[0].address.address_name
+              ); // 주소를 상태에 저장
+            }
+          });
           setLoading(false); // 현재 위치 업데이트가 완료되었으므로 로딩 상태를 false로 설정
         },
         function (error) {
@@ -197,7 +206,7 @@ const Map = () => {
           <iframe
             title="Expanded Result"
             src={`https://place.map.kakao.com/m/${result.id}`}
-            style={{ width: '100%', height: '400px', border: 'none' }}
+            style={{ width: '100%', height: '10%', border: 'none' }}
           />
         )}
       </ResultItem>
@@ -205,32 +214,37 @@ const Map = () => {
   });
 
   return (
-    <>
-      <MainWrap>
-        <div>
-          <Header
-            iconSrc="/svg/header-logout.svg"
-            fnc="logout"
-            scrollNumber={10}
-          />
-          여기에 현재위치를 받아와서 표시해줬으면 좋겠음
-        </div>
-        <MapContainer>
-          <ButtonContainer animate={animation}>
-            {categoryButtons}
-          </ButtonContainer>
-          <Mapbox ref={mapRef} id="map"></Mapbox>
-          <CurrentLocationButton
-            animate={animation}
-            onClick={updateCurrentLocation}
-          >
-            <img src="/icon/location.svg" alt="현재위치" />
-          </CurrentLocationButton>
-          <SearchResults animate={animation}>{resultItems}</SearchResults>
-        </MapContainer>
-      </MainWrap>
+    <MainWrap>
+      <div>
+        <Header
+          iconSrc="/svg/header-logout.svg"
+          fnc="logout"
+          scrollNumber={10}
+        />
+        {currentAddress && `현재 위치: ${currentAddress}`}
+      </div>
+      <MapContainer>
+        <ButtonContainer animate={animation}>{categoryButtons}</ButtonContainer>
+        <Mapbox ref={mapRef} id="map"></Mapbox>
+        <CurrentLocationButton
+          animate={animation}
+          onClick={() => {
+            if (!loading) {
+              updateCurrentLocation();
+            }
+          }}
+        >
+          <img src="/svg/location.svg" alt="현재위치" />
+        </CurrentLocationButton>
+        <SearchResults
+          animate={animation}
+          style={{ height: expandedResult !== null ? '45%' : '30%' }} // 확장된 결과가 있으면 높이를 500px로, 그렇지 않으면 200px로 변경
+        >
+          {resultItems}
+        </SearchResults>
+      </MapContainer>
       <Footer activeIcon="map" />
-    </>
+    </MainWrap>
   );
 };
 

@@ -34,5 +34,7 @@ public class MemberResponseDto {
     public static class HistoryMemberResponse{
         private Long memberId;
         private String nickName;
+        private String introduce;
+        private Image image;
     }
 }

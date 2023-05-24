@@ -26,7 +26,9 @@ public interface MemberMapper {
     default MemberResponseDto.HistoryMemberResponse memberToHistoryMemberResponseDto(Member member) {
         return new MemberResponseDto.HistoryMemberResponse(
                 member.getMemberId(),
-                member.getNickname()
+                member.getNickname(),
+                member.getMyPage().getIntroduce(),
+                member.getMyPage().getImage()
         );
     }
 }

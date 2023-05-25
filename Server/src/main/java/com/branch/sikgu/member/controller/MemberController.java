@@ -18,7 +18,6 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin(origins = "http://sik-gu.com.s3-website.ap-northeast-2.amazonaws.com")
 @RequestMapping(path = "/api/members")
 @AllArgsConstructor
 public class MemberController {
@@ -48,7 +47,7 @@ public class MemberController {
 
     // 닉네임 중복 검사 버튼
     @PostMapping("signup/checkduplicatenickname")
-    public ResponseEntity<?> checkNickname(@RequestBody NicknameCheckRequestDto requestDTO) {
+    public ResponseEntity<Boolean> checkNickname(@RequestBody NicknameCheckRequestDto requestDTO) {
         boolean isDuplicateNickname = memberService.checkDuplicateNickname(requestDTO.getNickname());
         if (isDuplicateNickname) {
             return ResponseEntity.ok(true);

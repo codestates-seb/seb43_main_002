@@ -150,8 +150,8 @@ public class MyPageService {
 
             Optional.ofNullable(file)
                     .ifPresent(updatedFile -> {
-//                        String imagePath = "C:\\Users\\SYJ\\Desktop\\seb43_main_002\\Server\\src\\main\\resources\\static\\images";
-                        String imagePath = "/home/ssm-user/sikgu/seb_main_002/Server/main/resources/static/images/";
+                        String imagePath = "C:\\Users\\SYJ\\Desktop\\seb43_main_002\\Server\\src\\main\\resources\\static\\images";
+//                        String imagePath = "/home/ssm-user/sikgu/seb_main_002/Server/main/resources/static/images/";
 
                         Image image = myPage.getImage();
                         String imageName = image.getName();
@@ -204,11 +204,11 @@ public class MyPageService {
 
             File file;
             if (image != null && image.getName() != null) {
-//                file = new File("C:\\Users\\SYJ\\Desktop\\seb43_main_002\\Server\\src\\main\\resources\\static\\images\\" + image.getName());
-                file = new File("/home/ssm-user/sikgu/seb_main_002/Server/main/resources/static/images/" + image.getName());
+                file = new File("C:\\Users\\SYJ\\Desktop\\seb43_main_002\\Server\\src\\main\\resources\\static\\images\\" + image.getName());
+//                file = new File("/home/ssm-user/sikgu/seb_main_002/Server/main/resources/static/images/" + image.getName());
             } else {
-//                file = new File("C:\\Users\\SYJ\\Desktop\\seb43_main_002\\Server\\src\\main\\resources\\static\\images\\image.jpg");
-                file = new File("/home/ssm-user/sikgu/seb_main_002/Server/main/resources/static/images/" + image.getName());
+                file = new File("C:\\Users\\SYJ\\Desktop\\seb43_main_002\\Server\\src\\main\\resources\\static\\images\\image.jpg");
+//                file = new File("/home/ssm-user/sikgu/seb_main_002/Server/main/resources/static/images/" + image.getName());
             }
             bin = new BufferedInputStream(new FileInputStream(file));
 

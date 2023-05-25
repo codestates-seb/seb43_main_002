@@ -15,7 +15,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
-@CrossOrigin(origins = "http://sik-gu.com.s3-website.ap-northeast-2.amazonaws.com")
 @RestController
 @Validated
 @RequestMapping("/api/boards")

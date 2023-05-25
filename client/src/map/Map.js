@@ -143,6 +143,8 @@ const Map = () => {
       );
       updateCurrentLocation();
     }
+
+    console.log(loading);
   }, []);
 
   useEffect(() => {

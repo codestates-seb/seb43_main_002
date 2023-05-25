@@ -11,7 +11,6 @@ import java.nio.file.Paths;
 
 
 @RestController
-@CrossOrigin(origins = "http://sik-gu.com.s3-website.ap-northeast-2.amazonaws.com")
 public class FileUploadController {
 
     ImageService imageService;

@@ -15,7 +15,6 @@ import java.io.IOException;
 
 
 @RestController
-@CrossOrigin(origins = "http://sik-gu.com.s3-website.ap-northeast-2.amazonaws.com")
 @RequestMapping("/api/mypages")
 @AllArgsConstructor
 public class MyPageController {

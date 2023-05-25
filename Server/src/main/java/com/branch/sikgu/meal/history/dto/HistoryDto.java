@@ -35,7 +35,6 @@ public class HistoryDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Patch {
-        @Setter
         private Long historyId;
         private boolean status;
     }

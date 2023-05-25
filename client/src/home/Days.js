@@ -9,6 +9,7 @@ import {
   // SlideItem,
   BoardsWrap,
 } from '../style/HomeStyle';
+import EditModal from './EditModal';
 import Board from './Board';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBoards, selectFilteredBoards } from '../store/boardSlice';
@@ -19,6 +20,14 @@ const Days = () => {
   const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   // const dayOfWeek = now.getDay();
   const dispatch = useDispatch();
+
+
+  const [isModalOpenNew, setIsModalOpenNew] = useState(false);
+
+  const closeModal = () => {
+    setIsModalOpenNew(false);
+  };
+
 
   // const [searchTerm, setSearchTermState] = useState(searchValue);
 
@@ -55,10 +64,10 @@ const Days = () => {
           //   0
           // ).getDate();
           nextDate.setDate(currentDate.getDate() + 1);
-          console.log('today:', today);
+          // console.log('today:', today);
           // console.log('sixDate:', sixDate);
 
-          console.log('nextDate:', nextDate.getDate());
+          // console.log('nextDate:', nextDate.getDate());
           if (nextDate.getMonth() !== currentDate.getMonth()) {
             nextDate.setDate(1);
             nextDate.setMonth(currentDate.getMonth() + 1);
@@ -109,7 +118,7 @@ const Days = () => {
       return boardDate === selectedDateIndex;
     });
   // const boardexp = useSelector((state) => state.board.boards);
-  console.log(selectedDateIndex);
+  // console.log(selectedDateIndex);
   
   const sortedBoards = filteredBoards.sort((a, b) => {
     const mealA = new Date(a.mealTime).getTime();
@@ -131,7 +140,7 @@ const Days = () => {
             const dayNumber = today + idx;
             const isSelected = dayNumber === selectedDateIndex;
             return (
-              <>
+              <div className='test' key={idx}>
                 <SelectedDay
                   id={idx}
                   el={el}
@@ -143,7 +152,7 @@ const Days = () => {
                     {dayNumber}
                   </DayNumberWrap>
                 </SelectedDay>
-              </>
+              </div>
             );
           })}
         </SlideContainer>
@@ -151,10 +160,17 @@ const Days = () => {
       <div className="boards">
         <BoardsWrap>
           {sortedBoards.map((board, idx) => (
-            <Board key={idx} board={board} />
+            <Board key={idx} board={board} setIsModalOpenNew={setIsModalOpenNew}/>
           ))}
+          {sortedBoards.length === 0 ? (
+            <div className='none'>작성된 게시글이 없습니다.</div>
+          ) : null}
         </BoardsWrap>
       </div>
+
+      {sortedBoards.map((board, idx) => (
+        <EditModal key={idx} isOpen={isModalOpenNew} onClose={closeModal} board={board} />
+      ))}
     </>
   );
 };

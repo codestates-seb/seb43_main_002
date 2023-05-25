@@ -15,11 +15,20 @@ import {
 
 const UserState = () => {
   const [data, setData] = useState([]);
-  const [user, setUser] = useState([]);
+
+  //  상태 관련
+  // eslint-disable-next-line no-unused-vars
+  const [time, setTimes] = useState([]);
+  const [selectedPostIndex, setSelectedPostIndex] = useState(null);
+  const [mealState, setMealStates] = useState([]);
+  const [showButton, setShowButton] = useState([]);
+
   // 리뷰관련
   const [likeClicked, setLikeClicked] = useState(false);
   const [userReviews, setUserReviews] = useState({});
   const [buttonDisabled, setButtonDisabled] = useState([]);
+  const myPageId = JSON.parse(sessionStorage.getItem('user')).memberId;
+
   // 팝업 모달 관련
   const [isOpen, setIsOpen] = useState(true);
   const [postId, setPostId] = useState();
@@ -31,43 +40,56 @@ const UserState = () => {
   const mobileContainerRef = useRef(null);
 
   // 유저가 참가한 식사 목록을 가져오고, 그 식사에 참여한 유저의 목록도 같이 불러옴.
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [responseState, responseMembers] = await Promise.all([
-          axiosInstance.get('http://localhost:3001/state'),
-          axiosInstance.get('http://localhost:3001/members'),
-        ]);
-        setData(responseState.data);
-        setUser(responseMembers.data);
+    axiosInstance
+      .get(`/api/meal/my-histories`)
+      .then((response) => {
+        const responseData = response.data.sort(
+          (a, b) => a.historyId - b.historyId
+        );
+        const newMealStates = [];
+        const newTimes = [];
+        const newShowButton = responseData.map((item) => item.status);
+
+        responseData.forEach((item) => {
+          const serverTime = new Date(item.board.mealTime);
+          const currentTime = new Date();
+          const mealState = serverTime < currentTime;
+          newMealStates.push(mealState);
+          newTimes.push({ id: item.historyId, time: item.board.mealTime });
+        });
+
+        setMealStates(newMealStates);
+        setTimes(newTimes);
+        setData(responseData);
+        setShowButton(newShowButton);
         setIsLoading(false);
-      } catch (error) {
+      })
+      .catch((error) => {
         console.log(error);
         setIsLoading(false);
-      }
-    };
-
-    fetchData();
+      });
   }, []);
 
   // 리뷰 작성하는 로직, 사람이 여러명일 수 있기에 맵으로 돌린 이전 리뷰들과 함께 객체 상태로 리뷰를 저장하도록 했다.
-  const handleReviewChange = (userId, e) => {
+  const handleReviewChange = (historyId, e) => {
     const newReview = e.target.value;
     setUserReviews((prevReviews) => ({
       ...prevReviews,
-      [userId]: newReview,
+      [historyId]: newReview,
     }));
   };
 
   // 리뷰 post 요청 보내는 곳. userId로 사람을 식별해서 객체 중 같은 아이디를 가진 리뷰를 유저 아이디쪽으로 보내도록 함.
-  const handleReviewSubmit = (userId) => {
-    const comment = userReviews[userId];
+  const handleReviewSubmit = (historyId) => {
+    const comment = userReviews[historyId];
 
     axiosInstance
-      .post(`/members/all`, {
-        name: '이부분에는',
-        img: '로그인한 사용자 정보를 담는 거임!',
+      .post(`/api/meal/my-histories/${historyId}`, {
+        name: '사용자 닉네임 보내야 함',
         comment,
+        likeClicked,
       })
       .then((response) => {
         const updatedData = response.data;
@@ -81,24 +103,26 @@ const UserState = () => {
   // 좋아요 구현한 부분
   // patch 메소드로 해당 유저의 like 값을 1 증가시키는 요청을 보내기
   const handleLike = (userId) => {
-    axiosInstance
-      .patch(`/${userId}`, {
-        like: user.find((el) => el.id === userId).like + 1,
-      })
-      .then((response) => {
-        const updatedUser = response.data;
-        setUser((data) =>
-          data.map((el) => (el.id === updatedUser.id ? updatedUser : el))
-        );
-        setLikeClicked(true);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    setLikeClicked(!likeClicked);
+    // axiosInstance
+    //   .patch(`/${userId}`, {
+    //     like: data.find((el) => el.id === userId).like + 1,
+    //   })
+    //   .then((response) => {
+    //     const updatedUser = response.data;
+    //     setData((data) =>
+    //       data.map((el) => (el.id === updatedUser.id ? updatedUser : el))
+    //     );
+    //     setLikeClicked(true);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   };
 
   // 팝업이랑 모달 관리하는 부분
   function handleOpen() {
+    setSelectedPostIndex(null);
     setModalEffect(false);
 
     if (popup) {
@@ -116,16 +140,25 @@ const UserState = () => {
   function handlePopup(postId) {
     setPostId(postId);
     setPopup(!popup);
+    setSelectedPostIndex(postId);
+
+    // 특정 게시글의 버튼 상태 변경
+    const updatedShowButton = [...showButton];
+    updatedShowButton[postId] = !updatedShowButton[postId];
+    setShowButton(updatedShowButton);
+
+    setSelectedPostIndex(postId);
+
+    console.log(
+      '이걸 axios로 보내야 함. 현재는 fasle 버튼 누르고 난 후에 true니까 이 함수 밖에서 보내야할듯..?',
+      showButton[postId]
+    );
   }
 
   function handleModalTrue() {
     setModalEffect(true);
     setModal(!modal);
     setPopup(false);
-
-    setData((prevData) =>
-      prevData.map((el) => (el.id === postId ? { ...el, state: true } : el))
-    );
   }
 
   function handleModalFalse() {
@@ -146,6 +179,17 @@ const UserState = () => {
       modalContent.scrollTo(0, 0);
     }
   }
+
+  // 시간을 메인처럼 변환하기
+  const convertMealTime = (mealTime) => {
+    const date = new Date(mealTime);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hours = date.getHours();
+    const meridiem = hours < 12 ? '오전' : '오후';
+    const formattedHours = hours % 12 || 12;
+    return `${month}/${day}일 ${meridiem} ${formattedHours}시`;
+  };
 
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -174,52 +218,57 @@ const UserState = () => {
           <BackYellow />
         </BackGround>
         <Header
-          iconSrc="/svg/header-logout.svg"
-          fnc="logout"
+          iconSrc="/svg/header-back.svg"
+          fnc="back"
           scrollPosition={scrollPosition}
           scrollNumber={10}
         />
+
         {isLoading ? (
           <Loading />
         ) : (
-          data &&
-          user && (
+          data && (
             <>
               <Posts>
                 {data.map((el, idx) => {
                   const isDisabled = buttonDisabled[el.id]; // 버튼의 활성화 상태 가져오기
+                  const { title, mealTime, total } = el.board;
+                  const convertedMealTime = convertMealTime(mealTime);
+
                   return (
                     <div
-                      className={el.state ? 'post opacity' : 'post'}
+                      className={mealState[idx] ? 'post opacity' : 'post'}
                       key={idx}
                     >
-                      <div className={el.state ? 'complete' : 'before'}></div>
+                      <div
+                        className={mealState[idx] ? 'complete' : 'before'}
+                      ></div>
                       <div>
                         <ul>
-                          <li>{el.title}</li>
+                          <li>{title}</li>
                           <li>
-                            <img src="svg/main-date.svg" alt="날짜아이콘" />
-                            <span>{el.date}</span>
                             <img src="svg/main-time.svg" alt="시간아이콘" />
-                            <span>{el.time}</span>
+                            <span>{convertedMealTime}</span>
                             <img src="svg/main-people.svg" alt="아이콘" />
-                            <span>{el.part}</span>
+                            <span>{total}</span>
                           </li>
                         </ul>
                       </div>
-                      <button
-                        onClick={() => {
-                          scrollToTop();
-                          handlePopup(el.id);
-                        }}
-                        disabled={isDisabled || el.state}
-                      >
-                        {!el.state ? (
-                          <img src="svg/userstate-plus.svg" alt="확인버튼" />
-                        ) : (
-                          <img src="svg/userstate-minus.svg" alt="확인버튼" />
-                        )}
-                      </button>
+                      {!showButton[idx] && (
+                        <button
+                          onClick={() => {
+                            scrollToTop();
+                            handlePopup(el.historyId - 1);
+                          }}
+                          disabled={isDisabled || !mealState[idx]}
+                        >
+                          {mealState[idx] ? (
+                            <img src="svg/userstate-plus.svg" alt="확인버튼" />
+                          ) : (
+                            <img src="svg/userstate-minus.svg" alt="확인버튼" />
+                          )}
+                        </button>
+                      )}
                     </div>
                   );
                 })}
@@ -264,46 +313,59 @@ const UserState = () => {
                     </div>
                   </div>
                   <div className="modal-content">
-                    {user.map((el, idx) => {
-                      return (
-                        <div className="post" key={idx}>
-                          <div>
-                            <img src={el.img} alt="프로필 이미지" />
-                            <div>
-                              <div>
-                                <div>{el.nickname}</div>
-                                <div>{el.intro}</div>
+                    {selectedPostIndex !== null && (
+                      <>
+                        {data[selectedPostIndex].members
+                          .filter((member) => member.memberId !== myPageId)
+                          .map((member, idx) => {
+                            const imageUrl = `/api/mypages/${member.memberId}/image`;
+
+                            return (
+                              <div className="post" key={idx}>
+                                <div>
+                                  <img src={imageUrl} alt="프로필 이미지" />
+                                  <div>
+                                    <div>
+                                      <div>{member.nickName}</div>
+                                      <div>{member.introduce}</div>
+                                    </div>
+                                    <button
+                                      onClick={() => {
+                                        handleLike(member.id);
+                                      }}
+                                    >
+                                      <img
+                                        src={
+                                          likeClicked
+                                            ? '/svg/like-2.svg'
+                                            : '/svg/like.svg'
+                                        }
+                                        alt="좋아요"
+                                      />
+                                    </button>
+                                  </div>
+                                  <div>
+                                    <input
+                                      placeholder="한 줄 평가를 입력하세요. (최대 20글자)"
+                                      onChange={(e) =>
+                                        handleReviewChange(member.id, e)
+                                      }
+                                      maxLength="20"
+                                    />
+                                    <button
+                                      onClick={() =>
+                                        handleReviewSubmit(member.id)
+                                      }
+                                    >
+                                      확인
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
-                              <button
-                                onClick={() => {
-                                  handleLike(el.id);
-                                }}
-                                disabled={likeClicked}
-                              >
-                                <img
-                                  src={
-                                    likeClicked
-                                      ? '/svg/like-2.svg'
-                                      : '/svg/like.svg'
-                                  }
-                                  alt="좋아요"
-                                />
-                              </button>
-                            </div>
-                            <div>
-                              <input
-                                placeholder="한 줄 평가를 입력하세요. (최대 20글자)"
-                                onChange={(e) => handleReviewChange(el.id, e)}
-                                maxLength="20"
-                              />
-                              <button onClick={() => handleReviewSubmit(el.id)}>
-                                확인
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
+                            );
+                          })}
+                      </>
+                    )}
                   </div>
                 </div>
               </Modal>

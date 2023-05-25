@@ -53,6 +53,12 @@ export const Posts = styled.div`
     border-radius: 10px;
     margin-bottom: 20px;
     overflow: hidden;
+    cursor: default;
+
+    :hover {
+      filter: brightness(90%);
+      transition: filter 0.3s;
+    }
 
     > .before {
       background-image: linear-gradient(135deg, #ffd571, #ffac36);
@@ -262,7 +268,7 @@ export const Modal = styled.div`
     background-color: #fffaed;
     width: 100%;
     height: auto;
-    min-height: 280px;
+    min-height: 370px;
     max-height: 600px;
     border-radius: 15px 15px 0 0;
     letter-spacing: -0.05em;
@@ -312,7 +318,8 @@ export const Modal = styled.div`
 
     > div:last-child {
       overflow-y: auto;
-      height: 445px;
+      height: auto;
+      max-height: 445px;
       margin-top: 20px;
       padding: 0px 20px;
 
@@ -405,7 +412,7 @@ export const Modal = styled.div`
 
             button {
               width: 50px;
-              font-weight: 700;
+              font-weight: 500;
               border: none;
               color: white;
               border-radius: 0 5px 5px 0;

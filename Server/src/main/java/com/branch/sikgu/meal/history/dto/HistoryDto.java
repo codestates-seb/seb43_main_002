@@ -16,7 +16,7 @@ public class HistoryDto {
     @AllArgsConstructor
     public static class Response {
         private Long historyId;
-        private History.HistoryStatus status;
+        private boolean status;
         private BoardDto.BoardMemberResponse board;
         private List<MemberResponseDto.HistoryMemberResponse> members;
     }
@@ -28,5 +28,15 @@ public class HistoryDto {
     public static class Post {
         private Long boardId;
         private List<MemberResponseDto> members;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Patch {
+        @Setter
+        private Long historyId;
+        private boolean status;
     }
 }

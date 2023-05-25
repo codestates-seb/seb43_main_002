@@ -14,5 +14,9 @@ public interface HistoryMapper {
 
     HistoryDto.Response toResponseDto(History history);
 
-    History toEntity(HistoryDto.Post post);
+    History historyPatchDto_toHistory(HistoryDto.Patch patch);
+
+    default void updateEntity(History history, HistoryDto.Patch patchDto){
+        history.setHistoryStatus(patchDto.isStatus());
+    }
 }

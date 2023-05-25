@@ -3,6 +3,7 @@ package com.branch.sikgu.meal.history.controller;
 import com.branch.sikgu.meal.history.dto.HistoryDto;
 import com.branch.sikgu.meal.history.mapper.HistoryMapper;
 import com.branch.sikgu.meal.history.entity.History;
+import com.branch.sikgu.meal.history.repository.HistoryRepository;
 import com.branch.sikgu.meal.history.service.HistoryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @CrossOrigin(origins = "http://sik-gu.com.s3-website.ap-northeast-2.amazonaws.com")
@@ -36,6 +39,16 @@ public class HistoryController {
     @GetMapping("/my-histories")
     public ResponseEntity<List<HistoryDto.Response>> showMyHistory(Authentication authentication) {
         List<HistoryDto.Response> response = historyService.getMyHistory(authentication);
+        return ResponseEntity.ok(response);
+    }
+
+    // 프론트엔드에서 히스토리 상태를 리뷰완료/종료된 히스토리로 바꾸기 위한 API
+    @PatchMapping("/histories/{history-id}")
+    public ResponseEntity<HistoryDto.Response> patchHistory(@PathVariable("history-id") @Positive long historyId,
+                                       @Valid @RequestBody HistoryDto.Patch historyPatchDto) {
+        historyPatchDto.setHistoryId(historyId);
+        HistoryDto.Response response = historyService.updateHistory(historyId, historyPatchDto);
+
         return ResponseEntity.ok(response);
     }
 }

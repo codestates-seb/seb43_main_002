@@ -46,7 +46,7 @@ public class HistoryController {
     @PatchMapping("/histories/{history-id}")
     public ResponseEntity<HistoryDto.Response> patchHistory(@PathVariable("history-id") @Positive long historyId,
                                        @Valid @RequestBody HistoryDto.Patch historyPatchDto) {
-        historyPatchDto.setHistoryId(historyId);
+//        historyPatchDto.setHistoryId(historyId);
         HistoryDto.Response response = historyService.updateHistory(historyId, historyPatchDto);
 
         return ResponseEntity.ok(response);

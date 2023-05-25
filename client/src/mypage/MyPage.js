@@ -139,7 +139,7 @@ const MyPage = () => {
                               />
                             </li>
                             <li>{el.createdAt}</li>
-                            <li>dd{el.title}</li>
+                            <li>{el.title}</li>
                           </ul>
                         </div>
                       );

@@ -24,7 +24,7 @@ const UserState = () => {
   const [showButton, setShowButton] = useState([]);
 
   // 리뷰관련
-  const [likeClicked, setLikeClicked] = useState(false);
+  const [liked, setLiked] = useState([]);
   const [userReviews, setUserReviews] = useState({});
   const [buttonDisabled, setButtonDisabled] = useState([]);
   const myPageId = JSON.parse(sessionStorage.getItem('user')).memberId;
@@ -39,12 +39,26 @@ const UserState = () => {
   const [isLoading, setIsLoading] = useState(true);
   const mobileContainerRef = useRef(null);
 
-  // 유저가 참가한 식사 목록을 가져오고, 그 식사에 참여한 유저의 목록도 같이 불러옴.
-
+  // 1시간마다 상태를 갱신시켜줌.
   useEffect(() => {
+    fetchData(); // 초기 데이터를 가져와야 함.
+
+    const interval = setInterval(fetchData, 60 * 60 * 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  // 유저가 참가한 식사 목록을 가져오고, 그 식사에 참여한 유저의 목록도 같이 불러옴.
+  // 위에서 이미 useEffect를 사용해서 불러오므로 여기는 그대로 둔당.
+  const fetchData = () => {
+    setIsLoading(true);
+
     axiosInstance
       .get(`/api/meal/my-histories`)
       .then((response) => {
+        console.log(response.data);
         const responseData = response.data.sort(
           (a, b) => a.historyId - b.historyId
         );
@@ -55,7 +69,7 @@ const UserState = () => {
         responseData.forEach((item) => {
           const serverTime = new Date(item.board.mealTime);
           const currentTime = new Date();
-          const mealState = serverTime < currentTime;
+          const mealState = serverTime > currentTime;
           newMealStates.push(mealState);
           newTimes.push({ id: item.historyId, time: item.board.mealTime });
         });
@@ -70,7 +84,7 @@ const UserState = () => {
         console.log(error);
         setIsLoading(false);
       });
-  }, []);
+  };
 
   // 리뷰 작성하는 로직, 사람이 여러명일 수 있기에 맵으로 돌린 이전 리뷰들과 함께 객체 상태로 리뷰를 저장하도록 했다.
   const handleReviewChange = (historyId, e) => {
@@ -82,18 +96,17 @@ const UserState = () => {
   };
 
   // 리뷰 post 요청 보내는 곳. userId로 사람을 식별해서 객체 중 같은 아이디를 가진 리뷰를 유저 아이디쪽으로 보내도록 함.
-  const handleReviewSubmit = (historyId) => {
-    const comment = userReviews[historyId];
+  const handleReviewSubmit = (memberId) => {
+    const comment = userReviews[memberId];
 
     axiosInstance
-      .post(`/api/meal/my-histories/${historyId}`, {
-        name: '사용자 닉네임 보내야 함',
+      .post(`/api/mypages/${memberId}/review`, {
+        memberId: myPageId,
         comment,
-        likeClicked,
+        like: liked[memberId],
       })
       .then((response) => {
-        const updatedData = response.data;
-        setData(updatedData);
+        console.log(response);
       })
       .catch((error) => {
         console.log(error);
@@ -101,9 +114,12 @@ const UserState = () => {
   };
 
   // 좋아요 구현한 부분
-  // patch 메소드로 해당 유저의 like 값을 1 증가시키는 요청을 보내기
+  // 기존 : patch 메소드로 해당 유저의 like 값을 1 증가시키는 요청을 보내기
   const handleLike = (userId) => {
-    setLikeClicked(!likeClicked);
+    const updatedLiked = [...liked];
+    updatedLiked[userId] = !updatedLiked[userId];
+    setLiked(updatedLiked);
+
     // axiosInstance
     //   .patch(`/${userId}`, {
     //     like: data.find((el) => el.id === userId).like + 1,
@@ -141,24 +157,30 @@ const UserState = () => {
     setPostId(postId);
     setPopup(!popup);
     setSelectedPostIndex(postId);
-
-    // 특정 게시글의 버튼 상태 변경
-    const updatedShowButton = [...showButton];
-    updatedShowButton[postId] = !updatedShowButton[postId];
-    setShowButton(updatedShowButton);
-
-    setSelectedPostIndex(postId);
-
-    console.log(
-      '이걸 axios로 보내야 함. 현재는 fasle 버튼 누르고 난 후에 true니까 이 함수 밖에서 보내야할듯..?',
-      showButton[postId]
-    );
   }
 
   function handleModalTrue() {
-    setModalEffect(true);
-    setModal(!modal);
-    setPopup(false);
+    const memberId = postId + 1;
+    if (postId !== null) {
+      axiosInstance
+        .patch(`/api/meal/histories/${memberId}`, {
+          historyId: memberId,
+          status: showButton[postId],
+        })
+        .then((response) => {
+          console.log('보내짐.');
+          // 특정 게시글의 버튼 상태 변경
+          const updatedShowButton = [...showButton];
+          updatedShowButton[postId] = !updatedShowButton[postId];
+          setShowButton(updatedShowButton);
+          setModalEffect(true);
+          setModal(!modal);
+          setPopup(false);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   }
 
   function handleModalFalse() {
@@ -336,7 +358,7 @@ const UserState = () => {
                                     >
                                       <img
                                         src={
-                                          likeClicked
+                                          liked[member.id]
                                             ? '/svg/like-2.svg'
                                             : '/svg/like.svg'
                                         }

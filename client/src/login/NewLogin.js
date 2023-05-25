@@ -63,7 +63,6 @@ const NewLogin = () => {
 
   const handleEmailChange = useCallback(
     (e) => {
-      console.log(1);
       setValues((prev) => ({
         ...prev,
         [e.target.name]: e.target.value,
@@ -102,6 +101,7 @@ const NewLogin = () => {
       axiosInstance
         .post('api/members/login', values)
         .then((response) => {
+          console.log(response.headers);
           const token = response.headers.authorization;
 
           if (token) {

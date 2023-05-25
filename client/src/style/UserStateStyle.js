@@ -215,6 +215,11 @@ export const PopUp = styled.div`
     border-radius: 50px;
     background-color: #c9c9c9;
     cursor: pointer;
+
+    :hover {
+      transition: filter 0.3s;
+      filter: brightness(90%);
+    }
   }
 
   button:first-child {

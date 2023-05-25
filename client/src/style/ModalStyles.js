@@ -152,10 +152,11 @@ export const ModalWhenInput = styled.input`
 `;
 
 export const ModalWhoButtonWrap = styled.div`
-  padding: 10px;
   border-radius: 10px;
   width: 360px;
+  height: 40px;
   background-color: white;
+  padding: 0 10px;
   display: flex;
   color: #505050;
   font-size: 12pt;
@@ -217,14 +218,14 @@ export const ModalTag = styled.input`
 
 export const ModalButtonWrap = styled.div`
   margin-top: 10px;
-  padding: 10px;
-  width: 340px;
+  /* padding: 10px; */
+  width: 360px;
   display: flex;
   justify-content: space-between;
 `;
 
 export const ModalButton = styled.button`
-  width: 148px;
+  width: 170px;
   height: 48px;
   border-radius: 40px;
   color: white;
@@ -237,7 +238,7 @@ export const ModalButton = styled.button`
   }
 `;
 export const CancelButton = styled.button`
-  width: 148px;
+  width: 170px;
   height: 48px;
   border-radius: 40px;
   color: white;

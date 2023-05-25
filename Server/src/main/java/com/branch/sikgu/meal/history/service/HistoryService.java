@@ -50,13 +50,11 @@ public class HistoryService {
     }
 
     public HistoryDto.Response updateHistory (Long historyId, HistoryDto.Patch patchDto) {
-        History existingHistory = historyRepository.findByHistoryId(historyId);
-        historyMapper.updateEntity(existingHistory, patchDto);
-        History updatedHistory = historyRepository.save(existingHistory);
+        History originalHistory = historyRepository.findByHistoryId(historyId);
+        originalHistory.setStatus(patchDto.isStatus());
+        historyRepository.save(originalHistory);
 
-        HistoryDto.Response response = historyMapper.toResponseDto(updatedHistory);
-
-        return response;
+        return historyMapper.toResponseDto(originalHistory);
     }
 
     // 멤버가 참여한 History를 조회하는 서비스
@@ -90,7 +88,7 @@ public class HistoryService {
                     // Create HistoryDto.Response with converted entities
                     HistoryDto.Response historyResponseDto = new HistoryDto.Response(
                             history.getHistoryId(),
-                            history.isHistoryStatus(),
+                            history.isStatus(),
                             boardResponse,
                             memberResponses);
 

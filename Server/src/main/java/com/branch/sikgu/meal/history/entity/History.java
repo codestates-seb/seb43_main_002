@@ -43,7 +43,7 @@ public class History {
     private List<Review> reviews = new ArrayList<>();
 
     @Column(name = "status")
-    private boolean HistoryStatus = false;
+    private boolean status = false;
 
 //    @Column(name = "status")
 //    @Enumerated(EnumType.STRING)

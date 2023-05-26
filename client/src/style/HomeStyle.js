@@ -20,6 +20,24 @@ const slideOut = keyframes`
   }
 `;
 
+const widthAnimationIn = keyframes`
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 90%;
+  }
+`;
+
+const widthAnimationOut = keyframes`
+  0% {
+    width: 90%;
+  }
+  100% {
+    width: 0%;
+  }
+`;
+
 export const MainWrap = styled.div`
   padding: 0px;
   height: 100%;
@@ -74,10 +92,10 @@ export const MainWrap = styled.div`
 
 export const SearchSpan = styled.input`
   display: ${(onSearch) => (onSearch ? 'block' : 'none')};
-  margin-left: 15px;
+  margin-right: 15px;
   padding: 0px 10px;
   height: 30px;
-  width: 73%;
+  width: 90%;
   border: none;
   border-radius: 50px;
   background-color: rgba(255, 255, 255, 0.5);
@@ -85,6 +103,14 @@ export const SearchSpan = styled.input`
   border-radius: 10px;
   border: none;
   background-color: #ffddac;
+  animation: ${(props) =>
+    props.inputEffect
+      ? css`
+          ${widthAnimationIn} 0.5s ease-in-out forwards;
+        `
+      : css`
+          ${widthAnimationOut} 0.5s ease-in-out forwards;
+        `};
 `;
 
 export const HeaderBackWrap = styled.div`
@@ -342,8 +368,12 @@ export const FooterCicleWrap = styled.div`
 
 export const RefreshButton = styled.img`
   position: absolute;
-  margin-left: 300px;
+  top: 16px;
+  right: 48px;
   width: 17px;
   height: 17px;
   cursor: pointer;
+  /* display: ${(props) => (props.inputEffect ? 'block' : 'none')}; */
+  opacity: ${(props) => (props.inputEffect ? 1 : 0)};
+  transition: opacity 0.3s ease-in-out;
 `;

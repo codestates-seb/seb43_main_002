@@ -58,7 +58,6 @@ const UserState = () => {
     axiosInstance
       .get(`/api/meal/my-histories`)
       .then((response) => {
-        console.log(response.data);
         const responseData = response.data.sort(
           (a, b) => a.historyId - b.historyId
         );
@@ -69,6 +68,7 @@ const UserState = () => {
         responseData.forEach((item) => {
           const serverTime = new Date(item.board.mealTime);
           const currentTime = new Date();
+          // 이부분
           const mealState = serverTime > currentTime;
           newMealStates.push(mealState);
           newTimes.push({ id: item.historyId, time: item.board.mealTime });
@@ -153,13 +153,14 @@ const UserState = () => {
     }
   }
 
-  function handlePopup(postId) {
-    setPostId(postId);
+  function handlePopup(postMemberId) {
+    setPostId(postMemberId);
     setPopup(!popup);
-    setSelectedPostIndex(postId);
+    setSelectedPostIndex(postMemberId);
   }
 
   function handleModalTrue() {
+    console.log(postId, showButton);
     const memberId = postId + 1;
     if (postId !== null) {
       axiosInstance
@@ -168,7 +169,7 @@ const UserState = () => {
           status: showButton[postId],
         })
         .then((response) => {
-          console.log('보내짐.');
+          console.log('보내짐.', showButton[postId]);
           // 특정 게시글의 버튼 상태 변경
           const updatedShowButton = [...showButton];
           updatedShowButton[postId] = !updatedShowButton[postId];

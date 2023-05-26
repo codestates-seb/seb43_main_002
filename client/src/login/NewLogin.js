@@ -101,8 +101,7 @@ const NewLogin = () => {
       axiosInstance
         .post('api/members/login', values)
         .then((response) => {
-          console.log(response.headers);
-          const token = response.headers.authorization;
+          const token = response.data;
 
           if (token) {
             const decoded = jwt_decode(token);

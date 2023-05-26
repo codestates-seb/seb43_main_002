@@ -24,7 +24,7 @@ export const Mobile = styled.div`
   position: relative;
   width: 400px;
   height: 100%;
-  padding: 20px;
+  padding: 20px 0;
   background-image: url(/svg/backlogo.svg);
   background-repeat: no-repeat;
   background-size: 50%;
@@ -34,6 +34,26 @@ export const Mobile = styled.div`
 export const Posts = styled.div`
   position: relative;
   letter-spacing: -0.05em;
+  padding: 0 20px;
+  height: 710px;
+  overflow-y: scroll;
+
+  /* 스크롤바 */
+  ::-webkit-scrollbar {
+    display: none;
+    width: 8px; /* 스크롤바 너비 */
+  }
+
+  /* 스크롤바 thumb */
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 */
+    border-radius: 4px; /* 스크롤바 모서리 반경 */
+  }
+
+  /* 스크롤바 track */
+  ::-webkit-scrollbar-track {
+    background-color: transparent; /* 스크롤바 트랙 색상 */
+  }
 
   > .opacity {
     > div:nth-child(2) > ul > li:first-child {

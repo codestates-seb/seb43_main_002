@@ -233,6 +233,12 @@ const Map = () => {
           {currentAddress && `현재 위치: ${currentAddress}`}
         </div>
       </div>
+      {currentAddress === null ? (
+        <div className="loading">
+          <img src="/svg/loding.svg" alt="로딩이미지" />
+          위치 정보를 불러오는 중입니다.
+        </div>
+      ) : null}
       <MapContainer>
         <ButtonContainer animate={animation}>{categoryButtons}</ButtonContainer>
         <Mapbox ref={mapRef} id="map"></Mapbox>

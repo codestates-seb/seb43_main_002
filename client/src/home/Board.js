@@ -31,7 +31,7 @@ import {
 import axiosInstance from '../axiosConfig';
 
 // eslint-disable-next-line react/prop-types
-const Board = ({ board, setIsModalOpenNew }) => {
+const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [postComment, setPostComment] = useState({
     body: '',

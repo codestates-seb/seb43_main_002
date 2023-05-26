@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+
 const SexInfomaitonWrap = styled.div`
   padding-bottom: 15px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);

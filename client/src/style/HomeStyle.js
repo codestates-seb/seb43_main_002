@@ -1,4 +1,24 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
+const slideIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+`;
+
+const slideOut = keyframes`
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+`;
 
 export const MainWrap = styled.div`
   padding: 0px;
@@ -31,6 +51,24 @@ export const MainWrap = styled.div`
     ::-webkit-scrollbar-thumb {
       background-color: transparent;
     }
+  }
+
+  .none {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .slide-in {
+    opacity: 1;
+    animation: ${slideIn} 0.7s ease-out;
+  }
+
+  .slide-out {
+    opacity: 0;
+    animation: ${slideOut} 0.7s ease-out;
   }
 `;
 
@@ -197,14 +235,6 @@ export const BoardsWrap = styled.div`
   position: relative;
   background-color: transparent;
   z-index: 1;
-
-  .none {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 `;
 
 export const BoardWrap = styled.article`

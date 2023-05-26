@@ -32,6 +32,7 @@ export const Title = styled.div`
     font-size: 24pt;
     font-weight: 700;
     color: white;
+    cursor: default;
   }
 
   > button {

@@ -23,7 +23,7 @@ const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
   function handleClick() {
     if (fnc === 'logout') {
       sessionStorage.removeItem('user');
-      sessionStorage.removeItem(process.env.REACT_APP_JWT_TOKEN_NAME);
+      sessionStorage.removeItem('jwt');
       alert('로그아웃 되었습니다.');
       dispatch(logout());
       navigate('/');

@@ -28,9 +28,7 @@ function App() {
     // null 일 때 고민해보기
     // eslint-disable-next-line no-debugger
     // debugger;
-    const storedToken = sessionStorage.getItem(
-      process.env.REACT_APP_JWT_TOKEN_NAME
-    );
+    const storedToken = sessionStorage.getItem('jwt');
     if (JsonUser && storedToken) {
       dispatch(login(JsonUser));
     }

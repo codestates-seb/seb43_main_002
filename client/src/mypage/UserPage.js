@@ -25,9 +25,7 @@ const UserPage = () => {
   const [follow, setFollow] = useState();
   const [isFollower, setIsFollower] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const accessToken = sessionStorage.getItem(
-    process.env.REACT_APP_JWT_TOKEN_NAME
-  );
+  const accessToken = sessionStorage.getItem('jwt');
   const imageUrl = `/api/mypages/${userId}/image`;
 
   useEffect(() => {

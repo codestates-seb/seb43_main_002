@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import { useNavigate } from 'react-router-dom';
 import {
   LoginContainer,
@@ -18,7 +19,8 @@ import { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../store/userSlice';
 import jwt_decode from 'jwt-decode';
-import axiosInstance from '../axiosConfig';
+// import axiosInstance from '../axiosConfig';
+import axios from 'axios';
 
 const emailRegex = /^[\w-]+(.[\w-]+)@([\w-]+.)+[a-zA-Z]{2,7}$/;
 const passwordRegex = /^(?=.[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -96,41 +98,39 @@ const NewLogin = () => {
     [values.password]
   );
 
-  const handleSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      axiosInstance
-        .post('api/members/login', values)
-        .then((response) => {
-          const token = response.headers.authorization;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post('http://14.72.7.98:8080/api/members/login', values)
+      .then((response) => {
+        const token = response.data;
+        if (token) {
+          const decoded = jwt_decode(token);
 
-          if (token) {
-            const decoded = jwt_decode(token);
+          const user = {
+            email: decoded.email,
+            nickname: decoded.nickname,
+            memberId: decoded.memberId,
+          };
 
-            const user = {
-              email: decoded.email,
-              nickname: decoded.nickname,
-              memberId: decoded.memberId,
-            };
+          sessionStorage.setItem('user', JSON.stringify(user)); // 세션스토리지에 user정보 저장
+          sessionStorage.setItem('jwt', token); // sessionStorage에 토큰 저장
 
-            sessionStorage.setItem('user', JSON.stringify(user)); // 세션스토리지에 user정보 저장
-            sessionStorage.setItem('jwt', token); // sessionStorage에 토큰 저장
+          dispatch(login(user));
 
-            dispatch(login(user));
-            alert(`${user.nickname}님, 식사는 잡쉈어?`);
-            navigate('api/boards');
-          } else if (!token) {
-            alert('인증정보를 받아오지 못했습니다.');
-            navigate('/');
-          }
-        })
-        .catch((error) => {
-          alert('이메일과 비밀번호가 맞게 작성됐는지 확인하세요.');
-          console.error('로그인 에러:', error);
-        });
-    },
-    [dispatch, navigate, values]
-  );
+          alert(`${user.nickname}님, 식사는 잡쉈어?`);
+          navigate('api/boards');
+        } else if (!token) {
+          alert('인증정보를 받아오지 못했습니다.');
+          console.log(response);
+          navigate('/');
+        }
+      })
+      .catch((error) => {
+        alert('이메일과 비밀번호가 맞게 작성됐는지 확인하세요.');
+        console.error('로그인 에러:', error);
+      });
+  };
 
   return (
     <>

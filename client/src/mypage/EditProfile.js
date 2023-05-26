@@ -39,9 +39,7 @@ const EditProfile = () => {
   const [image, setImage] = useState();
 
   const [isLoading, setIsLoading] = useState(true);
-  const accessToken = sessionStorage.getItem(
-    process.env.REACT_APP_JWT_TOKEN_NAME
-  );
+  const accessToken = sessionStorage.getItem('jwt');
   const mobileContainerRef = useRef(null);
 
   useEffect(() => {

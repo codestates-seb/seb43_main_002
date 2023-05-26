@@ -9,21 +9,26 @@ import { StateButton, SubmitWrap } from '../style/BoardStyle';
 import { useNavigate } from 'react-router-dom';
 
 const CommentsWrap = styled.div`
-  margin-top: 10px;
-  padding: 10px 0px 0px 10px;
-  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  width: 100%;
+  margin-top: 15px;
+  padding-bottom: 15px;
+  height: auto;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   display: flex;
+  overflow: hidden;
 `;
 
 const CommentProfileWrap = styled.img`
-  padding: 10px;
   height: 40px;
   width: 40px;
   border-radius: 50%;
+  background-color: #cdeeff;
 `;
 
 const ContentWrap = styled.div`
-  padding-left: 20px;
+  padding-left: 10px;
+  width: auto;
+  white-space: pre-wrap;
 `;
 
 const ProfiletWrap = styled.div`
@@ -36,7 +41,8 @@ const CommentNameWrap = styled.h2`
   width: auto;
   height: 30px;
   padding: 0px;
-  font-size: 12px;
+  margin: 0;
+  font-size: 10pt;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,20 +50,24 @@ const CommentNameWrap = styled.h2`
 `;
 
 const CommentContentWrap = styled.div`
-  margin-top: 10px;
-  padding: 10px;
   font-size: 12px;
+  color: #505050;
+  width: 270px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  height: auto;
 `;
 
 const CommentStateWrap = styled.div`
   padding: 0px;
   display: flex;
+  width: 270px;
 `;
 
 const AcceptButton = styled.button`
   border-radius: 10px;
   font-size: 10px;
-  margin-top: 10px;
+  margin-top: 5px;
   width: 40px;
   height: 15px;
   display: flex;
@@ -74,7 +84,7 @@ const AcceptButton = styled.button`
 
 const RefuseButton = styled.button`
   border-radius: 10px;
-  margin-top: 10px;
+  margin-top: 5px;
   font-size: 10px;
   width: 40px;
   height: 15px;

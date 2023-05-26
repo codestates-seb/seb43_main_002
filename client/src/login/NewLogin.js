@@ -63,7 +63,6 @@ const NewLogin = () => {
 
   const handleEmailChange = useCallback(
     (e) => {
-      console.log(1);
       setValues((prev) => ({
         ...prev,
         [e.target.name]: e.target.value,
@@ -102,7 +101,7 @@ const NewLogin = () => {
       axiosInstance
         .post('api/members/login', values)
         .then((response) => {
-          const token = response.headers.authorization;
+          const token = response.data;
 
           if (token) {
             const decoded = jwt_decode(token);

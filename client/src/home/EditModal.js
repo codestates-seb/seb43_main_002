@@ -28,12 +28,16 @@ import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs';
 
 const ModalDay = styled(DatePicker)`
   padding: 10px;
-  margin-left: 20px;
-  width: 325px;
-  font-size: 14px;
-  border-radius: 4px;
+  height: 40px;
+  width: 360px;
+  font-size: 12pt;
+  border-radius: 10px;
   box-sizing: border-box;
   text-align: center;
+  color: #505050;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
 `;
 
 const EditModal = ({ isOpen, onClose, board }) => {

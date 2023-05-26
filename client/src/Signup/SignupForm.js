@@ -178,7 +178,7 @@ const NewSignupForm = () => {
       !name ||
       !password ||
       !confirmPassword ||
-      !gender ||
+      gender === null ||
       !birthday
     ) {
       alert('모든 정보를 입력해주세요.');
@@ -236,7 +236,7 @@ const NewSignupForm = () => {
             }}
           />
           <CheckDuplicateButton type="button" onClick={checkDuplicateEmail}>
-            이 버튼을 눌러 이메일 중복 확인하기!
+            이메일 중복 확인
           </CheckDuplicateButton>
           {emailError && <Error>{emailError}</Error>}
 
@@ -255,7 +255,7 @@ const NewSignupForm = () => {
             }}
           />
           <CheckDuplicateButton type="button" onClick={checkDuplicateNickname}>
-            이 버튼을 눌러 별명 중복 확인하기!
+            활동명 중복 확인
           </CheckDuplicateButton>
           {nicknameError && <Error>{nicknameError}</Error>}
           <div className="form-gender">
@@ -326,7 +326,7 @@ const NewSignupForm = () => {
             }}
           />
           <CheckPasswordButton type="button" onClick={handlePassword}>
-            이 버튼을 눌러 비밀번호 일치여부 확인하기!
+            비밀번호 일치 여부 확인
           </CheckPasswordButton>
           {errors.lengthError && <Error>{errors.lengthError}</Error>}
           <Text>

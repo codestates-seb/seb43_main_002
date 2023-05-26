@@ -27,9 +27,17 @@ const Map = () => {
 
   // 지정된 위치에 마커와 인포윈도우 표시
   const displayMarker = (locPosition, place, index) => {
+    let pinImage = {
+      url: '/svg/map-main.svg', // 핀 이미지의 경로를 수정해야 합니다.
+      size: new window.kakao.maps.Size(30, 30), // 핀 이미지의 크기를 조정할 수 있습니다.
+      origin: new window.kakao.maps.Point(0, 0),
+      anchor: new window.kakao.maps.Point(15, 30), // 핀 이미지의 앵커 포인트를 조정할 수 있습니다.
+    };
+
     let marker = new window.kakao.maps.Marker({
       map: mapInstance.current,
       position: locPosition,
+      icon: pinImage, // 핀 이미지 설정
     });
     marker.index = index;
     let message = `
@@ -180,7 +188,7 @@ const Map = () => {
       onClick={() => searchAndDisplayPlacesByCategory(category)}
       key={category}
     >
-      <img src="/svg/userpage-like.svg" alt="아이콘" />
+      <img src="/svg/map-icon.svg" alt="아이콘" />
       {category}
     </CategoryButton>
   ));
@@ -207,7 +215,7 @@ const Map = () => {
           <iframe
             title="Expanded Result"
             src={`https://place.map.kakao.com/m/${result.id}`}
-            style={{ width: '100%', height: '10%', border: 'none' }}
+            style={{ width: '100%', height: '100%', border: 'none' }}
           />
         )}
       </ResultItem>
@@ -217,12 +225,13 @@ const Map = () => {
   return (
     <MainWrap>
       <div>
-        <Header
-          iconSrc="/svg/header-logout.svg"
-          fnc="logout"
-          scrollNumber={10}
-        />
-        {currentAddress && `현재 위치: ${currentAddress}`}
+        <Header iconSrc="/svg/header-back.svg" fnc="back" scrollNumber={10} />
+        <div>
+          {currentAddress && (
+            <img src="/svg/map-location.svg" alt="위치아이콘" />
+          )}
+          {currentAddress && `현재 위치: ${currentAddress}`}
+        </div>
       </div>
       <MapContainer>
         <ButtonContainer animate={animation}>{categoryButtons}</ButtonContainer>
@@ -237,10 +246,8 @@ const Map = () => {
         >
           <img src="/svg/location.svg" alt="현재위치" />
         </CurrentLocationButton>
-        <SearchResults
-          animate={animation}
-          style={{ height: expandedResult !== null ? '45%' : '30%' }} // 확장된 결과가 있으면 높이를 500px로, 그렇지 않으면 200px로 변경
-        >
+        <SearchResults animate={animation} expandedResult={expandedResult}>
+          <img src="/svg/main-logo-2.svg" alt="로고" />
           {resultItems}
         </SearchResults>
       </MapContainer>

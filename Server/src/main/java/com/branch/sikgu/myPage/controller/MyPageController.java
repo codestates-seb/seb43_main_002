@@ -39,8 +39,8 @@ public class MyPageController {
     @PatchMapping("/{memberId}")
     public ResponseEntity<Void> updateMyPage(
             @PathVariable Long memberId,
-            @RequestPart("myPageRequestDto") MyPageRequestDto myPageRequestDto,
-            @RequestPart("file") MultipartFile file,
+            @RequestPart(required = false, name = "myPageRequestDto") MyPageRequestDto myPageRequestDto,
+            @RequestPart(required = false, name = "file") MultipartFile file,
             Authentication authentication) throws IOException {
             myPageService.updateMyPage(memberId, myPageRequestDto, authentication, file);
             return ResponseEntity.ok().build();
@@ -49,14 +49,7 @@ public class MyPageController {
     @GetMapping("/test")
     public String test() {
 
-        return "/HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO/" +
-                "/HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO/" +
-                "/HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO/" +
-                "/HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO/" +
-                "/HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO/" +
-                "/HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO/" +
-                "/HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO/" +
-                "/HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO//HELLO/";
+        return "/HELLO/";
     }
 
     @PostMapping("/{myPageId}/follow")

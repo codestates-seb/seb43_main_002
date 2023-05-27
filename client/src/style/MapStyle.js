@@ -28,6 +28,25 @@ export const MainWrap = styled.div`
       }
     }
   }
+
+  .loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+
+    > img {
+      margin-bottom: 25px;
+    }
+  }
 `;
 
 export const HeaderBackWrap = styled.div`

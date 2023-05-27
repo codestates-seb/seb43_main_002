@@ -61,6 +61,13 @@ export const Posts = styled.div`
       text-decoration: line-through;
     }
   }
+  > .none {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   > .post {
     background-color: white;
@@ -345,7 +352,7 @@ export const Modal = styled.div`
       overflow-y: auto;
       height: auto;
       max-height: 445px;
-      margin-top: 20px;
+      margin: 20px 0px 55px 0px;
       padding: 0px 20px;
 
       /* 스크롤바 */

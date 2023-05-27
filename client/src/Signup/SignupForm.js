@@ -87,7 +87,7 @@ const useCheckDuplicate = (
         }
       })
       .catch((error) => {
-        setError('인터넷 연결을 확인하세요.');
+        setError('서버가 유지보수 중이거나, 인터넷 연결이 끊겨있습니다.');
       });
   }, [errorMessage, successMessage, url, validate, value]);
 

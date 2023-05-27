@@ -16,6 +16,7 @@ const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
   const navigate = useNavigate();
 
   const [onSearch, setOnSerach] = useState(true);
+  const [inputEffect, setInputEffect] = useState(false);
   const [searchValue, setSearchValue] = useState('');
 
   const dispatch = useDispatch();
@@ -32,13 +33,18 @@ const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
     } else if (fnc === 'search') {
       // console.log('검색');
       setOnSerach(false);
+      setInputEffect(true);
     }
   }
 
   const SearchPost = () => {
     dispatch(setSearchTerm(searchValue));
     setSearchValue('');
-    setOnSerach(true); // 검색 후에는 onSearch 값을 false로 변경
+    setInputEffect(false);
+    setTimeout(() => {
+      setOnSerach(true);
+    }, 500);
+    // console.log(onSearch);
   };
 
   const handleRefresh = () => {
@@ -57,24 +63,27 @@ const Header = ({ iconSrc, fnc, scrollPosition, scrollNumber }) => {
           <div></div>
           {onSearch ? (
             <>
-              <div>Sik:Gu</div>
+              <div className="font">Sik:Gu</div>
               <button onClick={handleClick}>
                 <img src={iconSrc} alt="아이콘" />
               </button>
             </>
           ) : (
             <>
-              <SearchSpan
-                value={searchValue}
-                placeholder="Search..."
-                onChange={handleSearch}
-              ></SearchSpan>
-              <RefreshButton
-                src="/svg/header-refresh.svg"
-                alt="수정버튼"
-                onClick={handleRefresh}
-              ></RefreshButton>
-              <button onClick={SearchPost}>
+              <div className="search">
+                <SearchSpan
+                  value={searchValue}
+                  onChange={handleSearch}
+                  inputEffect={inputEffect}
+                ></SearchSpan>
+                <RefreshButton
+                  src="/svg/header-refresh.svg"
+                  alt="수정버튼"
+                  onClick={handleRefresh}
+                  inputEffect={inputEffect}
+                ></RefreshButton>
+              </div>
+              <button className="search-btn" onClick={SearchPost}>
                 <img src={iconSrc} alt="아이콘" />
               </button>
             </>

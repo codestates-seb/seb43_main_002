@@ -20,6 +20,8 @@ import { login } from '../store/userSlice';
 import jwt_decode from 'jwt-decode';
 import axiosInstance from '../axiosConfig';
 
+// HN
+
 const emailRegex = /^[\w-]+(.[\w-]+)@([\w-]+.)+[a-zA-Z]{2,7}$/;
 const passwordRegex = /^(?=.[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 // //이메일 유효성 검사
@@ -117,19 +119,25 @@ const NewLogin = () => {
 
             dispatch(login(user));
             alert(`${user.nickname}님, 식사는 잡쉈어?`);
-            navigate('api/boards');
+            navigate('/api/boards');
           } else if (!token) {
             alert('인증정보를 받아오지 못했습니다.');
             navigate('/');
           }
         })
         .catch((error) => {
-          alert('이메일과 비밀번호가 맞게 작성됐는지 확인하세요.');
+          if (error.response && error.response.status >= 500) {
+            setServerError(true);
+          } else {
+            alert('이메일과 비밀번호가 맞게 작성됐는지 확인하세요.');
+          }
           console.error('로그인 에러:', error);
         });
     },
     [dispatch, navigate, values]
   );
+
+  const [serverError, setServerError] = useState(false);
 
   return (
     <>
@@ -165,6 +173,7 @@ const NewLogin = () => {
           values.password === '' ? null : (
             <Error>{messages.passwordError}</Error>
           )}
+          {serverError && <Error>서버 유지보수 중입니다.</Error>}
           <LoginButton type="submit">Login</LoginButton>
           <Error>{messages.accessError}</Error>
         </LoginForm>

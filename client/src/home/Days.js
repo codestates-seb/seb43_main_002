@@ -64,7 +64,6 @@ const Days = () => {
           //   0
           // ).getDate();
           nextDate.setDate(currentDate.getDate() + 1);
-          // console.log('today:', today);
           // console.log('sixDate:', sixDate);
 
           // console.log('nextDate:', nextDate.getDate());
@@ -100,10 +99,18 @@ const Days = () => {
     
     dispatch(fetchBoards());
   }, [dispatch]);
+
+  // HN
+  const [boardEffect, setBoardEffect] = useState(false);
+
+  useEffect(() => {
+    setBoardEffect(true);
+  }, [selectedDateIndex]);
   
   const handleClick = (index) => {
     const selectedDay = today + index;
     setSelectedDateIndex(selectedDay);
+    setBoardEffect(false); 
   };
   
   // 검색어 변경 핸들러 함수를 추가합니다.
@@ -113,6 +120,7 @@ const Days = () => {
     // };
     
     // useSelector에서 selectFilteredBoards를 사용하여 검색 결과를 가져옵니다.
+    
     const filteredBoards = useSelector(selectFilteredBoards).filter((board) => {
       const boardDate = new Date(board.mealTime).getDate();
       return boardDate === selectedDateIndex;
@@ -157,14 +165,14 @@ const Days = () => {
           })}
         </SlideContainer>
       </DayWrap>
-      <div className="boards">
-        <BoardsWrap>
-          {sortedBoards.map((board, idx) => (
-            <Board key={idx} board={board} setIsModalOpenNew={setIsModalOpenNew}/>
-          ))}
-          {sortedBoards.length === 0 ? (
+      {sortedBoards.length === 0 ? (
             <div className='none'>작성된 게시글이 없습니다.</div>
           ) : null}
+      <div className={boardEffect ? 'boards slide-in' : 'boards slide-out'}>
+        <BoardsWrap>
+          {sortedBoards.map((board, idx) => (
+            <Board key={idx} board={board} setIsModalOpenNew={setIsModalOpenNew} selectedDateIndex={selectedDateIndex}/>
+          ))}
         </BoardsWrap>
       </div>
 

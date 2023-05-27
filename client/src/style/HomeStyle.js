@@ -1,4 +1,42 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
+const slideIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+`;
+
+const slideOut = keyframes`
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+`;
+
+const widthAnimationIn = keyframes`
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 90%;
+  }
+`;
+
+const widthAnimationOut = keyframes`
+  0% {
+    width: 90%;
+  }
+  100% {
+    width: 0%;
+  }
+`;
 
 export const MainWrap = styled.div`
   padding: 0px;
@@ -15,7 +53,7 @@ export const MainWrap = styled.div`
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 630px;
+    height: 100%;
     margin: 0px 5px;
     overflow-y: scroll;
     position: relative;
@@ -32,14 +70,32 @@ export const MainWrap = styled.div`
       background-color: transparent;
     }
   }
+
+  .none {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .slide-in {
+    opacity: 1;
+    animation: ${slideIn} 0.7s ease-out;
+  }
+
+  .slide-out {
+    opacity: 0;
+    animation: ${slideOut} 0.7s ease-out;
+  }
 `;
 
 export const SearchSpan = styled.input`
   display: ${(onSearch) => (onSearch ? 'block' : 'none')};
-  margin-left: 15px;
+  margin-right: 15px;
   padding: 0px 10px;
   height: 30px;
-  width: 73%;
+  width: 90%;
   border: none;
   border-radius: 50px;
   background-color: rgba(255, 255, 255, 0.5);
@@ -47,6 +103,14 @@ export const SearchSpan = styled.input`
   border-radius: 10px;
   border: none;
   background-color: #ffddac;
+  animation: ${(props) =>
+    props.inputEffect
+      ? css`
+          ${widthAnimationIn} 0.5s ease-in-out forwards;
+        `
+      : css`
+          ${widthAnimationOut} 0.5s ease-in-out forwards;
+        `};
 `;
 
 export const HeaderBackWrap = styled.div`
@@ -197,14 +261,6 @@ export const BoardsWrap = styled.div`
   position: relative;
   background-color: transparent;
   z-index: 1;
-
-  .none {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 `;
 
 export const BoardWrap = styled.article`
@@ -312,8 +368,12 @@ export const FooterCicleWrap = styled.div`
 
 export const RefreshButton = styled.img`
   position: absolute;
-  margin-left: 300px;
+  top: 16px;
+  right: 48px;
   width: 17px;
   height: 17px;
   cursor: pointer;
+  /* display: ${(props) => (props.inputEffect ? 'block' : 'none')}; */
+  opacity: ${(props) => (props.inputEffect ? 1 : 0)};
+  transition: opacity 0.3s ease-in-out;
 `;

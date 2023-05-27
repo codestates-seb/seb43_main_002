@@ -27,6 +27,7 @@ const UserState = () => {
   const [liked, setLiked] = useState([]);
   const [userReviews, setUserReviews] = useState({});
   const [buttonDisabled, setButtonDisabled] = useState([]);
+  const [historyFrontId, setHistoryFrontId] = useState([]);
   const myPageId = JSON.parse(sessionStorage.getItem('user')).memberId;
 
   // 팝업 모달 관련
@@ -68,8 +69,7 @@ const UserState = () => {
         responseData.forEach((item) => {
           const serverTime = new Date(item.board.mealTime);
           const currentTime = new Date();
-          // 이부분
-          const mealState = serverTime > currentTime;
+          const mealState = serverTime < currentTime;
           newMealStates.push(mealState);
           newTimes.push({ id: item.historyId, time: item.board.mealTime });
         });
@@ -98,18 +98,19 @@ const UserState = () => {
   // 리뷰 post 요청 보내는 곳. userId로 사람을 식별해서 객체 중 같은 아이디를 가진 리뷰를 유저 아이디쪽으로 보내도록 함.
   const handleReviewSubmit = (memberId) => {
     const comment = userReviews[memberId];
+    const reCountHistoryId = historyFrontId + 1;
 
     axiosInstance
       .post(`/api/mypages/${memberId}/review`, {
-        memberId: myPageId,
+        historyId: reCountHistoryId,
         comment,
         like: liked[memberId],
       })
       .then((response) => {
-        console.log(response);
+        alert('한줄평이 등록 되었습니다🙏');
       })
       .catch((error) => {
-        console.log(error);
+        alert('이미 평가한 사용자입니다.');
       });
   };
 
@@ -119,21 +120,6 @@ const UserState = () => {
     const updatedLiked = [...liked];
     updatedLiked[userId] = !updatedLiked[userId];
     setLiked(updatedLiked);
-
-    // axiosInstance
-    //   .patch(`/${userId}`, {
-    //     like: data.find((el) => el.id === userId).like + 1,
-    //   })
-    //   .then((response) => {
-    //     const updatedUser = response.data;
-    //     setData((data) =>
-    //       data.map((el) => (el.id === updatedUser.id ? updatedUser : el))
-    //     );
-    //     setLikeClicked(true);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
   };
 
   // 팝업이랑 모달 관리하는 부분
@@ -153,14 +139,16 @@ const UserState = () => {
     }
   }
 
-  function handlePopup(postMemberId) {
+  // 버튼 눌렀을 때 실행
+  function handlePopup(postMemberId, idx) {
     setPostId(postMemberId);
     setPopup(!popup);
-    setSelectedPostIndex(postMemberId);
+    setSelectedPostIndex(idx);
+    // 좋아요에서 필요함..
+    setHistoryFrontId(postMemberId);
   }
 
   function handleModalTrue() {
-    console.log(postId, showButton);
     const memberId = postId + 1;
     if (postId !== null) {
       axiosInstance
@@ -169,7 +157,7 @@ const UserState = () => {
           status: showButton[postId],
         })
         .then((response) => {
-          console.log('보내짐.', showButton[postId]);
+          // console.log('보내짐.', showButton[postId]);
           // 특정 게시글의 버튼 상태 변경
           const updatedShowButton = [...showButton];
           updatedShowButton[postId] = !updatedShowButton[postId];
@@ -253,6 +241,9 @@ const UserState = () => {
           data && (
             <>
               <Posts>
+                {data.length === 0 && (
+                  <div className="none">참가한 식사가 없습니다.</div>
+                )}
                 {data.map((el, idx) => {
                   const isDisabled = buttonDisabled[el.id]; // 버튼의 활성화 상태 가져오기
                   const { title, mealTime, total } = el.board;
@@ -281,7 +272,7 @@ const UserState = () => {
                         <button
                           onClick={() => {
                             scrollToTop();
-                            handlePopup(el.historyId - 1);
+                            handlePopup(el.historyId - 1, idx);
                           }}
                           disabled={isDisabled || !mealState[idx]}
                         >
@@ -354,12 +345,12 @@ const UserState = () => {
                                     </div>
                                     <button
                                       onClick={() => {
-                                        handleLike(member.id);
+                                        handleLike(member.memberId);
                                       }}
                                     >
                                       <img
                                         src={
-                                          liked[member.id]
+                                          liked[member.memberId]
                                             ? '/svg/like-2.svg'
                                             : '/svg/like.svg'
                                         }
@@ -371,14 +362,14 @@ const UserState = () => {
                                     <input
                                       placeholder="한 줄 평가를 입력하세요. (최대 20글자)"
                                       onChange={(e) =>
-                                        handleReviewChange(member.id, e)
+                                        handleReviewChange(member.memberId, e)
                                       }
                                       maxLength="20"
                                     />
                                     <button
-                                      onClick={() =>
-                                        handleReviewSubmit(member.id)
-                                      }
+                                      onClick={() => {
+                                        handleReviewSubmit(member.memberId);
+                                      }}
                                     >
                                       확인
                                     </button>

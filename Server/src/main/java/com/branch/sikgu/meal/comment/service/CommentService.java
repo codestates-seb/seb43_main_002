@@ -41,7 +41,7 @@ public class CommentService {
         Board board = boardService.getBoardById(boardId);
 
         comment.setMember(member);
-        comment.setBoard(board);
+        comment.setSchedule(board);
 
         return commentRepository.save(comment);
     }
@@ -77,7 +77,7 @@ public class CommentService {
         if (!findmember.getMemberId().equals(memberService.findMember(authentication).getMemberId())) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_FORBIDDEN, HttpStatus.FORBIDDEN);
         }
-        comment.setCommentStatus(Comment.CommentStatus.DELETED_COMMENT);
+        comment.setStatus(Comment.CommentStatus.DELETED_COMMENT);
 
         commentRepository.delete(findComment);
     }
@@ -97,7 +97,7 @@ public class CommentService {
 
         // 댓글이 삭제되어 못찾는 경우
         Comment comment = optionalComment.get();
-        if (comment.getCommentStatus().equals(Comment.CommentStatus.DELETED_COMMENT)) {
+        if (comment.getStatus().equals(Comment.CommentStatus.DELETED_COMMENT)) {
             throw new BusinessLogicException(ExceptionCode.DELETED_COMMENT, HttpStatus.NO_CONTENT);
         }
 

@@ -49,6 +49,7 @@ export const Mobile = styled.div`
 export const Profile = styled.div`
   display: flex;
   letter-spacing: -0.05em;
+  cursor: default;
 
   > img {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -72,6 +73,11 @@ export const Profile = styled.div`
       margin: 0;
       padding: 0;
       color: white;
+
+      :hover {
+        transition: filter 0.3s;
+        filter: invert(5%);
+      }
 
       > li:first-child {
         font-size: 18pt;
@@ -106,6 +112,10 @@ export const Profile = styled.div`
           font-size: 10pt;
           align-items: center;
           list-style: none;
+          :hover {
+            transition: filter 0.3s;
+            filter: invert(5%);
+          }
 
           > li:first-child {
             width: 32px;
@@ -114,8 +124,14 @@ export const Profile = styled.div`
             border-radius: 50px;
           }
 
-          > li:last-child > div:first-child {
-            font-weight: 700;
+          > li:last-child {
+            > div:first-child {
+              font-weight: 700;
+            }
+
+            > div:last-child {
+              opacity: 0.7;
+            }
           }
         }
       }
@@ -127,6 +143,7 @@ export const NewPosts = styled.div`
   display: flex;
   flex-direction: column;
   letter-spacing: -0.05em;
+  cursor: default;
 
   h3 {
     margin: 20px 0 10px 0;
@@ -142,6 +159,11 @@ export const NewPosts = styled.div`
       width: 175px;
       padding: 10px;
       border-radius: 10px;
+
+      :hover {
+        transition: filter 0.3s;
+        filter: brightness(98%);
+      }
 
       ul {
         list-style: none;
@@ -176,6 +198,7 @@ export const History = styled.div`
   display: flex;
   flex-direction: column;
   letter-spacing: -0.05em;
+  cursor: default;
 
   h3 {
     margin: 20px 0 10px 0;
@@ -194,6 +217,11 @@ export const History = styled.div`
       box-sizing: border-box;
       border-radius: 10px;
       box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+
+      :hover {
+        transition: filter 0.3s;
+        filter: brightness(98%);
+      }
 
       > img {
         background-color: #cdeeff;
@@ -260,5 +288,6 @@ export const NotFound = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0.7;
   height: 80px;
 `;

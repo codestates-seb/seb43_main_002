@@ -39,6 +39,9 @@ const EditProfile = () => {
   const [image, setImage] = useState();
 
   const [isLoading, setIsLoading] = useState(true);
+  const [isNicknameValid, setIsNicknameValid] = useState(false);
+  const [isNicknameChanged, setIsNicknameChanged] = useState(false);
+
   const accessToken = sessionStorage.getItem('jwt');
   const mobileContainerRef = useRef(null);
 
@@ -76,43 +79,47 @@ const EditProfile = () => {
 
   // sumbit 하면서 이미지 파일과 함께 보내기 위해 formData를 사용하고, 다른 내용을 함께 넣음.
   const onSubmit = () => {
-    const formData = new FormData();
+    if (isNicknameValid || !isNicknameChanged) {
+      const formData = new FormData();
+      const datas = {
+        introduce: intro,
+        nickname,
+        name,
+        birthday: birthDay,
+        gender,
+        password,
+        image: userId,
+      };
 
-    const datas = {
-      introduce: intro,
-      nickname,
-      name,
-      birthday: birthDay,
-      gender,
-      password,
-      image: userId,
-    };
+      // 다른 데이터들도 폼데이터 쪽에 담는다.
+      formData.append('file', image);
+      formData.append(
+        'myPageRequestDto',
+        new Blob([JSON.stringify(datas)], { type: 'application/json' })
+      );
 
-    // 다른 데이터들도 폼데이터 쪽에 담는다.
-    formData.append('file', image);
-    formData.append(
-      'myPageRequestDto',
-      new Blob([JSON.stringify(datas)], { type: 'application/json' })
-    );
-
-    axiosInstance
-      .patch(`/api/mypages/${userId}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `${accessToken}`,
-        },
-      })
-      .then((response) => {
-        reset();
-        navigate(-1);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      axiosInstance
+        .patch(`/api/mypages/${userId}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `${accessToken}`,
+          },
+        })
+        .then((response) => {
+          reset();
+          navigate(-1);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      alert('활동명 중복 확인을 해주세요.');
+    }
   };
 
   // 아래는 유효성 검증 부분
   const handleCheckDuplicateNickname = () => {
+    setIsNicknameValid(true);
     const baseUrl = window.location.origin; // 현재 페이지의 기준 URL
 
     axiosInstance
@@ -154,8 +161,10 @@ const EditProfile = () => {
 
   const handleNickname = (e) => {
     setNickname(e.target.value);
-    if (e.target.value.length > 8) {
-      setNicknameError('8글자까지 입력 가능합니다.');
+    setIsNicknameChanged(true);
+
+    if (e.target.value.length > 10) {
+      setNicknameError('10글자까지 입력 가능합니다.');
     } else if (e.target.value.length === 0) {
       setNicknameError('활동명은 필수 입력입니다.');
     } else {

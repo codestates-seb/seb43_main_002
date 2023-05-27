@@ -5,6 +5,7 @@ export const TitleBox = styled.footer`
   top: -1px;
   left: 0;
   width: 100%;
+  padding: 20px;
   z-index: 1;
   border-radius: 0 0 10px 10px;
   background-image: ${(props) => props.backgroundImage};
@@ -16,7 +17,6 @@ export const Title = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
-  height: 50px;
 
   > div:first-child {
     width: 50px;

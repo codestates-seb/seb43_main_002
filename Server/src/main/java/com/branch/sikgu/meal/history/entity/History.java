@@ -42,4 +42,23 @@ public class History {
     @OneToMany(mappedBy = "history", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
+    @Column(name = "status")
+    private boolean status = false;
+
+//    @Column(name = "status")
+//    @Enumerated(EnumType.STRING)
+//    private HistoryStatus historyStatus = HistoryStatus.BEFORE_OVER_MEAL;
+
+//    public enum HistoryStatus {
+//        BEFORE_OVER_MEAL("식사시간이 지나지 않은 식사"),
+//        OVER_MEALTIME("식사시간이 지난 식사 이력"),
+//        END_REVIEW_HISTORY("평가가 종료된 식사 이력");
+//
+//        @Getter
+//        private final String historyStatus;
+//
+//        HistoryStatus(String historyStatus) {
+//            this.historyStatus = historyStatus;
+//        }
+//    }
 }

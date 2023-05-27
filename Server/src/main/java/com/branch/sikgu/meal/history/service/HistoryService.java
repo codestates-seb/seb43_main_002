@@ -1,5 +1,8 @@
 package com.branch.sikgu.meal.history.service;
 
+import com.branch.sikgu.exception.BusinessLogicException;
+import com.branch.sikgu.exception.ExceptionCode;
+import com.branch.sikgu.exception.HttpStatus;
 import com.branch.sikgu.meal.board.dto.BoardDto;
 import com.branch.sikgu.meal.board.entity.Board;
 import com.branch.sikgu.meal.board.mapper.BoardMapper;
@@ -8,6 +11,7 @@ import com.branch.sikgu.meal.comment.entity.Comment;
 import com.branch.sikgu.meal.comment.repository.CommentRepository;
 import com.branch.sikgu.meal.history.dto.HistoryDto;
 import com.branch.sikgu.meal.history.entity.History;
+import com.branch.sikgu.meal.history.mapper.HistoryMapper;
 import com.branch.sikgu.meal.history.repository.HistoryRepository;
 import com.branch.sikgu.member.dto.MemberResponseDto;
 import com.branch.sikgu.member.entity.Member;
@@ -33,14 +37,24 @@ public class HistoryService {
     private final BoardRepository boardRepository;
     private final HistoryRepository historyRepository;
     private final MemberMapper memberMapper;
+    private final HistoryMapper historyMapper;
     private final MemberService memberService;
     private final BoardMapper boardMapper;
+    private final History history;
 
     // 스케줄의 정해진 인원수가 모두 차거나, 스케줄의 식사시간이 지난 경우 해당 History 를 확정하는 서비스
     public History createHistory(long boardId) {
         History checkedHistory = checkingHistory(boardId);
 
         return historyRepository.save(checkedHistory);
+    }
+
+    public HistoryDto.Response updateHistory (Long historyId, HistoryDto.Patch patchDto) {
+        History originalHistory = historyRepository.findByHistoryId(historyId);
+        originalHistory.setStatus(patchDto.isStatus());
+        historyRepository.save(originalHistory);
+
+        return historyMapper.toResponseDto(originalHistory);
     }
 
     // 멤버가 참여한 History를 조회하는 서비스
@@ -74,6 +88,7 @@ public class HistoryService {
                     // Create HistoryDto.Response with converted entities
                     HistoryDto.Response historyResponseDto = new HistoryDto.Response(
                             history.getHistoryId(),
+                            history.isStatus(),
                             boardResponse,
                             memberResponses);
 

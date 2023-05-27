@@ -23,19 +23,19 @@ import { ko } from 'date-fns/esm/locale';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { createBoard } from '../store/boardSlice';
-import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs';
 
 const ModalDay = styled(DatePicker)`
   padding: 10px;
-  margin-left: 10px;
-  width: 340px;
-  font-size: 14px;
-  border-radius: 4px;
+  height: 40px;
+  width: 360px;
+  font-size: 12pt;
+  border-radius: 10px;
   box-sizing: border-box;
   text-align: center;
   cursor: pointer;
+  color: #505050;
   border: none;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
 `;
 
 const PostModal = ({ isOpen, onClose }) => {
@@ -169,6 +169,7 @@ const PostModal = ({ isOpen, onClose }) => {
   return (
     <ModalWrap isOpen={isOpen}>
       <ModalContent isOpen={isOpen} onSubmit={handleSubmit}>
+        <div></div>
         <ModalQurry>같이 먹을 음식은?</ModalQurry>
         <ModalInput
           placeholder="함께하고 싶은 음식을 적어주세요"
@@ -177,9 +178,9 @@ const PostModal = ({ isOpen, onClose }) => {
         ></ModalInput>
         <ModalQurry>같이 먹을 인원은?</ModalQurry>
         <ModalCount name="total" onChange={handleChange}>
-          <ModalCountbutton onClick={handleDecrement}>-</ModalCountbutton>
+          <ModalCountbutton onClick={handleDecrement}></ModalCountbutton>
           <span>{postBoard.total}</span>
-          <ModalPlusbutton onClick={handleIncrement}>+</ModalPlusbutton>
+          <ModalPlusbutton onClick={handleIncrement}></ModalPlusbutton>
         </ModalCount>
         <ModalQurry>언제 먹을까?</ModalQurry>
         <ModalDay
@@ -195,13 +196,9 @@ const PostModal = ({ isOpen, onClose }) => {
         />
         <ModalQurry>누구랑 먹을까?</ModalQurry>
         <ModalWhoButtonWrap>
-          <ModalWhobutton onClick={handleWhoChange}>
-            <BsArrowLeftShort />
-          </ModalWhobutton>
+          <ModalWhobutton onClick={handleWhoChange} arrow="prev" />
           <span>{postBoard.passedGender}</span>
-          <ModalWhobutton onClick={handleWhoChange}>
-            <BsArrowRightShort />
-          </ModalWhobutton>
+          <ModalWhobutton onClick={handleWhoChange} arrow="next" />
         </ModalWhoButtonWrap>
         <ModalQurry>추가로 입력할 정보는?</ModalQurry>
         <ModalText

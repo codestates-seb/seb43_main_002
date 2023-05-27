@@ -1,13 +1,9 @@
 package com.branch.sikgu.member.mapper;
 
-
-import com.branch.sikgu.image.Entity.Image;
 import com.branch.sikgu.member.dto.MemberResponseDto;
 import com.branch.sikgu.member.dto.MemberSignUpRequestDto;
 import com.branch.sikgu.member.dto.MemberSignUpResponseDto;
 import com.branch.sikgu.member.entity.Member;
-import com.branch.sikgu.myPage.dto.MyPageResponseDto;
-import com.branch.sikgu.myPage.entity.MyPage;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -26,7 +22,8 @@ public interface MemberMapper {
     default MemberResponseDto.HistoryMemberResponse memberToHistoryMemberResponseDto(Member member) {
         return new MemberResponseDto.HistoryMemberResponse(
                 member.getMemberId(),
-                member.getNickname()
+                member.getNickname(),
+                member.getMyPage().getIntroduce()
         );
     }
 }

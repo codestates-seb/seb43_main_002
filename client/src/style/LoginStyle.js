@@ -24,24 +24,26 @@ const BackYellow = styled.div`
 `;
 
 const LoginContainer = styled.div`
-display: flex;
-height : 100%;
-flex-direction: column;
-justify-content: center;
-align- items: center;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Main = styled.p`
-justify-content: center;
-align- items: center;`;
+  justify-content: center;
+  align-items: center;
+`;
 
 const LoginForm = styled.form`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align- items: center;
-margin: 20px, 20px;
-padding: 20px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px, 20px;
+  padding: 20px;
 `;
 
 const LoginTitle = styled.h1`

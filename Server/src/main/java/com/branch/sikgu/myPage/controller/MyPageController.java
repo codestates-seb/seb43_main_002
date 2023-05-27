@@ -15,7 +15,6 @@ import java.io.IOException;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "X-AUTH-TOKEN")
 @RequestMapping("/api/mypages")
 @AllArgsConstructor
 public class MyPageController {

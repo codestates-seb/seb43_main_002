@@ -15,10 +15,9 @@ export const MainWrap = styled.div`
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 550px;
+    height: 630px;
     margin: 0px 5px;
     overflow-y: scroll;
-    z-index: 9999;
     position: relative;
 
     ::-webkit-scrollbar {
@@ -53,13 +52,13 @@ export const SearchSpan = styled.input`
 export const HeaderBackWrap = styled.div`
   padding: 0px;
   display: flex;
-  height: 30%;
   width: 100%;
   /* border: 1px solid black; */
-  border-bottom-left-radius: 15%;
-  border-bottom-right-radius: 15%;
-  position: absolute;
   background-image: linear-gradient(135deg, #ffd571, #ffac36);
+  box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 25px 25px;
+  height: 272px;
+  position: absolute;
   z-index: -1;
 `;
 
@@ -112,7 +111,7 @@ export const SearchWrap = styled.div`
 
 export const DayWrap = styled.div`
   padding: 0px 20px;
-  margin: 15px 0px;
+  margin-bottom: 10px;
   z-index: 1;
   /* border: 1px solid black; */
   background-color: transparent;
@@ -144,10 +143,14 @@ export const SlideContainer = styled.div`
   flex-wrap: nowrap;
   width: max-content;
   overflow-x: scroll;
-  padding-bottom: 10px;
 
   ::-webkit-scrollbar {
     height: 10px;
+  }
+
+  .test {
+    border-bottom: 1px solid white;
+    opacity: 0.7;
   }
 `;
 
@@ -159,16 +162,16 @@ export const WeekWrap = styled.div`
   padding: 0px;
   width: 100%;
   height: 17px;
+  font-weight: 700;
   /* border: 1px solid black; */
   position: relative;
 `;
 
 export const DayNumberWrap = styled.div`
   margin-top: 10px;
+  padding-bottom: 10px;
   width: 60%;
   /* height: 100%; */
-  padding: 0px;
-  /* border-bottom: 1px solid white; */
   position: relative;
   border-bottom: ${({ selected }) => selected && '2px solid white'};
 `;
@@ -194,24 +197,33 @@ export const BoardsWrap = styled.div`
   position: relative;
   background-color: transparent;
   z-index: 1;
+
+  .none {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const BoardWrap = styled.article`
-  margin-top: 10px;
-  padding: 10px;
+  margin-bottom: 20px;
+  padding: 15px;
   width: 100%;
   /* border: 1px solid black; */
   border-radius: 10px;
   background-color: white;
   z-index: 0;
   position: relative;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
 `;
 
 export const CompleteBoard = styled.div`
   position: relative;
+  margin-bottom: 20px;
 `;
 
 export const CompletedBack = styled.div`

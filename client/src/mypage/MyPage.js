@@ -139,7 +139,7 @@ const MyPage = () => {
                               />
                             </li>
                             <li>{el.createdAt}</li>
-                            <li>dd{el.title}</li>
+                            <li>{el.title}</li>
                           </ul>
                         </div>
                       );
@@ -153,9 +153,9 @@ const MyPage = () => {
               </NewPosts>
               <History>
                 <h3>식구랑 먹었던 이력</h3>
-                <div className={data.review ? '' : 'post'}>
-                  {data.recentReview ? (
-                    data.recentReview.slice(0, 4).map((el, idx) => {
+                {data.recentReview.length !== 0 ? (
+                  <div className={data.review ? '' : 'post'}>
+                    {data.recentReview.slice(0, 4).map((el, idx) => {
                       return (
                         <div key={idx}>
                           <img
@@ -177,13 +177,13 @@ const MyPage = () => {
                           </button>
                         </div>
                       );
-                    })
-                  ) : (
-                    <NotFound>
-                      <div>식구랑 먹었던 이력이 존재하지 않습니다.</div>
-                    </NotFound>
-                  )}
-                </div>
+                    })}
+                  </div>
+                ) : (
+                  <NotFound>
+                    <div>식구랑 먹었던 이력이 존재하지 않습니다.</div>
+                  </NotFound>
+                )}
               </History>
             </>
           )

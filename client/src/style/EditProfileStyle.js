@@ -84,6 +84,7 @@ export const ProfileImg = styled.div`
       background-color: white;
       top: 75px;
       left: 200px;
+      cursor: pointer;
 
       ::before {
         content: '+';
@@ -148,6 +149,11 @@ export const EditForm = styled.form`
         :last-child {
           margin-left: 20px;
         }
+
+        :hover {
+          filter: brightness(90%);
+          transition: filter 0.3s;
+        }
       }
 
       .active {
@@ -174,6 +180,11 @@ export const EditForm = styled.form`
       border-radius: 100px;
       border: none;
       box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+
+      :hover {
+        filter: brightness(90%);
+        transition: filter 0.3s;
+      }
     }
   }
 
@@ -185,6 +196,11 @@ export const EditForm = styled.form`
     color: white;
     border-radius: 100px;
     border: none;
+
+    :hover {
+      transition: filter 0.3s;
+      filter: invert(5%);
+    }
   }
 `;
 

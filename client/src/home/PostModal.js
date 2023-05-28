@@ -130,6 +130,12 @@ const PostModal = ({ isOpen, onClose }) => {
     }
   };
 
+  const genderMapping = {
+    ANY: '누구나 참여 가능',
+    FEMALE: '여성만 참여 가능',
+    MALE: '남성만 참여 가능',
+  };
+  const displayedGender = genderMapping[postBoard.passedGender];
   const handleSubmit = (e) => {
     e.preventDefault();
     // if (
@@ -199,7 +205,7 @@ const PostModal = ({ isOpen, onClose }) => {
         <ModalQurry>누구랑 먹을까?</ModalQurry>
         <ModalWhoButtonWrap>
           <ModalWhobutton onClick={handleWhoChange} arrow="prev" />
-          <span>{postBoard.passedGender}</span>
+          <span>{displayedGender}</span>
           <ModalWhobutton onClick={handleWhoChange} arrow="next" />
         </ModalWhoButtonWrap>
         <ModalQurry>추가로 입력할 정보는?</ModalQurry>

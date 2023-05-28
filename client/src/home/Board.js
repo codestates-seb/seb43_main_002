@@ -32,6 +32,8 @@ import axiosInstance from '../axiosConfig';
 
 // eslint-disable-next-line react/prop-types
 const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
+  const comments = useSelector((state) => state.comment.comments);
+  const userInfo = useSelector((state) => state.user.userInfo);
   const [commentOpen, setCommentOpen] = useState(false);
   const [postComment, setPostComment] = useState({
     body: '',
@@ -46,8 +48,6 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
   const amPm = hour >= 12 ? '오후' : '오전';
   const formattedDate = `${month}/${day}일 ${amPm} ${hour % 12}시`;
   const dispatch = useDispatch();
-  const comments = useSelector((state) => state.comment.comments);
-  const userInfo = useSelector((state) => state.user.userInfo);
   // const profile = useSelector((state) => state.profile.profile);
 
   const navigate = useNavigate();
@@ -91,6 +91,7 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
         alert(`식사매너 지켜주실 거죠??`);
         setIsBoard([...isBoard, postComment]);
         setPostComment({ body: '' });
+        console.log('comment:', comments);
       });
   };
 
@@ -127,7 +128,7 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
       });
   };
 
-  // console.log('보드:', board.boardId);
+  console.log('comment:', comments);
   // console.log('boards', board.mealTime);
   // console.log('complete', isRecruitmentComplete);
 

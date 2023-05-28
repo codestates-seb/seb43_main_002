@@ -42,7 +42,9 @@ const PostModal = ({ isOpen, onClose }) => {
   // const now = new Date()
   // const options = { timeZone: 'Asia/Seoul'};
   // const koreaTime = now.toLocaleString('en-US', options)
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(
+    new Date(Date.now() + 60 * 60 * 1000)
+  );
   const [tagList, setTagList] = useState([]);
 
   // useEffect(() => {

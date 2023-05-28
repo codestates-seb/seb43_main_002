@@ -36,11 +36,12 @@ const EditProfile = () => {
   const imageUrl = `/api/mypages/${userId}/image`;
 
   const [profileImage, setProfileImage] = useState();
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(null);
 
   const [isLoading, setIsLoading] = useState(true);
   const [isNicknameValid, setIsNicknameValid] = useState(false);
   const [isNicknameChanged, setIsNicknameChanged] = useState(false);
+  const [btnActive, setBtnActive] = useState([false, false]);
 
   const accessToken = sessionStorage.getItem('jwt');
   const mobileContainerRef = useRef(null);
@@ -92,7 +93,10 @@ const EditProfile = () => {
       };
 
       // 다른 데이터들도 폼데이터 쪽에 담는다.
-      formData.append('file', image);
+
+      if (image !== null) {
+        formData.append('file', image);
+      }
       formData.append(
         'myPageRequestDto',
         new Blob([JSON.stringify(datas)], { type: 'application/json' })
@@ -120,15 +124,19 @@ const EditProfile = () => {
   // 아래는 유효성 검증 부분
   const handleCheckDuplicateNickname = () => {
     setIsNicknameValid(true);
-    const baseUrl = window.location.origin; // 현재 페이지의 기준 URL
 
     axiosInstance
-      .post(`${baseUrl}/api/members/signup/checkduplicatenickname`, {
+      .post(`/api/members/signup/checkduplicatenickname`, {
         nickname,
       })
       .then((response) => {
         if (response.data === false) {
           alert('사용 가능한 활동명입니다.');
+          setBtnActive((prev) => {
+            const newState = [...prev];
+            newState[0] = true;
+            return newState;
+          });
         } else {
           setNicknameError('이미 활동중인 식구이름입니다.');
         }
@@ -156,6 +164,11 @@ const EditProfile = () => {
       setPasswordError('비밀번호가 일치하지 않습니다.');
     } else {
       setPasswordError(null);
+      setBtnActive((prev) => {
+        const newState = [...prev];
+        newState[1] = true;
+        return newState;
+      });
     }
   };
 
@@ -273,7 +286,11 @@ const EditProfile = () => {
                     defaultValue={data.nickname}
                     onChange={handleNickname}
                   />
-                  <button type="button" onClick={handleCheckDuplicateNickname}>
+                  <button
+                    type="button"
+                    onClick={handleCheckDuplicateNickname}
+                    className={btnActive[0] ? 'active' : ''}
+                  >
                     활동명 중복확인
                   </button>
                   {nicknameError && <Error>{nicknameError}</Error>}
@@ -355,7 +372,11 @@ const EditProfile = () => {
                       setConfirmPassword(e.target.value);
                     }}
                   />
-                  <button type="button" onClick={handlePassword}>
+                  <button
+                    type="button"
+                    onClick={handlePassword}
+                    className={btnActive[1] ? 'active' : ''}
+                  >
                     비밀번호 일치 여부 확인
                   </button>
                   {passwordError && <Error>{passwordError}</Error>}

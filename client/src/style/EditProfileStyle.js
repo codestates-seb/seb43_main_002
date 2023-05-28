@@ -202,6 +202,10 @@ export const EditForm = styled.form`
       filter: invert(5%);
     }
   }
+
+  .active {
+    background-image: linear-gradient(135deg, #ffd571, #ffac36) !important;
+  }
 `;
 
 export const EditIcon = styled.div`

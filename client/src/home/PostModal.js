@@ -76,7 +76,7 @@ const PostModal = ({ isOpen, onClose }) => {
 
   const handleDecrement = (e) => {
     e.preventDefault();
-    if (postBoard.people > 0) {
+    if (postBoard.total > 0) {
       setPostBoard((prevBoard) => ({
         ...prevBoard,
         total: prevBoard.total - 1,
@@ -172,7 +172,7 @@ const PostModal = ({ isOpen, onClose }) => {
     onClose: PropTypes.func.isRequired,
   };
 
-  // console.log(postBoard.mealTime);
+  console.log(postBoard.total);
 
   return (
     <ModalWrap isOpen={isOpen}>

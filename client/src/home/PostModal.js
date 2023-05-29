@@ -138,14 +138,14 @@ const PostModal = ({ isOpen, onClose }) => {
   const displayedGender = genderMapping[postBoard.passedGender];
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (
-    //   postBoard.title === '' ||
-    //   postBoard.total === 0 ||
-    //   postBoard.body === ''
-    // ) {
-    //   alert('모든 곳을 입력해주세요.');
-    //   return;
-    // }
+    if (
+      postBoard.title === '' ||
+      postBoard.total === 0 ||
+      postBoard.body === ''
+    ) {
+      alert('모든 곳을 입력해주세요.');
+      return;
+    }
     dispatch(createBoard(postBoard))
       .unwrap()
       .then(() => {

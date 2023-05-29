@@ -198,7 +198,7 @@ const EditModal = ({ isOpen, onClose, board }) => {
         ></ModalText>
         <Tag
           name="tags"
-          tagList={editedBoard.tags} // tagList prop 추가
+          tagList={editedBoard.tags}
           setTagList={(tagList) =>
             setEditedBoard((prevBoard) => ({ ...prevBoard, tags: tagList }))
           }

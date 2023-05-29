@@ -81,10 +81,15 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
       .then((res) => res.data);
     navigate(0);
   };
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handlePostComment(e);
+    }
+  };
 
   const handlePostComment = (e) => {
     e.preventDefault();
-    if (e.target.value === '') {
+    if (postComment.body === '') {
       alert('댓글을 입력해주세요');
       return;
     }
@@ -128,14 +133,8 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
         navigate(0);
       });
   };
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handlePostComment(e);
-    }
-  };
 
-  // console.log('isBoard:', isBoard);
+  console.log('comment:', postComment);
   // console.log('boards', board.mealTime);
   // console.log('complete', isRecruitmentComplete);
 
@@ -211,7 +210,7 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
                 ))}
               <CommentInputWrap>
                 <CommentInput
-                  onBlur={hanmdleComment}
+                  onChange={hanmdleComment}
                   onKeyDown={handleKeyPress}
                   placeholder="깨끗한 문화를 위해 노력해주세요."
                 />

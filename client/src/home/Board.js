@@ -84,6 +84,10 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
 
   const handlePostComment = (e) => {
     e.preventDefault();
+    if (e.target.value === '') {
+      alert('댓글을 입력해주세요');
+      return;
+    }
     dispatch(addComment({ boardId: board.boardId, comment: postComment }))
       .unwrap()
       .then(() => {

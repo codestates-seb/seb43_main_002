@@ -155,6 +155,7 @@ const EditModal = ({ isOpen, onClose, board }) => {
   return (
     <ModalWrap isOpen={isOpen}>
       <ModalContent isOpen={isOpen} onSubmit={handleSubmit}>
+        <div></div>
         <ModalQurry>같이 먹을 음식은?</ModalQurry>
         <ModalInput
           name="title"

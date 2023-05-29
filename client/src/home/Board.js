@@ -67,7 +67,7 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
     }
   }, [board.boardId, commentOpen, dispatch]);
 
-  const hanmdleComment = (e) => {
+  const handleComment = (e) => {
     e.preventDefault();
     const value = e.target.value;
     setPostComment({ ...postComment, body: value });
@@ -93,11 +93,11 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
         .unwrap()
         .then(() => {
           alert(`식사매너 지켜주실 거죠??`);
-          dispatch(fetchComments(board.boardId)).then(() => {
-            setIsBoard([...isBoard, postComment]);
-            setPostComment({ body: '' });
+          dispatch(fetchComments(board.boardId)).then((res) => {
+            setIsBoard(res.payload);
           });
-          navigate(0);
+          setPostComment({ body: '' });
+          // navigate(0);
         });
     }
   };
@@ -131,7 +131,7 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
       });
   };
 
-  // console.log('boards', board.mealTime);
+  console.log('value', postComment);
   // console.log('complete', isRecruitmentComplete);
 
   const imageUrl = `/api/mypages/${board.memberId}/image`;
@@ -206,7 +206,7 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
                 ))}
               <CommentInputWrap>
                 <CommentInput
-                  onChange={hanmdleComment}
+                  onChange={handleComment}
                   onKeyDown={handlePostComment}
                   placeholder="깨끗한 문화를 위해 노력해주세요."
                 />

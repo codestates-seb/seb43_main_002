@@ -178,8 +178,8 @@ const Comment = ({ comment, handlePeople, board }) => {
         content,
       })
     ).then(() => {
-      // 업데이트 완료 후의 동작을 수행
-      dispatch(fetchComments(board.boardId)); // 댓글 목록 다시 가져오기
+      dispatch(fetchComments(board.boardId));
+      navigate(0);
     });
     setEditing(false);
   };

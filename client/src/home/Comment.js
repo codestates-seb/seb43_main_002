@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteComment, updateComment } from '../store/commentSlice';
+import {
+  deleteComment,
+  updateComment,
+  fetchComments,
+} from '../store/commentSlice';
 import { BiEdit } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
 import { StateButton, SubmitWrap } from '../style/BoardStyle';
@@ -173,9 +177,11 @@ const Comment = ({ comment, handlePeople, board }) => {
         commentId: comment.commentId,
         content,
       })
-    );
+    ).then(() => {
+      // 업데이트 완료 후의 동작을 수행
+      dispatch(fetchComments(board.boardId)); // 댓글 목록 다시 가져오기
+    });
     setEditing(false);
-    navigate(0);
   };
 
   const handleDelete = () => {
@@ -184,8 +190,16 @@ const Comment = ({ comment, handlePeople, board }) => {
         commentId: comment.commentId,
       })
     );
-    navigate(0);
+    dispatch(fetchComments(board.boardId)).then(() => {
+      navigate(0);
+    });
   };
+
+  useEffect(() => {
+    if (editing) {
+      setContent(comment.body);
+    }
+  }, [editing, comment.body]);
 
   const isAuthor = userInfo && comment.memberId === userInfo.memberId;
 

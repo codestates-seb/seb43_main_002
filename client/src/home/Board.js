@@ -65,7 +65,7 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
         setIsBoard(res.payload)
       );
     }
-  }, [commentOpen, dispatch, board.boardId]);
+  }, [board.boardId, commentOpen, dispatch]);
 
   const hanmdleComment = (e) => {
     e.preventDefault();
@@ -89,8 +89,11 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
       .then(() => {
         console.log('댓글이 성공적으로 등록되었습니다.');
         alert(`식사매너 지켜주실 거죠??`);
-        setIsBoard([...isBoard, postComment]);
-        setPostComment({ body: '' });
+        dispatch(fetchComments(board.boardId)).then(() => {
+          setIsBoard([...isBoard, postComment]);
+          setPostComment({ body: '' });
+        });
+        // navigate(0);
         console.log('comment:', comments);
       });
   };
@@ -127,8 +130,14 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
         navigate(0);
       });
   };
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handlePostComment(e);
+    }
+  };
 
-  console.log('comment:', comments);
+  console.log('isBoard:', isBoard);
   // console.log('boards', board.mealTime);
   // console.log('complete', isRecruitmentComplete);
 
@@ -205,6 +214,7 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
               <CommentInputWrap>
                 <CommentInput
                   onBlur={hanmdleComment}
+                  onKeyDown={handleKeyPress}
                   placeholder="깨끗한 문화를 위해 노력해주세요."
                 />
                 <CommentButton onClick={handlePostComment}>답글</CommentButton>

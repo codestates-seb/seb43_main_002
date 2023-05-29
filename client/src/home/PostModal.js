@@ -172,8 +172,6 @@ const PostModal = ({ isOpen, onClose }) => {
     onClose: PropTypes.func.isRequired,
   };
 
-  console.log(postBoard.total);
-
   return (
     <ModalWrap isOpen={isOpen}>
       <ModalContent isOpen={isOpen} onSubmit={handleSubmit}>

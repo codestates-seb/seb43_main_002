@@ -142,11 +142,12 @@ const CancelButton = styled(EditButton)`
   }
 `;
 
-const Comment = ({ comment, handlePeople, board }) => {
+const Comment = ({ comment, handlePeople, board, setIsBoard }) => {
   Comment.propTypes = {
     comment: PropTypes.object.isRequired,
     handlePeople: PropTypes.string.isRequired,
     board: PropTypes.object.isRequired,
+    setIsBoard: PropTypes.func.isRequired,
   };
   const userInfo = useSelector((state) => state.user.userInfo);
 
@@ -154,9 +155,6 @@ const Comment = ({ comment, handlePeople, board }) => {
   const [content, setContent] = useState(comment.body);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // console.log(board);
-  // console.log(comment);
 
   const handleEdit = () => {
     setEditing(true);
@@ -187,10 +185,13 @@ const Comment = ({ comment, handlePeople, board }) => {
         commentId: comment.commentId,
         content,
       })
-    ).then(() => {
-      dispatch(fetchComments(board.boardId));
-      navigate(0);
-    });
+    )
+      .unwrap()
+      .then(() => {
+        dispatch(fetchComments(board.boardId)).then((res) =>
+          setIsBoard(res.payload)
+        );
+      });
     setEditing(false);
   };
 

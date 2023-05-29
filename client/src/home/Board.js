@@ -131,7 +131,7 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
       });
   };
 
-  console.log('value', postComment);
+  // console.log('value', postComment);
   // console.log('complete', isRecruitmentComplete);
 
   const imageUrl = `/api/mypages/${board.memberId}/image`;

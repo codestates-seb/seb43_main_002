@@ -170,8 +170,18 @@ const Comment = ({ comment, handlePeople, board }) => {
     setEditing(false);
     setContent(comment.body);
   };
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSave();
+    }
+  };
 
   const handleSave = () => {
+    if (content === '') {
+      alert('댓글을 입력해주세요');
+      return;
+    }
     dispatch(
       updateComment({
         commentId: comment.commentId,
@@ -206,6 +216,8 @@ const Comment = ({ comment, handlePeople, board }) => {
   const Boarduser = userInfo && board.memberId === userInfo.memberId;
   const imageUrl = `/api/mypages/${comment.memberId}/image`;
 
+  // console.log(content);
+
   return (
     <>
       {!!comment.body && (
@@ -238,6 +250,7 @@ const Comment = ({ comment, handlePeople, board }) => {
                 <EditComment
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
+                  onKeyDown={handleKeyPress}
                 ></EditComment>
                 <SubmitWrap>
                   <EditButton onClick={handleSave}>저장</EditButton>

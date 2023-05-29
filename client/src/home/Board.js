@@ -81,28 +81,25 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
       .then((res) => res.data);
     navigate(0);
   };
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handlePostComment(e);
-    }
-  };
 
   const handlePostComment = (e) => {
-    e.preventDefault();
-    if (postComment.body === '') {
-      alert('댓글을 입력해주세요');
-      return;
-    }
-    dispatch(addComment({ boardId: board.boardId, comment: postComment }))
-      .unwrap()
-      .then(() => {
-        alert(`식사매너 지켜주실 거죠??`);
-        dispatch(fetchComments(board.boardId)).then(() => {
-          setIsBoard([...isBoard, postComment]);
-          setPostComment({ body: '' });
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (postComment.body === '') {
+        alert('댓글을 입력해주세요');
+        return;
+      }
+      dispatch(addComment({ boardId: board.boardId, comment: postComment }))
+        .unwrap()
+        .then(() => {
+          alert(`식사매너 지켜주실 거죠??`);
+          dispatch(fetchComments(board.boardId)).then(() => {
+            setIsBoard([...isBoard, postComment]);
+            setPostComment({ body: '' });
+          });
+          navigate(0);
         });
-        navigate(0);
-      });
+    }
   };
 
   const handleDelete = () => {
@@ -134,7 +131,6 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
       });
   };
 
-  console.log('comment:', postComment);
   // console.log('boards', board.mealTime);
   // console.log('complete', isRecruitmentComplete);
 
@@ -211,7 +207,7 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
               <CommentInputWrap>
                 <CommentInput
                   onChange={hanmdleComment}
-                  onKeyDown={handleKeyPress}
+                  onKeyDown={handlePostComment}
                   placeholder="깨끗한 문화를 위해 노력해주세요."
                 />
                 <CommentButton onClick={handlePostComment}>답글</CommentButton>

@@ -96,7 +96,7 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
           dispatch(fetchComments(board.boardId)).then((res) => {
             setIsBoard(res.payload);
           });
-          setPostComment({ body: '' });
+          setPostComment({ ...postComment, body: '' });
           // navigate(0);
         });
     }
@@ -206,6 +206,7 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
                 ))}
               <CommentInputWrap>
                 <CommentInput
+                  value={postComment.body}
                   onChange={handleComment}
                   onKeyDown={handlePostComment}
                   placeholder="깨끗한 문화를 위해 노력해주세요."

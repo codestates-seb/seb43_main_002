@@ -51,8 +51,6 @@ const EditModal = ({ isOpen, onClose, board }) => {
     tags: [...board.tags],
   });
 
-  // console.log(editedBoard);
-
   const handleIncrement = (e) => {
     e.preventDefault();
     setEditedBoard((prevBoard) => ({
@@ -119,25 +117,21 @@ const EditModal = ({ isOpen, onClose, board }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (
-    //   editedBoard.title === '' ||
-    //   editedBoard.total === 0 ||
-    //   editedBoard.body === ''
-    // ) {
-    //   alert('모든 곳을 입력해주세요.');
-    //   return;
-    // }
-
+    if (
+      editedBoard.title === '' ||
+      editedBoard.total === 0 ||
+      editedBoard.body === ''
+    ) {
+      alert('모든 곳을 입력해주세요.');
+      return;
+    }
     dispatch(updateBoard({ boardId: board.boardId, board: editedBoard }))
       .unwrap()
       .then(() => {
-        console.log('게시물이 성공적으로 작성되었습니다.');
         onClose();
         navigate(0);
       })
-      .catch((error) => {
-        console.error('게시물 작성 중 오류가 발생했습니다.', error);
-      });
+      .catch((error) => {});
   };
 
   const navigate = useNavigate();
@@ -151,7 +145,7 @@ const EditModal = ({ isOpen, onClose, board }) => {
     onClose: PropTypes.func.isRequired,
     board: PropTypes.object.isRequired,
   };
-  // console.log(editedBoard);
+
   return (
     <ModalWrap isOpen={isOpen}>
       <ModalContent isOpen={isOpen} onSubmit={handleSubmit}>

@@ -87,28 +87,22 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
     dispatch(addComment({ boardId: board.boardId, comment: postComment }))
       .unwrap()
       .then(() => {
-        console.log('댓글이 성공적으로 등록되었습니다.');
         alert(`식사매너 지켜주실 거죠??`);
         dispatch(fetchComments(board.boardId)).then(() => {
           setIsBoard([...isBoard, postComment]);
           setPostComment({ body: '' });
         });
-        // navigate(0);
-        console.log('comment:', comments);
+        navigate(0);
       });
   };
 
   const handleDelete = () => {
     dispatch(deleteBoard(board.boardId))
       .then(() => {
-        console.log('게시물이 성공적으로 삭제되었습니다.');
         navigate(0);
       })
-      .catch((error) => {
-        console.error('게시물 삭제 중 오류가 발생했습니다.', error);
-      });
+      .catch((error) => {});
   };
-  // console.log('comment', comments);
 
   const isAuthor = userInfo && board.memberId === userInfo.memberId;
 
@@ -137,7 +131,7 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
     }
   };
 
-  console.log('isBoard:', isBoard);
+  // console.log('isBoard:', isBoard);
   // console.log('boards', board.mealTime);
   // console.log('complete', isRecruitmentComplete);
 

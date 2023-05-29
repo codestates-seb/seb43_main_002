@@ -64,7 +64,6 @@ const PostModal = ({ isOpen, onClose }) => {
   });
 
   const dispatch = useDispatch();
-  // console.log(postBoard);
 
   const handleIncrement = (e) => {
     e.preventDefault();
@@ -149,16 +148,10 @@ const PostModal = ({ isOpen, onClose }) => {
     dispatch(createBoard(postBoard))
       .unwrap()
       .then(() => {
-        console.log('게시물이 성공적으로 작성되었습니다.');
         onClose();
         alert(`식사매너 지켜주실 거죠??`);
         navigate(0);
-      })
-      .catch((error) => {
-        console.error('게시물 작성 중 오류가 발생했습니다.', error);
       });
-    // eslint-disable-next-line no-debugger
-    // debugger;
   };
 
   const navigate = useNavigate();

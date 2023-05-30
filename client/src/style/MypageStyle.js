@@ -41,7 +41,9 @@ export const Mobile = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #ffac36;
+
+    background-color: #888;
+
     border-radius: 10px;
   }
 

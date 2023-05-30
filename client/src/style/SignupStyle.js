@@ -42,6 +42,7 @@ const Mobile = styled.div`
 `;
 
 const SignupForm = styled.form`
+  position: relative;
   justify-content: center;
   align-items: center;
   padding: 20px;
@@ -54,7 +55,9 @@ const SignupForm = styled.form`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #ffac36;
+
+    background-color: #888;
+
     border-radius: 10px;
   }
 

@@ -41,7 +41,9 @@ export const Posts = styled.div`
   letter-spacing: -0.05em;
   padding: 0 20px;
   height: 710px;
+
   overflow-y: scroll;
+  position: relative;
 
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
@@ -51,7 +53,9 @@ export const Posts = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #ffac36;
+
+    background-color: #888;
+
     border-radius: 10px;
   }
 

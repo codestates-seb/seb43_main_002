@@ -56,6 +56,7 @@ const TagWrap = styled.div`
 const TagBlock = styled.div`
   margin-left: 10px;
   padding: 5px 10px;
+  margin: 5px 10px 5px 0;
   font-size: 12px;
   background-color: #ffddac;
   border-radius: 50px;

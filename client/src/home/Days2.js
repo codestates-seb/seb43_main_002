@@ -154,7 +154,7 @@ const Days = () => {
             const dayNumber = today + idx;
             const isSelected = dayNumber === selectedDateIndex;
             return (
-              <div className='test' key={idx}>
+              <div className='part' key={idx}>
                 <SelectedDay
                   id={idx}
                   el={el}

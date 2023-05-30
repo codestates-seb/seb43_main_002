@@ -53,8 +53,6 @@ export const MainWrap = styled.div`
     display: flex;
     justify-content: center;
     height: 75%;
-    margin: 0 10px;
-    padding: 0 0 30px 0;
     overflow-y: scroll;
     position: relative;
 
@@ -66,7 +64,7 @@ export const MainWrap = styled.div`
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: #ffac36;
+      background-color: #888;
       border-radius: 10px;
     }
 
@@ -181,6 +179,7 @@ export const DayWrap = styled.div`
   padding: 0px 20px;
   margin-bottom: 10px;
   z-index: 1;
+  width: 100%;
   /* border: 1px solid black; */
   background-color: transparent;
   display: flex;
@@ -192,7 +191,6 @@ export const DayWrap = styled.div`
 
 export const SelectedDay = styled.div`
   padding: 0px;
-  width: 50px;
   height: 100%;
   /* border: 1px solid black; */
   position: relative;
@@ -209,16 +207,17 @@ export const SlideContainer = styled.div`
   display: flex;
   overflow: hidden;
   flex-wrap: nowrap;
-  width: max-content;
+  width: 100%;
   overflow-x: scroll;
 
   ::-webkit-scrollbar {
     height: 10px;
   }
 
-  .test {
+  .part {
     border-bottom: 1px solid white;
     opacity: 0.7;
+    flex: 1;
   }
 `;
 
@@ -259,12 +258,16 @@ export const Button = styled.button`
 `;
 
 export const BoardsWrap = styled.div`
-  padding: 0px;
-  height: 80%;
+  padding: 0 20px;
   width: 100%;
   position: relative;
   background-color: transparent;
   z-index: 1;
+
+  /* > div:last-child {
+    background-color: red !important;
+    margin-bottom: 100px !important;
+  } */
 `;
 
 export const BoardWrap = styled.article`

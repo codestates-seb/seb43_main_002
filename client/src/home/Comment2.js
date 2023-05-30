@@ -69,7 +69,7 @@ const CommentStateWrap = styled.div`
   width: 270px;
 `;
 
-const FinalButton = styled.button`
+const AcceptButton = styled.button`
   border-radius: 10px;
   font-size: 10px;
   margin-top: 5px;
@@ -87,23 +87,23 @@ const FinalButton = styled.button`
   }
 `;
 
-// const RefuseButton = styled.button`
-//   border-radius: 10px;
-//   margin-top: 5px;
-//   font-size: 10px;
-//   width: 40px;
-//   height: 15px;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   text-align: center;
-//   background-color: #ffbebe;
-//   border: none;
-//   &:hover {
-//     background-color: #ff8888;
-//     color: white;
-//   }
-// `;
+const RefuseButton = styled.button`
+  border-radius: 10px;
+  margin-top: 5px;
+  font-size: 10px;
+  width: 40px;
+  height: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #ffbebe;
+  border: none;
+  &:hover {
+    background-color: #ff8888;
+    color: white;
+  }
+`;
 
 const EditComment = styled.input`
   padding: 10px;
@@ -143,13 +143,12 @@ const CancelButton = styled(EditButton)`
   }
 `;
 
-const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
+const Comment = ({ comment, handlePeople, board, setIsBoard }) => {
   Comment.propTypes = {
     comment: PropTypes.object.isRequired,
     handlePeople: PropTypes.string.isRequired,
     board: PropTypes.object.isRequired,
     setIsBoard: PropTypes.func.isRequired,
-    handlePopup: PropTypes.func.isRequired,
   };
   const userInfo = useSelector((state) => state.user.userInfo);
 
@@ -160,6 +159,10 @@ const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
 
   const handleEdit = () => {
     setEditing(true);
+  };
+
+  const handleSelect = () => {
+    handlePeople(comment);
   };
 
   const handleCancelEdit = () => {
@@ -217,7 +220,8 @@ const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
   const handleUser = () => {
     navigate(`/userpage/${comment.memberId}`);
   };
-  console.log(comment.selectionStatus);
+
+  // console.log(comment);
 
   return (
     <>
@@ -228,19 +232,11 @@ const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
               onClick={handleUser}
               src={imageUrl}
             ></CommentProfileWrap>
-            {comment.selectionStatus === 'SELECTION' && (
-              <FinalButton
-                onClick={() => handlePopup(board.boardId, comment.commentId)}
-              >
-                수락
-              </FinalButton>
-            )}
             {Boarduser && (
-              <FinalButton
-                onClick={() => handlePopup(board.boardId, comment.commentId)}
-              >
-                확인
-              </FinalButton>
+              <>
+                <AcceptButton onClick={handleSelect}>수락</AcceptButton>
+                <RefuseButton>거절</RefuseButton>
+              </>
             )}
           </ProfiletWrap>
           <ContentWrap>

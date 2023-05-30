@@ -69,7 +69,7 @@ const UserState = () => {
         responseData.forEach((item) => {
           const serverTime = new Date(item.board.mealTime);
           const currentTime = new Date();
-          const mealState = serverTime < currentTime;
+          const mealState = serverTime > currentTime;
           newMealStates.push(mealState);
           newTimes.push({ id: item.historyId, time: item.board.mealTime });
         });

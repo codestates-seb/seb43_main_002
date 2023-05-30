@@ -31,7 +31,12 @@ import {
 import axiosInstance from '../axiosConfig';
 
 // eslint-disable-next-line react/prop-types
-const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
+const Board = ({ board, setIsModalOpenNew, handlePopup }) => {
+  Board.propTypes = {
+    board: PropTypes.array.isRequired,
+    setIsModalOpenNew: PropTypes.func.isRequired,
+    handlePopup: PropTypes.func.isRequired,
+  };
   const comments = useSelector((state) => state.comment.comments);
   const userInfo = useSelector((state) => state.user.userInfo);
   const [commentOpen, setCommentOpen] = useState(false);
@@ -141,9 +146,7 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
   };
 
   // console.log('profile:', board);
-  Board.propTypes = {
-    board: PropTypes.array.isRequired,
-  };
+
   return (
     <>
       <CompleteBoard isRecruitmentComplete={isRecruitmentComplete}>
@@ -204,6 +207,7 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
                   <Comment
                     key={comment.commentId}
                     board={board}
+                    handlePopup={handlePopup}
                     comment={comment}
                     handlePeople={handlePeople}
                   />

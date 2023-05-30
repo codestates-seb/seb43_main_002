@@ -68,9 +68,7 @@ export const FooterWrap = styled.footer`
   position: absolute;
   bottom: 0;
 
-  padding-left: 0px;
-  padding-top: 0px;
-  padding-right: 0px;
+  padding: 0 0 5px 0;
   height: 7%;
   width: 100%;
   z-index: 100;

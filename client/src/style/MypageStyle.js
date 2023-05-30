@@ -28,6 +28,11 @@ export const Mobile = styled.div`
   padding: 20px;
   overflow-y: auto;
 
+  @media (max-width: 400px) {
+    // 모바일 기기에서는 화면에 꽉차게 해야함..
+    width: 100%;
+  }
+
   /* 스크롤바 */
   ::-webkit-scrollbar {
     display: none;
@@ -66,7 +71,6 @@ export const Profile = styled.div`
     flex-direction: column;
     justify-content: center;
     margin-left: 15px;
-    flex: 1;
 
     > ul {
       list-style: none;
@@ -112,9 +116,14 @@ export const Profile = styled.div`
           font-size: 10pt;
           align-items: center;
           list-style: none;
+
           :hover {
             transition: filter 0.3s;
             filter: invert(5%);
+          }
+
+          :first-child {
+            margin-right: 15px;
           }
 
           > li:first-child {
@@ -217,6 +226,10 @@ export const History = styled.div`
       box-sizing: border-box;
       border-radius: 10px;
       box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+
+      @media (max-width: 370px) {
+        width: 90%;
+      }
 
       :hover {
         transition: filter 0.3s;

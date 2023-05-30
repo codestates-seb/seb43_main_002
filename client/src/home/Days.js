@@ -13,71 +13,57 @@ import EditModal from './EditModal';
 import Board from './Board';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBoards, selectFilteredBoards } from '../store/boardSlice';
+import { PopUp } from '../style/UserStateStyle';
+import day from 'dayjs'
+import axiosInstance from '../axiosConfig';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const Days = () => {
-  const now = new Date();
-  // const sixday = now.getDate() + 6;
+  const navigate = useNavigate()
+  const now = day();
+
   const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-  // const dayOfWeek = now.getDay();
+
   const dispatch = useDispatch();
 
-
+  
   const [isModalOpenNew, setIsModalOpenNew] = useState(false);
 
   const closeModal = () => {
     setIsModalOpenNew(false);
   };
+  const sixday = now.add(6, 'day');
+  const [lastDate, setLastDate] = useState(sixday);
 
 
-  // const [searchTerm, setSearchTermState] = useState(searchValue);
-
-  // date를 앞뒤로 7일 씩 받아오기 -> state 저장?
   const [currentDate, setCurrentDate] = useState(now);
-  // const [lastDate, setLastDate] = useState(sixday);
-  const today = currentDate.getDate();
-  // const lastDayOfMonth = new Date(
-  //   currentDate.getFullYear(),
-  //   currentDate.getMonth() + 1,
-  //   0
-  // ).getDate();
-  // console.log('today:', sixday);
-  // 슬라이드 될 때 마다 새로운 date를 불러오기
-  // 슬라이드 방식 휠
+
+  const today = currentDate.date();
+
   const elRef = useRef();
   useEffect(() => {
     const el = elRef.current;
     if (el) {
       const onWheel = (e) => {
         e.preventDefault();
-        // const scrollAmount = e.deltaY > 0 ? 1 : -1;
-        const nextDate = new Date(currentDate);
-        // currentDate.setDate(currentDate.getDate() + 6);
-        // const sixDate = new Date(currentDate);
-        // console.log(sixDate);
-        // Y축? deltaY -> 반환값 스크롤량을 나타내는 Double 자료형 숫자 반환 위로 스크롤: 음(-)의 숫자 반환 아래로 스크롤: 양(+)의 숫자 반환. 스크롤 안 하면: 0 반환.
-        // 앞뒤로 최대 한번씩만 할 수 있는 변수
         if (e.deltaY > 0) {
-          // 아래로 스크롤 할 때 -> +의 숫자를 반환
-          // const lastDayOfMonth = new Date(
-          //   nextDate.getFullYear(),
-          //   nextDate.getMonth() + 1,
-          //   0
-          // ).getDate();
-          nextDate.setDate(currentDate.getDate() + 1);
-          // console.log('sixDate:', sixDate);
-
-          // console.log('nextDate:', nextDate.getDate());
-          if (nextDate.getMonth() !== currentDate.getMonth()) {
-            nextDate.setDate(1);
-            nextDate.setMonth(currentDate.getMonth() + 1);
+          const nextDate = currentDate.add(1, 'day');
+          if (nextDate.date() === 1) {
+            setCurrentDate(nextDate.add(1, 'month'));
+            setLastDate(nextDate.add(6, 'day'));
+          } else {
+            setCurrentDate(nextDate);
           }
-          setCurrentDate(nextDate);
         } else if (e.deltaY < 0) {
-          // 위로 스크롤 할 때 -> -의 숫자를 반환
-          const preDate = new Date(currentDate);
-          preDate.setDate(currentDate.getDate() - 1);
-
-          setCurrentDate(preDate);
+          const preDate = currentDate.subtract(1, 'day');
+          if (preDate.date() === day().date()) {
+            setCurrentDate(preDate.subtract(1, 'month'));
+            setLastDate(preDate.subtract(6, 'day'));
+          } else {
+            setCurrentDate(preDate);
+          }
         }
         el.scrollTo({
           behavior: 'smooth',
@@ -86,11 +72,11 @@ const Days = () => {
       el.addEventListener('wheel', onWheel);
       return () => el.removeEventListener('wheel', onWheel);
     }
-  }, [currentDate, today]);
+  }, [currentDate, today, lastDate]);
 
   const reorderedDays = [
-    ...daysOfWeek.slice(currentDate.getDay()),
-    ...daysOfWeek.slice(0, currentDate.getDay()),
+    ...daysOfWeek.slice(currentDate.day()),
+    ...daysOfWeek.slice(0, currentDate.day()),
   ];
 
   const [selectedDateIndex, setSelectedDateIndex] = useState(today);
@@ -100,7 +86,6 @@ const Days = () => {
     dispatch(fetchBoards());
   }, [dispatch]);
 
-  // HN
   const [boardEffect, setBoardEffect] = useState(false);
 
   useEffect(() => {
@@ -109,46 +94,71 @@ const Days = () => {
   
   const handleClick = (index) => {
     const selectedDay = today + index;
-    setSelectedDateIndex(selectedDay);
+    const selectedDayAdjusted = selectedDay > currentDate.daysInMonth() ? selectedDay - currentDate.daysInMonth() : selectedDay;
+  setSelectedDateIndex(selectedDayAdjusted);
     setBoardEffect(false); 
+    // console.log(selectedDayAdjusted)
   };
   
-  // 검색어 변경 핸들러 함수를 추가합니다.
-  // const handleSearchChange = (e) => {
-    //   setSearchTermState(e.target.value);
-    //   dispatch(setSearchTerm(e.target.value));
-    // };
-    
-    // useSelector에서 selectFilteredBoards를 사용하여 검색 결과를 가져옵니다.
-    
+
     const filteredBoards = useSelector(selectFilteredBoards).filter((board) => {
       const boardDate = new Date(board.mealTime).getDate();
       return boardDate === selectedDateIndex;
     });
-  // const boardexp = useSelector((state) => state.board.boards);
-  // console.log(selectedDateIndex);
-  
+
   const sortedBoards = filteredBoards.sort((a, b) => {
     const mealA = new Date(a.mealTime).getTime();
     const mealB = new Date(b.mealTime).getTime();
     return mealA - mealB;
   });
 
+
+  const [popup, setPopup] = useState(false);
+  const [selectBoard,setSelectBoard] =useState(null)
+  const [selectComment,setSelectComment] =useState(null)
+
+  // const selectBoard = useSelector((state)=>state.board.boards)
+  // console.log(sortedBoards)
+  const handlePopup = (boardId, commentId) => {
+    setPopup(true);
+    setSelectBoard(boardId)
+    setSelectComment(commentId)
+    console.log(boardId,commentId)
+  };
+
+  const handleSelect = () => {
+    axiosInstance
+    .patch(
+      `/api/boards/${selectBoard}/comments/${selectComment}/select`
+    )
+    .then((res) => res.data);
+
+  navigate(0);
+
+    setPopup(!popup);
+  };
+
+  const handleRefuse = () => {
+    axiosInstance
+    .patch(
+      `/api/boards/${selectBoard}/comments/${selectComment}/refuse`
+    )
+    .then((res) => res.data);
+    
+  navigate(0);
+
+    setPopup(!popup);
+  };
+
   return (
     <>
-      {/* <input
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={handleSearchChange}
-      /> */}
       <DayWrap ref={elRef}>
         <SlideContainer>
           {reorderedDays.map((el, idx) => {
             const dayNumber = today + idx;
             const isSelected = dayNumber === selectedDateIndex;
             return (
-              <div className='test' key={idx}>
+              <div className='part' key={idx}>
                 <SelectedDay
                   id={idx}
                   el={el}
@@ -157,7 +167,7 @@ const Days = () => {
                 >
                   <WeekWrap>{el}</WeekWrap>
                   <DayNumberWrap selected={isSelected}>
-                    {dayNumber}
+                  {dayNumber > currentDate.daysInMonth() ? dayNumber - currentDate.daysInMonth() : dayNumber}
                   </DayNumberWrap>
                 </SelectedDay>
               </div>
@@ -171,11 +181,38 @@ const Days = () => {
       <div className={boardEffect ? 'boards slide-in' : 'boards slide-out'}>
         <BoardsWrap>
           {sortedBoards.map((board, idx) => (
-            <Board key={idx} board={board} setIsModalOpenNew={setIsModalOpenNew} selectedDateIndex={selectedDateIndex}/>
+            <Board key={idx} board={board}
+            handlePopup={handlePopup} 
+            setIsModalOpenNew={setIsModalOpenNew} 
+            handleSelect={handleSelect}
+            selectedDateIndex={selectedDateIndex}/>
           ))}
         </BoardsWrap>
       </div>
-
+      <PopUp
+            className={popup ? '' : 'hide'}
+            // onClick={handleOpen}
+          >
+            {/* eslint-disable-next-line
+                  jsx-a11y/click-events-have-key-events */}
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={(e) => e.stopPropagation()}
+              className={popup ? 'scale-in' : 'scale-out'}
+            >
+              <ul>
+                <li>
+                  <h3>같이 식사 하실 건가요?</h3>
+                </li>
+                <li>식사를 원하시면 수락버튼을 눌러주세요</li>
+                <li>
+                  <button onClick={handleSelect}>수락</button>
+                  <button onClick={handleRefuse}>거절</button>
+                </li>
+              </ul>
+            </div>
+          </PopUp>
       {sortedBoards.map((board, idx) => (
         <EditModal key={idx} isOpen={isModalOpenNew} onClose={closeModal} board={board} />
       ))}

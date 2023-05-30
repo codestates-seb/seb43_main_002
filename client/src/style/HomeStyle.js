@@ -52,21 +52,23 @@ export const MainWrap = styled.div`
   .boards {
     display: flex;
     justify-content: center;
-    width: 100%;
-    height: 100%;
-    margin: 0px 5px;
+    height: 75%;
     overflow-y: scroll;
     position: relative;
 
-    ::-webkit-scrollbar {
-      width: 0.5em;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
+    &::-webkit-scrollbar {
+      width: 3px;
     }
 
-    ::-webkit-scrollbar-track {
-      background-color: transparent;
+    &::-webkit-scrollbar-thumb {
+      background-color: #888;
+      border-radius: 10px;
     }
 
-    ::-webkit-scrollbar-thumb {
+    &::-webkit-scrollbar-track {
       background-color: transparent;
     }
   }
@@ -177,6 +179,7 @@ export const DayWrap = styled.div`
   padding: 0px 20px;
   margin-bottom: 10px;
   z-index: 1;
+  width: 100%;
   /* border: 1px solid black; */
   background-color: transparent;
   display: flex;
@@ -188,7 +191,6 @@ export const DayWrap = styled.div`
 
 export const SelectedDay = styled.div`
   padding: 0px;
-  width: 50px;
   height: 100%;
   /* border: 1px solid black; */
   position: relative;
@@ -205,16 +207,17 @@ export const SlideContainer = styled.div`
   display: flex;
   overflow: hidden;
   flex-wrap: nowrap;
-  width: max-content;
+  width: 100%;
   overflow-x: scroll;
 
   ::-webkit-scrollbar {
     height: 10px;
   }
 
-  .test {
+  .part {
     border-bottom: 1px solid white;
     opacity: 0.7;
+    flex: 1;
   }
 `;
 
@@ -255,12 +258,16 @@ export const Button = styled.button`
 `;
 
 export const BoardsWrap = styled.div`
-  padding: 0px;
-  height: 80%;
-  width: 360px;
+  padding: 0 20px;
+  width: 100%;
   position: relative;
   background-color: transparent;
   z-index: 1;
+
+  /* > div:last-child {
+    background-color: red !important;
+    margin-bottom: 100px !important;
+  } */
 `;
 
 export const BoardWrap = styled.article`

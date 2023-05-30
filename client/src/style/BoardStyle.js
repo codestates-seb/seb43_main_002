@@ -50,11 +50,13 @@ const BoardContentWrap = styled.div`
 
 const TagWrap = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `;
 
 const TagBlock = styled.div`
   margin-left: 10px;
   padding: 5px 10px;
+  margin: 5px 10px 5px 0;
   font-size: 12px;
   background-color: #ffddac;
   border-radius: 50px;
@@ -99,6 +101,7 @@ const UserWrap = styled.div`
   display: flex;
   text-align: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const UserImg = styled.img`
@@ -107,6 +110,7 @@ const UserImg = styled.img`
   margin-left: 5px;
   background-color: #cdeeff;
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const ButtonWrap = styled.div`
@@ -194,8 +198,8 @@ const CommentButton = styled.button`
 const CommentOpenButton = styled.button`
   width: 20px;
   height: 20px;
-  margin-left: 310px;
   border-radius: 50%;
+  right: 15px;
   position: relative;
   color: white;
   border: none;

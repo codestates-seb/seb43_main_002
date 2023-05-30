@@ -118,6 +118,10 @@ export const CategoryButton = styled.button`
   cursor: pointer;
   z-index: 20;
 
+  @media (max-width: 400px) {
+    font-size: 0.6rem;
+  }
+
   &:hover {
     filter: brightness(90%);
     transition: filter 0.3s;

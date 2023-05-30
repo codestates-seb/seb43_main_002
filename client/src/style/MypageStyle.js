@@ -28,21 +28,27 @@ export const Mobile = styled.div`
   padding: 20px;
   overflow-y: auto;
 
-  /* 스크롤바 */
-  ::-webkit-scrollbar {
-    display: none;
-    width: 8px; /* 스크롤바 너비 */
+  @media (max-width: 400px) {
+    // 모바일 기기에서는 화면에 꽉차게 해야함..
+    width: 100%;
   }
 
-  /* 스크롤바 thumb */
-  ::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 */
-    border-radius: 4px; /* 스크롤바 모서리 반경 */
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
+  &::-webkit-scrollbar {
+    width: 3px;
   }
 
-  /* 스크롤바 track */
-  ::-webkit-scrollbar-track {
-    background-color: transparent; /* 스크롤바 트랙 색상 */
+  &::-webkit-scrollbar-thumb {
+
+    background-color: #888;
+
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
   }
 `;
 
@@ -66,7 +72,6 @@ export const Profile = styled.div`
     flex-direction: column;
     justify-content: center;
     margin-left: 15px;
-    flex: 1;
 
     > ul {
       list-style: none;
@@ -112,9 +117,14 @@ export const Profile = styled.div`
           font-size: 10pt;
           align-items: center;
           list-style: none;
+
           :hover {
             transition: filter 0.3s;
             filter: invert(5%);
+          }
+
+          :first-child {
+            margin-right: 15px;
           }
 
           > li:first-child {
@@ -217,6 +227,10 @@ export const History = styled.div`
       box-sizing: border-box;
       border-radius: 10px;
       box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+
+      @media (max-width: 370px) {
+        width: 90%;
+      }
 
       :hover {
         transition: filter 0.3s;

@@ -61,7 +61,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 
 
-        response.getWriter().write(accessToken);
 
 
 

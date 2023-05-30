@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import {
   LoginContainer,
   LoginForm,
@@ -24,7 +23,6 @@ const emailRegex = /^[\w-]+(.[\w-]+)@([\w-]+.)+[a-zA-Z]{2,7}$/;
 const passwordRegex = /^(?=.[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 const NewLogin = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [values, setValues] = useState({
     email: '',
@@ -101,7 +99,7 @@ const NewLogin = () => {
 
           dispatch(login(user));
           alert(`${user.nickname}님, 식사는 잡쉈어?`);
-          navigate('/api/boards');
+          window.location.href('/api/boards');
         } else if (!token) {
           alert('인증정보를 받아오지 못했습니다.');
           `navigate`('/');

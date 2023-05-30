@@ -64,7 +64,6 @@ const PostModal = ({ isOpen, onClose }) => {
   });
 
   const dispatch = useDispatch();
-  // console.log(postBoard);
 
   const handleIncrement = (e) => {
     e.preventDefault();
@@ -76,7 +75,7 @@ const PostModal = ({ isOpen, onClose }) => {
 
   const handleDecrement = (e) => {
     e.preventDefault();
-    if (postBoard.people > 0) {
+    if (postBoard.total > 0) {
       setPostBoard((prevBoard) => ({
         ...prevBoard,
         total: prevBoard.total - 1,
@@ -130,29 +129,29 @@ const PostModal = ({ isOpen, onClose }) => {
     }
   };
 
+  const genderMapping = {
+    ANY: '누구나 참여 가능',
+    FEMALE: '여성만 참여 가능',
+    MALE: '남성만 참여 가능',
+  };
+  const displayedGender = genderMapping[postBoard.passedGender];
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (
-    //   postBoard.title === '' ||
-    //   postBoard.total === 0 ||
-    //   postBoard.body === ''
-    // ) {
-    //   alert('모든 곳을 입력해주세요.');
-    //   return;
-    // }
+    if (
+      postBoard.title === '' ||
+      postBoard.total === 0 ||
+      postBoard.body === ''
+    ) {
+      alert('모든 곳을 입력해주세요.');
+      return;
+    }
     dispatch(createBoard(postBoard))
       .unwrap()
       .then(() => {
-        console.log('게시물이 성공적으로 작성되었습니다.');
         onClose();
         alert(`식사매너 지켜주실 거죠??`);
         navigate(0);
-      })
-      .catch((error) => {
-        console.error('게시물 작성 중 오류가 발생했습니다.', error);
       });
-    // eslint-disable-next-line no-debugger
-    // debugger;
   };
 
   const navigate = useNavigate();
@@ -165,8 +164,6 @@ const PostModal = ({ isOpen, onClose }) => {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
   };
-
-  // console.log(postBoard.mealTime);
 
   return (
     <ModalWrap isOpen={isOpen}>
@@ -199,7 +196,7 @@ const PostModal = ({ isOpen, onClose }) => {
         <ModalQurry>누구랑 먹을까?</ModalQurry>
         <ModalWhoButtonWrap>
           <ModalWhobutton onClick={handleWhoChange} arrow="prev" />
-          <span>{postBoard.passedGender}</span>
+          <span>{displayedGender}</span>
           <ModalWhobutton onClick={handleWhoChange} arrow="next" />
         </ModalWhoButtonWrap>
         <ModalQurry>추가로 입력할 정보는?</ModalQurry>

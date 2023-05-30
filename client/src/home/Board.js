@@ -31,7 +31,14 @@ import {
 import axiosInstance from '../axiosConfig';
 
 // eslint-disable-next-line react/prop-types
-const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
+const Board = ({ board, setIsModalOpenNew, handlePopup }) => {
+  Board.propTypes = {
+    board: PropTypes.array.isRequired,
+    setIsModalOpenNew: PropTypes.func.isRequired,
+    handlePopup: PropTypes.func.isRequired,
+  };
+  const comments = useSelector((state) => state.comment.comments);
+  const userInfo = useSelector((state) => state.user.userInfo);
   const [commentOpen, setCommentOpen] = useState(false);
   const [postComment, setPostComment] = useState({
     body: '',
@@ -46,8 +53,6 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
   const amPm = hour >= 12 ? '오후' : '오전';
   const formattedDate = `${month}/${day}일 ${amPm} ${hour % 12}시`;
   const dispatch = useDispatch();
-  const comments = useSelector((state) => state.comment.comments);
-  const userInfo = useSelector((state) => state.user.userInfo);
   // const profile = useSelector((state) => state.profile.profile);
 
   const navigate = useNavigate();
@@ -65,9 +70,9 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
         setIsBoard(res.payload)
       );
     }
-  }, [commentOpen, dispatch, board.boardId]);
+  }, [board.boardId, commentOpen, dispatch]);
 
-  const hanmdleComment = (e) => {
+  const handleComment = (e) => {
     e.preventDefault();
     const value = e.target.value;
     setPostComment({ ...postComment, body: value });
@@ -83,28 +88,32 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
   };
 
   const handlePostComment = (e) => {
-    e.preventDefault();
-    dispatch(addComment({ boardId: board.boardId, comment: postComment }))
-      .unwrap()
-      .then(() => {
-        console.log('댓글이 성공적으로 등록되었습니다.');
-        alert(`식사매너 지켜주실 거죠??`);
-        setIsBoard([...isBoard, postComment]);
-        setPostComment({ body: '' });
-      });
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (postComment.body === '') {
+        alert('댓글을 입력해주세요');
+        return;
+      }
+      dispatch(addComment({ boardId: board.boardId, comment: postComment }))
+        .unwrap()
+        .then(() => {
+          alert(`식사매너 지켜주실 거죠??`);
+          dispatch(fetchComments(board.boardId)).then((res) => {
+            setIsBoard(res.payload);
+          });
+          setPostComment({ ...postComment, body: '' });
+          // navigate(0);
+        });
+    }
   };
 
   const handleDelete = () => {
     dispatch(deleteBoard(board.boardId))
       .then(() => {
-        console.log('게시물이 성공적으로 삭제되었습니다.');
         navigate(0);
       })
-      .catch((error) => {
-        console.error('게시물 삭제 중 오류가 발생했습니다.', error);
-      });
+      .catch((error) => {});
   };
-  // console.log('comment', comments);
 
   const isAuthor = userInfo && board.memberId === userInfo.memberId;
 
@@ -127,16 +136,17 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
       });
   };
 
-  // console.log('보드:', board.boardId);
-  // console.log('boards', board.mealTime);
+  // console.log('value', postComment);
   // console.log('complete', isRecruitmentComplete);
 
-  const imageUrl = `/api/mypages/${board.memberId}/image`;
+  const imageUrl = `https://api.sik-gu.com/api/mypages/${board.memberId}/image`;
+
+  const handleUser = () => {
+    navigate(`/userpage/${board.memberId}`);
+  };
 
   // console.log('profile:', board);
-  Board.propTypes = {
-    board: PropTypes.array.isRequired,
-  };
+
   return (
     <>
       <CompleteBoard isRecruitmentComplete={isRecruitmentComplete}>
@@ -174,8 +184,8 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
               <FiUsers />
               {board.count}/{board.total} 명
             </IconWrap>
-            <UserWrap>{board.nickname}</UserWrap>
-            <UserImg src={imageUrl}></UserImg>
+            <UserWrap onClick={handleUser}>{board.nickname}</UserWrap>
+            <UserImg onClick={handleUser} src={imageUrl}></UserImg>
           </SubmitWrap>
           <ButtonWrap commentOpen={commentOpen}>
             {isAuthor && (
@@ -197,13 +207,16 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
                   <Comment
                     key={comment.commentId}
                     board={board}
+                    handlePopup={handlePopup}
                     comment={comment}
                     handlePeople={handlePeople}
                   />
                 ))}
               <CommentInputWrap>
                 <CommentInput
-                  onBlur={hanmdleComment}
+                  value={postComment.body}
+                  onChange={handleComment}
+                  onKeyDown={handlePostComment}
                   placeholder="깨끗한 문화를 위해 노력해주세요."
                 />
                 <CommentButton onClick={handlePostComment}>답글</CommentButton>

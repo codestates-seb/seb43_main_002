@@ -25,7 +25,25 @@ export const GlobalWrap = styled.div`
   background-color: #fffaed;
   overflow: hidden;
 
+  @media (max-width: 767px) and (max-height: 800px) {
+    // 모바일 기기에서는 화면에 꽉차게 해야함..
+    width: 100%;
+  }
+
+  @media (max-height: 800px) {
+    height: 100%;
+  }
+
   .hide {
     visibility: hidden;
+  }
+
+  @media (max-width: 767px) and (max-height: 800px) {
+    // 모바일 기기에서는 화면에 꽉차게 해야함..
+    width: 100%;
+  }
+
+  @media (max-height: 800px) {
+    height: 100%;
   }
 `;

@@ -46,8 +46,23 @@ const SignupForm = styled.form`
   align-items: center;
   padding: 20px;
   overflow-y: auto;
+  overflow-y: scroll;
+  position: relative;
+
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
   &::-webkit-scrollbar {
-    display: none;
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
   }
 `;
 

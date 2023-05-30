@@ -49,28 +49,12 @@ export const MainWrap = styled.div`
   > div:nth-child(2) {
     padding: 20px 20px 0 20px;
   }
+
   .boards {
     display: flex;
     justify-content: center;
     height: 75%;
-    overflow-y: scroll;
     position: relative;
-
-    scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
-
-    &::-webkit-scrollbar {
-      width: 3px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: #888;
-      border-radius: 10px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
   }
 
   .none {
@@ -263,18 +247,30 @@ export const BoardsWrap = styled.div`
   position: relative;
   background-color: transparent;
   z-index: 1;
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 25px;
 
-  /* > div:last-child {
-    background-color: red !important;
-    margin-bottom: 100px !important;
-  } */
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
 `;
 
 export const BoardWrap = styled.article`
-  margin-bottom: 20px;
   padding: 15px;
   width: 100%;
-  /* border: 1px solid black; */
   border-radius: 10px;
   background-color: white;
   z-index: 0;

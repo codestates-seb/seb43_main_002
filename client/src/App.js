@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { login } from './store/userSlice';
 // import Signup from './Signup/Signup';
 // import NewSignup from './Signup/NewSignUp';
+import HomePage from './HomePage';
 import NewSignupForm from './Signup/SignupForm';
 import Map from './map/Map';
 import MyPage from './mypage/MyPage';
@@ -49,10 +50,12 @@ function App() {
       <GlobalWrap>
         <Routes>
           {/* 누구나 접근 가능한 페이지 */}
+          <Route path="/" element={<HomePage />} />
           <Route path="/signup" element={<NewSignupForm />} />
-          <Route path="/" element={<NewLogin />} />
+
 
           {/* 회원만 접근이 가능한 페이지 */}
+          <Route path="/login" element={<NewLogin />} />
           <Route path="/map" element={<PrivateRoute />}>
             <Route index element={<Map />} />
           </Route>
@@ -75,10 +78,6 @@ function App() {
 
           <Route path="api/boards" element={<PrivateRoute />}>
             <Route index element={<Main />} />
-          </Route>
-
-          <Route path="api/boards" element={<PrivateRoute />}>
-            <Route index element={<NaverLoginForm />} />
           </Route>
         </Routes>
       </GlobalWrap>

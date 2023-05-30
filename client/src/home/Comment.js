@@ -5,25 +5,30 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteComment, updateComment } from '../store/commentSlice';
 import { BiEdit } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
-import { StateButton } from '../style/BoardStyle';
+import { StateButton, SubmitWrap } from '../style/BoardStyle';
 import { useNavigate } from 'react-router-dom';
 
 const CommentsWrap = styled.div`
-  margin-top: 10px;
-  padding: 10px 0px 0px 10px;
-  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  width: 100%;
+  margin-top: 15px;
+  padding-bottom: 15px;
+  height: auto;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   display: flex;
+  overflow: hidden;
 `;
 
 const CommentProfileWrap = styled.img`
-  padding: 10px;
   height: 40px;
   width: 40px;
   border-radius: 50%;
+  background-color: #cdeeff;
 `;
 
 const ContentWrap = styled.div`
-  padding-left: 20px;
+  padding-left: 10px;
+  width: auto;
+  white-space: pre-wrap;
 `;
 
 const ProfiletWrap = styled.div`
@@ -36,7 +41,8 @@ const CommentNameWrap = styled.h2`
   width: auto;
   height: 30px;
   padding: 0px;
-  font-size: 12px;
+  margin: 0;
+  font-size: 10pt;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,20 +50,24 @@ const CommentNameWrap = styled.h2`
 `;
 
 const CommentContentWrap = styled.div`
-  margin-top: 10px;
-  padding: 10px;
   font-size: 12px;
+  color: #505050;
+  width: 270px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  height: auto;
 `;
 
 const CommentStateWrap = styled.div`
   padding: 0px;
   display: flex;
+  width: 270px;
 `;
 
 const AcceptButton = styled.button`
   border-radius: 10px;
   font-size: 10px;
-  margin-top: 10px;
+  margin-top: 5px;
   width: 40px;
   height: 15px;
   display: flex;
@@ -74,7 +84,7 @@ const AcceptButton = styled.button`
 
 const RefuseButton = styled.button`
   border-radius: 10px;
-  margin-top: 10px;
+  margin-top: 5px;
   font-size: 10px;
   width: 40px;
   height: 15px;
@@ -86,6 +96,44 @@ const RefuseButton = styled.button`
   border: none;
   &:hover {
     background-color: #ff8888;
+    color: white;
+  }
+`;
+
+const EditComment = styled.input`
+  padding: 10px;
+  height: 30px;
+  width: 250px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0.1);
+  font-size: 13px;
+`;
+
+const EditButton = styled.button`
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  height: 30px;
+  font-size: 12px;
+  padding: 10px;
+  display: flex;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #ffb44a;
+  border: none;
+  &:hover {
+    background-color: #ff9933;
+    color: white;
+  }
+`;
+
+const CancelButton = styled(EditButton)`
+  background-color: lightgrey;
+  &:hover {
+    background-color: grey;
     color: white;
   }
 `;
@@ -143,7 +191,6 @@ const Comment = ({ comment, handlePeople, board }) => {
 
   const Boarduser = userInfo && board.memberId === userInfo.memberId;
   const imageUrl = `/api/mypages/${comment.memberId}/image`;
-  console.log(comment.memberId);
 
   return (
     <>
@@ -174,14 +221,14 @@ const Comment = ({ comment, handlePeople, board }) => {
             </CommentStateWrap>
             {editing ? (
               <>
-                <input
+                <EditComment
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                ></input>
-                <div>
-                  <button onClick={handleSave}>저장</button>
-                  <button onClick={handleCancelEdit}>취소</button>
-                </div>
+                ></EditComment>
+                <SubmitWrap>
+                  <EditButton onClick={handleSave}>저장</EditButton>
+                  <CancelButton onClick={handleCancelEdit}>취소</CancelButton>
+                </SubmitWrap>
               </>
             ) : (
               <>

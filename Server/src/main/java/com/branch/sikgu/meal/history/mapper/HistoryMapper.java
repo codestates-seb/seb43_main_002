@@ -14,5 +14,5 @@ public interface HistoryMapper {
 
     HistoryDto.Response toResponseDto(History history);
 
-    History toEntity(HistoryDto.Post post);
+    History historyPatchDto_toHistory(HistoryDto.Patch patch);
 }

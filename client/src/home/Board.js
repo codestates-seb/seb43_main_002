@@ -5,7 +5,6 @@ import { AiFillDelete } from 'react-icons/ai';
 import { FiUsers } from 'react-icons/fi';
 import Comment from './Comment';
 import PropTypes from 'prop-types';
-import EditModal from './EditModal';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteBoard } from '../store/boardSlice';
@@ -31,8 +30,8 @@ import {
 } from '../style/BoardStyle';
 import axiosInstance from '../axiosConfig';
 
-const Board = ({ board }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+// eslint-disable-next-line react/prop-types
+const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [postComment, setPostComment] = useState({
     body: '',
@@ -57,7 +56,7 @@ const Board = ({ board }) => {
   };
 
   const handlePlusClick = () => {
-    setIsModalOpen(true);
+    setIsModalOpenNew(true);
   };
 
   useEffect(() => {
@@ -67,10 +66,6 @@ const Board = ({ board }) => {
       );
     }
   }, [commentOpen, dispatch, board.boardId]);
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   const hanmdleComment = (e) => {
     e.preventDefault();
@@ -96,7 +91,6 @@ const Board = ({ board }) => {
         alert(`식사매너 지켜주실 거죠??`);
         setIsBoard([...isBoard, postComment]);
         setPostComment({ body: '' });
-        navigate(0);
       });
   };
 
@@ -156,7 +150,7 @@ const Board = ({ board }) => {
           모집완료
         </CompleteButton>
         <BoardWrap>
-          <CommentOpenButton onClick={handleOpen}>+</CommentOpenButton>
+          <CommentOpenButton onClick={handleOpen} commentOpen={commentOpen} />
           <SexInfomaitonWrap gender={board.passedGender}>
             {genderMapping[board.passedGender]}
           </SexInfomaitonWrap>
@@ -171,19 +165,19 @@ const Board = ({ board }) => {
               </TagBlock>
             ))}
           </TagWrap>
-          <SubmitWrap>
+          <SubmitWrap commentOpen={commentOpen}>
             <IconWrap>
               <BiTimeFive />
               {formattedDate}
             </IconWrap>
             <IconWrap>
               <FiUsers />
-              {board.count}/{board.total}
+              {board.count}/{board.total} 명
             </IconWrap>
             <UserWrap>{board.nickname}</UserWrap>
             <UserImg src={imageUrl}></UserImg>
           </SubmitWrap>
-          <ButtonWrap>
+          <ButtonWrap commentOpen={commentOpen}>
             {isAuthor && (
               <>
                 <StateButton onClick={handlePlusClick}>
@@ -218,11 +212,6 @@ const Board = ({ board }) => {
           )}
         </BoardWrap>
       </CompleteBoard>
-      <EditModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        board={board}
-      ></EditModal>
     </>
   );
 };

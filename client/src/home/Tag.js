@@ -10,15 +10,16 @@ const TagBox = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  min-height: 50px;
-  margin: 10px;
-  width: 340px;
+  min-height: 40px;
+  width: 360px;
   padding: 0 10px;
+  color: #505050;
+  font-size: 12pt;
   border: 1px solid black;
   border-radius: 10px;
   background-color: white;
   border: none;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
   &:focus-within {
     border-color: white;
   }
@@ -29,13 +30,14 @@ const TagItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 10px;
-  margin-right: 7px;
+  margin: 7px 5px 7px 0;
   padding: 5px;
   background-color: #ffddac;
   border-radius: 15px;
   color: black;
-  font-size: 13px;
+  > span {
+    font-size: 11pt;
+  }
 `;
 
 const Text = styled.span``;
@@ -58,10 +60,11 @@ const TagCloseButton = styled.button`
 
 const TagInput = styled.input`
   display: inline-flex;
-  width: 310px;
+  /* width: auto; */
+  flex: 1;
   height: 40px;
-  max-width: 310px;
-  min-width: 150px;
+  /* max-width: 310px;
+  min-width: 150px; */
   background: white;
   border: none;
   outline: none;
@@ -121,6 +124,14 @@ const Tag = ({ name, onChange, tagList, setTagList }) => {
   return (
     <WholeBox>
       <TagBox>
+        {tagList.map((tagItem, index) => {
+          return (
+            <TagItem key={index}>
+              <Text>{tagItem}</Text>
+              <TagCloseButton onClick={deleteTagItem}>X</TagCloseButton>
+            </TagItem>
+          );
+        })}
         <TagInput
           type="text"
           placeholder="태그를 입력하시고 Enter를 눌러주세요"
@@ -130,14 +141,6 @@ const Tag = ({ name, onChange, tagList, setTagList }) => {
           onKeyDown={handleKeyDown}
           onKeyPress={onKeyPress}
         />
-        {tagList.map((tagItem, index) => {
-          return (
-            <TagItem key={index}>
-              <Text>{tagItem}</Text>
-              <TagCloseButton onClick={deleteTagItem}>X</TagCloseButton>
-            </TagItem>
-          );
-        })}
       </TagBox>
     </WholeBox>
   );

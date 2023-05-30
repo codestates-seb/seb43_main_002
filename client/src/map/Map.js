@@ -1,6 +1,5 @@
 /*eslint-disable */
 import { useEffect, useRef, useState } from 'react';
-// import MapHeader from './MapHeader';
 import Header from '../mypage/Header';
 import Footer from '../mypage/Footer';
 import {
@@ -13,7 +12,6 @@ import {
   ResultItem,
   MainWrap,
 } from '../style/MapStyle';
-import { BackYellow, BackGround } from '../style/MypageStyle';
 
 const Map = () => {
   // Map 컴포넌트의 상태 및 참조를 초기화
@@ -26,12 +24,21 @@ const Map = () => {
   const [loading, setLoading] = useState(true);
   const [selectedResult, setSelectedResult] = useState(null);
   const [expandedResult, setExpandedResult] = useState(null);
+  const [currentAddress, setCurrentAddress] = useState(null);
 
   // 지정된 위치에 마커와 인포윈도우 표시
   const displayMarker = (locPosition, place, index) => {
+    let pinImage = {
+      url: '/svg/map-main.svg', // 핀 이미지의 경로를 수정해야 합니다.
+      size: new window.kakao.maps.Size(30, 30), // 핀 이미지의 크기를 조정할 수 있습니다.
+      origin: new window.kakao.maps.Point(0, 0),
+      anchor: new window.kakao.maps.Point(15, 30), // 핀 이미지의 앵커 포인트를 조정할 수 있습니다.
+    };
+
     let marker = new window.kakao.maps.Marker({
       map: mapInstance.current,
       position: locPosition,
+      icon: pinImage, // 핀 이미지 설정
     });
     marker.index = index;
     let message = `
@@ -46,7 +53,7 @@ const Map = () => {
     white-space: nowrap;
   ">
     <b>${place.place_name}</b>
-    <br/>${place.address_name}
+    <br/>${place.road_address_name || place.address_name}
     ${place.phone ? `<br />${place.phone}` : ''}
   </div>`;
     let infowindow = new window.kakao.maps.InfoWindow({
@@ -100,6 +107,16 @@ const Map = () => {
           clearMarkers();
           // 현재 위치를 업데이트 한 후에 마지막 선택된 장소를 검색
           searchAndDisplayPlacesByCategory(selectedCategory);
+          // 현재 위치를 주소로 변환
+          let geocoder = new window.kakao.maps.services.Geocoder();
+          geocoder.coord2Address(lon, lat, function (result, status) {
+            if (status === window.kakao.maps.services.Status.OK) {
+              setCurrentAddress(
+                result[0].address.road_address_name ||
+                  result[0].address.address_name
+              ); // 주소를 상태에 저장
+            }
+          });
           setLoading(false); // 현재 위치 업데이트가 완료되었으므로 로딩 상태를 false로 설정
         },
         function (error) {
@@ -135,6 +152,8 @@ const Map = () => {
       );
       updateCurrentLocation();
     }
+
+    console.log(loading);
   }, []);
 
   useEffect(() => {
@@ -170,7 +189,7 @@ const Map = () => {
       onClick={() => searchAndDisplayPlacesByCategory(category)}
       key={category}
     >
-      <img src="/svg/userpage-like.svg" alt="아이콘" />
+      <img src="/svg/map-icon.svg" alt="아이콘" />
       {category}
     </CategoryButton>
   ));
@@ -197,7 +216,7 @@ const Map = () => {
           <iframe
             title="Expanded Result"
             src={`https://place.map.kakao.com/m/${result.id}`}
-            style={{ width: '100%', height: '400px', border: 'none' }}
+            style={{ width: '100%', height: '100%', border: 'none' }}
           />
         )}
       </ResultItem>
@@ -205,32 +224,42 @@ const Map = () => {
   });
 
   return (
-    <>
-      <MainWrap>
+    <MainWrap>
+      <div>
+        <Header iconSrc="/svg/header-back.svg" fnc="back" scrollNumber={10} />
         <div>
-          <Header
-            iconSrc="/svg/header-logout.svg"
-            fnc="logout"
-            scrollNumber={10}
-          />
-          여기에 현재위치를 받아와서 표시해줬으면 좋겠음
+          {currentAddress && (
+            <img src="/svg/map-location.svg" alt="위치아이콘" />
+          )}
+          {currentAddress && `현재 위치: ${currentAddress}`}
         </div>
-        <MapContainer>
-          <ButtonContainer animate={animation}>
-            {categoryButtons}
-          </ButtonContainer>
-          <Mapbox ref={mapRef} id="map"></Mapbox>
-          <CurrentLocationButton
-            animate={animation}
-            onClick={updateCurrentLocation}
-          >
-            <img src="/icon/location.svg" alt="현재위치" />
-          </CurrentLocationButton>
-          <SearchResults animate={animation}>{resultItems}</SearchResults>
-        </MapContainer>
-      </MainWrap>
+      </div>
+      {currentAddress === null ? (
+        <div className="loading">
+          <img src="/svg/loding.svg" alt="로딩이미지" />
+          위치 정보를 불러오는 중입니다.
+        </div>
+      ) : null}
+      <MapContainer>
+        <ButtonContainer animate={animation}>{categoryButtons}</ButtonContainer>
+        <Mapbox ref={mapRef} id="map"></Mapbox>
+        <CurrentLocationButton
+          animate={animation}
+          onClick={() => {
+            if (!loading) {
+              updateCurrentLocation();
+            }
+          }}
+        >
+          <img src="/svg/location.svg" alt="현재위치" />
+        </CurrentLocationButton>
+        <SearchResults animate={animation} expandedResult={expandedResult}>
+          <img src="/svg/main-logo-2.svg" alt="로고" />
+          {resultItems}
+        </SearchResults>
+      </MapContainer>
       <Footer activeIcon="map" />
-    </>
+    </MainWrap>
   );
 };
 

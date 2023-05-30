@@ -2,6 +2,7 @@ package com.branch.sikgu.meal.history.dto;
 
 import com.branch.sikgu.meal.board.dto.BoardDto;
 import com.branch.sikgu.meal.board.entity.Board;
+import com.branch.sikgu.meal.history.entity.History;
 import com.branch.sikgu.member.dto.MemberResponseDto;
 import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.myPage.entity.MyPage;
@@ -15,6 +16,7 @@ public class HistoryDto {
     @AllArgsConstructor
     public static class Response {
         private Long historyId;
+        private boolean status;
         private BoardDto.BoardMemberResponse board;
         private List<MemberResponseDto.HistoryMemberResponse> members;
     }
@@ -26,5 +28,14 @@ public class HistoryDto {
     public static class Post {
         private Long boardId;
         private List<MemberResponseDto> members;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Patch {
+        private Long historyId;
+        private boolean status;
     }
 }

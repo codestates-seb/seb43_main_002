@@ -36,9 +36,13 @@ const EditProfile = () => {
   const imageUrl = `/api/mypages/${userId}/image`;
 
   const [profileImage, setProfileImage] = useState();
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(null);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [isNicknameValid, setIsNicknameValid] = useState(false);
+  const [isNicknameChanged, setIsNicknameChanged] = useState(false);
+  const [btnActive, setBtnActive] = useState([false, false]);
+
   const accessToken = sessionStorage.getItem('jwt');
   const mobileContainerRef = useRef(null);
 
@@ -76,52 +80,63 @@ const EditProfile = () => {
 
   // sumbit 하면서 이미지 파일과 함께 보내기 위해 formData를 사용하고, 다른 내용을 함께 넣음.
   const onSubmit = () => {
-    const formData = new FormData();
+    if (isNicknameValid || !isNicknameChanged) {
+      const formData = new FormData();
+      const datas = {
+        introduce: intro,
+        nickname,
+        name,
+        birthday: birthDay,
+        gender,
+        password,
+        image: userId,
+      };
 
-    const datas = {
-      introduce: intro,
-      nickname,
-      name,
-      birthday: birthDay,
-      gender,
-      password,
-      image: userId,
-    };
+      // 다른 데이터들도 폼데이터 쪽에 담는다.
 
-    // 다른 데이터들도 폼데이터 쪽에 담는다.
-    formData.append('file', image);
-    formData.append(
-      'myPageRequestDto',
-      new Blob([JSON.stringify(datas)], { type: 'application/json' })
-    );
+      if (image !== null) {
+        formData.append('file', image);
+      }
+      formData.append(
+        'myPageRequestDto',
+        new Blob([JSON.stringify(datas)], { type: 'application/json' })
+      );
 
-    axiosInstance
-      .patch(`/api/mypages/${userId}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `${accessToken}`,
-        },
-      })
-      .then((response) => {
-        reset();
-        navigate(-1);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      axiosInstance
+        .patch(`/api/mypages/${userId}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `${accessToken}`,
+          },
+        })
+        .then((response) => {
+          reset();
+          navigate(-1);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      alert('활동명 중복 확인을 해주세요.');
+    }
   };
 
   // 아래는 유효성 검증 부분
   const handleCheckDuplicateNickname = () => {
-    const baseUrl = window.location.origin; // 현재 페이지의 기준 URL
+    setIsNicknameValid(true);
 
     axiosInstance
-      .post(`${baseUrl}/api/members/signup/checkduplicatenickname`, {
+      .post(`/api/members/signup/checkduplicatenickname`, {
         nickname,
       })
       .then((response) => {
         if (response.data === false) {
           alert('사용 가능한 활동명입니다.');
+          setBtnActive((prev) => {
+            const newState = [...prev];
+            newState[0] = true;
+            return newState;
+          });
         } else {
           setNicknameError('이미 활동중인 식구이름입니다.');
         }
@@ -149,13 +164,20 @@ const EditProfile = () => {
       setPasswordError('비밀번호가 일치하지 않습니다.');
     } else {
       setPasswordError(null);
+      setBtnActive((prev) => {
+        const newState = [...prev];
+        newState[1] = true;
+        return newState;
+      });
     }
   };
 
   const handleNickname = (e) => {
     setNickname(e.target.value);
-    if (e.target.value.length > 8) {
-      setNicknameError('8글자까지 입력 가능합니다.');
+    setIsNicknameChanged(true);
+
+    if (e.target.value.length > 10) {
+      setNicknameError('10글자까지 입력 가능합니다.');
     } else if (e.target.value.length === 0) {
       setNicknameError('활동명은 필수 입력입니다.');
     } else {
@@ -264,7 +286,11 @@ const EditProfile = () => {
                     defaultValue={data.nickname}
                     onChange={handleNickname}
                   />
-                  <button type="button" onClick={handleCheckDuplicateNickname}>
+                  <button
+                    type="button"
+                    onClick={handleCheckDuplicateNickname}
+                    className={btnActive[0] ? 'active' : ''}
+                  >
                     활동명 중복확인
                   </button>
                   {nicknameError && <Error>{nicknameError}</Error>}
@@ -346,7 +372,11 @@ const EditProfile = () => {
                       setConfirmPassword(e.target.value);
                     }}
                   />
-                  <button type="button" onClick={handlePassword}>
+                  <button
+                    type="button"
+                    onClick={handlePassword}
+                    className={btnActive[1] ? 'active' : ''}
+                  >
                     비밀번호 일치 여부 확인
                   </button>
                   {passwordError && <Error>{passwordError}</Error>}

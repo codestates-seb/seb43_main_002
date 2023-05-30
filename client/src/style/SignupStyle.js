@@ -48,6 +48,7 @@ const SignupForm = styled.form`
   overflow-y: auto;
   &::-webkit-scrollbar {
     display: none;
+  }
 `;
 
 const SignupTitle = styled.h1`
@@ -59,10 +60,11 @@ const SignupTitle = styled.h1`
 
 const Input = styled.input`
   width: 100%;
-  margin: 10px 0;
-  padding: 12px;
-  border: 1px solid #ccc;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  margin: 15px 0;
+  padding: 10px;
+  height: 45px;
+  border: none;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
 
   border-radius: 10px;
 `;
@@ -71,7 +73,8 @@ const Button = styled.button`
   width: 100%;
   padding: 12px;
   background-image: linear-gradient(135deg, #ffd571, #ffac36);
-  margin-bottom: 10px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+  margin-bottom: 15px;
   color: white;
   border: none;
   border-radius: 20px;
@@ -111,6 +114,12 @@ const CheckDuplicateButton = styled(Button)`
   width: 100%;
   padding: 10px;
   height: 40px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+  background-image: linear-gradient(
+    135deg,
+    rgb(217, 217, 217),
+    rgb(201, 201, 201)
+  );
 `;
 
 const CheckPasswordButton = styled(Button)`
@@ -118,6 +127,12 @@ const CheckPasswordButton = styled(Button)`
   width: 100%;
   padding: 10px;
   height: 40px;
+  background-image: linear-gradient(
+    135deg,
+    rgb(217, 217, 217),
+    rgb(201, 201, 201)
+  );
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
 `;
 
 const Error = styled.p`
@@ -128,10 +143,10 @@ const Error = styled.p`
 `;
 
 const GenderBox = styled.div`
-display:flex;
-flex direction : row;
-justify-content: space-around;
-align-items : center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 `;
 
 const GenderButton = styled.button`
@@ -157,9 +172,14 @@ const GenderButton = styled.button`
 
 const Text = styled.p`
   display: flex;
+  margin-top: 5px;
+  align-items: center;
 
-  margin: 5px;
-  padding: 5px;
+  label {
+    font-size: 13pt !important;
+    font-weight: 500;
+    color: rgb(57, 57, 57);
+  }
 `;
 
 const FooterText = styled.p`

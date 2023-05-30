@@ -5,10 +5,12 @@ import com.branch.sikgu.auth.jwt.JwtTokenizer;
 import com.branch.sikgu.member.entity.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -43,6 +45,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         return authenticationManager.authenticate(authenticationToken);
     }
 
+
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
@@ -56,7 +59,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
 
+
+
+        response.getWriter().write(accessToken);
+
+
+
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
+
     }
 
     private String delegateAccessToken(Member member) {
@@ -82,3 +92,4 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         return jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
     }
 }
+

@@ -51,10 +51,11 @@ const LoginForm = styled.form`
 `;
 
 const LoginTitle = styled.h1`
+  padding-bottom: 10px;
+  margin-top: 30px;
   font-size: 30pt;
   color: orange;
   text-align: center;
-  padding-bottom: 10px;
 `;
 
 const Input = styled.input`

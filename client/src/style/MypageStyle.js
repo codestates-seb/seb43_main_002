@@ -41,7 +41,6 @@ export const Mobile = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-
     background-color: #888;
 
     border-radius: 10px;

@@ -202,6 +202,7 @@ const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
           setIsBoard(res.payload)
         );
       });
+    navigate(0);
     setEditing(false);
   };
 
@@ -229,7 +230,7 @@ const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
   const handleUser = () => {
     navigate(`/userpage/${comment.memberId}`);
   };
-  console.log(comment.selectionStatus);
+  // console.log(comment.selectionStatus);
 
   return (
     <>

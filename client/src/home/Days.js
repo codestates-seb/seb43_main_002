@@ -132,14 +132,21 @@ const Days = () => {
       `/api/boards/${selectBoard}/comments/${selectComment}/select`
     )
     .then((res) => res.data);
-    
+
   navigate(0);
 
     setPopup(!popup);
   };
 
   const handleRefuse = () => {
-    // handlePeople(comment);
+    axiosInstance
+    .patch(
+      `/api/boards/${selectBoard}/comments/${selectComment}/refuse`
+    )
+    .then((res) => res.data);
+    
+  navigate(0);
+
     setPopup(!popup);
   };
 

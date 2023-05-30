@@ -1,7 +1,27 @@
+<<<<<<< HEAD
+{  "icons": 
+    {
+      "src": "Logo1.png",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    "start_url": ".",
+"display": "standalone",
+"theme_color": "#000000",
+"background_color": "#ffffff"}
+=======
 {
     "start_url": ".",
     "display": "standalone",
     "theme_color": "#000000",
     "background_color": "#ffffff"
+<<<<<<< HEAD
+}
+=======
   }
   
+<<<<<<< HEAD
+>>>>>>> 93bfca3e026a8695b132c7c2d8e9c15c57084472
+=======
+>>>>>>> eeab41744dc42b6c32b5e525ced1ed6bde3b35db
+>>>>>>> 6e80b6d24353ad9464822bb246f5348fc01fce88

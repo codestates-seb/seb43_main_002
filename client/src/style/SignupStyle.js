@@ -39,6 +39,9 @@ const Mobile = styled.div`
   height: 100%;
   padding: 0px;
   box-sizing: border-box;
+  .active {
+    background-image: linear-gradient(135deg, #ffd571, #ffac36) !important;
+  }
 `;
 
 const SignupForm = styled.form`
@@ -55,7 +58,6 @@ const SignupForm = styled.form`
   }
 
   &::-webkit-scrollbar-thumb {
-
     background-color: #888;
 
     border-radius: 10px;

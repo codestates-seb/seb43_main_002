@@ -26,7 +26,7 @@ const UserPage = () => {
   const [isFollower, setIsFollower] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const accessToken = sessionStorage.getItem('jwt');
-  const imageUrl = `/api/mypages/${userId}/image`;
+  const imageUrl = `https://api.sik-gu.com/api/mypages/${userId}/image`;
 
   useEffect(() => {
     // const header = {

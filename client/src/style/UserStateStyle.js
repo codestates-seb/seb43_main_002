@@ -24,7 +24,7 @@ export const Mobile = styled.div`
   position: relative;
   width: 400px;
   height: 100%;
-  padding: 20px;
+  padding: 20px 0;
   background-image: url(/svg/backlogo.svg);
   background-repeat: no-repeat;
   background-size: 50%;
@@ -34,12 +34,39 @@ export const Mobile = styled.div`
 export const Posts = styled.div`
   position: relative;
   letter-spacing: -0.05em;
+  padding: 0 20px;
+  height: 710px;
+  overflow-y: scroll;
+
+  /* 스크롤바 */
+  ::-webkit-scrollbar {
+    display: none;
+    width: 8px; /* 스크롤바 너비 */
+  }
+
+  /* 스크롤바 thumb */
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 */
+    border-radius: 4px; /* 스크롤바 모서리 반경 */
+  }
+
+  /* 스크롤바 track */
+  ::-webkit-scrollbar-track {
+    background-color: transparent; /* 스크롤바 트랙 색상 */
+  }
 
   > .opacity {
     > div:nth-child(2) > ul > li:first-child {
       color: #898989 !important;
       text-decoration: line-through;
     }
+  }
+  > .none {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   > .post {
@@ -53,6 +80,12 @@ export const Posts = styled.div`
     border-radius: 10px;
     margin-bottom: 20px;
     overflow: hidden;
+    cursor: default;
+
+    :hover {
+      filter: brightness(90%);
+      transition: filter 0.3s;
+    }
 
     > .before {
       background-image: linear-gradient(135deg, #ffd571, #ffac36);
@@ -209,6 +242,11 @@ export const PopUp = styled.div`
     border-radius: 50px;
     background-color: #c9c9c9;
     cursor: pointer;
+
+    :hover {
+      transition: filter 0.3s;
+      filter: brightness(90%);
+    }
   }
 
   button:first-child {
@@ -262,7 +300,7 @@ export const Modal = styled.div`
     background-color: #fffaed;
     width: 100%;
     height: auto;
-    min-height: 280px;
+    min-height: 370px;
     max-height: 600px;
     border-radius: 15px 15px 0 0;
     letter-spacing: -0.05em;
@@ -312,8 +350,9 @@ export const Modal = styled.div`
 
     > div:last-child {
       overflow-y: auto;
-      height: 445px;
-      margin-top: 20px;
+      height: auto;
+      max-height: 445px;
+      margin: 20px 0px 55px 0px;
       padding: 0px 20px;
 
       /* 스크롤바 */
@@ -405,7 +444,7 @@ export const Modal = styled.div`
 
             button {
               width: 50px;
-              font-weight: 700;
+              font-weight: 500;
               border: none;
               color: white;
               border-radius: 0 5px 5px 0;

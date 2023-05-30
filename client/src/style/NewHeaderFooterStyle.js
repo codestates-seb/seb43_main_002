@@ -5,6 +5,7 @@ export const TitleBox = styled.footer`
   top: -1px;
   left: 0;
   width: 100%;
+  padding: 20px;
   z-index: 1;
   border-radius: 0 0 10px 10px;
   background-image: ${(props) => props.backgroundImage};
@@ -16,7 +17,6 @@ export const Title = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
-  height: 50px;
 
   > div:first-child {
     width: 50px;
@@ -26,12 +26,20 @@ export const Title = styled.div`
     background-position: center;
   }
 
-  > div:nth-child(2) {
+  > .search {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  > .font {
     margin-left: 10px;
     font-family: 'Fredoka One';
     font-size: 24pt;
     font-weight: 700;
     color: white;
+    cursor: default;
   }
 
   > button {
@@ -44,6 +52,11 @@ export const Title = styled.div`
     img {
       height: 25px;
     }
+  }
+
+  > .search-btn {
+    margin: 0;
+    width: 25px;
   }
 `;
 

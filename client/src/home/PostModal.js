@@ -23,26 +23,28 @@ import { ko } from 'date-fns/esm/locale';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { createBoard } from '../store/boardSlice';
-import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs';
 
 const ModalDay = styled(DatePicker)`
   padding: 10px;
-  margin-left: 10px;
-  width: 340px;
-  font-size: 14px;
-  border-radius: 4px;
+  height: 40px;
+  width: 360px;
+  font-size: 12pt;
+  border-radius: 10px;
   box-sizing: border-box;
   text-align: center;
   cursor: pointer;
+  color: #505050;
   border: none;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
 `;
 
 const PostModal = ({ isOpen, onClose }) => {
   // const now = new Date()
   // const options = { timeZone: 'Asia/Seoul'};
   // const koreaTime = now.toLocaleString('en-US', options)
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(
+    new Date(Date.now() + 60 * 60 * 1000)
+  );
   const [tagList, setTagList] = useState([]);
 
   // useEffect(() => {
@@ -62,7 +64,6 @@ const PostModal = ({ isOpen, onClose }) => {
   });
 
   const dispatch = useDispatch();
-  // console.log(postBoard);
 
   const handleIncrement = (e) => {
     e.preventDefault();
@@ -74,7 +75,7 @@ const PostModal = ({ isOpen, onClose }) => {
 
   const handleDecrement = (e) => {
     e.preventDefault();
-    if (postBoard.people > 0) {
+    if (postBoard.total > 0) {
       setPostBoard((prevBoard) => ({
         ...prevBoard,
         total: prevBoard.total - 1,
@@ -128,29 +129,29 @@ const PostModal = ({ isOpen, onClose }) => {
     }
   };
 
+  const genderMapping = {
+    ANY: '누구나 참여 가능',
+    FEMALE: '여성만 참여 가능',
+    MALE: '남성만 참여 가능',
+  };
+  const displayedGender = genderMapping[postBoard.passedGender];
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (
-    //   postBoard.title === '' ||
-    //   postBoard.total === 0 ||
-    //   postBoard.body === ''
-    // ) {
-    //   alert('모든 곳을 입력해주세요.');
-    //   return;
-    // }
+    if (
+      postBoard.title === '' ||
+      postBoard.total === 0 ||
+      postBoard.body === ''
+    ) {
+      alert('모든 곳을 입력해주세요.');
+      return;
+    }
     dispatch(createBoard(postBoard))
       .unwrap()
       .then(() => {
-        console.log('게시물이 성공적으로 작성되었습니다.');
         onClose();
         alert(`식사매너 지켜주실 거죠??`);
         navigate(0);
-      })
-      .catch((error) => {
-        console.error('게시물 작성 중 오류가 발생했습니다.', error);
       });
-    // eslint-disable-next-line no-debugger
-    // debugger;
   };
 
   const navigate = useNavigate();
@@ -164,11 +165,10 @@ const PostModal = ({ isOpen, onClose }) => {
     onClose: PropTypes.func.isRequired,
   };
 
-  // console.log(postBoard.mealTime);
-
   return (
     <ModalWrap isOpen={isOpen}>
       <ModalContent isOpen={isOpen} onSubmit={handleSubmit}>
+        <div></div>
         <ModalQurry>같이 먹을 음식은?</ModalQurry>
         <ModalInput
           placeholder="함께하고 싶은 음식을 적어주세요"
@@ -177,9 +177,9 @@ const PostModal = ({ isOpen, onClose }) => {
         ></ModalInput>
         <ModalQurry>같이 먹을 인원은?</ModalQurry>
         <ModalCount name="total" onChange={handleChange}>
-          <ModalCountbutton onClick={handleDecrement}>-</ModalCountbutton>
+          <ModalCountbutton onClick={handleDecrement}></ModalCountbutton>
           <span>{postBoard.total}</span>
-          <ModalPlusbutton onClick={handleIncrement}>+</ModalPlusbutton>
+          <ModalPlusbutton onClick={handleIncrement}></ModalPlusbutton>
         </ModalCount>
         <ModalQurry>언제 먹을까?</ModalQurry>
         <ModalDay
@@ -195,13 +195,9 @@ const PostModal = ({ isOpen, onClose }) => {
         />
         <ModalQurry>누구랑 먹을까?</ModalQurry>
         <ModalWhoButtonWrap>
-          <ModalWhobutton onClick={handleWhoChange}>
-            <BsArrowLeftShort />
-          </ModalWhobutton>
-          <span>{postBoard.passedGender}</span>
-          <ModalWhobutton onClick={handleWhoChange}>
-            <BsArrowRightShort />
-          </ModalWhobutton>
+          <ModalWhobutton onClick={handleWhoChange} arrow="prev" />
+          <span>{displayedGender}</span>
+          <ModalWhobutton onClick={handleWhoChange} arrow="next" />
         </ModalWhoButtonWrap>
         <ModalQurry>추가로 입력할 정보는?</ModalQurry>
         <ModalText

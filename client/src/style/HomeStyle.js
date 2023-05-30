@@ -52,9 +52,9 @@ export const MainWrap = styled.div`
   .boards {
     display: flex;
     justify-content: center;
-    width: 100%;
-    height: 70%;
-    margin: 0px 5px;
+    height: 75%;
+    margin: 0 10px;
+    padding: 0 0 30px 0;
     overflow-y: scroll;
     position: relative;
 
@@ -257,7 +257,7 @@ export const Button = styled.button`
 export const BoardsWrap = styled.div`
   padding: 0px;
   height: 80%;
-  width: 360px;
+  width: 100%;
   position: relative;
   background-color: transparent;
   z-index: 1;

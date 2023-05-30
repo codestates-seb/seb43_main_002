@@ -119,7 +119,8 @@ const NewLogin = () => {
 
             dispatch(login(user));
             alert(`${user.nickname}님, 식사는 잡쉈어?`);
-            navigate('/api/boards');
+            // navigate('/api/boards');
+            window.location.href = '/api/boards';
           } else if (!token) {
             alert('인증정보를 받아오지 못했습니다.');
             navigate('/');

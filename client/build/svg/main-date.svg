@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="레이어_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
@@ -22,3 +23,29 @@
 	</g>
 </g>
 </svg>
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="레이어_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 12.8 12.5" style="enable-background:new 0 0 12.8 12.5;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#C9C9C9;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+<title>자산 76</title>
+<g id="레이어_2_1_">
+	<g id="상태값">
+		<g id="날짜">
+			<path class="st0" d="M2.4,1.8h7.9c1.1,0,1.9,0.9,1.9,1.9v6.4c0,1.1-0.9,1.9-1.9,1.9H2.4c-1.1,0-1.9-0.9-1.9-1.9V3.7
+				C0.5,2.6,1.4,1.8,2.4,1.8z"/>
+			<line class="st0" x1="2.9" y1="2.6" x2="2.9" y2="0.5"/>
+			<line class="st0" x1="10" y1="2.6" x2="10" y2="0.5"/>
+			<line class="st0" x1="6.4" y1="2.6" x2="6.4" y2="0.5"/>
+			<line class="st0" x1="0.5" y1="5" x2="12.3" y2="5"/>
+			<line class="st0" x1="6.8" y1="7.2" x2="10.5" y2="7.2"/>
+			<line class="st0" x1="6.8" y1="9" x2="10.5" y2="9"/>
+			<rect x="2.5" y="6.9" class="st0" width="2.7" height="2.7"/>
+		</g>
+	</g>
+</g>
+</svg>
+>>>>>>> 6e80b6d24353ad9464822bb246f5348fc01fce88

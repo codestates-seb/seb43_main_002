@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import { useNavigate } from 'react-router-dom';
 import {
   LoginContainer,
@@ -97,45 +98,42 @@ const NewLogin = () => {
     [values.password]
   );
 
-  const handleSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      axiosInstance
-        .post('api/members/login', values)
-        .then((response) => {
-          const token = response.data;
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-          if (token) {
-            const decoded = jwt_decode(token);
+    axiosInstance
+      .post('/api/members/login', values)
+      .then((response) => {
+        const token = response.data;
+        if (token) {
+          const decoded = jwt_decode(token);
 
-            const user = {
-              email: decoded.email,
-              nickname: decoded.nickname,
-              memberId: decoded.memberId,
-            };
+          const user = {
+            email: decoded.email,
+            nickname: decoded.nickname,
+            memberId: decoded.memberId,
+          };
 
-            sessionStorage.setItem('user', JSON.stringify(user)); // 세션스토리지에 user정보 저장
-            sessionStorage.setItem('jwt', token); // sessionStorage에 토큰 저장
+          sessionStorage.setItem('user', JSON.stringify(user)); // 세션스토리지에 user정보 저장
+          sessionStorage.setItem('jwt', token); // sessionStorage에 토큰 저장
 
-            dispatch(login(user));
-            alert(`${user.nickname}님, 식사는 잡쉈어?`);
-            navigate('/api/boards');
-          } else if (!token) {
-            alert('인증정보를 받아오지 못했습니다.');
-            navigate('/');
-          }
-        })
-        .catch((error) => {
-          if (error.response && error.response.status >= 500) {
-            setServerError(true);
-          } else {
-            alert('이메일과 비밀번호가 맞게 작성됐는지 확인하세요.');
-          }
-          console.error('로그인 에러:', error);
-        });
-    },
-    [dispatch, navigate, values]
-  );
+          dispatch(login(user));
+          alert(`${user.nickname}님, 식사는 잡쉈어?`);
+          navigate('/api/boards');
+        } else if (!token) {
+          alert('인증정보를 받아오지 못했습니다.');
+          `navigate`('/');
+        }
+      })
+      .catch((error) => {
+        if (error.response && error.response.status >= 500) {
+          setServerError(true);
+        } else {
+          alert('이메일과 비밀번호가 맞게 작성됐는지 확인하세요.');
+        }
+        console.error('로그인 에러:', error);
+      });
+  };
 
   const [serverError, setServerError] = useState(false);
 

@@ -58,15 +58,19 @@ export const MainWrap = styled.div`
     overflow-y: scroll;
     position: relative;
 
-    ::-webkit-scrollbar {
-      width: 0.5em;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
+    &::-webkit-scrollbar {
+      width: 3px;
     }
 
-    ::-webkit-scrollbar-track {
-      background-color: transparent;
+    &::-webkit-scrollbar-thumb {
+      background-color: #ffac36;
+      border-radius: 10px;
     }
 
-    ::-webkit-scrollbar-thumb {
+    &::-webkit-scrollbar-track {
       background-color: transparent;
     }
   }

@@ -65,7 +65,42 @@ const commentSlice = createSlice({
   initialState: {
     comments: [],
   },
-
+  reducers: {
+    setComments: (state, action) => {
+      state.comments = action.payload;
+    },
+    addComment: (state, action) => {
+      const { boardId, comment } = action.payload;
+      const boardIndex = state.comments.findIndex(
+        (board) => board.id === boardId
+      );
+      if (boardIndex !== -1) {
+        state.comments[boardIndex].comments.push(comment);
+      }
+    },
+    updateComment: (state, action) => {
+      const updatedComment = action.payload;
+      const { commentId, boardId } = updatedComment;
+      const boardIndex = state.comments.findIndex(
+        (board) => board.id === boardId
+      );
+      if (boardIndex !== -1) {
+        const commentIndex = state.comments[boardIndex].comments.findIndex(
+          (comment) => comment.id === commentId
+        );
+        if (commentIndex !== -1) {
+          state.comments[boardIndex].comments[commentIndex] = updatedComment;
+        }
+      }
+    },
+    deleteComment: (state, action) => {
+      const { commentId } = action.payload;
+      state.comments = state.comments.map((board) => ({
+        ...board,
+        comments: board.comments.filter((comment) => comment.id !== commentId),
+      }));
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchComments.fulfilled, (state, action) => {
       state.comments = action.payload;

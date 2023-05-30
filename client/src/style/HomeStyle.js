@@ -1,4 +1,42 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
+const slideIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+`;
+
+const slideOut = keyframes`
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+`;
+
+const widthAnimationIn = keyframes`
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 90%;
+  }
+`;
+
+const widthAnimationOut = keyframes`
+  0% {
+    width: 90%;
+  }
+  100% {
+    width: 0%;
+  }
+`;
 
 export const MainWrap = styled.div`
   padding: 0px;
@@ -15,10 +53,9 @@ export const MainWrap = styled.div`
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 550px;
+    height: 70%;
     margin: 0px 5px;
     overflow-y: scroll;
-    z-index: 9999;
     position: relative;
 
     ::-webkit-scrollbar {
@@ -33,14 +70,32 @@ export const MainWrap = styled.div`
       background-color: transparent;
     }
   }
+
+  .none {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .slide-in {
+    opacity: 1;
+    animation: ${slideIn} 0.7s ease-out;
+  }
+
+  .slide-out {
+    opacity: 0;
+    animation: ${slideOut} 0.7s ease-out;
+  }
 `;
 
 export const SearchSpan = styled.input`
   display: ${(onSearch) => (onSearch ? 'block' : 'none')};
-  margin-left: 15px;
+  margin-right: 15px;
   padding: 0px 10px;
   height: 30px;
-  width: 73%;
+  width: 90%;
   border: none;
   border-radius: 50px;
   background-color: rgba(255, 255, 255, 0.5);
@@ -48,18 +103,26 @@ export const SearchSpan = styled.input`
   border-radius: 10px;
   border: none;
   background-color: #ffddac;
+  animation: ${(props) =>
+    props.inputEffect
+      ? css`
+          ${widthAnimationIn} 0.5s ease-in-out forwards;
+        `
+      : css`
+          ${widthAnimationOut} 0.5s ease-in-out forwards;
+        `};
 `;
 
 export const HeaderBackWrap = styled.div`
   padding: 0px;
   display: flex;
-  height: 30%;
   width: 100%;
   /* border: 1px solid black; */
-  border-bottom-left-radius: 15%;
-  border-bottom-right-radius: 15%;
-  position: absolute;
   background-image: linear-gradient(135deg, #ffd571, #ffac36);
+  box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 25px 25px;
+  height: 272px;
+  position: absolute;
   z-index: -1;
 `;
 
@@ -112,7 +175,7 @@ export const SearchWrap = styled.div`
 
 export const DayWrap = styled.div`
   padding: 0px 20px;
-  margin: 15px 0px;
+  margin-bottom: 10px;
   z-index: 1;
   /* border: 1px solid black; */
   background-color: transparent;
@@ -144,10 +207,14 @@ export const SlideContainer = styled.div`
   flex-wrap: nowrap;
   width: max-content;
   overflow-x: scroll;
-  padding-bottom: 10px;
 
   ::-webkit-scrollbar {
     height: 10px;
+  }
+
+  .test {
+    border-bottom: 1px solid white;
+    opacity: 0.7;
   }
 `;
 
@@ -159,16 +226,16 @@ export const WeekWrap = styled.div`
   padding: 0px;
   width: 100%;
   height: 17px;
+  font-weight: 700;
   /* border: 1px solid black; */
   position: relative;
 `;
 
 export const DayNumberWrap = styled.div`
   margin-top: 10px;
+  padding-bottom: 10px;
   width: 60%;
   /* height: 100%; */
-  padding: 0px;
-  /* border-bottom: 1px solid white; */
   position: relative;
   border-bottom: ${({ selected }) => selected && '2px solid white'};
 `;
@@ -197,21 +264,22 @@ export const BoardsWrap = styled.div`
 `;
 
 export const BoardWrap = styled.article`
-  margin-top: 10px;
-  padding: 10px;
+  margin-bottom: 20px;
+  padding: 15px;
   width: 100%;
   /* border: 1px solid black; */
   border-radius: 10px;
   background-color: white;
   z-index: 0;
   position: relative;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
 `;
 
 export const CompleteBoard = styled.div`
   position: relative;
+  margin-bottom: 20px;
 `;
 
 export const CompletedBack = styled.div`
@@ -300,8 +368,12 @@ export const FooterCicleWrap = styled.div`
 
 export const RefreshButton = styled.img`
   position: absolute;
-  margin-left: 300px;
+  top: 16px;
+  right: 48px;
   width: 17px;
   height: 17px;
   cursor: pointer;
+  /* display: ${(props) => (props.inputEffect ? 'block' : 'none')}; */
+  opacity: ${(props) => (props.inputEffect ? 1 : 0)};
+  transition: opacity 0.3s ease-in-out;
 `;

@@ -5,7 +5,6 @@ import { AiFillDelete } from 'react-icons/ai';
 import { FiUsers } from 'react-icons/fi';
 import Comment from './Comment';
 import PropTypes from 'prop-types';
-import EditModal from './EditModal';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteBoard } from '../store/boardSlice';
@@ -31,8 +30,10 @@ import {
 } from '../style/BoardStyle';
 import axiosInstance from '../axiosConfig';
 
-const Board = ({ board }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+// eslint-disable-next-line react/prop-types
+const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
+  const comments = useSelector((state) => state.comment.comments);
+  const userInfo = useSelector((state) => state.user.userInfo);
   const [commentOpen, setCommentOpen] = useState(false);
   const [postComment, setPostComment] = useState({
     body: '',
@@ -47,8 +48,6 @@ const Board = ({ board }) => {
   const amPm = hour >= 12 ? '오후' : '오전';
   const formattedDate = `${month}/${day}일 ${amPm} ${hour % 12}시`;
   const dispatch = useDispatch();
-  const comments = useSelector((state) => state.comment.comments);
-  const userInfo = useSelector((state) => state.user.userInfo);
   // const profile = useSelector((state) => state.profile.profile);
 
   const navigate = useNavigate();
@@ -57,7 +56,7 @@ const Board = ({ board }) => {
   };
 
   const handlePlusClick = () => {
-    setIsModalOpen(true);
+    setIsModalOpenNew(true);
   };
 
   useEffect(() => {
@@ -66,13 +65,9 @@ const Board = ({ board }) => {
         setIsBoard(res.payload)
       );
     }
-  }, [commentOpen, dispatch, board.boardId]);
+  }, [board.boardId, commentOpen, dispatch]);
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const hanmdleComment = (e) => {
+  const handleComment = (e) => {
     e.preventDefault();
     const value = e.target.value;
     setPostComment({ ...postComment, body: value });
@@ -88,29 +83,32 @@ const Board = ({ board }) => {
   };
 
   const handlePostComment = (e) => {
-    e.preventDefault();
-    dispatch(addComment({ boardId: board.boardId, comment: postComment }))
-      .unwrap()
-      .then(() => {
-        console.log('댓글이 성공적으로 등록되었습니다.');
-        alert(`식사매너 지켜주실 거죠??`);
-        setIsBoard([...isBoard, postComment]);
-        setPostComment({ body: '' });
-        navigate(0);
-      });
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (postComment.body === '') {
+        alert('댓글을 입력해주세요');
+        return;
+      }
+      dispatch(addComment({ boardId: board.boardId, comment: postComment }))
+        .unwrap()
+        .then(() => {
+          alert(`식사매너 지켜주실 거죠??`);
+          dispatch(fetchComments(board.boardId)).then((res) => {
+            setIsBoard(res.payload);
+          });
+          setPostComment({ ...postComment, body: '' });
+          // navigate(0);
+        });
+    }
   };
 
   const handleDelete = () => {
     dispatch(deleteBoard(board.boardId))
       .then(() => {
-        console.log('게시물이 성공적으로 삭제되었습니다.');
         navigate(0);
       })
-      .catch((error) => {
-        console.error('게시물 삭제 중 오류가 발생했습니다.', error);
-      });
+      .catch((error) => {});
   };
-  // console.log('comment', comments);
 
   const isAuthor = userInfo && board.memberId === userInfo.memberId;
 
@@ -133,11 +131,14 @@ const Board = ({ board }) => {
       });
   };
 
-  // console.log('보드:', board.boardId);
-  // console.log('boards', board.mealTime);
+  // console.log('value', postComment);
   // console.log('complete', isRecruitmentComplete);
 
-  const imageUrl = `/api/mypages/${board.memberId}/image`;
+  const imageUrl = `https://api.sik-gu.com/api/mypages/${board.memberId}/image`;
+
+  const handleUser = () => {
+    navigate(`/userpage/${board.memberId}`);
+  };
 
   // console.log('profile:', board);
   Board.propTypes = {
@@ -156,7 +157,7 @@ const Board = ({ board }) => {
           모집완료
         </CompleteButton>
         <BoardWrap>
-          <CommentOpenButton onClick={handleOpen}>+</CommentOpenButton>
+          <CommentOpenButton onClick={handleOpen} commentOpen={commentOpen} />
           <SexInfomaitonWrap gender={board.passedGender}>
             {genderMapping[board.passedGender]}
           </SexInfomaitonWrap>
@@ -171,19 +172,19 @@ const Board = ({ board }) => {
               </TagBlock>
             ))}
           </TagWrap>
-          <SubmitWrap>
+          <SubmitWrap commentOpen={commentOpen}>
             <IconWrap>
               <BiTimeFive />
               {formattedDate}
             </IconWrap>
             <IconWrap>
               <FiUsers />
-              {board.count}/{board.total}
+              {board.count}/{board.total} 명
             </IconWrap>
-            <UserWrap>{board.nickname}</UserWrap>
-            <UserImg src={imageUrl}></UserImg>
+            <UserWrap onClick={handleUser}>{board.nickname}</UserWrap>
+            <UserImg onClick={handleUser} src={imageUrl}></UserImg>
           </SubmitWrap>
-          <ButtonWrap>
+          <ButtonWrap commentOpen={commentOpen}>
             {isAuthor && (
               <>
                 <StateButton onClick={handlePlusClick}>
@@ -209,7 +210,9 @@ const Board = ({ board }) => {
                 ))}
               <CommentInputWrap>
                 <CommentInput
-                  onBlur={hanmdleComment}
+                  value={postComment.body}
+                  onChange={handleComment}
+                  onKeyDown={handlePostComment}
                   placeholder="깨끗한 문화를 위해 노력해주세요."
                 />
                 <CommentButton onClick={handlePostComment}>답글</CommentButton>
@@ -218,11 +221,6 @@ const Board = ({ board }) => {
           )}
         </BoardWrap>
       </CompleteBoard>
-      <EditModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        board={board}
-      ></EditModal>
     </>
   );
 };

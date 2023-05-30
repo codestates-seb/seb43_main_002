@@ -10,9 +10,42 @@ export const MainWrap = styled.div`
   overflow: hidden;
 
   > div:first-child {
+    position: relative;
     padding: 20px;
     border-radius: 0 0 15px 15px;
     background-image: linear-gradient(135deg, #ffd571, #ffac36);
+    box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.2);
+    color: white;
+    z-index: 100;
+
+    > div {
+      display: flex;
+      align-items: center;
+      > img {
+        margin-right: 5px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+
+    > img {
+      margin-bottom: 25px;
+    }
   }
 `;
 
@@ -47,7 +80,8 @@ export const MapContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  height: 80%;
+  top: -15px;
+  height: 82%;
   width: 100%;
   overflow: hidden;
   z-index: 1;
@@ -68,26 +102,30 @@ export const ButtonWrap = styled.div`
 `;
 
 export const CategoryButton = styled.button`
+  margin-top: 20px;
   display: flex;
   position: relative;
   align-items: center;
   padding: 7px 7px;
+  font-weight: 700;
+  color: white;
   border: none;
   border-radius: 5px;
-  margin-right: 3px;
+  margin-right: 6px;
   background-image: linear-gradient(135deg, #ffd571, #ffac36);
-  color: black;
+  /* color: black; */
   font-size: 0.8rem;
   cursor: pointer;
   z-index: 20;
 
   &:hover {
-    background: radial-gradient(#ccad5c, #cc8400);
+    filter: brightness(90%);
+    transition: filter 0.3s;
   }
 
   img {
     width: 12px;
-    margin-right: 5px;
+    margin-right: 3px;
   }
 `;
 
@@ -105,7 +143,7 @@ export const ButtonContainer = styled.div`
 
 export const CurrentLocationButton = styled.div`
   position: absolute;
-  bottom: ${(props) => (props.animate ? '260px' : '10px')};
+  bottom: ${(props) => (props.animate ? '290px' : '10px')};
   height: 40px;
   width: 40px;
   padding: 7px 7px;
@@ -118,7 +156,8 @@ export const CurrentLocationButton = styled.div`
   z-index: 20;
   cursor: pointer;
   &:hover {
-    background-image: radial-gradient(#ccad5c, #cc8400);
+    filter: brightness(90%);
+    transition: filter 0.3s;
   }
   img {
     width: 100%;
@@ -128,8 +167,9 @@ export const CurrentLocationButton = styled.div`
 
 export const SearchResults = styled.div`
   position: absolute;
-  padding: 20px 0px;
+  padding: 10px;
   border-radius: 15px 15px 0 0;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   bottom: 0;
   transform: ${(props) =>
     props.animate ? 'translateY(0)' : 'translateY(calc(100% + 20px))'};
@@ -139,7 +179,7 @@ export const SearchResults = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 250px;
+  height: ${(props) => (props.expandedResult != null ? '45%' : '40%')};
   overflow-y: auto;
   background: rgba(255, 250, 237, 1);
   border-top: 1px solid #ddd;
@@ -150,10 +190,17 @@ export const SearchResults = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+
+  > img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+    align-self: flex-start;
+  }
 `;
 
 export const ResultItem = styled.div`
-  width: 90%;
+  width: 100%;
   padding: 10px;
   margin-top: 5px;
   margin-bottom: 5px;

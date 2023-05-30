@@ -144,6 +144,9 @@ public class BoardService {
         if (comment.getStatus() != Comment.CommentStatus.ACTIVE_COMMENT) {
             throw new BusinessLogicException(ExceptionCode.DELETED_COMMENT, HttpStatus.BAD_REQUEST);
         }
+        if (comment.getMember().getMemberId().equals(memberId)) {
+            throw new BusinessLogicException(ExceptionCode.INVALID_REQUEST, HttpStatus.BAD_REQUEST);
+        }
         if (!comment.getSchedule().equals(board)) {
             throw new BusinessLogicException(ExceptionCode.INVALID_REQUEST, HttpStatus.BAD_REQUEST);
         }
@@ -158,12 +161,59 @@ public class BoardService {
         if (board.getCount() < board.getTotal()) {
             board.setCount(board.getCount() + 1);
         } else {
-            throw new BusinessLogicException(ExceptionCode.MAX_CAPACITY_REACHED, HttpStatus.FORBIDDEN);
+            throw new BusinessLogicException(ExceptionCode.MAX_CAPACITY_REACHED, HttpStatus.BAD_REQUEST);
         }
 
         // 변경된 상태를 저장합니다.
         commentRepository.save(comment);
         boardRepository.save(board);
+    }
+
+    public void refuseCommentAndDecreaseCurrentCount(Long boardId, Long commentId, Authentication authentication) {
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.BOARD_NOT_FOUND, HttpStatus.NOT_FOUND));
+
+        // 게시판이 활성 상태인지 확인합니다.
+        if (board.getBoardStatus() != Board.BoardStatus.ACTIVE_BOARD) {
+            throw new BusinessLogicException(ExceptionCode.INACTIVED_BOARD, HttpStatus.BAD_REQUEST);
+        }
+        // 작성자와 인증된 사용자의 아이디를 비교하여 일치하는지 검증합니다.
+        Long memberId = memberService.getCurrentMemberId(authentication);
+        if (!board.getMember().getMemberId().equals(memberId)) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED, HttpStatus.FORBIDDEN);
+        }
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND, HttpStatus.NOT_FOUND));
+        // 코멘트가 활성 상태인지 확인합니다.
+        if (comment.getStatus() != Comment.CommentStatus.ACTIVE_COMMENT) {
+            throw new BusinessLogicException(ExceptionCode.DELETED_COMMENT, HttpStatus.BAD_REQUEST);
+        }
+        // 참가 신청자와 작성자가 같은지 확인합니다.
+        if (comment.getMember().getMemberId().equals(memberId)) {
+            throw new BusinessLogicException(ExceptionCode.INVALID_REQUEST, HttpStatus.BAD_REQUEST);
+        }
+        // 코멘트의 스케줄이 게시판과 일치하는지 확인합니다.
+        if (!comment.getSchedule().equals(board)) {
+            throw new BusinessLogicException(ExceptionCode.INVALID_REQUEST, HttpStatus.BAD_REQUEST);
+        }
+        // 이미 거절된 코멘트인지 확인합니다.
+        if (comment.getSelectionStatus() == Comment.SelectionStatus.NOT_SELECTION) {
+            throw new BusinessLogicException(ExceptionCode.ALREADY_REFUSED_COMMENT, HttpStatus.BAD_REQUEST);
+        }
+
+        // 코멘트의 상태를 거절로 변경합니다.
+        comment.setSelectionStatus(Comment.SelectionStatus.NOT_SELECTION);
+
+        // 보드의 현재 인원수를 1 감소시킵니다.
+        if (board.getCount() > 0) {
+            board.setCount(board.getCount() - 1);
+        } else {
+            throw new BusinessLogicException(ExceptionCode.MIN_CAPACITY_REACHED, HttpStatus.BAD_REQUEST);
+        }
+
+        // 변경된 상태를 저장합니다.
+        boardRepository.save(board);
+        commentRepository.save(comment);
     }
 
     // 게시물 ID와 작성한 멤버 ID 확인

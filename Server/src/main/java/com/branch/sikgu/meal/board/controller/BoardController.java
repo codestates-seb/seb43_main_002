@@ -84,6 +84,16 @@ public class BoardController {
         return ResponseEntity.ok("참가 신청 수락!");
     }
 
+    // 참가 신청 거절 버튼
+    @PatchMapping("/{boardId}/comments/{commentId}/refuse")
+    public ResponseEntity<String> refuseCommentAndDecreaseCurrentCount(
+            @PathVariable Long boardId,
+            @PathVariable Long commentId, Authentication authentication
+    ) {
+        boardService.refuseCommentAndDecreaseCurrentCount(boardId, commentId, authentication);
+        return ResponseEntity.ok("참가 신청 거절!");
+    }
+
     // 참가 모집 완료 버튼
     @PostMapping("/{boardId}/complete")
     public ResponseEntity<String> completeBoard(

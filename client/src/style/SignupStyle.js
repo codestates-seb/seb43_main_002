@@ -47,7 +47,6 @@ const SignupForm = styled.form`
   align-items: center;
   padding: 20px;
   overflow-y: auto;
-
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
 
@@ -56,7 +55,9 @@ const SignupForm = styled.form`
   }
 
   &::-webkit-scrollbar-thumb {
+
     background-color: #888;
+
     border-radius: 10px;
   }
 

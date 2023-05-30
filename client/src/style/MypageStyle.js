@@ -33,9 +33,6 @@ export const Mobile = styled.div`
     width: 100%;
   }
 
-  overflow-y: scroll;
-  position: relative;
-
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
 
@@ -44,7 +41,9 @@ export const Mobile = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
+
     background-color: #888;
+
     border-radius: 10px;
   }
 

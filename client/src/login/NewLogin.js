@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import { useNavigate } from 'react-router-dom';
 import {
   LoginContainer,
@@ -21,25 +20,8 @@ import { login } from '../store/userSlice';
 import jwt_decode from 'jwt-decode';
 import axiosInstance from '../axiosConfig';
 
-// HN
-
 const emailRegex = /^[\w-]+(.[\w-]+)@([\w-]+.)+[a-zA-Z]{2,7}$/;
 const passwordRegex = /^(?=.[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-// //이메일 유효성 검사
-// const validateEmail = (email) => {
-//   if (!emailRegex.test(email)) {
-//     return '올바른 이메일 형식이 아닙니다.';
-//   } else {
-//     return '';
-//   }
-// };
-// // 비밀번호 유효성 검사
-// const validatePassword = (password, confirmPassword) => {
-//   if (!passwordRegex.test(password)) {
-//     return '비밀번호는 영문, 숫자 포함 8글자 이상이어야합니다.';
-//   }
-//   return '';
-// };
 
 const NewLogin = () => {
   const navigate = useNavigate();
@@ -104,10 +86,10 @@ const NewLogin = () => {
     axiosInstance
       .post('/api/members/login', values)
       .then((response) => {
-        const token = response.data;
+        const token = response.headers.authorization;
         if (token) {
           const decoded = jwt_decode(token);
-
+          console.log(response.headers.authorization);
           const user = {
             email: decoded.email,
             nickname: decoded.nickname,
@@ -134,6 +116,12 @@ const NewLogin = () => {
         console.error('로그인 에러:', error);
       });
   };
+
+  // const responseGoogle = (response) => {
+  //   console.log(response);
+  //   axiosInstance
+  //   .get()
+  // };
 
   const [serverError, setServerError] = useState(false);
 

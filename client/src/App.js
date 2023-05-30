@@ -15,6 +15,7 @@ import MyPage from './mypage/MyPage';
 import EditProfile from './mypage/EditProfile';
 import UserState from './mypage/UserState';
 import UserPage from './mypage/UserPage';
+import NaverLoginForm from './login/NaverLogin';
 
 function App() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -24,10 +25,6 @@ function App() {
   useEffect(() => {
     const storedUser = sessionStorage.getItem('user');
     const JsonUser = JSON.parse(storedUser);
-    // Json.parse 사용 하여 이름맞추기
-    // null 일 때 고민해보기
-    // eslint-disable-next-line no-debugger
-    // debugger;
     const storedToken = sessionStorage.getItem('jwt');
     if (JsonUser && storedToken) {
       dispatch(login(JsonUser));
@@ -76,6 +73,9 @@ function App() {
           </Route>
           <Route path="api/boards" element={<PrivateRoute />}>
             <Route index element={<Main />} />
+          </Route>
+          <Route path="api/boards" element={<PrivateRoute />}>
+            <Route index element={<NaverLoginForm />} />
           </Route>
           {/* <Route path="api/boards" element={<PrivateRoute />}>
             <Route index element={<UserState />} />

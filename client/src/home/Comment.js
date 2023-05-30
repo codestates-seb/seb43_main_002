@@ -100,12 +100,12 @@ const FinalState = styled.div`
   ${(props) => {
     if (props.status === 'BEFORE_SELECTION') {
       return css`
-        background-color: #ffb44a;
-        color: white;
+        background-color: #ffddac;
+        color: black;
       `;
     } else if (props.status === 'SELECTION') {
       return css`
-        background-color: #41d95d;
+        background-color: #ffb44a;
         color: white;
       `;
     } else if (props.status === 'NOT_SELECTION') {
@@ -116,6 +116,7 @@ const FinalState = styled.div`
     }
   }}
 `;
+
 const EditComment = styled.input`
   padding: 10px;
   height: 30px;
@@ -240,7 +241,7 @@ const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
               src={imageUrl}
             ></CommentProfileWrap>
             {comment.selectionStatus === 'BEFORE_SELECTION' && (
-              <FinalState status={comment.selectionStatus}>
+              <>
                 {Boarduser ? (
                   <FinalButton
                     onClick={() =>
@@ -250,13 +251,13 @@ const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
                     확인
                   </FinalButton>
                 ) : (
-                  '확인'
+                  <FinalState status={comment.selectionStatus}>확인</FinalState>
                 )}
-              </FinalState>
+              </>
             )}
 
             {comment.selectionStatus === 'SELECTION' && (
-              <FinalState status={comment.selectionStatus}>
+              <>
                 {Boarduser ? (
                   <FinalButton
                     onClick={() =>
@@ -266,13 +267,13 @@ const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
                     참가
                   </FinalButton>
                 ) : (
-                  '참가'
+                  <FinalState status={comment.selectionStatus}>참가</FinalState>
                 )}
-              </FinalState>
+              </>
             )}
 
             {comment.selectionStatus === 'NOT_SELECTION' && (
-              <FinalState status={comment.selectionStatus}>
+              <>
                 {Boarduser ? (
                   <FinalButton
                     onClick={() =>
@@ -282,9 +283,9 @@ const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
                     거절
                   </FinalButton>
                 ) : (
-                  '거절'
+                  <FinalState status={comment.selectionStatus}>거절</FinalState>
                 )}
-              </FinalState>
+              </>
             )}
           </ProfiletWrap>
           <ContentWrap>

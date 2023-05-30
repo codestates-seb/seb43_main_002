@@ -1,17 +1,23 @@
 package com.branch.sikgu.myPage.controller;
 
+import com.branch.sikgu.image.Entity.Image;
 import com.branch.sikgu.image.Repository.ImageRepository;
 import com.branch.sikgu.myPage.dto.MyPageRequestDto;
 import com.branch.sikgu.myPage.dto.MyPageResponseDto;
 import com.branch.sikgu.myPage.service.MyPageService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 
 @RestController
@@ -30,6 +36,7 @@ public class MyPageController {
         return ResponseEntity.ok(myPageResponseDto);
     }
 
+    // 프로필이미지 보여주기
     @GetMapping("/{myPageId}/image")
     public void downloadImage(@PathVariable Long myPageId, HttpServletResponse response) {
         myPageService.downloadImage(myPageId, response);
@@ -39,7 +46,7 @@ public class MyPageController {
     @PatchMapping("/{memberId}")
     public ResponseEntity<Void> updateMyPage(
             @PathVariable Long memberId,
-            @RequestPart(required = false, name = "myPageRequestDto") MyPageRequestDto myPageRequestDto,
+            @RequestPart(name = "myPageRequestDto") MyPageRequestDto myPageRequestDto,
             @RequestPart(required = false, name = "file") MultipartFile file,
             Authentication authentication) throws IOException {
             myPageService.updateMyPage(memberId, myPageRequestDto, authentication, file);

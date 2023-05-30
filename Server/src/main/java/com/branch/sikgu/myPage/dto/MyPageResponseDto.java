@@ -16,7 +16,6 @@ public class MyPageResponseDto {
     private boolean gender;
     private LocalDate birthday;
     private String nickname;
-    private Long imageId;
     private String introduce;
     private Long likes;
     private Long followingCount;

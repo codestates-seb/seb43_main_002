@@ -42,12 +42,11 @@ const Mobile = styled.div`
 `;
 
 const SignupForm = styled.form`
+  position: relative;
   justify-content: center;
   align-items: center;
   padding: 20px;
   overflow-y: auto;
-  overflow-y: scroll;
-  position: relative;
 
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;

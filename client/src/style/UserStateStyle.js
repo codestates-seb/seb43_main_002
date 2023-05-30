@@ -43,21 +43,20 @@ export const Posts = styled.div`
   height: 710px;
   overflow-y: scroll;
 
-  /* 스크롤바 */
-  ::-webkit-scrollbar {
-    display: none;
-    width: 8px; /* 스크롤바 너비 */
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
+  &::-webkit-scrollbar {
+    width: 3px;
   }
 
-  /* 스크롤바 thumb */
-  ::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 */
-    border-radius: 4px; /* 스크롤바 모서리 반경 */
+  &::-webkit-scrollbar-thumb {
+    background-color: #ffac36;
+    border-radius: 10px;
   }
 
-  /* 스크롤바 track */
-  ::-webkit-scrollbar-track {
-    background-color: transparent; /* 스크롤바 트랙 색상 */
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
   }
 
   > .opacity {
@@ -319,21 +318,20 @@ export const Modal = styled.div`
     border-radius: 15px 15px 0 0;
     letter-spacing: -0.05em;
 
-    /* 스크롤바 */
-    ::-webkit-scrollbar {
-      display: none;
-      width: 8px; /* 스크롤바 너비 */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
+    &::-webkit-scrollbar {
+      width: 3px;
     }
 
-    /* 스크롤바 thumb */
-    ::-webkit-scrollbar-thumb {
-      background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 */
-      border-radius: 4px; /* 스크롤바 모서리 반경 */
+    &::-webkit-scrollbar-thumb {
+      background-color: #ffac36;
+      border-radius: 10px;
     }
 
-    /* 스크롤바 track */
-    ::-webkit-scrollbar-track {
-      background-color: transparent; /* 스크롤바 트랙 색상 */
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
     }
 
     > div:first-child {
@@ -369,21 +367,20 @@ export const Modal = styled.div`
       margin: 20px 0px 55px 0px;
       padding: 0px 20px;
 
-      /* 스크롤바 */
-      ::-webkit-scrollbar {
-        display: none;
-        width: 8px; /* 스크롤바 너비 */
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+
+      &::-webkit-scrollbar {
+        width: 3px;
       }
 
-      /* 스크롤바 thumb */
-      ::-webkit-scrollbar-thumb {
-        background-color: rgba(0, 0, 0, 0.2); /* 스크롤바 색상 */
-        border-radius: 4px; /* 스크롤바 모서리 반경 */
+      &::-webkit-scrollbar-thumb {
+        background-color: #ffac36;
+        border-radius: 10px;
       }
 
-      /* 스크롤바 track */
-      ::-webkit-scrollbar-track {
-        background-color: transparent; /* 스크롤바 트랙 색상 */
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
       }
 
       > .post:first-child {

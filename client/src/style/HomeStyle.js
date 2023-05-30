@@ -54,7 +54,7 @@ export const MainWrap = styled.div`
     justify-content: center;
     height: 75%;
     margin: 0 10px;
-    padding: 0 0 30px 0;
+    padding: 0 0 30px;
     overflow-y: scroll;
     position: relative;
 

@@ -1,8 +1,14 @@
 import { HomeWrap, SignBtn, BackYellow } from './style/HomePageStyle';
-
 import { FooterText, StyledLink } from './style/LoginStyle';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
+  function handleSignup() {
+    navigate('/signup');
+  }
+
   return (
     <HomeWrap>
       <BackYellow />
@@ -15,7 +21,7 @@ const HomePage = () => {
         </p>
       </div>
       <div>
-        <SignBtn>시작하기</SignBtn>
+        <SignBtn onClick={handleSignup}>시작하기</SignBtn>
         <FooterText>
           이미 계정이 있나요?&nbsp;<StyledLink to="/login">로그인</StyledLink>
         </FooterText>

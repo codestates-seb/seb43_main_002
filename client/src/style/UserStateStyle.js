@@ -29,6 +29,11 @@ export const Mobile = styled.div`
   background-repeat: no-repeat;
   background-size: 50%;
   background-position: center center;
+
+  @media (max-width: 400px) {
+    // 모바일 기기에서는 화면에 꽉차게 해야함..
+    width: 100%;
+  }
 `;
 
 export const Posts = styled.div`
@@ -216,6 +221,11 @@ export const PopUp = styled.div`
     border-radius: 10px;
     padding: 20px;
 
+    @media (max-width: 360px) {
+      // 모바일 기기에서는 화면에 꽉차게 해야함..
+      width: 90%;
+    }
+
     > ul {
       list-style: none;
       margin: 0;
@@ -242,6 +252,10 @@ export const PopUp = styled.div`
     border-radius: 50px;
     background-color: #c9c9c9;
     cursor: pointer;
+
+    @media (max-width: 400px) {
+      width: 46%;
+    }
 
     :hover {
       transition: filter 0.3s;

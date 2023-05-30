@@ -12,7 +12,7 @@ const BackGround = styled.div`
 `;
 const BackYellow = styled.div`
   background-image: linear-gradient(135deg, #ffd571, #ffac36);
-  height: 220px;
+  height: 25%;
   border-radius: 0 0 50% 50%;
   top: 0;
   left: 0;
@@ -25,7 +25,7 @@ const SignupContainer = styled.div`
   position: absolute;
   bottom: 0;
   display: flex;
-  height: 630px;
+  height: 75%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -35,8 +35,8 @@ const Mobile = styled.div`
   position: relative;
   z-index: -1;
   font-family: 'Noto Sans KR', sans-serif;
-  width: 400px;
-  height: 850px;
+  width: 100%;
+  height: 100%;
   padding: 0px;
   box-sizing: border-box;
 `;

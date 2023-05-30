@@ -14,7 +14,6 @@
     "axios": "^1.4.0",
     "cors": "^2.8.5",
     "date-fns": "^2.30.0",
-    "http-proxy-middleware": "^2.0.6",
     "json-server": "^0.17.3",
     "jwt-decode": "^3.1.2",
     "prettier": "^2.8.8",
@@ -64,6 +63,5 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0"
-  },
-  "proxy": "http://14.72.7.98:8080/"
+  }
 }

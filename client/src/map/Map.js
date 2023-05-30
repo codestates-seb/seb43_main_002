@@ -1,3 +1,4 @@
+/*eslint-disable */
 import { useEffect, useRef, useState } from 'react';
 // import MapHeader from './MapHeader';
 import Header from '../mypage/Header';

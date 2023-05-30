@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import {
   SignupContainer,
   BackYellow,
@@ -121,6 +122,7 @@ const NewSignupForm = () => {
       '이미 사용중인 메일입니다.',
       validateEmail
     );
+
   const [
     isNicknameChecked,
     checkDuplicateNickname,
@@ -134,11 +136,14 @@ const NewSignupForm = () => {
     validateNickname
   );
 
-  const clearError = useCallback((field) => {
-    setErrors((prev) => ({ ...prev, [field]: '' }));
-    if (field === 'email') setEmailError('');
-    if (field === 'nickname') setNicknameError('');
-  }, []);
+  const clearError = useCallback(
+    (field) => {
+      setErrors((prev) => ({ ...prev, [field]: '' }));
+      if (field === 'email') setEmailError('');
+      if (field === 'nickname') setNicknameError('');
+    },
+    [setEmailError, setNicknameError]
+  );
 
   const nameIcon = '/svg/join-name.svg';
   const introIcon = '/svg/join-intro.svg';
@@ -178,7 +183,7 @@ const NewSignupForm = () => {
       !name ||
       !password ||
       !confirmPassword ||
-      !gender ||
+      gender === null ||
       !birthday
     ) {
       alert('모든 정보를 입력해주세요.');

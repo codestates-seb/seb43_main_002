@@ -31,6 +31,7 @@ const Days = () => {
   
   const [isModalOpenNew, setIsModalOpenNew] = useState(false);
 
+  
   const closeModal = () => {
     setIsModalOpenNew(false);
   };

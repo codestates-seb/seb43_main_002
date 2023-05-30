@@ -60,10 +60,6 @@ const Board = ({ board, setIsModalOpenNew, handlePopup }) => {
     setCommentOpen(!commentOpen);
   };
 
-  const handlePlusClick = () => {
-    setIsModalOpenNew(true);
-  };
-
   useEffect(() => {
     if (commentOpen === true) {
       dispatch(fetchComments(board.boardId)).then((res) =>
@@ -72,6 +68,9 @@ const Board = ({ board, setIsModalOpenNew, handlePopup }) => {
     }
   }, [board.boardId, commentOpen, dispatch]);
 
+  const handlePlusClick = () => {
+    setIsModalOpenNew(true);
+  };
   const handleComment = (e) => {
     e.preventDefault();
     const value = e.target.value;
@@ -150,15 +149,19 @@ const Board = ({ board, setIsModalOpenNew, handlePopup }) => {
   return (
     <>
       <CompleteBoard isRecruitmentComplete={isRecruitmentComplete}>
-        <CompletedBack
-          isRecruitmentComplete={isRecruitmentComplete}
-        ></CompletedBack>
-        <CompleteButton
-          isRecruitmentComplete={isRecruitmentComplete}
-          onClick={handleComplete}
-        >
-          모집완료
-        </CompleteButton>
+        {isAuthor && (
+          <>
+            <CompletedBack
+              isRecruitmentComplete={isRecruitmentComplete}
+            ></CompletedBack>
+            <CompleteButton
+              isRecruitmentComplete={isRecruitmentComplete}
+              onClick={handleComplete}
+            >
+              모집완료
+            </CompleteButton>
+          </>
+        )}
         <BoardWrap>
           <CommentOpenButton onClick={handleOpen} commentOpen={commentOpen} />
           <SexInfomaitonWrap gender={board.passedGender}>

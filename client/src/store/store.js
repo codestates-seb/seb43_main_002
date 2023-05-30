@@ -9,8 +9,6 @@ const store = configureStore({
     user: userReducer,
     board: boardReducer,
     comment: commentReducer,
-    // profile: profileReducer,
-    // newUser: signUpReducer,
   },
 });
 

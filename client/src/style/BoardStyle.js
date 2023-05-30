@@ -197,8 +197,8 @@ const CommentButton = styled.button`
 const CommentOpenButton = styled.button`
   width: 20px;
   height: 20px;
-  margin-left: 310px;
   border-radius: 50%;
+  right: 15px;
   position: relative;
   color: white;
   border: none;

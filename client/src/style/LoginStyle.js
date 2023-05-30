@@ -14,13 +14,17 @@ const BackGround = styled.div`
 
 const BackYellow = styled.div`
   background-image: linear-gradient(135deg, #ffd571, #ffac36);
-  height: 220px;
+  height: 25%;
   border-radius: 0 0 50% 50%;
   top: 0;
   left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  /* @media (max-height: 740px) {
+    height: 20%;
+  } */
 `;
 
 const LoginContainer = styled.div`

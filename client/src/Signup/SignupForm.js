@@ -345,7 +345,9 @@ const NewSignupForm = () => {
 
           <FooterText>이미 식구이신가요?</FooterText>
 
-          <StyledLink to="/">지금 바로 여기를 눌러 로그인하세요.</StyledLink>
+          <StyledLink to="/login">
+            지금 바로 여기를 눌러 로그인하세요.
+          </StyledLink>
         </SignupForm>
       </SignupContainer>
     </Mobile>

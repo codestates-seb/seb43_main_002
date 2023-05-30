@@ -27,6 +27,7 @@ const CommentProfileWrap = styled.img`
   width: 40px;
   border-radius: 50%;
   background-color: #cdeeff;
+  cursor: pointer;
 `;
 
 const ContentWrap = styled.div`
@@ -215,7 +216,10 @@ const Comment = ({ comment, handlePeople, board, setIsBoard }) => {
   const isAuthor = userInfo && comment.memberId === userInfo.memberId;
 
   const Boarduser = userInfo && board.memberId === userInfo.memberId;
-  const imageUrl = `/api/mypages/${comment.memberId}/image`;
+  const imageUrl = `https://api.sik-gu.com/api/mypages/${comment.memberId}/image`;
+  const handleUser = () => {
+    navigate(`/userpage/${comment.memberId}`);
+  };
 
   // console.log(content);
 
@@ -224,7 +228,10 @@ const Comment = ({ comment, handlePeople, board, setIsBoard }) => {
       {!!comment.body && (
         <CommentsWrap>
           <ProfiletWrap>
-            <CommentProfileWrap src={imageUrl}></CommentProfileWrap>
+            <CommentProfileWrap
+              onClick={handleUser}
+              src={imageUrl}
+            ></CommentProfileWrap>
             {Boarduser && (
               <>
                 <AcceptButton onClick={handleSelect}>수락</AcceptButton>

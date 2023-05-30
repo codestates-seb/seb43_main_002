@@ -134,7 +134,11 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
   // console.log('value', postComment);
   // console.log('complete', isRecruitmentComplete);
 
-  const imageUrl = `/api/mypages/${board.memberId}/image`;
+  const imageUrl = `https://api.sik-gu.com/api/mypages/${board.memberId}/image`;
+
+  const handleUser = () => {
+    navigate(`/userpage/${board.memberId}`);
+  };
 
   // console.log('profile:', board);
   Board.propTypes = {
@@ -177,8 +181,8 @@ const Board = ({ board, setIsModalOpenNew, selectedDateIndex }) => {
               <FiUsers />
               {board.count}/{board.total} 명
             </IconWrap>
-            <UserWrap>{board.nickname}</UserWrap>
-            <UserImg src={imageUrl}></UserImg>
+            <UserWrap onClick={handleUser}>{board.nickname}</UserWrap>
+            <UserImg onClick={handleUser} src={imageUrl}></UserImg>
           </SubmitWrap>
           <ButtonWrap commentOpen={commentOpen}>
             {isAuthor && (

@@ -18,7 +18,7 @@ import axiosInstance from '../axiosConfig';
 const MyPage = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
-  const imageUrl = `/api/mypages/${userId}/image`;
+  const imageUrl = `https://api.sik-gu.com/api/mypages/${userId}/image`;
 
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -100,7 +100,7 @@ const MyPage = () => {
                     <li>
                       <ul>
                         <li>
-                          <img src="/svg/mypage-like.svg" alt="식구" />
+                          <img src="/svg/mypage-follow.svg" alt="식구" />
                         </li>
                         <li>
                           <div>식구</div>
@@ -109,7 +109,7 @@ const MyPage = () => {
                       </ul>
                       <ul>
                         <li>
-                          <img src="/svg/mypage-follow.svg" alt="친구" />
+                          <img src="/svg/mypage-like.svg" alt="친구" />
                         </li>
                         <li>
                           <div>좋아요</div>
@@ -159,7 +159,7 @@ const MyPage = () => {
                       return (
                         <div key={idx}>
                           <img
-                            src={`/api/mypages/${el.reviewerId}/image`}
+                            src={`https://api.sik-gu.com/api/mypages/${el.reviewerId}/image`}
                             alt="프로필 이미지"
                           />
                           <div>

@@ -95,7 +95,7 @@ export const HomeWrap = styled.div`
   }
 `;
 
-export const SignBtn = styled.div`
+export const SignBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -108,6 +108,7 @@ export const SignBtn = styled.div`
   border: none;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  cursor: pointer;
 `;
 
 export const BackYellow = styled.div`

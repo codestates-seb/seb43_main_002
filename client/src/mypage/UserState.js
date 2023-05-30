@@ -332,7 +332,7 @@ const UserState = () => {
                         {data[selectedPostIndex].members
                           .filter((member) => member.memberId !== myPageId)
                           .map((member, idx) => {
-                            const imageUrl = `/api/mypages/${member.memberId}/image`;
+                            const imageUrl = `https://api.sik-gu.com/api/mypages/${member.memberId}/image`;
 
                             return (
                               <div className="post" key={idx}>

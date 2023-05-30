@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteComment, updateComment } from '../store/commentSlice';
+import {
+  deleteComment,
+  updateComment,
+  fetchComments,
+} from '../store/commentSlice';
 import { BiEdit } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
 import { StateButton, SubmitWrap } from '../style/BoardStyle';
@@ -23,6 +27,7 @@ const CommentProfileWrap = styled.img`
   width: 40px;
   border-radius: 50%;
   background-color: #cdeeff;
+  cursor: pointer;
 `;
 
 const ContentWrap = styled.div`
@@ -138,11 +143,12 @@ const CancelButton = styled(EditButton)`
   }
 `;
 
-const Comment = ({ comment, handlePeople, board }) => {
+const Comment = ({ comment, handlePeople, board, setIsBoard }) => {
   Comment.propTypes = {
     comment: PropTypes.object.isRequired,
     handlePeople: PropTypes.string.isRequired,
     board: PropTypes.object.isRequired,
+    setIsBoard: PropTypes.func.isRequired,
   };
   const userInfo = useSelector((state) => state.user.userInfo);
 
@@ -150,9 +156,6 @@ const Comment = ({ comment, handlePeople, board }) => {
   const [content, setContent] = useState(comment.body);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // console.log(board);
-  // console.log(comment);
 
   const handleEdit = () => {
     setEditing(true);
@@ -166,16 +169,31 @@ const Comment = ({ comment, handlePeople, board }) => {
     setEditing(false);
     setContent(comment.body);
   };
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSave();
+    }
+  };
 
   const handleSave = () => {
+    if (content === '') {
+      alert('댓글을 입력해주세요');
+      return;
+    }
     dispatch(
       updateComment({
         commentId: comment.commentId,
         content,
       })
-    );
+    )
+      .unwrap()
+      .then(() => {
+        dispatch(fetchComments(board.boardId)).then((res) =>
+          setIsBoard(res.payload)
+        );
+      });
     setEditing(false);
-    navigate(0);
   };
 
   const handleDelete = () => {
@@ -184,20 +202,36 @@ const Comment = ({ comment, handlePeople, board }) => {
         commentId: comment.commentId,
       })
     );
-    navigate(0);
+    dispatch(fetchComments(board.boardId)).then(() => {
+      navigate(0);
+    });
   };
+
+  useEffect(() => {
+    if (editing) {
+      setContent(comment.body);
+    }
+  }, [editing, comment.body]);
 
   const isAuthor = userInfo && comment.memberId === userInfo.memberId;
 
   const Boarduser = userInfo && board.memberId === userInfo.memberId;
-  const imageUrl = `/api/mypages/${comment.memberId}/image`;
+  const imageUrl = `https://api.sik-gu.com/api/mypages/${comment.memberId}/image`;
+  const handleUser = () => {
+    navigate(`/userpage/${comment.memberId}`);
+  };
+
+  // console.log(content);
 
   return (
     <>
       {!!comment.body && (
         <CommentsWrap>
           <ProfiletWrap>
-            <CommentProfileWrap src={imageUrl}></CommentProfileWrap>
+            <CommentProfileWrap
+              onClick={handleUser}
+              src={imageUrl}
+            ></CommentProfileWrap>
             {Boarduser && (
               <>
                 <AcceptButton onClick={handleSelect}>수락</AcceptButton>
@@ -224,6 +258,7 @@ const Comment = ({ comment, handlePeople, board }) => {
                 <EditComment
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
+                  onKeyDown={handleKeyPress}
                 ></EditComment>
                 <SubmitWrap>
                   <EditButton onClick={handleSave}>저장</EditButton>

@@ -50,6 +50,7 @@ const BoardContentWrap = styled.div`
 
 const TagWrap = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `;
 
 const TagBlock = styled.div`
@@ -99,6 +100,7 @@ const UserWrap = styled.div`
   display: flex;
   text-align: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const UserImg = styled.img`
@@ -107,6 +109,7 @@ const UserImg = styled.img`
   margin-left: 5px;
   background-color: #cdeeff;
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const ButtonWrap = styled.div`

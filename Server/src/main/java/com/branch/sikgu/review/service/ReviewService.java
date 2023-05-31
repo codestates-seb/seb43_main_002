@@ -43,6 +43,7 @@ public class ReviewService {
         // 1, 2 검증
         isReviewExistsForUser(historyId, memberId, authentication);
         validateCurrentUserIsMember(history, currentUser);
+            validateCurrentUserIsMember(history, targetMember);
 
         // History에 리뷰와 좋아요 추가
         Review review = new Review();
@@ -83,9 +84,9 @@ public class ReviewService {
     }
 
     // 2. 식사에 참여한 멤버인지 확인
-    public void validateCurrentUserIsMember(History history, Member currentUser) {
+    public void validateCurrentUserIsMember(History history, Member member) {
         List<Member> members = history.getMembers();
-        if (!members.contains(currentUser)) {
+        if (!members.contains(member)) {
             throw new AccessDeniedException("Current user is not a member of the history");
         }
     }

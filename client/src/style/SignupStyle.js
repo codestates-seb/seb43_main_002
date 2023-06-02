@@ -39,15 +39,32 @@ const Mobile = styled.div`
   height: 100%;
   padding: 0px;
   box-sizing: border-box;
+  .active {
+    background-image: linear-gradient(135deg, #ffd571, #ffac36) !important;
+  }
 `;
 
 const SignupForm = styled.form`
+  position: relative;
   justify-content: center;
   align-items: center;
   padding: 20px;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
   &::-webkit-scrollbar {
-    display: none;
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #888;
+
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
   }
 `;
 

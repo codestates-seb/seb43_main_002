@@ -50,6 +50,7 @@ const EditModal = ({ isOpen, onClose, board }) => {
     mealTime: board.mealTime,
     tags: [...board.tags],
   });
+  console.log(board.boardId);
 
   const handleIncrement = (e) => {
     e.preventDefault();

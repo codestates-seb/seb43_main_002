@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -69,7 +69,7 @@ const CommentStateWrap = styled.div`
   width: 270px;
 `;
 
-const FinalButton = styled.button`
+const AcceptButton = styled.button`
   border-radius: 10px;
   font-size: 10px;
   margin-top: 5px;
@@ -87,34 +87,22 @@ const FinalButton = styled.button`
   }
 `;
 
-const FinalState = styled.div`
+const RefuseButton = styled.button`
   border-radius: 10px;
-  font-size: 10px;
   margin-top: 5px;
+  font-size: 10px;
   width: 40px;
   height: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  ${(props) => {
-    if (props.status === 'BEFORE_SELECTION') {
-      return css`
-        background-color: #ffddac;
-        color: black;
-      `;
-    } else if (props.status === 'SELECTION') {
-      return css`
-        background-color: #ffb44a;
-        color: white;
-      `;
-    } else if (props.status === 'NOT_SELECTION') {
-      return css`
-        background-color: #ffbebe;
-        color: white;
-      `;
-    }
-  }}
+  background-color: #ffbebe;
+  border: none;
+  &:hover {
+    background-color: #ff8888;
+    color: white;
+  }
 `;
 
 const EditComment = styled.input`
@@ -155,13 +143,12 @@ const CancelButton = styled(EditButton)`
   }
 `;
 
-const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
+const Comment = ({ comment, handlePeople, board, setIsBoard }) => {
   Comment.propTypes = {
     comment: PropTypes.object.isRequired,
     handlePeople: PropTypes.string.isRequired,
     board: PropTypes.object.isRequired,
     setIsBoard: PropTypes.func.isRequired,
-    handlePopup: PropTypes.func.isRequired,
   };
   const userInfo = useSelector((state) => state.user.userInfo);
 
@@ -172,6 +159,10 @@ const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
 
   const handleEdit = () => {
     setEditing(true);
+  };
+
+  const handleSelect = () => {
+    handlePeople(comment);
   };
 
   const handleCancelEdit = () => {
@@ -202,7 +193,6 @@ const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
           setIsBoard(res.payload)
         );
       });
-    navigate(0);
     setEditing(false);
   };
 
@@ -230,7 +220,8 @@ const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
   const handleUser = () => {
     navigate(`/userpage/${comment.memberId}`);
   };
-  // console.log(comment.selectionStatus);
+
+  // console.log(comment);
 
   return (
     <>
@@ -241,51 +232,10 @@ const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
               onClick={handleUser}
               src={imageUrl}
             ></CommentProfileWrap>
-            {comment.selectionStatus === 'BEFORE_SELECTION' && (
+            {Boarduser && (
               <>
-                {Boarduser ? (
-                  <FinalButton
-                    onClick={() =>
-                      handlePopup(board.boardId, comment.commentId)
-                    }
-                  >
-                    확인
-                  </FinalButton>
-                ) : (
-                  <FinalState status={comment.selectionStatus}>확인</FinalState>
-                )}
-              </>
-            )}
-
-            {comment.selectionStatus === 'SELECTION' && (
-              <>
-                {Boarduser ? (
-                  <FinalButton
-                    onClick={() =>
-                      handlePopup(board.boardId, comment.commentId)
-                    }
-                  >
-                    참가
-                  </FinalButton>
-                ) : (
-                  <FinalState status={comment.selectionStatus}>참가</FinalState>
-                )}
-              </>
-            )}
-
-            {comment.selectionStatus === 'NOT_SELECTION' && (
-              <>
-                {Boarduser ? (
-                  <FinalButton
-                    onClick={() =>
-                      handlePopup(board.boardId, comment.commentId)
-                    }
-                  >
-                    거절
-                  </FinalButton>
-                ) : (
-                  <FinalState status={comment.selectionStatus}>거절</FinalState>
-                )}
+                <AcceptButton onClick={handleSelect}>수락</AcceptButton>
+                <RefuseButton>거절</RefuseButton>
               </>
             )}
           </ProfiletWrap>

@@ -42,17 +42,28 @@ const PostModal = ({ isOpen, onClose }) => {
   // const now = new Date()
   // const options = { timeZone: 'Asia/Seoul'};
   // const koreaTime = now.toLocaleString('en-US', options)
-  const [startDate, setStartDate] = useState(
-    new Date(Date.now() + 60 * 60 * 1000)
-  );
   const [tagList, setTagList] = useState([]);
 
+  const handleDateChange = (date) => {
+    const offset = date.getTimezoneOffset() * 60000; // 시간 오프셋(분 단위)을 밀리초로 변환
+    const adjustedDate = new Date(date.getTime() - offset); // 시간 오프셋을 적용한 새로운 날짜 생성
+
+    setStartDate(date);
+    setPostBoard((prevBoard) => ({
+      ...prevBoard,
+      mealTime: adjustedDate.toISOString(), // 서버로 전송할 ISO 8601 형식의 날짜 문자열로 변환
+    }));
+  };
+
+  const [startDate, setStartDate] = useState(new Date(Date.now()));
   // useEffect(() => {
   //   setPostBoard((prevState) => ({
   //     ...prevState,
   //     tags: [...tagList],
   //   }));
   // }, [tagList]);
+
+  console.log(startDate);
 
   const [postBoard, setPostBoard] = useState({
     title: '',
@@ -90,17 +101,6 @@ const PostModal = ({ isOpen, onClose }) => {
       ...postBoard,
       [name]: value,
     });
-  };
-
-  const handleDateChange = (date) => {
-    const offset = date.getTimezoneOffset() * 60000; // 시간 오프셋(분 단위)을 밀리초로 변환
-    const adjustedDate = new Date(date.getTime() - offset); // 시간 오프셋을 적용한 새로운 날짜 생성
-
-    setStartDate(date);
-    setPostBoard((prevBoard) => ({
-      ...prevBoard,
-      mealTime: adjustedDate.toISOString(), // 서버로 전송할 ISO 8601 형식의 날짜 문자열로 변환
-    }));
   };
 
   const handleWhoChange = (e) => {

@@ -1,7 +1,4 @@
-import {
-  useState,
-  // , useEffect
-} from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ModalWrap,
@@ -26,7 +23,6 @@ import { ko } from 'date-fns/esm/locale';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { updateBoard } from '../store/boardSlice';
-// import axiosInstance from '../axiosConfig';
 
 const ModalDay = styled(DatePicker)`
   padding: 10px;
@@ -51,30 +47,9 @@ const EditModal = ({ isOpen, onClose, board, editBoard }) => {
   };
   // const [filterBoard,setFilterBoard] = useState(board)
 
-  const dispatch = useDispatch();
-
   // const isOpened = (board)=> {
   //   console.log(board)
   // }
-
-  // const selectBoard = () => {
-  //   axiosInstance.get(`/api/boards/${editBoard}`).then((res) => {
-  //     const data = res.data;
-  //     setEditedBoard({
-  //       title: data.title,
-  //       total: data.total,
-  //       body: data.body,
-  //       passedGender: data.passedGender,
-  //       mealTime: data.mealTime,
-  //       tags: data.tags,
-  //     });
-  //     console.log(editedBoard);
-  //   });
-  // };
-  // console.log(selectBoard());
-  // const selectedBoard = dispatch(selectBoard(editBoard));
-  // console.log(selectedBoard);
-  // console.log(editBoard);
 
   const [editedBoard, setEditedBoard] = useState({
     title: board.title,
@@ -84,17 +59,11 @@ const EditModal = ({ isOpen, onClose, board, editBoard }) => {
     mealTime: board.mealTime,
     tags: [...board.tags],
   });
-
   const [startDate, setStartDate] = useState(
     new Date(Date.now() + 60 * 60 * 1000)
   );
-  console.log('modalboard', board);
-  console.log('modal', editBoard);
 
-  // useEffect(() => {
-  //   selectBoard();
-  //   console.log(selectBoard());
-  // }, []);
+  const dispatch = useDispatch();
 
   const handleIncrement = (e) => {
     e.preventDefault();
@@ -189,9 +158,12 @@ const EditModal = ({ isOpen, onClose, board, editBoard }) => {
     e.preventDefault();
     onClose();
   };
-  const shouldOpenModal = editBoard === board.boardId;
+
+  console.log(editedBoard);
+  console.log(editBoard);
+
   return (
-    <ModalWrap isOpen={isOpen && shouldOpenModal}>
+    <ModalWrap isOpen={isOpen}>
       <ModalContent isOpen={isOpen} onSubmit={handleSubmit}>
         <div></div>
         <ModalQurry>같이 먹을 음식은?</ModalQurry>

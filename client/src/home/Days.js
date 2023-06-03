@@ -117,9 +117,10 @@ const Days = () => {
   const [popup, setPopup] = useState(false);
   const [selectBoard,setSelectBoard] =useState(null)
   const [selectComment,setSelectComment] =useState(null)
+  const [editBoard, setEditBoard] = useState(null)
 
   // const selectBoard = useSelector((state)=>state.board.boards)
-  // console.log(sortedBoards)
+  
   const handlePopup = (boardId, commentId) => {
     setPopup(true);
     setSelectBoard(boardId)
@@ -150,6 +151,8 @@ const Days = () => {
 
     setPopup(!popup);
   };
+
+
 
   return (
     <>
@@ -184,8 +187,10 @@ const Days = () => {
           {sortedBoards.map((board, idx) => (
             <Board key={idx} board={board}
             handlePopup={handlePopup} 
-            setIsModalOpenNew={setIsModalOpenNew} 
+            setIsModalOpenNew={setIsModalOpenNew}
+            setEditBoard={setEditBoard}
             handleSelect={handleSelect}
+            editBoard={editBoard}
             selectedDateIndex={selectedDateIndex}/>
           ))}
         </BoardsWrap>
@@ -214,8 +219,8 @@ const Days = () => {
               </ul>
             </div>
           </PopUp>
-      {sortedBoards.map((board, idx) => (
-        <EditModal key={idx} isOpen={isModalOpenNew} onClose={closeModal} board={board} />
+      {sortedBoards.map((board) => (
+        <EditModal key={board.boardId} isOpen={isModalOpenNew} onClose={closeModal} board={board} editBoard={editBoard} />
       ))}
     </>
   );

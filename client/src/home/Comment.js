@@ -179,7 +179,7 @@ const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
     setContent(comment.body);
   };
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter') {
       e.preventDefault();
       handleSave();
     }

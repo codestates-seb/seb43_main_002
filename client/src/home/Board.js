@@ -31,11 +31,19 @@ import {
 import axiosInstance from '../axiosConfig';
 
 // eslint-disable-next-line react/prop-types
-const Board = ({ board, setIsModalOpenNew, handlePopup }) => {
+const Board = ({
+  board,
+  setIsModalOpenNew,
+  handlePopup,
+  setEditBoard,
+  editBoard,
+}) => {
   Board.propTypes = {
     board: PropTypes.array.isRequired,
     setIsModalOpenNew: PropTypes.func.isRequired,
     handlePopup: PropTypes.func.isRequired,
+    setEditBoard: PropTypes.func.isRequired,
+    editBoard: PropTypes.object.isRequired,
   };
   const comments = useSelector((state) => state.comment.comments);
   const userInfo = useSelector((state) => state.user.userInfo);
@@ -68,9 +76,11 @@ const Board = ({ board, setIsModalOpenNew, handlePopup }) => {
     }
   }, [board.boardId, commentOpen, dispatch]);
 
-  const handlePlusClick = () => {
+  const handlePlusClick = (boardNum) => {
     setIsModalOpenNew(true);
+    setEditBoard(boardNum);
   };
+
   const handleComment = (e) => {
     e.preventDefault();
     const value = e.target.value;
@@ -107,11 +117,9 @@ const Board = ({ board, setIsModalOpenNew, handlePopup }) => {
   };
 
   const handleDelete = () => {
-    dispatch(deleteBoard(board.boardId))
-      .then(() => {
-        navigate(0);
-      })
-      .catch((error) => {});
+    dispatch(deleteBoard(board.boardId)).then(() => {
+      navigate(0);
+    });
   };
 
   const isAuthor = userInfo && board.memberId === userInfo.memberId;
@@ -193,7 +201,11 @@ const Board = ({ board, setIsModalOpenNew, handlePopup }) => {
           <ButtonWrap commentOpen={commentOpen}>
             {isAuthor && (
               <>
-                <StateButton onClick={handlePlusClick}>
+                <StateButton
+                  onClick={() => {
+                    handlePlusClick(board.boardId);
+                  }}
+                >
                   <BiEdit></BiEdit>
                 </StateButton>
                 <StateButton onClick={handleDelete} isDelete={true}>

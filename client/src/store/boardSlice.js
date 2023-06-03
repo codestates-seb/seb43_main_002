@@ -30,6 +30,15 @@ export const updateBoard = createAsyncThunk(
   }
 );
 
+//선택 게시물 불러오기
+export const chooseBoard = createAsyncThunk(
+  'boards/selectedBoard',
+  async ({ boardId }) => {
+    const response = await axiosInstance.get(`/api/boards/${boardId}`);
+    return response.data;
+  }
+);
+
 // 게시물 삭제
 export const deleteBoard = createAsyncThunk(
   'boards/deleteBoard',

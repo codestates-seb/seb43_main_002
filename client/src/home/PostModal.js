@@ -61,8 +61,6 @@ const PostModal = ({ isOpen, onClose }) => {
   //   }));
   // }, [tagList]);
 
-  console.log(startDate);
-
   const [postBoard, setPostBoard] = useState({
     title: '',
     body: '',

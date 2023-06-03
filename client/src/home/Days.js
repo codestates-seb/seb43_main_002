@@ -16,12 +16,12 @@ import { fetchBoards, selectFilteredBoards } from '../store/boardSlice';
 import { PopUp } from '../style/UserStateStyle';
 import day from 'dayjs'
 import axiosInstance from '../axiosConfig';
-import { useNavigate } from 'react-router-dom';
+
 
 
 
 const Days = () => {
-  const navigate = useNavigate()
+
   const now = day();
 
   const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
@@ -133,11 +133,10 @@ const Days = () => {
     .patch(
       `/api/boards/${selectBoard}/comments/${selectComment}/select`
     )
-    .then((res) => res.data);
-
-  navigate(0);
-
-    setPopup(!popup);
+    .then(() =>{
+    dispatch(fetchBoards())
+    setPopup(!popup)
+  })
   };
 
   const handleRefuse = () => {
@@ -145,10 +144,10 @@ const Days = () => {
     .patch(
       `/api/boards/${selectBoard}/comments/${selectComment}/refuse`
     )
-    .then((res) => res.data);
-    
-  navigate(0);
-
+    .then(() =>{
+      dispatch(fetchBoards())
+      setPopup(!popup)
+    })
     setPopup(!popup);
   };
 

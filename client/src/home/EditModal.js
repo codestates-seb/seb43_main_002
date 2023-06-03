@@ -2,7 +2,7 @@ import {
   useState,
   // , useEffect
 } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import {
   ModalWrap,
   ModalContent,
@@ -25,7 +25,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { updateBoard } from '../store/boardSlice';
+import { fetchBoards, updateBoard } from '../store/boardSlice';
 // import axiosInstance from '../axiosConfig';
 
 const ModalDay = styled(DatePicker)`
@@ -178,11 +178,11 @@ const EditModal = ({ isOpen, onClose, board, editBoard }) => {
       .then(() => {
         onClose();
         alert(`식사매너 지켜주실 거죠??`);
-        navigate(0);
+        dispatch(fetchBoards());
       });
   };
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const handleCancel = (e) => {
     e.preventDefault();
     onClose();

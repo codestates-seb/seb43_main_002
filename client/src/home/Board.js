@@ -97,7 +97,7 @@ const Board = ({
   };
 
   const handlePostComment = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' || e.type === 'click') {
       e.preventDefault();
       if (postComment.body === '') {
         alert('댓글을 입력해주세요');
@@ -223,6 +223,7 @@ const Board = ({
                     key={comment.commentId}
                     board={board}
                     handlePopup={handlePopup}
+                    setIsBoard={setIsBoard}
                     comment={comment}
                     handlePeople={handlePeople}
                   />

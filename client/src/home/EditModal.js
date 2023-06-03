@@ -88,8 +88,6 @@ const EditModal = ({ isOpen, onClose, board, editBoard }) => {
   const [startDate, setStartDate] = useState(
     new Date(Date.now() + 60 * 60 * 1000)
   );
-  console.log('modalboard', board);
-  console.log('modal', editBoard);
 
   // useEffect(() => {
   //   selectBoard();

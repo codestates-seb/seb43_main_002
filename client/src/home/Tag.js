@@ -107,8 +107,10 @@ const Tag = ({ name, onChange, tagList, setTagList }) => {
   };
 
   const submitTagItem = () => {
-    let updatedTagList = [...tagList];
-    updatedTagList.push(tagItem);
+    if (tagItem.trim().length === 0) {
+      return;
+    }
+    const updatedTagList = [...tagList, tagItem];
     setTagList(updatedTagList);
     setTagItem('');
     onChange({ target: { name, value: updatedTagList } });

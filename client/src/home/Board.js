@@ -7,7 +7,7 @@ import Comment from './Comment';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteBoard } from '../store/boardSlice';
+import { deleteBoard, fetchBoards } from '../store/boardSlice';
 import { addComment, fetchComments } from '../store/commentSlice';
 import {
   SexInfomaitonWrap,
@@ -111,14 +111,13 @@ const Board = ({
             setIsBoard(res.payload);
           });
           setPostComment({ ...postComment, body: '' });
-          // navigate(0);
         });
     }
   };
 
   const handleDelete = () => {
     dispatch(deleteBoard(board.boardId)).then(() => {
-      navigate(0);
+      dispatch(fetchBoards());
     });
   };
 

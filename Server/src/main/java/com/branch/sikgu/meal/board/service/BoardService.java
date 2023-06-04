@@ -179,11 +179,13 @@ public class BoardService {
         }
         // 작성자와 인증된 사용자의 아이디를 비교하여 일치하는지 검증합니다.
         Long memberId = memberService.getCurrentMemberId(authentication);
-        if (!board.getMember().getMemberId().equals(memberId)) {
-            throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED, HttpStatus.FORBIDDEN);
-        }
+
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND, HttpStatus.NOT_FOUND));
+        if (!(board.getMember().getMemberId().equals(memberId) ||
+                comment.getMember().getMemberId().equals(memberId))){
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED, HttpStatus.FORBIDDEN);
+        }
         // 코멘트가 활성 상태인지 확인합니다.
         if (comment.getStatus() != Comment.CommentStatus.ACTIVE_COMMENT) {
             throw new BusinessLogicException(ExceptionCode.DELETED_COMMENT, HttpStatus.BAD_REQUEST);

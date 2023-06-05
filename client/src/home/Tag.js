@@ -71,12 +71,13 @@ const TagInput = styled.input`
   cursor: text;
 `;
 
-const Tag = ({ name, onChange, tagList, setTagList }) => {
+const Tag = ({ name, onChange, tagList, setTagList, setPostBoard }) => {
   Tag.propTypes = {
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     tagList: PropTypes.array.isRequired,
     setTagList: PropTypes.func.isRequired,
+    setPostBoard: PropTypes.array.isRequired,
   };
 
   const [tagItem, setTagItem] = useState('');
@@ -117,10 +118,10 @@ const Tag = ({ name, onChange, tagList, setTagList }) => {
   };
 
   const deleteTagItem = (e) => {
+    e.preventDefault();
     const deletedTag = e.target.parentElement.firstChild.innerText;
     const filteredTagList = tagList.filter((tagItem) => tagItem !== deletedTag);
     setTagList(filteredTagList);
-    onChange({ target: { name, value: filteredTagList } });
   };
 
   return (

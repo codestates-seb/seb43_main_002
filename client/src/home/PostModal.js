@@ -45,13 +45,12 @@ const PostModal = ({ isOpen, onClose }) => {
   // const koreaTime = now.toLocaleString('en-US', options)
   const [tagList, setTagList] = useState([]);
 
-  const now = new Date(); // 현재 로컬 시간을 가져옵니다.
+  const now = new Date();
 
   const koreaTime = new Date(
     now.getTime() + now.getTimezoneOffset() * 60000 + 9 * 60 * 60 * 1000
   );
 
-  // const initialStartDate = koreaTime.toISOString();
   const [startDate, setStartDate] = useState(koreaTime);
 
   // useEffect(() => {
@@ -216,6 +215,7 @@ const PostModal = ({ isOpen, onClose }) => {
           name="tags"
           value={postBoard.tags}
           tagList={tagList}
+          setPostBoard={setPostBoard}
           setTagList={setTagList}
           onChange={handleChange}
         ></Tag>

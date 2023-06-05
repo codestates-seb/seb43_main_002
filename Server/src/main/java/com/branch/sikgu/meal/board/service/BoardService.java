@@ -94,7 +94,8 @@ public class BoardService {
     // 전체 게시물 조회
     public List<BoardDto.Response> getAllBoards() {
         LocalDateTime currentTime = LocalDateTime.now();
-        List<Board> boards = boardRepository.findAllByMealTimeAfterAndBoardStatus(currentTime, Board.BoardStatus.ACTIVE_BOARD);
+        LocalDateTime twoHoursBefore = currentTime.minusHours(2);
+        List<Board> boards = boardRepository.findAllByMealTimeAfterAndBoardStatus(twoHoursBefore, Board.BoardStatus.ACTIVE_BOARD);
         return boardMapper.toResponseDtoList(boards);
     }
 

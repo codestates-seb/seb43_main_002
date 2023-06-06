@@ -30,6 +30,7 @@ public enum ExceptionCode {
 
     // History
     DUPLICATE_REVIEW("이미 리뷰를 남겼습니다."),
+    HISTORY_NOT_FOUND("해당 히스토리를 찾을 수 없습니다."),
 
     // Review
     CAN_NOT_REVIEW_MYSELF("자신에게는 리뷰를 남길 수 없습니다.");

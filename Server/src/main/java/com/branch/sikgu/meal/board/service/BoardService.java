@@ -14,11 +14,14 @@ import com.branch.sikgu.member.service.MemberService;
 import com.branch.sikgu.meal.board.entity.Board;
 import com.branch.sikgu.meal.board.mapper.BoardMapper;
 import com.branch.sikgu.meal.board.dto.BoardDto;
+import com.branch.sikgu.review.entity.Review;
+import com.branch.sikgu.review.repository.ReviewRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,14 +34,16 @@ public class BoardService {
     private final MemberService memberService;
     private final CommentRepository commentRepository;
     private final HistoryRepository historyRepository;
+    private final ReviewRepository reviewRepository;
 
-    public BoardService(BoardRepository boardRepository, BoardMapper boardMapper, JwtTokenizer jwtTokenizer, MemberService memberService, CommentRepository commentRepository, HistoryRepository historyRepository) {
+    public BoardService(BoardRepository boardRepository, BoardMapper boardMapper, JwtTokenizer jwtTokenizer, MemberService memberService, CommentRepository commentRepository, HistoryRepository historyRepository, ReviewRepository reviewRepository) {
         this.boardRepository = boardRepository;
         this.boardMapper = boardMapper;
         this.jwtTokenizer = jwtTokenizer;
         this.memberService = memberService;
         this.commentRepository = commentRepository;
         this.historyRepository = historyRepository;
+        this.reviewRepository = reviewRepository;
     }
 
     // 게시물 등록
@@ -243,6 +248,10 @@ public class BoardService {
         Long memberId = memberService.getCurrentMemberId(authentication);
         Board board = boardRepository.findByBoardId(boardId);
         checkIfDeleted(board);
+
+        if (board.getBoardStatus() == Board.BoardStatus.INACTIVE_BOARD) {
+            throw new BusinessLogicException(ExceptionCode.INVALID_REQUEST, HttpStatus.BAD_REQUEST);
+        }
         if (!board.getMember().getMemberId().equals(memberId)) {
             throw new BusinessLogicException(ExceptionCode.INVALID_REQUEST, HttpStatus.FORBIDDEN);
         }
@@ -263,9 +272,27 @@ public class BoardService {
                 .collect(Collectors.toList());
         members.add(board.getMember()); // 작성자 추가
 
+        createReviewObjects(members, history);
+
         history.setMembers(members);
         board.setHistory(history);
 
         boardRepository.save(board);
+    }
+
+    private void createReviewObjects(List<Member> members, History history) {
+        List<Review> reviews = new ArrayList<>();
+        for (Member member : members) {
+            for (Member targetMember : members) {
+                if (!member.equals(targetMember)) {
+                    Review review = new Review();
+                    review.setReviewer(member);
+                    review.setTargetMember(targetMember);
+                    review.setHistory(history);
+                    reviews.add(review);
+                    reviewRepository.save(review);
+                }
+            }
+        }
     }
 }

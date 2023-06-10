@@ -41,5 +41,21 @@ public class Review {
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private ReviewStatus status = ReviewStatus.REVIEW_PENDING;
+
+    public enum ReviewStatus {
+        REVIEW_PENDING("리뷰 제출 전"),
+        REVIEW_SUBMITTED("리뷰 제출 완료");
+
+        @Getter
+        private String status;
+
+        ReviewStatus(String status) {
+            this.status = status;
+        }
+    }
+
     // 추가적인 필드들...
 }

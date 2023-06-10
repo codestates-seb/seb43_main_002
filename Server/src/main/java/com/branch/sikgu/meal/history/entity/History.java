@@ -3,9 +3,11 @@ package com.branch.sikgu.meal.history.entity;
 import com.branch.sikgu.meal.board.entity.Board;
 import com.branch.sikgu.member.entity.Member;
 import com.branch.sikgu.review.entity.Review;
+import com.branch.sikgu.review.repository.ReviewRepository;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -20,7 +22,6 @@ import java.util.List;
 @Component
 //@EnableJpaAuditing
 public class History {
-
     // 식사이력 식별자
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,6 +45,8 @@ public class History {
 
     @Column(name = "status")
     private boolean status = false;
+
+
 
 //    @Column(name = "status")
 //    @Enumerated(EnumType.STRING)

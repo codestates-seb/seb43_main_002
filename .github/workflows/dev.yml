@@ -1,48 +1,48 @@
 
-# name: main
+name: main
 
-# on:
-#   push:
-#     branches: [ dev ]
-#   pull_request:
-#     branches: [ dev ]    # dev 브랜치에서 push, pull_request 이벤트가 일어났을 때 실행 
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]    # dev 브랜치에서 push, pull_request 이벤트가 일어났을 때 실행 
   
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     env:
-#      working-directory: ./client
-#     steps:
-#       - name: Checkout source code
-#         uses: actions/checkout@master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+     working-directory: ./client
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@master
 
-#       - name: Cache node modules
-#         uses: actions/cache@v1
-#         with:
-#           path: node_modules
-#           key: ${{ runner.OS }}-master-build-${{ hashFiles('**/package-lock.json') }}
-#           restore-keys: |
-#             ${{ runner.OS }}-build-
-#             ${{ runner.OS }}-
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-master-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
 
-#       - name: Install Dependencies
-#         run: npm install
-#         working-directory: ${{ env.working-directory }}
+      - name: Install Dependencies
+        run: npm install
+        working-directory: ${{ env.working-directory }}
 
-#       - name: Build
-#         run: npm run build
-#         working-directory: ${{ env.working-directory }}
-#         env: 
-#           CI: false
+      - name: Build
+        run: npm run build
+        working-directory: ${{ env.working-directory }}
+        env: 
+          CI: false
 
-#       - name: Deploy
-#         env:
-#           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#         run: |
-#           aws s3 cp \
-#             --recursive \
-#             --region ap-northeast-2 \
-#             build s3://sik-gu.com
-#         working-directory: ${{ env.working-directory }}
+      - name: Deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 cp \
+            --recursive \
+            --region ap-northeast-2 \
+            build s3://sik-gu.com
+        working-directory: ${{ env.working-directory }}

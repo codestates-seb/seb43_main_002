@@ -1,3 +1,4 @@
+/*eslint-disable */
 import { useEffect, useRef, useState } from 'react';
 import Header from '../mypage/Header';
 import Footer from '../mypage/Footer';
@@ -161,7 +162,7 @@ const Map = () => {
       let locPosition = new window.kakao.maps.LatLng(result.y, result.x);
       displayMarker(locPosition, result);
     });
-  }, [searchResults]);
+  }, [clearMarkers, searchResults]);
 
   useEffect(() => {
     markers.forEach((marker) => {

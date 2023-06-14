@@ -10,6 +10,7 @@ import com.branch.sikgu.meal.board.repository.BoardRepository;
 import com.branch.sikgu.meal.comment.entity.Comment;
 import com.branch.sikgu.meal.comment.repository.CommentRepository;
 import com.branch.sikgu.meal.history.dto.HistoryDto;
+import com.branch.sikgu.meal.history.dto.HistoryMemberDto;
 import com.branch.sikgu.meal.history.entity.History;
 import com.branch.sikgu.meal.history.mapper.HistoryMapper;
 import com.branch.sikgu.meal.history.repository.HistoryRepository;
@@ -137,5 +138,20 @@ public class HistoryService {
         }
 
         return history;
+    }
+
+    public List<HistoryMemberDto> getHistoryMembers(Long historyId) {
+        History history = historyRepository.findById(historyId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.HISTORY_NOT_FOUND, HttpStatus.NOT_FOUND));
+
+        List<HistoryMemberDto> historyMembers = history.getMembers().stream()
+                .map(member -> {
+                    HistoryMemberDto memberDto = new HistoryMemberDto();
+                    memberDto.setMemberId(member.getMemberId());
+                    memberDto.setNickname(member.getNickname());
+                    return memberDto;
+                })
+                .collect(Collectors.toList());
+        return historyMembers;
     }
 }

@@ -14,11 +14,14 @@ import com.branch.sikgu.member.service.MemberService;
 import com.branch.sikgu.meal.board.entity.Board;
 import com.branch.sikgu.meal.board.mapper.BoardMapper;
 import com.branch.sikgu.meal.board.dto.BoardDto;
+import com.branch.sikgu.review.entity.Review;
+import com.branch.sikgu.review.repository.ReviewRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,14 +34,16 @@ public class BoardService {
     private final MemberService memberService;
     private final CommentRepository commentRepository;
     private final HistoryRepository historyRepository;
+    private final ReviewRepository reviewRepository;
 
-    public BoardService(BoardRepository boardRepository, BoardMapper boardMapper, JwtTokenizer jwtTokenizer, MemberService memberService, CommentRepository commentRepository, HistoryRepository historyRepository) {
+    public BoardService(BoardRepository boardRepository, BoardMapper boardMapper, JwtTokenizer jwtTokenizer, MemberService memberService, CommentRepository commentRepository, HistoryRepository historyRepository, ReviewRepository reviewRepository) {
         this.boardRepository = boardRepository;
         this.boardMapper = boardMapper;
         this.jwtTokenizer = jwtTokenizer;
         this.memberService = memberService;
         this.commentRepository = commentRepository;
         this.historyRepository = historyRepository;
+        this.reviewRepository = reviewRepository;
     }
 
     // 게시물 등록
@@ -94,7 +99,8 @@ public class BoardService {
     // 전체 게시물 조회
     public List<BoardDto.Response> getAllBoards() {
         LocalDateTime currentTime = LocalDateTime.now();
-        List<Board> boards = boardRepository.findAllByMealTimeAfterAndBoardStatus(currentTime, Board.BoardStatus.ACTIVE_BOARD);
+        LocalDateTime twoHoursBefore = currentTime.minusHours(2);
+        List<Board> boards = boardRepository.findAllByMealTimeAfterAndBoardStatus(twoHoursBefore, Board.BoardStatus.ACTIVE_BOARD);
         return boardMapper.toResponseDtoList(boards);
     }
 
@@ -161,12 +167,61 @@ public class BoardService {
         if (board.getCount() < board.getTotal()) {
             board.setCount(board.getCount() + 1);
         } else {
-            throw new BusinessLogicException(ExceptionCode.MAX_CAPACITY_REACHED, HttpStatus.FORBIDDEN);
+            throw new BusinessLogicException(ExceptionCode.MAX_CAPACITY_REACHED, HttpStatus.BAD_REQUEST);
         }
 
         // 변경된 상태를 저장합니다.
         commentRepository.save(comment);
         boardRepository.save(board);
+    }
+
+    public void refuseCommentAndDecreaseCurrentCount(Long boardId, Long commentId, Authentication authentication) {
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.BOARD_NOT_FOUND, HttpStatus.NOT_FOUND));
+
+        // 게시판이 활성 상태인지 확인합니다.
+        if (board.getBoardStatus() != Board.BoardStatus.ACTIVE_BOARD) {
+            throw new BusinessLogicException(ExceptionCode.INACTIVED_BOARD, HttpStatus.BAD_REQUEST);
+        }
+        // 작성자와 인증된 사용자의 아이디를 비교하여 일치하는지 검증합니다.
+        Long memberId = memberService.getCurrentMemberId(authentication);
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND, HttpStatus.NOT_FOUND));
+        if (!(board.getMember().getMemberId().equals(memberId) ||
+                comment.getMember().getMemberId().equals(memberId))){
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED, HttpStatus.FORBIDDEN);
+        }
+        // 코멘트가 활성 상태인지 확인합니다.
+        if (comment.getStatus() != Comment.CommentStatus.ACTIVE_COMMENT) {
+            throw new BusinessLogicException(ExceptionCode.DELETED_COMMENT, HttpStatus.BAD_REQUEST);
+        }
+        // 참가 신청자와 작성자가 같은지 확인합니다.
+        if (comment.getMember().getMemberId().equals(memberId)) {
+            throw new BusinessLogicException(ExceptionCode.INVALID_REQUEST, HttpStatus.BAD_REQUEST);
+        }
+        // 코멘트의 스케줄이 게시판과 일치하는지 확인합니다.
+        if (!comment.getSchedule().equals(board)) {
+            throw new BusinessLogicException(ExceptionCode.INVALID_REQUEST, HttpStatus.BAD_REQUEST);
+        }
+        // 이미 거절된 코멘트인지 확인합니다.
+        if (comment.getSelectionStatus() == Comment.SelectionStatus.NOT_SELECTION) {
+            throw new BusinessLogicException(ExceptionCode.ALREADY_REFUSED_COMMENT, HttpStatus.BAD_REQUEST);
+        }
+
+        // 코멘트의 상태를 거절로 변경합니다.
+        comment.setSelectionStatus(Comment.SelectionStatus.NOT_SELECTION);
+
+        // 보드의 현재 인원수를 1 감소시킵니다.
+        if (board.getCount() > 0) {
+            board.setCount(board.getCount() - 1);
+        } else {
+            throw new BusinessLogicException(ExceptionCode.MIN_CAPACITY_REACHED, HttpStatus.BAD_REQUEST);
+        }
+
+        // 변경된 상태를 저장합니다.
+        boardRepository.save(board);
+        commentRepository.save(comment);
     }
 
     // 게시물 ID와 작성한 멤버 ID 확인
@@ -193,6 +248,10 @@ public class BoardService {
         Long memberId = memberService.getCurrentMemberId(authentication);
         Board board = boardRepository.findByBoardId(boardId);
         checkIfDeleted(board);
+
+        if (board.getBoardStatus() == Board.BoardStatus.INACTIVE_BOARD) {
+            throw new BusinessLogicException(ExceptionCode.INVALID_REQUEST, HttpStatus.BAD_REQUEST);
+        }
         if (!board.getMember().getMemberId().equals(memberId)) {
             throw new BusinessLogicException(ExceptionCode.INVALID_REQUEST, HttpStatus.FORBIDDEN);
         }
@@ -213,9 +272,27 @@ public class BoardService {
                 .collect(Collectors.toList());
         members.add(board.getMember()); // 작성자 추가
 
+        createReviewObjects(members, history);
+
         history.setMembers(members);
         board.setHistory(history);
 
         boardRepository.save(board);
+    }
+
+    private void createReviewObjects(List<Member> members, History history) {
+        List<Review> reviews = new ArrayList<>();
+        for (Member member : members) {
+            for (Member targetMember : members) {
+                if (!member.equals(targetMember)) {
+                    Review review = new Review();
+                    review.setReviewer(member);
+                    review.setTargetMember(targetMember);
+                    review.setHistory(history);
+                    reviews.add(review);
+                    reviewRepository.save(review);
+                }
+            }
+        }
     }
 }

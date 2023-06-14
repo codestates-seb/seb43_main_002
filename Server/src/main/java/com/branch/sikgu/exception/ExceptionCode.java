@@ -10,7 +10,9 @@ public enum ExceptionCode {
     BOARD_NOT_FOUND("해당 포스트를 찾을 수 없습니다."),
     INACTIVED_BOARD("비활성화 된 게시물입니다."),
     MAX_CAPACITY_REACHED("인원이 모두 찼습니다."),
+    MIN_CAPACITY_REACHED("참가 인원이 없습니다."),
     ALREADY_SELECTED_COMMENT("이미 수락된 요청입니다."),
+    ALREADY_REFUSED_COMMENT("이미 거절된 요청입니다."),
 
 
     // Comment
@@ -28,6 +30,7 @@ public enum ExceptionCode {
 
     // History
     DUPLICATE_REVIEW("이미 리뷰를 남겼습니다."),
+    HISTORY_NOT_FOUND("해당 히스토리를 찾을 수 없습니다."),
 
     // Review
     CAN_NOT_REVIEW_MYSELF("자신에게는 리뷰를 남길 수 없습니다.");

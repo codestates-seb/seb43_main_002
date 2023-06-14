@@ -32,10 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Paths;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -117,6 +114,24 @@ public class MyPageService {
         myPageResponseDto.setFollowings(followingList);
         myPageResponseDto.setFollowingCount(myPage.getFollowingCount());
         return myPageResponseDto;
+    }
+
+    // 팔로워 목록 조회
+    public List<MyPageFollowerDto> getMyFollower(Long myPageId) {
+        MyPage myPage = myPageRepository.findById(myPageId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND, HttpStatus.NOT_FOUND));
+
+        List<MyPage> followerList = myPage.getFollowers();
+        List<MyPageFollowerDto> followerDtoList = new ArrayList<>();
+
+        for (MyPage follower : followerList) {
+            MyPageFollowerDto followerDto = new MyPageFollowerDto();
+            followerDto.setMyPageId(follower.getMyPageId());
+            followerDto.setNickName(follower.getMember().getNickname());
+            followerDtoList.add(followerDto);
+        }
+
+        return followerDtoList;
     }
 
     public String uploadMyPageImage(Long myPageId, MultipartFile file, Authentication authentication) throws IOException {

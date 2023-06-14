@@ -37,14 +37,16 @@ public class MyPage {
     )
     private List<MyPage> followings = new ArrayList<>();
 
+    // 나를 팔로우한 마이페이지 목록
+    @ManyToMany(mappedBy = "followings")
+    private List<MyPage> followers = new ArrayList<>();
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Board> recentPost = new ArrayList<>();
     // 나중에 식사한 인원의 평가들을 담을 필드 연관관계 매핑 후 수정 예정
     @Column(name = "review", columnDefinition = "TEXT")
     private String review;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "GroupId")
-//    private Group group;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member;

@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import {
   SignupContainer,
   BackYellow,
@@ -64,6 +65,8 @@ const useCheckDuplicate = (
   errorMessage,
   validate
 ) => {
+  const [checkDuplicateBtnActive, setDuplicateBtnActive] = useState(false);
+  const [checkDuplicateBtnActive2, setDuplicateBtnActive2] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [error, setError] = useState('');
 
@@ -82,6 +85,8 @@ const useCheckDuplicate = (
         if (!response.data) {
           alert(successMessage);
           setIsChecked(true);
+          setDuplicateBtnActive2(true);
+          setDuplicateBtnActive(true);
         } else {
           alert(errorMessage);
         }
@@ -91,10 +96,19 @@ const useCheckDuplicate = (
       });
   }, [errorMessage, successMessage, url, validate, value]);
 
-  return [isChecked, checkDuplicate, error, setError];
+  return [
+    isChecked,
+    checkDuplicate,
+    error,
+    setError,
+    checkDuplicateBtnActive,
+    checkDuplicateBtnActive2,
+  ];
 };
 
 const NewSignupForm = () => {
+  // const [checkDuplicateBtnActive, setCheckDuplicateBtnActive] = useState(false);
+  const [passwordBtnActive, setPasswordBtnActive] = useState(false);
   const [values, setValues] = useState({
     email: '',
     nickname: '',
@@ -113,19 +127,26 @@ const NewSignupForm = () => {
   const navigate = useNavigate();
 
   // 이메일 체크 로직과 비밀번호 체크 로직 제대로 테스트 해볼것.
-  const [isEmailChecked, checkDuplicateEmail, emailError, setEmailError] =
-    useCheckDuplicate(
-      'api/members/signup/checkduplicateemail',
-      values.email,
-      '사용 가능한 이메일입니다.',
-      '이미 사용중인 메일입니다.',
-      validateEmail
-    );
+  const [
+    isEmailChecked,
+    checkDuplicateEmail,
+    emailError,
+    setEmailError,
+    checkDuplicateBtnActive2,
+  ] = useCheckDuplicate(
+    'api/members/signup/checkduplicateemail',
+    values.email,
+    '사용 가능한 이메일입니다.',
+    '이미 사용중인 메일입니다.',
+    validateEmail
+  );
+
   const [
     isNicknameChecked,
     checkDuplicateNickname,
     nicknameError,
     setNicknameError,
+    checkDuplicateBtnActive,
   ] = useCheckDuplicate(
     'api/members/signup/checkduplicatenickname',
     values.nickname,
@@ -134,11 +155,14 @@ const NewSignupForm = () => {
     validateNickname
   );
 
-  const clearError = useCallback((field) => {
-    setErrors((prev) => ({ ...prev, [field]: '' }));
-    if (field === 'email') setEmailError('');
-    if (field === 'nickname') setNicknameError('');
-  }, []);
+  const clearError = useCallback(
+    (field) => {
+      setErrors((prev) => ({ ...prev, [field]: '' }));
+      if (field === 'email') setEmailError('');
+      if (field === 'nickname') setNicknameError('');
+    },
+    [setEmailError, setNicknameError]
+  );
 
   const nameIcon = '/svg/join-name.svg';
   const introIcon = '/svg/join-intro.svg';
@@ -155,6 +179,7 @@ const NewSignupForm = () => {
     const error = validatePassword(values.password, values.confirmPassword);
     if (!error) {
       alert('비밀 번호가 일치합니다.');
+      setPasswordBtnActive(true);
     } else {
       setErrors((prev) => ({ ...prev, lengthError: error }));
     }
@@ -193,7 +218,7 @@ const NewSignupForm = () => {
         .then((response) => {
           if (response.status === 201) {
             alert('회원가입이 완료되었습니다.');
-            navigate('/');
+            navigate('/login');
           }
         })
         .catch((error) => {
@@ -235,7 +260,11 @@ const NewSignupForm = () => {
               clearError('email');
             }}
           />
-          <CheckDuplicateButton type="button" onClick={checkDuplicateEmail}>
+          <CheckDuplicateButton
+            type="button"
+            onClick={checkDuplicateEmail}
+            className={checkDuplicateBtnActive2 ? 'active' : ''}
+          >
             이메일 중복 확인
           </CheckDuplicateButton>
           {emailError && <Error>{emailError}</Error>}
@@ -254,7 +283,11 @@ const NewSignupForm = () => {
               clearError('nickname');
             }}
           />
-          <CheckDuplicateButton type="button" onClick={checkDuplicateNickname}>
+          <CheckDuplicateButton
+            type="button"
+            onClick={checkDuplicateNickname}
+            className={checkDuplicateBtnActive ? 'active' : ''}
+          >
             활동명 중복 확인
           </CheckDuplicateButton>
           {nicknameError && <Error>{nicknameError}</Error>}
@@ -325,7 +358,11 @@ const NewSignupForm = () => {
               setErrors('');
             }}
           />
-          <CheckPasswordButton type="button" onClick={handlePassword}>
+          <CheckPasswordButton
+            type="button"
+            onClick={handlePassword}
+            className={passwordBtnActive ? 'active' : ''}
+          >
             비밀번호 일치 여부 확인
           </CheckPasswordButton>
           {errors.lengthError && <Error>{errors.lengthError}</Error>}
@@ -345,7 +382,9 @@ const NewSignupForm = () => {
 
           <FooterText>이미 식구이신가요?</FooterText>
 
-          <StyledLink to="/">지금 바로 여기를 눌러 로그인하세요.</StyledLink>
+          <StyledLink to="/login">
+            지금 바로 여기를 눌러 로그인하세요.
+          </StyledLink>
         </SignupForm>
       </SignupContainer>
     </Mobile>

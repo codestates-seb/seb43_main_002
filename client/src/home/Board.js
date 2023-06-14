@@ -7,7 +7,7 @@ import Comment from './Comment';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteBoard } from '../store/boardSlice';
+import { deleteBoard, fetchBoards } from '../store/boardSlice';
 import { addComment, fetchComments } from '../store/commentSlice';
 import {
   SexInfomaitonWrap,
@@ -31,11 +31,19 @@ import {
 import axiosInstance from '../axiosConfig';
 
 // eslint-disable-next-line react/prop-types
-const Board = ({ board, setIsModalOpenNew, handlePopup }) => {
+const Board = ({
+  board,
+  setIsModalOpenNew,
+  handlePopup,
+  setEditBoard,
+  editBoard,
+}) => {
   Board.propTypes = {
     board: PropTypes.array.isRequired,
     setIsModalOpenNew: PropTypes.func.isRequired,
     handlePopup: PropTypes.func.isRequired,
+    setEditBoard: PropTypes.func.isRequired,
+    editBoard: PropTypes.object.isRequired,
   };
   const comments = useSelector((state) => state.comment.comments);
   const userInfo = useSelector((state) => state.user.userInfo);
@@ -60,10 +68,6 @@ const Board = ({ board, setIsModalOpenNew, handlePopup }) => {
     setCommentOpen(!commentOpen);
   };
 
-  const handlePlusClick = () => {
-    setIsModalOpenNew(true);
-  };
-
   useEffect(() => {
     if (commentOpen === true) {
       dispatch(fetchComments(board.boardId)).then((res) =>
@@ -71,6 +75,11 @@ const Board = ({ board, setIsModalOpenNew, handlePopup }) => {
       );
     }
   }, [board.boardId, commentOpen, dispatch]);
+
+  const handlePlusClick = (boardNum) => {
+    setIsModalOpenNew(true);
+    setEditBoard(boardNum);
+  };
 
   const handleComment = (e) => {
     e.preventDefault();
@@ -88,7 +97,7 @@ const Board = ({ board, setIsModalOpenNew, handlePopup }) => {
   };
 
   const handlePostComment = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' || e.type === 'click') {
       e.preventDefault();
       if (postComment.body === '') {
         alert('댓글을 입력해주세요');
@@ -102,17 +111,14 @@ const Board = ({ board, setIsModalOpenNew, handlePopup }) => {
             setIsBoard(res.payload);
           });
           setPostComment({ ...postComment, body: '' });
-          // navigate(0);
         });
     }
   };
 
   const handleDelete = () => {
-    dispatch(deleteBoard(board.boardId))
-      .then(() => {
-        navigate(0);
-      })
-      .catch((error) => {});
+    dispatch(deleteBoard(board.boardId)).then(() => {
+      dispatch(fetchBoards());
+    });
   };
 
   const isAuthor = userInfo && board.memberId === userInfo.memberId;
@@ -150,15 +156,19 @@ const Board = ({ board, setIsModalOpenNew, handlePopup }) => {
   return (
     <>
       <CompleteBoard isRecruitmentComplete={isRecruitmentComplete}>
-        <CompletedBack
-          isRecruitmentComplete={isRecruitmentComplete}
-        ></CompletedBack>
-        <CompleteButton
-          isRecruitmentComplete={isRecruitmentComplete}
-          onClick={handleComplete}
-        >
-          모집완료
-        </CompleteButton>
+        {isAuthor && (
+          <>
+            <CompletedBack
+              isRecruitmentComplete={isRecruitmentComplete}
+            ></CompletedBack>
+            <CompleteButton
+              isRecruitmentComplete={isRecruitmentComplete}
+              onClick={handleComplete}
+            >
+              모집완료
+            </CompleteButton>
+          </>
+        )}
         <BoardWrap>
           <CommentOpenButton onClick={handleOpen} commentOpen={commentOpen} />
           <SexInfomaitonWrap gender={board.passedGender}>
@@ -190,7 +200,11 @@ const Board = ({ board, setIsModalOpenNew, handlePopup }) => {
           <ButtonWrap commentOpen={commentOpen}>
             {isAuthor && (
               <>
-                <StateButton onClick={handlePlusClick}>
+                <StateButton
+                  onClick={() => {
+                    handlePlusClick(board.boardId);
+                  }}
+                >
                   <BiEdit></BiEdit>
                 </StateButton>
                 <StateButton onClick={handleDelete} isDelete={true}>
@@ -208,6 +222,7 @@ const Board = ({ board, setIsModalOpenNew, handlePopup }) => {
                     key={comment.commentId}
                     board={board}
                     handlePopup={handlePopup}
+                    setIsBoard={setIsBoard}
                     comment={comment}
                     handlePeople={handlePeople}
                   />

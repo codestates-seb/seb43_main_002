@@ -16,12 +16,12 @@ import { fetchBoards, selectFilteredBoards } from '../store/boardSlice';
 import { PopUp } from '../style/UserStateStyle';
 import day from 'dayjs'
 import axiosInstance from '../axiosConfig';
-import { useNavigate } from 'react-router-dom';
+
 
 
 
 const Days = () => {
-  const navigate = useNavigate()
+
   const now = day();
 
   const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
@@ -31,6 +31,7 @@ const Days = () => {
   
   const [isModalOpenNew, setIsModalOpenNew] = useState(false);
 
+  
   const closeModal = () => {
     setIsModalOpenNew(false);
   };
@@ -116,9 +117,10 @@ const Days = () => {
   const [popup, setPopup] = useState(false);
   const [selectBoard,setSelectBoard] =useState(null)
   const [selectComment,setSelectComment] =useState(null)
+  const [editBoard, setEditBoard] = useState(null)
 
   // const selectBoard = useSelector((state)=>state.board.boards)
-  // console.log(sortedBoards)
+  
   const handlePopup = (boardId, commentId) => {
     setPopup(true);
     setSelectBoard(boardId)
@@ -131,11 +133,10 @@ const Days = () => {
     .patch(
       `/api/boards/${selectBoard}/comments/${selectComment}/select`
     )
-    .then((res) => res.data);
-
-  navigate(0);
-
-    setPopup(!popup);
+    .then(() =>{
+    dispatch(fetchBoards())
+    setPopup(!popup)
+  })
   };
 
   const handleRefuse = () => {
@@ -143,12 +144,14 @@ const Days = () => {
     .patch(
       `/api/boards/${selectBoard}/comments/${selectComment}/refuse`
     )
-    .then((res) => res.data);
-    
-  navigate(0);
-
+    .then(() =>{
+      dispatch(fetchBoards())
+      setPopup(!popup)
+    })
     setPopup(!popup);
   };
+
+
 
   return (
     <>
@@ -183,8 +186,10 @@ const Days = () => {
           {sortedBoards.map((board, idx) => (
             <Board key={idx} board={board}
             handlePopup={handlePopup} 
-            setIsModalOpenNew={setIsModalOpenNew} 
+            setIsModalOpenNew={setIsModalOpenNew}
+            setEditBoard={setEditBoard}
             handleSelect={handleSelect}
+            editBoard={editBoard}
             selectedDateIndex={selectedDateIndex}/>
           ))}
         </BoardsWrap>
@@ -213,8 +218,8 @@ const Days = () => {
               </ul>
             </div>
           </PopUp>
-      {sortedBoards.map((board, idx) => (
-        <EditModal key={idx} isOpen={isModalOpenNew} onClose={closeModal} board={board} />
+      {sortedBoards.map((board) => (
+        <EditModal key={board.boardId} isOpen={isModalOpenNew} onClose={closeModal} board={board} editBoard={editBoard} />
       ))}
     </>
   );

@@ -23,6 +23,7 @@ import { ko } from 'date-fns/esm/locale';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { createBoard } from '../store/boardSlice';
+// import day from 'dayjs';
 
 const ModalDay = styled(DatePicker)`
   padding: 10px;
@@ -42,10 +43,15 @@ const PostModal = ({ isOpen, onClose }) => {
   // const now = new Date()
   // const options = { timeZone: 'Asia/Seoul'};
   // const koreaTime = now.toLocaleString('en-US', options)
-  const [startDate, setStartDate] = useState(
-    new Date(Date.now() + 60 * 60 * 1000)
-  );
   const [tagList, setTagList] = useState([]);
+
+  const now = new Date();
+
+  const koreaTime = new Date(
+    now.getTime() + now.getTimezoneOffset() * 60000 + 9 * 60 * 60 * 1000
+  );
+
+  const [startDate, setStartDate] = useState(koreaTime);
 
   // useEffect(() => {
   //   setPostBoard((prevState) => ({
@@ -90,17 +96,6 @@ const PostModal = ({ isOpen, onClose }) => {
       ...postBoard,
       [name]: value,
     });
-  };
-
-  const handleDateChange = (date) => {
-    const offset = date.getTimezoneOffset() * 60000; // 시간 오프셋(분 단위)을 밀리초로 변환
-    const adjustedDate = new Date(date.getTime() - offset); // 시간 오프셋을 적용한 새로운 날짜 생성
-
-    setStartDate(date);
-    setPostBoard((prevBoard) => ({
-      ...prevBoard,
-      mealTime: adjustedDate.toISOString(), // 서버로 전송할 ISO 8601 형식의 날짜 문자열로 변환
-    }));
   };
 
   const handleWhoChange = (e) => {
@@ -154,6 +149,17 @@ const PostModal = ({ isOpen, onClose }) => {
       });
   };
 
+  const handleDateChange = (date) => {
+    const offset = date.getTimezoneOffset() * 60000; // 시간 오프셋(분 단위)을 밀리초로 변환
+    const adjustedDate = new Date(date.getTime() - offset); // 시간 오프셋을 적용한 새로운 날짜 생성
+
+    setStartDate(date);
+    setPostBoard((prevBoard) => ({
+      ...prevBoard,
+      mealTime: adjustedDate.toISOString(), // 서버로 전송할 ISO 8601 형식의 날짜 문자열로 변환
+    }));
+  };
+
   const navigate = useNavigate();
   const handleCancel = (e) => {
     e.preventDefault();
@@ -185,7 +191,7 @@ const PostModal = ({ isOpen, onClose }) => {
         <ModalDay
           name="mealTime"
           dateFormat="yyyy/MM/dd aa h시"
-          selected={startDate}
+          selected={new Date(startDate)}
           locale={ko}
           onChange={handleDateChange}
           showTimeSelect
@@ -209,6 +215,7 @@ const PostModal = ({ isOpen, onClose }) => {
           name="tags"
           value={postBoard.tags}
           tagList={tagList}
+          setPostBoard={setPostBoard}
           setTagList={setTagList}
           onChange={handleChange}
         ></Tag>

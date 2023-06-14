@@ -155,7 +155,7 @@ const CancelButton = styled(EditButton)`
   }
 `;
 
-const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
+const Comment = ({ comment, board, setIsBoard, handlePopup }) => {
   Comment.propTypes = {
     comment: PropTypes.object.isRequired,
     handlePeople: PropTypes.string.isRequired,
@@ -179,7 +179,7 @@ const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
     setContent(comment.body);
   };
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter') {
       e.preventDefault();
       handleSave();
     }
@@ -202,8 +202,8 @@ const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
           setIsBoard(res.payload)
         );
       });
-    navigate(0);
     setEditing(false);
+    // navigate(0);
   };
 
   const handleDelete = () => {
@@ -211,10 +211,13 @@ const Comment = ({ comment, handlePeople, board, setIsBoard, handlePopup }) => {
       deleteComment({
         commentId: comment.commentId,
       })
-    );
-    dispatch(fetchComments(board.boardId)).then(() => {
-      navigate(0);
-    });
+    )
+      .unwrap()
+      .then(() => {
+        dispatch(fetchComments(board.boardId)).then((res) =>
+          setIsBoard(res.payload)
+        );
+      });
   };
 
   useEffect(() => {
